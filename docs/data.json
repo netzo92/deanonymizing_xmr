@@ -1,20 +1,24 @@
 {
-  "generated_at": "2026-03-28 04:36 UTC",
+  "generated_at": "2026-03-28 04:53 UTC",
   "summary": {
-    "total_rings": 104,
-    "fully_resolved": 48,
-    "partially_reduced": 1,
-    "unreduced": 55,
+    "total_rings": 454,
+    "fully_resolved": 159,
+    "partially_reduced": 15,
+    "unreduced": 280,
     "passes": 0,
     "effective_ring_size_distribution": {
-      "1": 48,
-      "5": 1,
-      "6": 55
+      "1": 159,
+      "5": 10,
+      "6": 196,
+      "8": 1,
+      "9": 43,
+      "11": 4,
+      "12": 41
     },
-    "resolution_rate": "46.15%",
-    "blocks_scanned": 2001,
-    "transactions": 9,
-    "ring_members": 384
+    "resolution_rate": "35.02%",
+    "blocks_scanned": 3001,
+    "transactions": 18,
+    "ring_members": 2331
   },
   "ml_predictions": {
     "total_predictions": 0,
@@ -34,6 +38,16 @@
       "resolution_rate": "46.15%",
       "passes": 1,
       "timestamp": "2026-03-28T04:35:33.785687+00:00"
+    },
+    {
+      "blocks_scanned": 3001,
+      "total_rings": 454,
+      "fully_resolved": 159,
+      "partially_reduced": 15,
+      "unreduced": 280,
+      "resolution_rate": "35.02%",
+      "passes": 0,
+      "timestamp": "2026-03-28T04:53:08.572162+00:00"
     }
   ]
 }
