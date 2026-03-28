@@ -27,6 +27,7 @@ class RingScorer:
             "ring_size",
             "gap_to_next",
             "gap_to_prev",
+            "distance_from_tx",
         ]
         self._deterministic_ki_cache = None
 
@@ -94,10 +95,14 @@ class RingScorer:
             else:
                 gap_prev = 0.0
 
+            # Feature 9: Distance from tx block height to output index
+            # (proxy for how recently the output was created relative to when it was spent)
+            distance_from_tx = (tx_block_height - output_idx) / max(tx_block_height, 1)
+
             features.append({
                 "output_key": member,
                 "features": [age_rank, normalized_age, reuse, is_newest, age_dist_score,
-                             ring_size, gap_next, gap_prev],
+                             ring_size, gap_next, gap_prev, distance_from_tx],
             })
 
         return features
