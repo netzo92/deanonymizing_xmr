@@ -24,6 +24,9 @@ class RingScorer:
             "ring_reuse_count",
             "is_newest_member",
             "age_matches_decoy_distribution",
+            "ring_size",
+            "gap_to_next",
+            "gap_to_prev",
         ]
         self._deterministic_ki_cache = None
 
@@ -76,9 +79,25 @@ class RingScorer:
             expected_decoy_rank = 0.75  # decoys tend to be in the newer portion
             age_dist_score = abs(age_rank - expected_decoy_rank)
 
+            # Feature 6: Ring size (number of members)
+            ring_size = float(len(member_list))
+
+            # Feature 7: Gap to next member (0 for last member)
+            if rank < len(member_list) - 1:
+                gap_next = (member_list[rank + 1][1] - output_idx) / idx_range
+            else:
+                gap_next = 0.0
+
+            # Feature 8: Gap from previous member (0 for first member)
+            if rank > 0:
+                gap_prev = (output_idx - member_list[rank - 1][1]) / idx_range
+            else:
+                gap_prev = 0.0
+
             features.append({
                 "output_key": member,
-                "features": [age_rank, normalized_age, reuse, is_newest, age_dist_score],
+                "features": [age_rank, normalized_age, reuse, is_newest, age_dist_score,
+                             ring_size, gap_next, gap_prev],
             })
 
         return features
@@ -137,7 +156,7 @@ class RingScorer:
             return False
 
         try:
-            from sklearn.linear_model import LogisticRegression
+            from sklearn.ensemble import GradientBoostingClassifier
             from sklearn.preprocessing import StandardScaler
             from sklearn.model_selection import cross_val_score, train_test_split
 
@@ -150,7 +169,9 @@ class RingScorer:
             X_train_scaled = self.scaler.fit_transform(X_train)
             X_test_scaled = self.scaler.transform(X_test)
 
-            self.model = LogisticRegression(max_iter=1000, class_weight="balanced")
+            self.model = GradientBoostingClassifier(
+                n_estimators=100, max_depth=4, learning_rate=0.1, random_state=42,
+            )
             self.model.fit(X_train_scaled, y_train)
 
             # Cross-val on training set
@@ -163,13 +184,15 @@ class RingScorer:
             self._evaluate_holdout(y_test, test_probas)
 
             # Log feature importances
-            for name, coef in zip(self.feature_names, self.model.coef_[0]):
-                logger.info(f"  {name}: {coef:.4f}")
+            for name, imp in zip(self.feature_names, self.model.feature_importances_):
+                logger.info(f"  {name}: {imp:.4f}")
 
             # Retrain on full data for actual predictions
             self.scaler = StandardScaler()
             X_scaled = self.scaler.fit_transform(X)
-            self.model = LogisticRegression(max_iter=1000, class_weight="balanced")
+            self.model = GradientBoostingClassifier(
+                n_estimators=100, max_depth=4, learning_rate=0.1, random_state=42,
+            )
             self.model.fit(X_scaled, y)
 
             return True
