@@ -25,6 +25,16 @@ class RingScorer:
             "is_newest_member",
             "age_matches_decoy_distribution",
         ]
+        self._deterministic_ki_cache = None
+
+    def _is_deterministic(self, key_image):
+        """Check if a resolution is deterministic (not ML-predicted)."""
+        if self._deterministic_ki_cache is None:
+            cursor = self.db.conn.execute(
+                "SELECT key_image FROM resolved_spends WHERE confidence = 1.0"
+            )
+            self._deterministic_ki_cache = set(row[0] for row in cursor)
+        return key_image in self._deterministic_ki_cache
 
     def extract_features(self, key_image, members, tx_block_height):
         """Extract feature vectors for each ring member.
@@ -74,17 +84,21 @@ class RingScorer:
         return features
 
     def build_training_data(self):
-        """Build training data from resolved spends (ground truth)."""
-        resolved = self.analyzer.resolved
-        if not resolved:
-            logger.warning("No resolved spends available for training")
+        """Build training data from deterministic resolutions only (no ML predictions)."""
+        # Only use deterministic ground truth (confidence = 1.0) to avoid feedback contamination
+        deterministic = {
+            ki: out for ki, out in self.analyzer.resolved.items()
+            if self._is_deterministic(ki)
+        }
+        if not deterministic:
+            logger.warning("No deterministic resolutions available for training")
             return None, None
 
         X = []
         y = []
 
         processed = 0
-        for ki, real_output in resolved.items():
+        for ki, real_output in deterministic.items():
             details = self.db.get_ring_member_details(ki)
             if not details:
                 continue
@@ -108,7 +122,7 @@ class RingScorer:
         if not X:
             return None, None
 
-        logger.info(f"Built training data: {len(X)} samples from {len(resolved)} resolved rings")
+        logger.info(f"Built training data: {len(X)} samples from {len(deterministic)} deterministic rings")
         return np.array(X), np.array(y)
 
     def train(self, holdout_fraction=0.2):
@@ -325,6 +339,21 @@ class RingScorer:
                 ki = pred["key_image"]
                 output = pred["predicted_output"]
                 confidence = pred["confidence"]
+
+                # Skip if this output is the sole member of another ring (ground truth)
+                other_kis = self.analyzer.output_to_key_images.get(output, set())
+                conflict = False
+                for other_ki in other_kis:
+                    if other_ki != ki and other_ki in self.analyzer.rings:
+                        if len(self.analyzer.rings[other_ki]) == 1:
+                            logger.warning(
+                                f"Skipping ML prediction for {ki[:16]}... — "
+                                f"output {output} is ground truth in ring {other_ki[:16]}..."
+                            )
+                            conflict = True
+                            break
+                if conflict:
+                    continue
 
                 self.analyzer.resolved[ki] = output
                 if ki in self.analyzer.rings:
