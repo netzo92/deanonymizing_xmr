@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 import argparse
+import json
 import logging
+import os
 import sys
+from datetime import datetime, timezone
 
 from monero_rpc import MoneroRPC
 from models import Database
@@ -124,6 +127,60 @@ def cmd_verify(args):
     db.close()
 
 
+def cmd_export_viz(args):
+    db = Database(args.db)
+    analyzer = Analyzer(db)
+    stats = analyzer.run(max_passes=args.max_passes)
+    db_stats = db.get_stats()
+    ml_stats = db.get_prediction_stats()
+
+    # Load existing history or start fresh
+    data_path = os.path.join(args.output_dir, "data.json")
+    history = []
+    if os.path.exists(data_path):
+        try:
+            with open(data_path) as f:
+                existing = json.load(f)
+                history = existing.get("history", [])
+        except (json.JSONDecodeError, KeyError):
+            pass
+
+    # Append current snapshot if blocks changed
+    snapshot = {
+        "blocks_scanned": db_stats["blocks_scanned"],
+        "total_rings": stats["total_rings"],
+        "fully_resolved": stats["fully_resolved"],
+        "partially_reduced": stats["partially_reduced"],
+        "unreduced": stats["unreduced"],
+        "resolution_rate": stats["resolution_rate"],
+        "passes": stats["passes"],
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+    }
+
+    if not history or history[-1]["blocks_scanned"] != snapshot["blocks_scanned"]:
+        history.append(snapshot)
+
+    output = {
+        "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
+        "summary": {
+            **stats,
+            "blocks_scanned": db_stats["blocks_scanned"],
+            "transactions": db_stats["transactions"],
+            "ring_members": db_stats["ring_members"],
+        },
+        "ml_predictions": ml_stats,
+        "history": history,
+    }
+
+    os.makedirs(args.output_dir, exist_ok=True)
+    with open(data_path, "w") as f:
+        json.dump(output, f, indent=2)
+
+    print(f"Dashboard data written to {data_path}")
+    print(f"Open docs/index.html in a browser or enable GitHub Pages on the docs/ folder")
+    db.close()
+
+
 def cmd_status(args):
     db = Database(args.db)
     stats = db.get_stats()
@@ -191,6 +248,12 @@ def main():
     diag_parser = subparsers.add_parser("diagnose", help="Investigate empty rings")
     diag_parser.add_argument("--max-passes", type=int, default=100)
 
+    # export-viz
+    viz_parser = subparsers.add_parser("export-viz", help="Export data for GitHub Pages dashboard")
+    viz_parser.add_argument("--output-dir", default="docs",
+                            help="Output directory (default: docs)")
+    viz_parser.add_argument("--max-passes", type=int, default=100)
+
     # status
     subparsers.add_parser("status", help="Show database statistics")
 
@@ -208,6 +271,8 @@ def main():
             cmd_verify(args)
         elif args.command == "diagnose":
             cmd_diagnose(args)
+        elif args.command == "export-viz":
+            cmd_export_viz(args)
         elif args.command == "status":
             cmd_status(args)
     except KeyboardInterrupt:

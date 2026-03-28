@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monero Ring Analysis Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, monospace;
+            background: #0d1117;
+            color: #c9d1d9;
+            padding: 24px;
+        }
+        h1 {
+            font-size: 1.8rem;
+            color: #ff6600;
+            margin-bottom: 8px;
+        }
+        .subtitle {
+            color: #8b949e;
+            margin-bottom: 32px;
+            font-size: 0.9rem;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+        .stat-card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .stat-card .label {
+            color: #8b949e;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .stat-card .value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #f0f6fc;
+            margin-top: 4px;
+        }
+        .stat-card .value.highlight { color: #ff6600; }
+        .stat-card .value.green { color: #3fb950; }
+        .stat-card .value.yellow { color: #d29922; }
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+        .chart-card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 24px;
+        }
+        .chart-card h2 {
+            font-size: 1rem;
+            color: #f0f6fc;
+            margin-bottom: 16px;
+        }
+        .chart-container {
+            position: relative;
+            height: 300px;
+        }
+        .ml-section {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+        .ml-section h2 {
+            font-size: 1rem;
+            color: #f0f6fc;
+            margin-bottom: 16px;
+        }
+        .ml-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+        }
+        .ml-stat {
+            text-align: center;
+            padding: 12px;
+            background: #0d1117;
+            border-radius: 6px;
+        }
+        .ml-stat .num { font-size: 1.4rem; font-weight: 700; color: #f0f6fc; }
+        .ml-stat .lbl { font-size: 0.7rem; color: #8b949e; text-transform: uppercase; margin-top: 4px; }
+        .timestamp {
+            color: #484f58;
+            font-size: 0.75rem;
+            text-align: right;
+            margin-top: 16px;
+        }
+        .no-data {
+            text-align: center;
+            padding: 80px 24px;
+            color: #8b949e;
+        }
+        .no-data code {
+            background: #161b22;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+        .cascade-bar {
+            display: flex;
+            height: 32px;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+        .cascade-bar .segment {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #0d1117;
+            min-width: 40px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Monero Ring Analysis</h1>
+    <p class="subtitle">Intersection attack + ML scoring dashboard</p>
+
+    <div id="app">
+        <div class="no-data">
+            <p>No data yet. Run:</p>
+            <p style="margin-top:12px"><code>python main.py export-viz</code></p>
+        </div>
+    </div>
+
+    <script>
+    const CHART_COLORS = {
+        orange: '#ff6600',
+        green: '#3fb950',
+        yellow: '#d29922',
+        blue: '#58a6ff',
+        purple: '#bc8cff',
+        red: '#f85149',
+        gray: '#484f58',
+    };
+
+    Chart.defaults.color = '#8b949e';
+    Chart.defaults.borderColor = '#21262d';
+
+    async function loadData() {
+        try {
+            const resp = await fetch('data.json');
+            if (!resp.ok) throw new Error('No data');
+            return await resp.json();
+        } catch {
+            return null;
+        }
+    }
+
+    function renderDashboard(data) {
+        const app = document.getElementById('app');
+        const s = data.summary;
+        const ml = data.ml_predictions || {};
+        const history = data.history || [];
+
+        app.innerHTML = `
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="label">Blocks Scanned</div>
+                    <div class="value">${s.blocks_scanned?.toLocaleString() || 0}</div>
+                </div>
+                <div class="stat-card">
+                    <div class="label">Total Rings</div>
+                    <div class="value">${s.total_rings?.toLocaleString() || 0}</div>
+                </div>
+                <div class="stat-card">
+                    <div class="label">Fully Resolved</div>
+                    <div class="value green">${s.fully_resolved?.toLocaleString() || 0}</div>
+                </div>
+                <div class="stat-card">
+                    <div class="label">Resolution Rate</div>
+                    <div class="value highlight">${s.resolution_rate || 'N/A'}</div>
+                </div>
+                <div class="stat-card">
+                    <div class="label">Partially Reduced</div>
+                    <div class="value yellow">${s.partially_reduced?.toLocaleString() || 0}</div>
+                </div>
+                <div class="stat-card">
+                    <div class="label">Cascade Passes</div>
+                    <div class="value">${s.passes || 0}</div>
+                </div>
+            </div>
+
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h2>Resolution Breakdown</h2>
+                    <div class="chart-container">
+                        <canvas id="resolutionChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <h2>Effective Ring Size Distribution</h2>
+                    <div class="chart-container">
+                        <canvas id="ringSizeChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            ${history.length > 1 ? `
+            <div class="chart-card" style="margin-bottom:32px">
+                <h2>Resolution Rate Over Time</h2>
+                <div class="chart-container">
+                    <canvas id="historyChart"></canvas>
+                </div>
+            </div>
+            ` : ''}
+
+            ${ml.total_predictions ? `
+            <div class="ml-section">
+                <h2>ML Prediction Verification</h2>
+                <div class="ml-stats">
+                    <div class="ml-stat">
+                        <div class="num">${ml.total_predictions}</div>
+                        <div class="lbl">Total Predictions</div>
+                    </div>
+                    <div class="ml-stat">
+                        <div class="num">${ml.verified}</div>
+                        <div class="lbl">Verified</div>
+                    </div>
+                    <div class="ml-stat">
+                        <div class="num" style="color:${CHART_COLORS.green}">${ml.correct}</div>
+                        <div class="lbl">Correct</div>
+                    </div>
+                    <div class="ml-stat">
+                        <div class="num" style="color:${CHART_COLORS.red}">${ml.wrong}</div>
+                        <div class="lbl">Wrong</div>
+                    </div>
+                    <div class="ml-stat">
+                        <div class="num" style="color:${CHART_COLORS.orange}">${ml.accuracy || 'N/A'}</div>
+                        <div class="lbl">Accuracy</div>
+                    </div>
+                </div>
+            </div>
+            ` : ''}
+
+            <div class="timestamp">Last updated: ${data.generated_at || 'unknown'}</div>
+        `;
+
+        // Resolution donut
+        new Chart(document.getElementById('resolutionChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Fully Resolved', 'Partially Reduced', 'Unreduced'],
+                datasets: [{
+                    data: [s.fully_resolved || 0, s.partially_reduced || 0, s.unreduced || 0],
+                    backgroundColor: [CHART_COLORS.green, CHART_COLORS.yellow, CHART_COLORS.gray],
+                    borderWidth: 0,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom', labels: { padding: 16 } },
+                },
+                cutout: '60%',
+            }
+        });
+
+        // Ring size distribution
+        const dist = s.effective_ring_size_distribution || {};
+        const sizes = Object.keys(dist).sort((a, b) => Number(a) - Number(b));
+        const counts = sizes.map(k => dist[k]);
+        const barColors = sizes.map(k =>
+            k === '1' ? CHART_COLORS.green :
+            k === '0' ? CHART_COLORS.red :
+            CHART_COLORS.blue
+        );
+
+        new Chart(document.getElementById('ringSizeChart'), {
+            type: 'bar',
+            data: {
+                labels: sizes.map(s => `Size ${s}`),
+                datasets: [{
+                    label: 'Ring count',
+                    data: counts,
+                    backgroundColor: barColors,
+                    borderRadius: 4,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: '#21262d' },
+                    },
+                    x: {
+                        grid: { display: false },
+                    }
+                }
+            }
+        });
+
+        // History chart
+        if (history.length > 1) {
+            new Chart(document.getElementById('historyChart'), {
+                type: 'line',
+                data: {
+                    labels: history.map(h => h.blocks_scanned?.toLocaleString() + ' blocks'),
+                    datasets: [
+                        {
+                            label: 'Resolution Rate %',
+                            data: history.map(h => parseFloat(h.resolution_rate) || 0),
+                            borderColor: CHART_COLORS.orange,
+                            backgroundColor: CHART_COLORS.orange + '20',
+                            fill: true,
+                            tension: 0.3,
+                        },
+                        {
+                            label: 'Total Rings',
+                            data: history.map(h => h.total_rings || 0),
+                            borderColor: CHART_COLORS.blue,
+                            yAxisID: 'y1',
+                            tension: 0.3,
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: { legend: { position: 'bottom' } },
+                    scales: {
+                        y: {
+                            type: 'linear',
+                            position: 'left',
+                            title: { display: true, text: 'Resolution %' },
+                            grid: { color: '#21262d' },
+                        },
+                        y1: {
+                            type: 'linear',
+                            position: 'right',
+                            title: { display: true, text: 'Total Rings' },
+                            grid: { drawOnChartArea: false },
+                        },
+                        x: { grid: { display: false } },
+                    }
+                }
+            });
+        }
+    }
+
+    loadData().then(data => {
+        if (data) renderDashboard(data);
+    });
+    </script>
+</body>
+</html>
