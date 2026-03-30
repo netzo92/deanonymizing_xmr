@@ -1,32 +1,36 @@
 {
-  "generated_at": "2026-03-28 05:49 UTC",
+  "generated_at": "2026-03-30 19:03 UTC",
   "summary": {
-    "total_rings": 20190,
-    "fully_resolved": 19829,
-    "partially_reduced": 106,
-    "unreduced": 255,
+    "total_rings": 52459,
+    "fully_resolved": 51329,
+    "partially_reduced": 828,
+    "unreduced": 302,
     "passes": 0,
     "effective_ring_size_distribution": {
-      "1": 19829,
-      "2": 153,
-      "3": 11,
-      "4": 24,
-      "5": 68,
-      "6": 102,
-      "8": 2,
-      "9": 1
+      "0": 466,
+      "1": 51329,
+      "2": 234,
+      "3": 72,
+      "4": 114,
+      "5": 110,
+      "6": 79,
+      "7": 14,
+      "8": 14,
+      "9": 13,
+      "10": 8,
+      "11": 6
     },
-    "resolution_rate": "98.21%",
-    "blocks_scanned": 14401,
-    "transactions": 305,
-    "ring_members": 44158
+    "resolution_rate": "97.85%",
+    "blocks_scanned": 22701,
+    "transactions": 701,
+    "ring_members": 128615
   },
   "ml_predictions": {
-    "total_predictions": 4975,
+    "total_predictions": 13457,
     "verified": 0,
     "correct": 0,
     "wrong": 0,
-    "unverified": 4975,
+    "unverified": 13457,
     "accuracy": "N/A"
   },
   "history": [
@@ -59,6 +63,16 @@
       "resolution_rate": "98.21%",
       "passes": 0,
       "timestamp": "2026-03-28T05:49:29.430085+00:00"
+    },
+    {
+      "blocks_scanned": 22701,
+      "total_rings": 52459,
+      "fully_resolved": 51329,
+      "partially_reduced": 828,
+      "unreduced": 302,
+      "resolution_rate": "97.85%",
+      "passes": 0,
+      "timestamp": "2026-03-30T19:03:54.984411+00:00"
     }
   ]
 }
