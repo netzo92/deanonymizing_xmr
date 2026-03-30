@@ -214,7 +214,8 @@ class RingScorer:
             X_train_scaled = self.scaler.fit_transform(X_train)
 
             self.model = GradientBoostingClassifier(
-                n_estimators=100, max_depth=4, learning_rate=0.1, random_state=42,
+                n_estimators=300, max_depth=3, learning_rate=0.05,
+                subsample=0.8, min_samples_leaf=5, random_state=42,
             )
             self.model.fit(X_train_scaled, y_train)
 
@@ -248,7 +249,8 @@ class RingScorer:
             self.scaler = StandardScaler()
             X_all_scaled = self.scaler.fit_transform(X_all)
             self.model = GradientBoostingClassifier(
-                n_estimators=100, max_depth=4, learning_rate=0.1, random_state=42,
+                n_estimators=300, max_depth=3, learning_rate=0.05,
+                subsample=0.8, min_samples_leaf=5, random_state=42,
             )
             self.model.fit(X_all_scaled, y_all)
 
