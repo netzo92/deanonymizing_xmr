@@ -28,9 +28,6 @@ class RingScorer:
             "gap_to_next",
             "gap_to_prev",
             "distance_from_tx",
-            "reuse_rank_in_ring",
-            "is_min_reuse",
-            "reuse_count_raw",
         ]
         self._deterministic_ki_cache = None
 
@@ -54,12 +51,6 @@ class RingScorer:
         for member in member_list:
             count = len(self.analyzer.output_to_key_images.get(member, set()))
             reuse_counts[member] = count
-
-        # Sorted reuse ranks (rank 0 = least reused, rank 1 = most reused)
-        sorted_by_reuse = sorted(member_list, key=lambda m: reuse_counts[m])
-        reuse_rank_map = {m: i / max(len(member_list) - 1, 1) for i, m in enumerate(sorted_by_reuse)}
-        min_reuse = min(reuse_counts.values()) if reuse_counts else 0
-        max_reuse_val = max(reuse_counts.values()) if reuse_counts else 1
 
         indices = [m[1] for m in member_list]
         max_idx = max(indices) if indices else 1
@@ -108,36 +99,29 @@ class RingScorer:
             # (proxy for how recently the output was created relative to when it was spent)
             distance_from_tx = (tx_block_height - output_idx) / max(tx_block_height, 1)
 
-            # Feature 10: Rank by reuse count within ring (0=least reused, 1=most reused)
-            reuse_rank = reuse_rank_map[member]
-
-            # Feature 11: Is this the least-reused member? (likely real spend)
-            is_min_reuse = 1.0 if reuse_counts[member] == min_reuse else 0.0
-
-            # Feature 12: Raw reuse count (not log-scaled)
-            reuse_raw = float(reuse_counts[member]) / max(max_reuse_val, 1)
-
             features.append({
                 "output_key": member,
                 "features": [age_rank, normalized_age, reuse, is_newest, age_dist_score,
-                             ring_size, gap_next, gap_prev, distance_from_tx,
-                             reuse_rank, is_min_reuse, reuse_raw],
+                             ring_size, gap_next, gap_prev, distance_from_tx],
             })
 
         return features
 
     def build_training_data(self):
-        """Build training data grouped by ring from deterministic resolutions only."""
+        """Build training data from deterministic resolutions only (no ML predictions)."""
+        # Only use deterministic ground truth (confidence = 1.0) to avoid feedback contamination
         deterministic = {
             ki: out for ki, out in self.analyzer.resolved.items()
             if self._is_deterministic(ki)
         }
         if not deterministic:
             logger.warning("No deterministic resolutions available for training")
-            return None
+            return None, None
 
-        rings_data = []
+        X = []
+        y = []
 
+        processed = 0
         for ki, real_output in deterministic.items():
             details = self.db.get_ring_member_details(ki)
             if not details:
@@ -154,89 +138,108 @@ class RingScorer:
 
             feature_data = self.extract_features(ki, members, block_height)
 
-            ring_X = [fd["features"] for fd in feature_data]
-            ring_y = [1.0 if fd["output_key"] == real_output else 0.0 for fd in feature_data]
-            rings_data.append({"X": ring_X, "y": ring_y})
+            for fd in feature_data:
+                X.append(fd["features"])
+                y.append(1.0 if fd["output_key"] == real_output else 0.0)
+                processed += 1
 
-        if not rings_data:
-            return None
+        if not X:
+            return None, None
 
-        logger.info(f"Built training data: {len(rings_data)} rings, "
-                    f"{sum(len(r['X']) for r in rings_data)} samples")
-        return rings_data
+        logger.info(f"Built training data: {len(X)} samples from {len(deterministic)} deterministic rings")
+        return np.array(X), np.array(y)
 
     def train(self, holdout_fraction=0.2):
-        """Train a model with ring-level holdout split (no data leakage between rings)."""
-        rings_data = self.build_training_data()
-        if rings_data is None:
+        """Train a logistic regression model on resolved spends with holdout validation."""
+        X, y = self.build_training_data()
+        if X is None:
             logger.warning("Cannot train: no training data")
             return False
 
-        if len(rings_data) < 10:
-            logger.warning(f"Cannot train: only {len(rings_data)} rings (need at least 10)")
+        if np.sum(y) < 10:
+            logger.warning(f"Cannot train: only {int(np.sum(y))} positive samples")
             return False
 
         try:
             from sklearn.ensemble import GradientBoostingClassifier
             from sklearn.preprocessing import StandardScaler
+            from sklearn.model_selection import cross_val_score, train_test_split
 
-            # Split at the ring level
-            np.random.seed(42)
-            indices = np.random.permutation(len(rings_data))
-            split = int(len(rings_data) * (1 - holdout_fraction))
-            train_rings = [rings_data[i] for i in indices[:split]]
-            test_rings = [rings_data[i] for i in indices[split:]]
-
-            # Flatten train set
-            X_train = np.array([f for r in train_rings for f in r["X"]])
-            y_train = np.array([l for r in train_rings for l in r["y"]])
+            # Holdout validation — simulate real predictions on unseen rings
+            X_train, X_test, y_train, y_test = train_test_split(
+                X, y, test_size=holdout_fraction, random_state=42, stratify=y,
+            )
 
             self.scaler = StandardScaler()
             X_train_scaled = self.scaler.fit_transform(X_train)
+            X_test_scaled = self.scaler.transform(X_test)
 
             self.model = GradientBoostingClassifier(
                 n_estimators=100, max_depth=4, learning_rate=0.1, random_state=42,
             )
             self.model.fit(X_train_scaled, y_train)
 
-            # Holdout evaluation per ring
-            ring_correct = 0
-            ring_total = 0
-            for ring in test_rings:
-                X_test = np.array(ring["X"])
-                y_test = np.array(ring["y"])
-                X_test_scaled = self.scaler.transform(X_test)
-                probas = self.model.predict_proba(X_test_scaled)[:, 1]
-                predicted_idx = np.argmax(probas)
-                if y_test[predicted_idx] == 1.0:
-                    ring_correct += 1
-                ring_total += 1
+            # Cross-val on training set
+            cv_folds = min(5, max(2, int(np.sum(y_train))))
+            scores = cross_val_score(self.model, X_train_scaled, y_train, cv=cv_folds, scoring="roc_auc")
+            logger.info(f"Model trained. Cross-val AUC: {scores.mean():.3f} (+/- {scores.std():.3f})")
 
-            if ring_total > 0:
-                accuracy = ring_correct / ring_total * 100
-                logger.info(f"Holdout validation: {ring_correct}/{ring_total} rings correct "
-                            f"({accuracy:.1f}%) — split by ring, no leakage")
-            else:
-                logger.info("Holdout validation: no test rings")
+            # Holdout evaluation — group by ring and check top-1 accuracy
+            test_probas = self.model.predict_proba(X_test_scaled)[:, 1]
+            self._evaluate_holdout(y_test, test_probas)
 
             # Log feature importances
             for name, imp in zip(self.feature_names, self.model.feature_importances_):
                 logger.info(f"  {name}: {imp:.4f}")
 
-            # Retrain on all data for actual predictions
-            X_all = np.array([f for r in rings_data for f in r["X"]])
-            y_all = np.array([l for r in rings_data for l in r["y"]])
+            # Retrain on full data for actual predictions
             self.scaler = StandardScaler()
-            X_all_scaled = self.scaler.fit_transform(X_all)
+            X_scaled = self.scaler.fit_transform(X)
             self.model = GradientBoostingClassifier(
                 n_estimators=100, max_depth=4, learning_rate=0.1, random_state=42,
             )
-            self.model.fit(X_all_scaled, y_all)
+            self.model.fit(X_scaled, y)
 
             return True
         except ImportError:
             logger.error("scikit-learn not installed. Run: pip install scikit-learn")
             return False
+
+    def _evaluate_holdout(self, y_test, probas):
+        """Evaluate holdout predictions grouped by ring (per-ring accuracy)."""
+        # Each ring contributes N samples (one per member), with exactly one positive
+        # Walk through and group by ring boundaries (positive label resets)
+        ring_correct = 0
+        ring_total = 0
+        i = 0
+        while i < len(y_test):
+            # Find the end of this ring's samples
+            # Rings have exactly one positive, so scan until we've seen one
+            j = i + 1
+            while j < len(y_test) and y_test[j] != 1.0 and (j - i) < 20:
+                j += 1
+            if j < len(y_test) and y_test[j] == 1.0:
+                j += 1
+                # Continue to next ring boundary
+                while j < len(y_test) and y_test[j] != 1.0 and (j - i) < 20:
+                    j += 1
+
+            ring_probas = probas[i:j]
+            ring_labels = y_test[i:j]
+
+            if np.sum(ring_labels) == 1:
+                predicted_idx = np.argmax(ring_probas)
+                if ring_labels[predicted_idx] == 1.0:
+                    ring_correct += 1
+                ring_total += 1
+
+            i = j
+
+        if ring_total > 0:
+            accuracy = ring_correct / ring_total * 100
+            logger.info(f"Holdout validation: {ring_correct}/{ring_total} rings correct ({accuracy:.1f}%)")
+        else:
+            logger.info("Holdout validation: not enough complete rings to evaluate")
 
     def score_unresolved(self, confidence_threshold=0.95):
         """Score unresolved rings and return high-confidence predictions."""
