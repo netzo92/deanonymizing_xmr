@@ -196,7 +196,7 @@ class RingScorer:
             return False
 
         try:
-            from sklearn.ensemble import GradientBoostingClassifier
+            from xgboost import XGBClassifier
             from sklearn.preprocessing import StandardScaler
 
             # Split at the ring level
@@ -213,8 +213,11 @@ class RingScorer:
             self.scaler = StandardScaler()
             X_train_scaled = self.scaler.fit_transform(X_train)
 
-            self.model = GradientBoostingClassifier(
-                n_estimators=100, max_depth=4, learning_rate=0.1, random_state=42,
+            scale_pos_weight = (y_train == 0).sum() / max((y_train == 1).sum(), 1)
+            self.model = XGBClassifier(
+                n_estimators=200, max_depth=4, learning_rate=0.05,
+                scale_pos_weight=scale_pos_weight,
+                random_state=42, eval_metric="logloss", verbosity=0,
             )
             self.model.fit(X_train_scaled, y_train)
 
@@ -247,14 +250,17 @@ class RingScorer:
             y_all = np.array([l for r in rings_data for l in r["y"]])
             self.scaler = StandardScaler()
             X_all_scaled = self.scaler.fit_transform(X_all)
-            self.model = GradientBoostingClassifier(
-                n_estimators=100, max_depth=4, learning_rate=0.1, random_state=42,
+            scale_pos_weight_all = (y_all == 0).sum() / max((y_all == 1).sum(), 1)
+            self.model = XGBClassifier(
+                n_estimators=200, max_depth=4, learning_rate=0.05,
+                scale_pos_weight=scale_pos_weight_all,
+                random_state=42, eval_metric="logloss", verbosity=0,
             )
             self.model.fit(X_all_scaled, y_all)
 
             return True
         except ImportError:
-            logger.error("scikit-learn not installed. Run: pip install scikit-learn")
+            logger.error("xgboost not installed. Run: pip install xgboost")
             return False
 
     def score_unresolved(self, confidence_threshold=0.95):
