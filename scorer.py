@@ -31,6 +31,8 @@ class RingScorer:
             "reuse_rank_in_ring",
             "is_min_reuse",
             "reuse_count_raw",
+            "gap_isolation",
+            "is_max_gap_member",
         ]
         self._deterministic_ki_cache = None
 
@@ -65,6 +67,14 @@ class RingScorer:
         max_idx = max(indices) if indices else 1
         min_idx = min(indices) if indices else 0
         idx_range = max_idx - min_idx if max_idx != min_idx else 1
+
+        # Precompute gaps for isolation features
+        gaps = []
+        for i in range(len(member_list)):
+            g_next = (member_list[i + 1][1] - member_list[i][1]) / idx_range if i < len(member_list) - 1 else 0.0
+            g_prev = (member_list[i][1] - member_list[i - 1][1]) / idx_range if i > 0 else 0.0
+            gaps.append((g_prev, g_next))
+        max_gap = max(max(g[0], g[1]) for g in gaps) if gaps else 1.0
 
         for rank, member in enumerate(member_list):
             output_idx = member[1]
@@ -117,11 +127,20 @@ class RingScorer:
             # Feature 12: Raw reuse count (not log-scaled)
             reuse_raw = float(reuse_counts[member]) / max(max_reuse_val, 1)
 
+            # Feature 13: Gap isolation — min of surrounding gaps (high = isolated in index space)
+            g_prev_raw, g_next_raw = gaps[rank]
+            gap_isolation = min(g_prev_raw, g_next_raw) / max(max_gap, 1e-9)
+
+            # Feature 14: Is this the member with the largest surrounding gap?
+            surrounding = max(g_prev_raw, g_next_raw)
+            is_max_gap_member = 1.0 if surrounding >= max_gap else 0.0
+
             features.append({
                 "output_key": member,
                 "features": [age_rank, normalized_age, reuse, is_newest, age_dist_score,
                              ring_size, gap_next, gap_prev, distance_from_tx,
-                             reuse_rank, is_min_reuse, reuse_raw],
+                             reuse_rank, is_min_reuse, reuse_raw,
+                             gap_isolation, is_max_gap_member],
             })
 
         return features
