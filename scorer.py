@@ -25,6 +25,7 @@ class RingScorer:
         self.db = db
         self.analyzer = analyzer
         self.model = None
+        self.training_metrics = None
         self.feature_names = [
             "output_age_rank",
             "normalized_age",
@@ -319,6 +320,7 @@ class RingScorer:
     def train(self, holdout_fraction=0.2):
         """Train a model with ring-level holdout split (no data leakage between rings)."""
         rings_data = self.build_training_data()
+        self.training_metrics = None
         if rings_data is None:
             logger.warning("Cannot train: no training data")
             return False
@@ -369,11 +371,26 @@ class RingScorer:
                 logger.info(f"Holdout validation: {ring_correct}/{ring_total} rings correct "
                             f"({accuracy:.1f}%) — split by ring, no leakage")
             else:
+                accuracy = None
                 logger.info("Holdout validation: no test rings")
 
             # Log feature importances
+            feature_importances = []
             for name, imp in zip(self.feature_names, self.model.feature_importances_):
                 logger.info(f"  {name}: {imp:.4f}")
+                feature_importances.append({"feature": name, "importance": float(imp)})
+
+            self.training_metrics = {
+                "training_rings": len(train_rings),
+                "holdout_rings": ring_total,
+                "holdout_correct": ring_correct,
+                "holdout_accuracy": accuracy,
+                "feature_importances": sorted(
+                    feature_importances,
+                    key=lambda item: item["importance"],
+                    reverse=True,
+                ),
+            }
 
             # Retrain on all data for actual predictions
             X_all = np.array([f for r in rings_data for f in r["X"]])
@@ -398,6 +415,8 @@ class RingScorer:
             return []
 
         unresolved = self.analyzer.get_unresolved_rings()
+        candidate_features = []
+        candidate_rings = []
         predictions = []
 
         for ki, members in unresolved.items():
@@ -411,22 +430,37 @@ class RingScorer:
                 continue
 
             feature_data = self.extract_features(ki, members, block_height)
-            X = np.array([fd["features"] for fd in feature_data])
+            if not feature_data:
+                continue
+
+            start = len(candidate_features)
+            candidate_features.extend(fd["features"] for fd in feature_data)
+            candidate_rings.append({
+                "key_image": ki,
+                "feature_data": feature_data,
+                "ring_size": len(members),
+                "start": start,
+                "end": len(candidate_features),
+            })
+
+        if candidate_features:
+            X = np.array(candidate_features)
             X_scaled = self.scaler.transform(X)
+            all_probas = self.model.predict_proba(X_scaled)[:, 1]
 
-            probas = self.model.predict_proba(X_scaled)[:, 1]
+            for ring in candidate_rings:
+                probas = all_probas[ring["start"]:ring["end"]]
+                best_idx = np.argmax(probas)
+                best_prob = probas[best_idx]
+                best_output = ring["feature_data"][best_idx]["output_key"]
 
-            best_idx = np.argmax(probas)
-            best_prob = probas[best_idx]
-            best_output = feature_data[best_idx]["output_key"]
-
-            if best_prob >= confidence_threshold:
-                predictions.append({
-                    "key_image": ki,
-                    "predicted_output": best_output,
-                    "confidence": float(best_prob),
-                    "ring_size": len(members),
-                })
+                if best_prob >= confidence_threshold:
+                    predictions.append({
+                        "key_image": ring["key_image"],
+                        "predicted_output": best_output,
+                        "confidence": float(best_prob),
+                        "ring_size": ring["ring_size"],
+                    })
 
         predictions.sort(key=lambda x: x["confidence"], reverse=True)
         logger.info(f"Scored {len(unresolved)} unresolved rings, "

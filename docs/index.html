@@ -170,6 +170,7 @@
         const app = document.getElementById('app');
         const s = data.summary;
         const ml = data.ml_predictions || {};
+        const mlTraining = data.ml_training || null;
         const history = data.history || [];
 
         app.innerHTML = `
@@ -248,6 +249,33 @@
                         <div class="num" style="color:${CHART_COLORS.orange}">${ml.accuracy || 'N/A'}</div>
                         <div class="lbl">Accuracy</div>
                     </div>
+                </div>
+            </div>
+            ` : ''}
+
+            ${mlTraining ? `
+            <div class="ml-section">
+                <h2>ML Training Holdout</h2>
+                <div class="ml-stats">
+                    <div class="ml-stat">
+                        <div class="num" style="color:${CHART_COLORS.orange}">${formatPercent(mlTraining.holdout_accuracy)}</div>
+                        <div class="lbl">Holdout Accuracy</div>
+                    </div>
+                    <div class="ml-stat">
+                        <div class="num">${mlTraining.holdout_correct?.toLocaleString() || 0}</div>
+                        <div class="lbl">Correct Rings</div>
+                    </div>
+                    <div class="ml-stat">
+                        <div class="num">${mlTraining.holdout_rings?.toLocaleString() || 0}</div>
+                        <div class="lbl">Holdout Rings</div>
+                    </div>
+                    <div class="ml-stat">
+                        <div class="num">${mlTraining.training_rings?.toLocaleString() || 0}</div>
+                        <div class="lbl">Training Rings</div>
+                    </div>
+                </div>
+                <div class="chart-container" style="height:360px; margin-top:24px">
+                    <canvas id="featureImportanceChart"></canvas>
                 </div>
             </div>
             ` : ''}
@@ -375,6 +403,41 @@
                 }
             });
         }
+
+        if (mlTraining?.feature_importances?.length) {
+            const topFeatures = mlTraining.feature_importances.slice(0, 12).reverse();
+            new Chart(document.getElementById('featureImportanceChart'), {
+                type: 'bar',
+                data: {
+                    labels: topFeatures.map(f => f.feature),
+                    datasets: [{
+                        label: 'Importance',
+                        data: topFeatures.map(f => f.importance),
+                        backgroundColor: CHART_COLORS.purple,
+                        borderRadius: 4,
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            grid: { color: '#21262d' },
+                        },
+                        y: {
+                            grid: { display: false },
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+    function formatPercent(value) {
+        return Number.isFinite(value) ? `${value.toFixed(1)}%` : 'N/A';
     }
 
     loadData().then(data => {

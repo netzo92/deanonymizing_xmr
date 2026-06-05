@@ -12,6 +12,24 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
+## Database
+
+Tables are created automatically when any command opens the SQLite database. The default path is `monero_analysis.db`; use `--db <path>` to choose another file.
+
+Create an empty database and schema:
+
+```bash
+venv/bin/python main.py status
+```
+
+Or create and populate it by scanning blocks:
+
+```bash
+venv/bin/python main.py --node http://127.0.0.1:18081 scan --start 0 --end 1000
+```
+
+The schema lives in `models.py` and includes `blocks`, `transactions`, `ring_members`, `resolved_spends`, and `ml_predictions`.
+
 ## Usage
 
 ### Scan blocks
@@ -36,7 +54,9 @@ With ML-based probabilistic scoring and soft cascade:
 venv/bin/python main.py analyze --score --confidence 0.95
 ```
 
-`analyze --score` trains on deterministic resolutions, scores unresolved rings, saves high-confidence ML predictions, and applies those predictions during soft cascade. Use this for exploratory analysis, not clean forward-testing.
+`predict` trains on deterministic resolutions, scores unresolved rings, and saves high-confidence ML predictions without applying those ML guesses to `resolved_spends`. Use this for clean forward-testing.
+
+`analyze --score` also trains and scores, but then applies high-confidence predictions during soft cascade. Use it for exploratory analysis, not clean forward-testing.
 
 ### Export results
 
@@ -58,6 +78,12 @@ This writes `docs/data.json`, which is rendered by `docs/index.html`. The curren
 - effective ring-size distribution split into fully resolved, partially reduced, and unreduced rings
 - historical scan snapshots
 - ML prediction verification counts
+
+Include ML holdout accuracy and feature importances:
+
+```bash
+venv/bin/python main.py export-viz --include-ml-training
+```
 
 To publish the dashboard:
 
@@ -102,8 +128,10 @@ Forward verification checks whether predictions made today are later confirmed b
 1. Save high-confidence predictions:
 
 ```bash
-venv/bin/python main.py analyze --score --confidence 0.95
+venv/bin/python main.py predict --confidence 0.95
 ```
+
+This writes to `ml_predictions` only. It does not write ML guesses into `resolved_spends`, so later verification is not contaminated by the predictions being tested.
 
 2. Later, scan more blocks:
 
@@ -124,4 +152,4 @@ venv/bin/python main.py verify
 venv/bin/python -c "from models import Database; db=Database(); print(db.get_prediction_stats()); db.close()"
 ```
 
-Caveat: `analyze --score` currently applies ML predictions to the cascade, which can contaminate a clean forward-test setup. A future `predict-only` mode should save predictions without writing them into `resolved_spends`.
+Caveat: keep `analyze --score` out of clean forward-test runs. It is still useful for exploratory soft-cascade experiments because it intentionally applies ML predictions to the cascade.

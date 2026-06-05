@@ -1,68 +1,172 @@
 {
-  "generated_at": "2026-06-05 01:46 UTC",
+  "generated_at": "2026-06-05 02:04 UTC",
   "summary": {
-    "total_rings": 236082,
-    "fully_resolved": 197522,
-    "partially_reduced": 31660,
-    "unreduced": 6900,
+    "total_rings": 247098,
+    "fully_resolved": 207114,
+    "partially_reduced": 33038,
+    "unreduced": 6946,
     "passes": 0,
     "effective_ring_size_distribution": {
-      "1": 197522,
-      "2": 8429,
-      "3": 9085,
-      "4": 8546,
-      "5": 5712,
-      "6": 3632,
-      "7": 1164,
-      "8": 893,
-      "9": 556,
-      "10": 317,
-      "11": 201,
+      "1": 207114,
+      "2": 8547,
+      "3": 9297,
+      "4": 8804,
+      "5": 6004,
+      "6": 3887,
+      "7": 1310,
+      "8": 938,
+      "9": 591,
+      "10": 354,
+      "11": 227,
       "12": 21,
       "14": 2,
       "15": 1,
       "21": 1
     },
     "partially_reduced_ring_size_distribution": {
-      "2": 5974,
-      "3": 8988,
-      "4": 6778,
-      "5": 5698,
-      "6": 1284,
-      "7": 1163,
-      "8": 892,
-      "9": 532,
-      "10": 317,
+      "2": 6075,
+      "3": 9199,
+      "4": 7036,
+      "5": 5990,
+      "6": 1537,
+      "7": 1309,
+      "8": 937,
+      "9": 567,
+      "10": 354,
       "11": 28,
       "12": 3,
       "14": 2,
       "15": 1
     },
     "unreduced_ring_size_distribution": {
-      "2": 2455,
-      "3": 97,
+      "2": 2472,
+      "3": 98,
       "4": 1768,
       "5": 14,
-      "6": 2348,
+      "6": 2350,
       "7": 1,
       "8": 1,
       "9": 24,
-      "11": 173,
+      "11": 199,
       "12": 18,
       "21": 1
     },
-    "resolution_rate": "83.67%",
-    "blocks_scanned": 44401,
-    "transactions": 2590,
-    "ring_members": 443243
+    "resolution_rate": "83.82%",
+    "blocks_scanned": 46001,
+    "transactions": 2759,
+    "ring_members": 468209
   },
   "ml_predictions": {
-    "total_predictions": 0,
+    "total_predictions": 15328,
     "verified": 0,
     "correct": 0,
     "wrong": 0,
-    "unverified": 0,
+    "unverified": 15328,
     "accuracy": "N/A"
+  },
+  "ml_training": {
+    "training_rings": 2219,
+    "holdout_rings": 555,
+    "holdout_correct": 471,
+    "holdout_accuracy": 84.86486486486487,
+    "feature_importances": [
+      {
+        "feature": "is_min_reuse",
+        "importance": 0.18571991935197535
+      },
+      {
+        "feature": "ring_reuse_count",
+        "importance": 0.1314237116234842
+      },
+      {
+        "feature": "reuse_rank_in_ring",
+        "importance": 0.12712464999529044
+      },
+      {
+        "feature": "decoy_likelihood_gap",
+        "importance": 0.07101540774334386
+      },
+      {
+        "feature": "normalized_age",
+        "importance": 0.062081639992145464
+      },
+      {
+        "feature": "gap_to_next",
+        "importance": 0.058336933374000456
+      },
+      {
+        "feature": "decoy_likelihood_zscore",
+        "importance": 0.04114087360954762
+      },
+      {
+        "feature": "output_age_rank",
+        "importance": 0.0362307848694764
+      },
+      {
+        "feature": "reuse_count_raw",
+        "importance": 0.0344512836492497
+      },
+      {
+        "feature": "amount_bucket_progress",
+        "importance": 0.03403475176537837
+      },
+      {
+        "feature": "legacy_triangular_likelihood",
+        "importance": 0.03388799230765134
+      },
+      {
+        "feature": "distance_from_tx",
+        "importance": 0.03335017259570555
+      },
+      {
+        "feature": "decoy_likelihood_rank",
+        "importance": 0.03243559829449578
+      },
+      {
+        "feature": "gap_to_prev",
+        "importance": 0.030137050083252768
+      },
+      {
+        "feature": "is_newest_member",
+        "importance": 0.026171354871825883
+      },
+      {
+        "feature": "is_most_decoy_like",
+        "importance": 0.023680079923241858
+      },
+      {
+        "feature": "gap_isolation",
+        "importance": 0.012085149624752678
+      },
+      {
+        "feature": "ring_size",
+        "importance": 0.010928357269659827
+      },
+      {
+        "feature": "age_matches_decoy_distribution",
+        "importance": 0.010026641693138952
+      },
+      {
+        "feature": "is_max_gap_member",
+        "importance": 0.005737647362383318
+      },
+      {
+        "feature": "gamma_decoy_log_likelihood",
+        "importance": 0.0
+      },
+      {
+        "feature": "gamma_recent_window",
+        "importance": 0.0
+      },
+      {
+        "feature": "gamma_age_surprisal",
+        "importance": 0.0
+      },
+      {
+        "feature": "is_legacy_amount",
+        "importance": 0.0
+      }
+    ]
   },
   "history": [
     {
@@ -174,6 +278,26 @@
       "resolution_rate": "83.67%",
       "passes": 0,
       "timestamp": "2026-06-05T01:46:21.504364+00:00"
+    },
+    {
+      "blocks_scanned": 44901,
+      "total_rings": 240281,
+      "fully_resolved": 200357,
+      "partially_reduced": 32998,
+      "unreduced": 6926,
+      "resolution_rate": "83.38%",
+      "passes": 2,
+      "timestamp": "2026-06-05T01:49:52.621241+00:00"
+    },
+    {
+      "blocks_scanned": 46001,
+      "total_rings": 247098,
+      "fully_resolved": 207114,
+      "partially_reduced": 33038,
+      "unreduced": 6946,
+      "resolution_rate": "83.82%",
+      "passes": 2,
+      "timestamp": "2026-06-05T02:03:14.794877+00:00"
     }
   ]
 }

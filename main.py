@@ -70,6 +70,38 @@ def cmd_analyze(args):
     db.close()
 
 
+def cmd_predict(args):
+    """Train ML scorer and save predictions without applying soft cascade."""
+    db = Database(args.db)
+    analyzer = Analyzer(db)
+    stats = analyzer.run(max_passes=args.max_passes)
+
+    print("\n=== Prediction-Only ML Scoring ===")
+    print(f"Total rings analyzed:    {stats['total_rings']}")
+    print(f"Deterministically done:  {stats['fully_resolved']}")
+    print(f"Unreduced:               {stats['unreduced']}")
+    print(f"Confidence threshold:    {args.confidence}")
+
+    scorer = RingScorer(db, analyzer)
+    if scorer.train():
+        predictions = scorer.score_unresolved(confidence_threshold=args.confidence)
+        print(f"\nSaved predictions:       {len(predictions)}")
+        print("Applied ML to cascade:   no")
+
+        if predictions and args.show > 0:
+            print(f"\nTop {min(args.show, len(predictions))} predictions:")
+            for pred in predictions[:args.show]:
+                amount, index = pred["predicted_output"]
+                print(
+                    f"  {pred['key_image'][:16]}... -> "
+                    f"(amount={amount}, index={index}) "
+                    f"confidence={pred['confidence']:.4f} "
+                    f"ring_size={pred['ring_size']}"
+                )
+
+    db.close()
+
+
 def cmd_export(args):
     db = Database(args.db)
     analyzer = Analyzer(db)
@@ -133,6 +165,12 @@ def cmd_export_viz(args):
     stats = analyzer.run(max_passes=args.max_passes)
     db_stats = db.get_stats()
     ml_stats = db.get_prediction_stats()
+    ml_training = None
+
+    if args.include_ml_training:
+        scorer = RingScorer(db, analyzer)
+        if scorer.train():
+            ml_training = scorer.training_metrics
 
     # Load existing history or start fresh
     data_path = os.path.join(args.output_dir, "data.json")
@@ -169,6 +207,7 @@ def cmd_export_viz(args):
             "ring_members": db_stats["ring_members"],
         },
         "ml_predictions": ml_stats,
+        "ml_training": ml_training,
         "history": history,
     }
 
@@ -230,9 +269,21 @@ def main():
     analyze_parser.add_argument("--max-passes", type=int, default=100,
                                 help="Max cascade passes (default: 100)")
     analyze_parser.add_argument("--score", action="store_true",
-                                help="Enable ML-based probabilistic scoring after deterministic analysis")
+                                help="Enable ML soft cascade after deterministic analysis; mutates resolved_spends")
     analyze_parser.add_argument("--confidence", type=float, default=0.95,
                                 help="Confidence threshold for probabilistic resolution (default: 0.95)")
+
+    # predict
+    predict_parser = subparsers.add_parser(
+        "predict",
+        help="Save ML predictions without applying them to the cascade",
+    )
+    predict_parser.add_argument("--max-passes", type=int, default=100,
+                                help="Max deterministic cascade passes before scoring (default: 100)")
+    predict_parser.add_argument("--confidence", type=float, default=0.95,
+                                help="Confidence threshold for saved predictions (default: 0.95)")
+    predict_parser.add_argument("--show", type=int, default=10,
+                                help="Number of top predictions to print (default: 10)")
 
     # export
     export_parser = subparsers.add_parser("export", help="Export results to JSON")
@@ -253,6 +304,8 @@ def main():
     viz_parser.add_argument("--output-dir", default="docs",
                             help="Output directory (default: docs)")
     viz_parser.add_argument("--max-passes", type=int, default=100)
+    viz_parser.add_argument("--include-ml-training", action="store_true",
+                            help="Train scorer and include holdout/feature-importance data")
 
     # status
     subparsers.add_parser("status", help="Show database statistics")
@@ -265,6 +318,8 @@ def main():
             cmd_scan(args)
         elif args.command == "analyze":
             cmd_analyze(args)
+        elif args.command == "predict":
+            cmd_predict(args)
         elif args.command == "export":
             cmd_export(args)
         elif args.command == "verify":
