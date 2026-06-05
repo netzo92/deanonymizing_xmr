@@ -60,7 +60,8 @@ class RingScorer:
         """Check if a resolution is deterministic (not ML-predicted)."""
         if self._deterministic_ki_cache is None:
             cursor = self.db.conn.execute(
-                "SELECT key_image FROM resolved_spends WHERE confidence = 1.0"
+                "SELECT key_image FROM resolved_spends "
+                "WHERE confidence = 1.0 AND resolved_at_pass >= 0"
             )
             self._deterministic_ki_cache = set(row[0] for row in cursor)
         return key_image in self._deterministic_ki_cache

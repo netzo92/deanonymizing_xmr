@@ -121,6 +121,16 @@ Holdout validation: 441/518 rings correct (85.1%)
 
 This is not the same as forward verification. Holdout is useful for model iteration, but it is still measured on rings that are deterministically resolvable in the current dataset.
 
+Training hygiene:
+
+- labels come only from `resolved_spends` rows with `confidence = 1.0` and non-negative deterministic pass numbers
+- train/test splitting is done by ring, so candidates from the same ring cannot appear in both train and holdout
+- feature scaling is fit on the train split only, then applied to holdout rings
+- after holdout scoring is reported, the model is retrained on all deterministic rings before saving predictions
+- saved predictions live in `ml_predictions`; they are not training labels unless a later deterministic run independently resolves them
+
+Important caveat: the holdout split is not a full forward-time test. Some graph-derived features, such as output reuse counts, are computed from the current scanned snapshot. Use the forward verification workflow below for the cleaner test of predictions made before later blocks are scanned.
+
 ## Forward verification workflow
 
 Forward verification checks whether predictions made today are later confirmed by deterministic cascade evidence after scanning more blocks.
