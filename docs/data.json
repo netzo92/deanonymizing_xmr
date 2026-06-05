@@ -1,36 +1,69 @@
 {
-  "generated_at": "2026-03-30 19:03 UTC",
+  "generated_at": "2026-06-05 01:01 UTC",
   "summary": {
-    "total_rings": 52459,
-    "fully_resolved": 51329,
-    "partially_reduced": 828,
-    "unreduced": 302,
-    "passes": 0,
+    "total_rings": 196228,
+    "fully_resolved": 161932,
+    "partially_reduced": 27153,
+    "unreduced": 7143,
+    "passes": 2,
     "effective_ring_size_distribution": {
-      "0": 466,
-      "1": 51329,
-      "2": 234,
-      "3": 72,
-      "4": 114,
-      "5": 110,
-      "6": 79,
-      "7": 14,
-      "8": 14,
-      "9": 13,
-      "10": 8,
-      "11": 6
+      "1": 161932,
+      "2": 7587,
+      "3": 8038,
+      "4": 7684,
+      "5": 5058,
+      "6": 3218,
+      "7": 855,
+      "8": 778,
+      "9": 536,
+      "10": 308,
+      "11": 209,
+      "12": 20,
+      "13": 1,
+      "14": 2,
+      "15": 1,
+      "21": 1
     },
-    "resolution_rate": "97.85%",
-    "blocks_scanned": 22701,
-    "transactions": 701,
-    "ring_members": 128615
+    "partially_reduced_ring_size_distribution": {
+      "2": 5105,
+      "3": 7948,
+      "4": 5816,
+      "5": 5038,
+      "6": 758,
+      "7": 854,
+      "8": 777,
+      "9": 512,
+      "10": 308,
+      "11": 31,
+      "12": 2,
+      "13": 1,
+      "14": 2,
+      "15": 1
+    },
+    "unreduced_ring_size_distribution": {
+      "2": 2482,
+      "3": 90,
+      "4": 1868,
+      "5": 20,
+      "6": 2460,
+      "7": 1,
+      "8": 1,
+      "9": 24,
+      "11": 178,
+      "12": 18,
+      "21": 1
+    },
+    "resolution_rate": "82.52%",
+    "blocks_scanned": 38401,
+    "transactions": 2066,
+    "ring_members": 366367
   },
   "ml_predictions": {
-    "total_predictions": 13457,
+    "total_predictions": 0,
     "verified": 0,
     "correct": 0,
     "wrong": 0,
-    "unverified": 13457,
+    "unverified": 0,
     "accuracy": "N/A"
   },
   "history": [
@@ -73,6 +106,26 @@
       "resolution_rate": "97.85%",
       "passes": 0,
       "timestamp": "2026-03-30T19:03:54.984411+00:00"
+    },
+    {
+      "blocks_scanned": 37801,
+      "total_rings": 191609,
+      "fully_resolved": 157298,
+      "partially_reduced": 27081,
+      "unreduced": 7230,
+      "resolution_rate": "82.09%",
+      "passes": 1,
+      "timestamp": "2026-06-05T00:59:46.028741+00:00"
+    },
+    {
+      "blocks_scanned": 38401,
+      "total_rings": 196228,
+      "fully_resolved": 161932,
+      "partially_reduced": 27153,
+      "unreduced": 7143,
+      "resolution_rate": "82.52%",
+      "passes": 2,
+      "timestamp": "2026-06-05T01:01:11.381514+00:00"
     }
   ]
 }

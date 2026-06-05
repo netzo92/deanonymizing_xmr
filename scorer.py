@@ -43,8 +43,13 @@ class RingScorer:
             "gamma_decoy_log_likelihood",
             "gamma_recent_window",
             "gamma_age_surprisal",
+            "legacy_triangular_likelihood",
+            "amount_bucket_progress",
+            "is_legacy_amount",
         ]
         self._deterministic_ki_cache = None
+        self._outputs_per_block_cache = None
+        self._amount_max_index_cache = None
 
     def _is_deterministic(self, key_image):
         """Check if a resolution is deterministic (not ML-predicted)."""
@@ -55,21 +60,47 @@ class RingScorer:
             self._deterministic_ki_cache = set(row[0] for row in cursor)
         return key_image in self._deterministic_ki_cache
 
-    def _gamma_decoy_features(self, member_list, output_idx):
+    def _outputs_per_block(self):
+        if self._outputs_per_block_cache is None:
+            row = self.db.conn.execute(
+                "SELECT MAX(global_output_index), MAX(block_height) "
+                "FROM ring_members JOIN transactions USING (tx_hash) "
+                "WHERE amount = 0"
+            ).fetchone()
+            max_output_index, max_height = row if row else (None, None)
+            if max_output_index is None or not max_height:
+                self._outputs_per_block_cache = 1.0
+            else:
+                self._outputs_per_block_cache = max((max_output_index + 1) / max_height, 1e-9)
+        return self._outputs_per_block_cache
+
+    def _amount_max_indices(self):
+        if self._amount_max_index_cache is None:
+            cursor = self.db.conn.execute(
+                "SELECT amount, MAX(global_output_index) FROM ring_members GROUP BY amount"
+            )
+            self._amount_max_index_cache = {amount: max_idx for amount, max_idx in cursor}
+        return self._amount_max_index_cache
+
+    def _gamma_decoy_features(self, member_list, amount, output_idx, tx_block_height):
         """
         Approximate Monero wallet2 gamma-picker likelihood using only the
-        ring-local global output index spacing available in this database.
+        global output index data available in this database.
         """
         indices = [m[1] for m in member_list]
         newest_idx = max(indices)
-        oldest_idx = min(indices)
-        idx_span = max(newest_idx - oldest_idx, 1)
 
-        # Use ring spacing as a local proxy for output cadence. This is not a
-        # full chain output distribution, but it captures whether a candidate
-        # sits in the part of the ring where wallet2's gamma picker is dense.
-        avg_index_step = idx_span / max(len(member_list) - 1, 1)
-        age_seconds = ((newest_idx - output_idx) / max(avg_index_step, 1e-9)) * DIFFICULTY_TARGET_SECONDS
+        if amount == 0:
+            outputs_per_block = self._outputs_per_block()
+            estimated_tip_index = max(newest_idx, tx_block_height * outputs_per_block)
+            age_blocks = max(estimated_tip_index - output_idx, 0.0) / outputs_per_block
+        else:
+            # Pre-RCT amount buckets do not share the RCT output distribution.
+            # Fall back to relative age inside the ring for those legacy rings.
+            oldest_idx = min(indices)
+            age_blocks = 15 * (newest_idx - output_idx) / max(newest_idx - oldest_idx, 1)
+
+        age_seconds = age_blocks * DIFFICULTY_TARGET_SECONDS
 
         if age_seconds <= RECENT_SPEND_WINDOW_SECONDS:
             recent_window = 1.0
@@ -91,6 +122,19 @@ class RingScorer:
         log_likelihood = max(min(log_likelihood, 0.0), -50.0)
         surprisal = -log_likelihood / 50.0
         return log_likelihood, recent_window, surprisal
+
+    def _legacy_amount_features(self, amount, output_idx):
+        if amount == 0:
+            return 0.0, 0.0, 0.0
+
+        max_idx = self._amount_max_indices().get(amount, output_idx)
+        bucket_size = max(max_idx + 1, 1)
+        progress = min(max((output_idx + 1) / bucket_size, 0.0), 1.0)
+
+        # Legacy non-RCT decoys use a triangular distribution with mode at
+        # the newest output, whose density is proportional to x / bucket_size.
+        triangular_likelihood = progress
+        return triangular_likelihood, progress, 1.0
 
     def extract_features(self, key_image, members, tx_block_height):
         """Extract feature vectors for each ring member.
@@ -182,7 +226,12 @@ class RingScorer:
             surrounding = max(g_prev_raw, g_next_raw)
             is_max_gap_member = 1.0 if surrounding >= max_gap else 0.0
 
-            gamma_ll, gamma_recent, gamma_surprisal = self._gamma_decoy_features(member_list, output_idx)
+            gamma_ll, gamma_recent, gamma_surprisal = self._gamma_decoy_features(
+                member_list, member[0], output_idx, tx_block_height,
+            )
+            legacy_triangular, amount_progress, is_legacy_amount = self._legacy_amount_features(
+                member[0], output_idx,
+            )
 
             features.append({
                 "output_key": member,
@@ -190,7 +239,8 @@ class RingScorer:
                              ring_size, gap_next, gap_prev, distance_from_tx,
                              reuse_rank, is_min_reuse, reuse_raw,
                              gap_isolation, is_max_gap_member,
-                             gamma_ll, gamma_recent, gamma_surprisal],
+                             gamma_ll, gamma_recent, gamma_surprisal,
+                             legacy_triangular, amount_progress, is_legacy_amount],
             })
 
         return features

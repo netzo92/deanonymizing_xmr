@@ -96,8 +96,16 @@ class Analyzer:
 
         # Compute statistics
         ring_size_dist = defaultdict(int)
+        partially_reduced_dist = defaultdict(int)
+        unreduced_dist = defaultdict(int)
         for ki, members in self.rings.items():
-            ring_size_dist[len(members)] += 1
+            current_size = len(members)
+            original_size = self.original_sizes.get(ki, current_size)
+            ring_size_dist[current_size] += 1
+            if current_size < original_size:
+                partially_reduced_dist[current_size] += 1
+            else:
+                unreduced_dist[current_size] += 1
         ring_size_dist[1] = len(self.resolved)
 
         partially_reduced = sum(
@@ -112,6 +120,8 @@ class Analyzer:
             "unreduced": total_rings - len(self.resolved) - partially_reduced,
             "passes": pass_num,
             "effective_ring_size_distribution": dict(sorted(ring_size_dist.items())),
+            "partially_reduced_ring_size_distribution": dict(sorted(partially_reduced_dist.items())),
+            "unreduced_ring_size_distribution": dict(sorted(unreduced_dist.items())),
             "resolution_rate": f"{len(self.resolved) / total_rings * 100:.2f}%" if total_rings else "N/A",
         }
 

@@ -278,35 +278,50 @@
 
         // Ring size distribution
         const dist = s.effective_ring_size_distribution || {};
+        const partialDist = s.partially_reduced_ring_size_distribution || {};
+        const unreducedDist = s.unreduced_ring_size_distribution || {};
         const sizes = Object.keys(dist).sort((a, b) => Number(a) - Number(b));
-        const counts = sizes.map(k => dist[k]);
-        const barColors = sizes.map(k =>
-            k === '1' ? CHART_COLORS.green :
-            k === '0' ? CHART_COLORS.red :
-            CHART_COLORS.blue
-        );
+        const resolvedCounts = sizes.map(k => k === '1' ? (s.fully_resolved || 0) : 0);
+        const partialCounts = sizes.map(k => partialDist[k] || 0);
+        const unreducedCounts = sizes.map(k => unreducedDist[k] || 0);
 
         new Chart(document.getElementById('ringSizeChart'), {
             type: 'bar',
             data: {
                 labels: sizes.map(s => `Size ${s}`),
-                datasets: [{
-                    label: 'Ring count',
-                    data: counts,
-                    backgroundColor: barColors,
-                    borderRadius: 4,
-                }]
+                datasets: [
+                    {
+                        label: 'Fully resolved',
+                        data: resolvedCounts,
+                        backgroundColor: CHART_COLORS.green,
+                        borderRadius: 4,
+                    },
+                    {
+                        label: 'Partially reduced',
+                        data: partialCounts,
+                        backgroundColor: CHART_COLORS.yellow,
+                        borderRadius: 4,
+                    },
+                    {
+                        label: 'Unreduced',
+                        data: unreducedCounts,
+                        backgroundColor: CHART_COLORS.blue,
+                        borderRadius: 4,
+                    },
+                ]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                plugins: { legend: { display: false } },
+                plugins: { legend: { position: 'bottom' } },
                 scales: {
                     y: {
                         beginAtZero: true,
+                        stacked: true,
                         grid: { color: '#21262d' },
                     },
                     x: {
+                        stacked: true,
                         grid: { display: false },
                     }
                 }
