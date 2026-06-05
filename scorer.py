@@ -46,6 +46,10 @@ class RingScorer:
             "legacy_triangular_likelihood",
             "amount_bucket_progress",
             "is_legacy_amount",
+            "decoy_likelihood_rank",
+            "is_most_decoy_like",
+            "decoy_likelihood_gap",
+            "decoy_likelihood_zscore",
         ]
         self._deterministic_ki_cache = None
         self._outputs_per_block_cache = None
@@ -167,6 +171,24 @@ class RingScorer:
             gaps.append((g_prev, g_next))
         max_gap = max(max(g[0], g[1]) for g in gaps) if gaps else 1.0
 
+        decoy_likelihoods = {}
+        for member in member_list:
+            gamma_ll, _, _ = self._gamma_decoy_features(
+                member_list, member[0], member[1], tx_block_height,
+            )
+            legacy_triangular, _, _ = self._legacy_amount_features(member[0], member[1])
+            decoy_likelihoods[member] = legacy_triangular if member[0] != 0 else math.exp(gamma_ll)
+
+        sorted_by_decoy_likelihood = sorted(member_list, key=lambda m: decoy_likelihoods[m])
+        decoy_rank_map = {
+            m: i / max(len(member_list) - 1, 1)
+            for i, m in enumerate(sorted_by_decoy_likelihood)
+        }
+        decoy_values = np.array([decoy_likelihoods[m] for m in member_list], dtype=float)
+        decoy_mean = float(np.mean(decoy_values)) if len(decoy_values) else 0.0
+        decoy_std = float(np.std(decoy_values)) if len(decoy_values) else 0.0
+        max_decoy_likelihood = max(decoy_likelihoods.values()) if decoy_likelihoods else 0.0
+
         for rank, member in enumerate(member_list):
             output_idx = member[1]
 
@@ -232,6 +254,14 @@ class RingScorer:
             legacy_triangular, amount_progress, is_legacy_amount = self._legacy_amount_features(
                 member[0], output_idx,
             )
+            decoy_likelihood = decoy_likelihoods[member]
+            decoy_rank = decoy_rank_map[member]
+            is_most_decoy_like = 1.0 if decoy_likelihood == max_decoy_likelihood else 0.0
+            decoy_gap = max_decoy_likelihood - decoy_likelihood
+            decoy_zscore = (
+                (decoy_likelihood - decoy_mean) / decoy_std
+                if decoy_std > 1e-12 else 0.0
+            )
 
             features.append({
                 "output_key": member,
@@ -240,7 +270,9 @@ class RingScorer:
                              reuse_rank, is_min_reuse, reuse_raw,
                              gap_isolation, is_max_gap_member,
                              gamma_ll, gamma_recent, gamma_surprisal,
-                             legacy_triangular, amount_progress, is_legacy_amount],
+                             legacy_triangular, amount_progress, is_legacy_amount,
+                             decoy_rank, is_most_decoy_like, decoy_gap,
+                             decoy_zscore],
             })
 
         return features

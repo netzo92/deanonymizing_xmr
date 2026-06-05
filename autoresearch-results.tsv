@@ -2,3 +2,4 @@ iteration	commit	auc	holdout	resolution_rate	soft_resolved	status	description
 0	23915f2	0.956	100.0	93.19	0	baseline	LogisticRegression with 5 features, deterministic-only training
 1	9a70746	0.960	100.0	97.67	2350	keep	GradientBoosting + ring_size, gap_to_next, gap_to_prev features
 2	4f21c38	0.974	100.0	97.82	81	keep	add distance_from_tx feature
+3	working		86.3			keep	add wallet-style decoy likelihood rank/gap/zscore features
