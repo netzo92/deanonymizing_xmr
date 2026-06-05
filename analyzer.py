@@ -113,12 +113,18 @@ class Analyzer:
             if len(members) < self.original_sizes.get(ki, len(members))
         )
 
+        stored_max_pass = self.db.conn.execute(
+            "SELECT MAX(resolved_at_pass) FROM resolved_spends "
+            "WHERE resolved_at_pass >= 0"
+        ).fetchone()[0]
+        cascade_passes = max(pass_num, stored_max_pass or 0)
+
         self.stats = {
             "total_rings": total_rings,
             "fully_resolved": len(self.resolved),
             "partially_reduced": partially_reduced,
             "unreduced": total_rings - len(self.resolved) - partially_reduced,
-            "passes": pass_num,
+            "passes": cascade_passes,
             "effective_ring_size_distribution": dict(sorted(ring_size_dist.items())),
             "partially_reduced_ring_size_distribution": dict(sorted(partially_reduced_dist.items())),
             "unreduced_ring_size_distribution": dict(sorted(unreduced_dist.items())),

@@ -1,154 +1,153 @@
 {
-  "generated_at": "2026-06-05 02:11 UTC",
+  "generated_at": "2026-06-05 03:08 UTC",
   "summary": {
-    "total_rings": 247098,
-    "fully_resolved": 207114,
-    "partially_reduced": 33038,
-    "unreduced": 6946,
-    "passes": 0,
+    "total_rings": 308207,
+    "fully_resolved": 262463,
+    "partially_reduced": 38997,
+    "unreduced": 6747,
+    "passes": 4,
     "effective_ring_size_distribution": {
-      "1": 207114,
-      "2": 8547,
-      "3": 9297,
-      "4": 8804,
-      "5": 6004,
-      "6": 3887,
-      "7": 1310,
-      "8": 938,
-      "9": 591,
+      "1": 262463,
+      "2": 12389,
+      "3": 11369,
+      "4": 9483,
+      "5": 5883,
+      "6": 3561,
+      "7": 1221,
+      "8": 779,
+      "9": 504,
       "10": 354,
-      "11": 227,
-      "12": 21,
-      "14": 2,
+      "11": 181,
+      "12": 17,
+      "14": 1,
       "15": 1,
-      "21": 1
+      "20": 1
     },
     "partially_reduced_ring_size_distribution": {
-      "2": 6075,
-      "3": 9199,
-      "4": 7036,
-      "5": 5990,
-      "6": 1537,
-      "7": 1309,
-      "8": 937,
-      "9": 567,
-      "10": 354,
-      "11": 28,
-      "12": 3,
-      "14": 2,
-      "15": 1
+      "2": 9097,
+      "3": 11268,
+      "4": 8152,
+      "5": 5868,
+      "6": 1755,
+      "7": 1221,
+      "8": 779,
+      "9": 478,
+      "10": 349,
+      "11": 26,
+      "12": 1,
+      "14": 1,
+      "15": 1,
+      "20": 1
     },
     "unreduced_ring_size_distribution": {
-      "2": 2472,
-      "3": 98,
-      "4": 1768,
-      "5": 14,
-      "6": 2350,
-      "7": 1,
-      "8": 1,
-      "9": 24,
-      "11": 199,
-      "12": 18,
-      "21": 1
+      "2": 3292,
+      "3": 101,
+      "4": 1331,
+      "5": 15,
+      "6": 1806,
+      "9": 26,
+      "10": 5,
+      "11": 155,
+      "12": 16
     },
-    "resolution_rate": "83.82%",
-    "blocks_scanned": 46001,
-    "transactions": 2759,
-    "ring_members": 468209
+    "resolution_rate": "85.16%",
+    "blocks_scanned": 49701,
+    "transactions": 3795,
+    "ring_members": 572907
   },
   "ml_predictions": {
     "total_predictions": 15328,
-    "verified": 0,
-    "correct": 0,
-    "wrong": 0,
-    "unverified": 15328,
-    "accuracy": "N/A"
+    "verified": 505,
+    "correct": 408,
+    "wrong": 97,
+    "unverified": 14823,
+    "accuracy": "80.8%"
   },
   "ml_training": {
-    "training_rings": 2219,
-    "holdout_rings": 555,
-    "holdout_correct": 471,
-    "holdout_accuracy": 84.86486486486487,
+    "training_rings": 4452,
+    "holdout_rings": 1114,
+    "holdout_correct": 946,
+    "holdout_accuracy": 84.91921005385996,
     "feature_importances": [
       {
         "feature": "is_min_reuse",
-        "importance": 0.18571991935197535
-      },
-      {
-        "feature": "ring_reuse_count",
-        "importance": 0.1314237116234842
+        "importance": 0.1814528383063171
       },
       {
         "feature": "reuse_rank_in_ring",
-        "importance": 0.12712464999529044
+        "importance": 0.1387797936209408
+      },
+      {
+        "feature": "ring_reuse_count",
+        "importance": 0.12601425296675728
       },
       {
         "feature": "decoy_likelihood_gap",
-        "importance": 0.07101540774334386
-      },
-      {
-        "feature": "normalized_age",
-        "importance": 0.062081639992145464
+        "importance": 0.07007761827210723
       },
       {
         "feature": "gap_to_next",
-        "importance": 0.058336933374000456
+        "importance": 0.06362995244625683
       },
       {
-        "feature": "decoy_likelihood_zscore",
-        "importance": 0.04114087360954762
-      },
-      {
-        "feature": "output_age_rank",
-        "importance": 0.0362307848694764
-      },
-      {
-        "feature": "reuse_count_raw",
-        "importance": 0.0344512836492497
-      },
-      {
-        "feature": "amount_bucket_progress",
-        "importance": 0.03403475176537837
-      },
-      {
-        "feature": "legacy_triangular_likelihood",
-        "importance": 0.03388799230765134
+        "feature": "normalized_age",
+        "importance": 0.05717888687187287
       },
       {
         "feature": "distance_from_tx",
-        "importance": 0.03335017259570555
+        "importance": 0.05033244906355212
+      },
+      {
+        "feature": "amount_bucket_progress",
+        "importance": 0.037237575885163444
+      },
+      {
+        "feature": "legacy_triangular_likelihood",
+        "importance": 0.037123274251302185
+      },
+      {
+        "feature": "decoy_likelihood_zscore",
+        "importance": 0.035852950983042246
+      },
+      {
+        "feature": "reuse_count_raw",
+        "importance": 0.02937750622064689
+      },
+      {
+        "feature": "output_age_rank",
+        "importance": 0.028742752660330047
       },
       {
         "feature": "decoy_likelihood_rank",
-        "importance": 0.03243559829449578
-      },
-      {
-        "feature": "gap_to_prev",
-        "importance": 0.030137050083252768
+        "importance": 0.02605943880025776
       },
       {
         "feature": "is_newest_member",
-        "importance": 0.026171354871825883
+        "importance": 0.024171780976364583
       },
       {
         "feature": "is_most_decoy_like",
-        "importance": 0.023680079923241858
+        "importance": 0.024160290331062755
       },
       {
-        "feature": "gap_isolation",
-        "importance": 0.012085149624752678
+        "feature": "gap_to_prev",
+        "importance": 0.021125730426295928
       },
       {
         "feature": "ring_size",
-        "importance": 0.010928357269659827
+        "importance": 0.019171883764390354
       },
       {
-        "feature": "age_matches_decoy_distribution",
-        "importance": 0.010026641693138952
+        "feature": "gap_isolation",
+        "importance": 0.017548670380457338
       },
       {
         "feature": "is_max_gap_member",
-        "importance": 0.005737647362383318
+        "importance": 0.006644440018848675
+      },
+      {
+        "feature": "age_matches_decoy_distribution",
+        "importance": 0.0053179137540335574
       },
       {
         "feature": "gamma_decoy_log_likelihood",
@@ -298,6 +297,16 @@
       "resolution_rate": "83.82%",
       "passes": 2,
       "timestamp": "2026-06-05T02:03:14.794877+00:00"
+    },
+    {
+      "blocks_scanned": 49701,
+      "total_rings": 308207,
+      "fully_resolved": 262463,
+      "partially_reduced": 38997,
+      "unreduced": 6747,
+      "resolution_rate": "85.16%",
+      "passes": 4,
+      "timestamp": "2026-06-05T03:06:09.334595+00:00"
     }
   ]
 }

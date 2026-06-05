@@ -78,6 +78,30 @@ This writes `docs/data.json`, which is rendered by `docs/index.html`. The curren
 - effective ring-size distribution split into fully resolved, partially reduced, and unreduced rings
 - historical scan snapshots
 - ML prediction verification counts
+- ML holdout accuracy and feature importances when exported with `--include-ml-training`
+
+Current dashboard snapshot:
+
+```text
+Blocks scanned:    49,701
+Total rings:       308,207
+Fully resolved:    262,463
+Partially reduced: 38,997
+Unreduced:         6,747
+Resolution rate:   85.16%
+Cascade passes:    4
+```
+
+Current ML prediction verification:
+
+```text
+Total predictions:  15,328
+Verified so far:    505
+Correct:            408
+Wrong:              97
+Forward accuracy:   80.8%
+Still unverified:   14,823
+```
 
 Include ML holdout accuracy and feature importances:
 
@@ -116,7 +140,7 @@ The scorer reports ring-level holdout accuracy during training. This is the perc
 Example current train-only result:
 
 ```text
-Holdout validation: 441/518 rings correct (85.1%)
+Holdout validation: 946/1114 rings correct (84.9%)
 ```
 
 This is not the same as forward verification. Holdout is useful for model iteration, but it is still measured on rings that are deterministically resolvable in the current dataset.
