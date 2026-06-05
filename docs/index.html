@@ -230,24 +230,28 @@
                 <h2>ML Prediction Verification</h2>
                 <div class="ml-stats">
                     <div class="ml-stat">
-                        <div class="num">${ml.total_predictions}</div>
+                        <div class="num">${ml.total_predictions?.toLocaleString() || 0}</div>
                         <div class="lbl">Total Predictions</div>
                     </div>
                     <div class="ml-stat">
-                        <div class="num">${ml.verified}</div>
+                        <div class="num" style="color:${CHART_COLORS.orange}">${ml.unverified?.toLocaleString() || 0}</div>
+                        <div class="lbl">Pending</div>
+                    </div>
+                    <div class="ml-stat">
+                        <div class="num">${ml.verified?.toLocaleString() || 0}</div>
                         <div class="lbl">Verified</div>
                     </div>
                     <div class="ml-stat">
-                        <div class="num" style="color:${CHART_COLORS.green}">${ml.correct}</div>
+                        <div class="num" style="color:${CHART_COLORS.green}">${ml.correct?.toLocaleString() || 0}</div>
                         <div class="lbl">Correct</div>
                     </div>
                     <div class="ml-stat">
-                        <div class="num" style="color:${CHART_COLORS.red}">${ml.wrong}</div>
+                        <div class="num" style="color:${CHART_COLORS.red}">${ml.wrong?.toLocaleString() || 0}</div>
                         <div class="lbl">Wrong</div>
                     </div>
                     <div class="ml-stat">
                         <div class="num" style="color:${CHART_COLORS.orange}">${ml.accuracy || 'N/A'}</div>
-                        <div class="lbl">Accuracy</div>
+                        <div class="lbl">Verified Accuracy</div>
                     </div>
                 </div>
             </div>
@@ -275,6 +279,7 @@
                     </div>
                 </div>
                 <div class="chart-container" style="height:360px; margin-top:24px">
+                    <h3 style="margin:0 0 12px; color:var(--muted); font-size:14px; font-weight:600">Feature Importances</h3>
                     <canvas id="featureImportanceChart"></canvas>
                 </div>
             </div>
