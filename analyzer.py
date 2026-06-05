@@ -29,18 +29,34 @@ class Analyzer:
                 self.output_to_key_images[output_idx].add(ki)
         logger.info(f"Inverse index built: {len(self.output_to_key_images)} unique outputs")
 
+        # Phase 1: Resolve all ring-size-1 rings FIRST (ground truth —
+        # the sole member IS the real spend). Must happen before any
+        # eliminations, otherwise another ring's resolution can remove
+        # the sole member and produce an impossible size-0 ring.
+        size1_resolved = 0
+        for ki in list(self.rings):
+            if len(self.rings[ki]) == 1:
+                real_output = next(iter(self.rings[ki]))
+                self.resolved[ki] = real_output
+                del self.rings[ki]
+                self.db.mark_resolved(ki, real_output, pass_num=0)
+                size1_resolved += 1
+        logger.info(f"Phase 1: resolved {size1_resolved} ring-size-1 inputs (ground truth)")
+
+        # Phase 2: Load previously resolved spends from DB
         previously_resolved = self.db.get_resolved_spends()
         logger.info(f"Loading {len(previously_resolved)} previously resolved spends")
         for ki, real_output in previously_resolved.items():
-            self.resolved[ki] = real_output
+            if ki not in self.resolved:
+                self.resolved[ki] = real_output
             if ki in self.rings:
                 del self.rings[ki]
 
-        # Apply previously resolved eliminations
-        for ki, real_output in previously_resolved.items():
+        # Phase 3: Apply all resolved eliminations
+        for ki, real_output in self.resolved.items():
             self._eliminate_output(real_output, ki)
 
-        # Seed work queue with rings already at size 1
+        # Seed work queue with rings that dropped to size 1 from eliminations
         work_queue = set()
         for ki, members in self.rings.items():
             if len(members) == 1:

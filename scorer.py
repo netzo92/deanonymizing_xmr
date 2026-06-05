@@ -1,8 +1,15 @@
 import logging
+import math
 import numpy as np
 from collections import defaultdict
 
 logger = logging.getLogger(__name__)
+
+GAMMA_SHAPE = 19.28
+GAMMA_SCALE = 1 / 1.61
+DIFFICULTY_TARGET_SECONDS = 120
+DEFAULT_UNLOCK_SECONDS = 10 * DIFFICULTY_TARGET_SECONDS
+RECENT_SPEND_WINDOW_SECONDS = 15 * DIFFICULTY_TARGET_SECONDS
 
 
 class RingScorer:
@@ -33,6 +40,9 @@ class RingScorer:
             "reuse_count_raw",
             "gap_isolation",
             "is_max_gap_member",
+            "gamma_decoy_log_likelihood",
+            "gamma_recent_window",
+            "gamma_age_surprisal",
         ]
         self._deterministic_ki_cache = None
 
@@ -44,6 +54,43 @@ class RingScorer:
             )
             self._deterministic_ki_cache = set(row[0] for row in cursor)
         return key_image in self._deterministic_ki_cache
+
+    def _gamma_decoy_features(self, member_list, output_idx):
+        """
+        Approximate Monero wallet2 gamma-picker likelihood using only the
+        ring-local global output index spacing available in this database.
+        """
+        indices = [m[1] for m in member_list]
+        newest_idx = max(indices)
+        oldest_idx = min(indices)
+        idx_span = max(newest_idx - oldest_idx, 1)
+
+        # Use ring spacing as a local proxy for output cadence. This is not a
+        # full chain output distribution, but it captures whether a candidate
+        # sits in the part of the ring where wallet2's gamma picker is dense.
+        avg_index_step = idx_span / max(len(member_list) - 1, 1)
+        age_seconds = ((newest_idx - output_idx) / max(avg_index_step, 1e-9)) * DIFFICULTY_TARGET_SECONDS
+
+        if age_seconds <= RECENT_SPEND_WINDOW_SECONDS:
+            recent_window = 1.0
+            # wallet2 samples uniformly in this zone when gamma age falls
+            # inside the default unlock period.
+            log_likelihood = -math.log(RECENT_SPEND_WINDOW_SECONDS)
+        else:
+            recent_window = 0.0
+            x = math.log(age_seconds + DEFAULT_UNLOCK_SECONDS)
+            log_likelihood = (
+                (GAMMA_SHAPE - 1) * math.log(max(x, 1e-12))
+                - x / GAMMA_SCALE
+                - GAMMA_SHAPE * math.log(GAMMA_SCALE)
+                - math.lgamma(GAMMA_SHAPE)
+                - math.log(age_seconds + DEFAULT_UNLOCK_SECONDS)
+            )
+
+        # Keep the feature numerically gentle for tree models and scalers.
+        log_likelihood = max(min(log_likelihood, 0.0), -50.0)
+        surprisal = -log_likelihood / 50.0
+        return log_likelihood, recent_window, surprisal
 
     def extract_features(self, key_image, members, tx_block_height):
         """Extract feature vectors for each ring member.
@@ -135,12 +182,15 @@ class RingScorer:
             surrounding = max(g_prev_raw, g_next_raw)
             is_max_gap_member = 1.0 if surrounding >= max_gap else 0.0
 
+            gamma_ll, gamma_recent, gamma_surprisal = self._gamma_decoy_features(member_list, output_idx)
+
             features.append({
                 "output_key": member,
                 "features": [age_rank, normalized_age, reuse, is_newest, age_dist_score,
                              ring_size, gap_next, gap_prev, distance_from_tx,
                              reuse_rank, is_min_reuse, reuse_raw,
-                             gap_isolation, is_max_gap_member],
+                             gap_isolation, is_max_gap_member,
+                             gamma_ll, gamma_recent, gamma_surprisal],
             })
 
         return features
@@ -196,7 +246,7 @@ class RingScorer:
             return False
 
         try:
-            from sklearn.ensemble import GradientBoostingClassifier
+            from sklearn.ensemble import RandomForestClassifier
             from sklearn.preprocessing import StandardScaler
 
             # Split at the ring level
@@ -213,9 +263,9 @@ class RingScorer:
             self.scaler = StandardScaler()
             X_train_scaled = self.scaler.fit_transform(X_train)
 
-            self.model = GradientBoostingClassifier(
-                n_estimators=300, max_depth=3, learning_rate=0.05,
-                subsample=0.8, min_samples_leaf=5, random_state=42,
+            self.model = RandomForestClassifier(
+                n_estimators=500, max_depth=None, min_samples_leaf=3,
+                class_weight="balanced", random_state=42, n_jobs=-1,
             )
             self.model.fit(X_train_scaled, y_train)
 
@@ -248,9 +298,9 @@ class RingScorer:
             y_all = np.array([l for r in rings_data for l in r["y"]])
             self.scaler = StandardScaler()
             X_all_scaled = self.scaler.fit_transform(X_all)
-            self.model = GradientBoostingClassifier(
-                n_estimators=300, max_depth=3, learning_rate=0.05,
-                subsample=0.8, min_samples_leaf=5, random_state=42,
+            self.model = RandomForestClassifier(
+                n_estimators=500, max_depth=None, min_samples_leaf=3,
+                class_weight="balanced", random_state=42, n_jobs=-1,
             )
             self.model.fit(X_all_scaled, y_all)
 
