@@ -141,6 +141,8 @@ function renderSummary(app, data) {
         ['Dataset', scope.dataset_id], ['Scanned heights', `${display(scope.scan_start)} – ${display(scope.scan_end)}`],
         ['Exported', scope.exported_at || data.generated_at], ['Schema', data.schema_version || 'Legacy'],
     ]) bar.append(append(element('span'), `${label}: `, element('strong', label === 'Dataset' ? 'mono' : '', display(value))));
+    if (known(scope.chain_data_at)) bar.append(append(element('span'), 'Last scanned block: ', element('strong', '', display(scope.chain_data_at))));
+    if (isNumber(data.collection?.blocks_behind)) bar.append(append(element('span'), 'Collector lag: ', element('strong', '', `${count(data.collection.blocks_behind)} blocks behind the observed node`)));
     app.append(bar);
     const categories = evidenceCategories(s);
     if (!categories.complete) notice(app, 'This export does not contain the complete evidence split. Deterministic and hypothesis counts are unknown where missing; legacy “fully resolved” totals can include hypotheses. Regenerate the dashboard export for full detail.');

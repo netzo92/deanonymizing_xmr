@@ -1,5 +1,13 @@
 import logging
 import math
+import hashlib
+import importlib.metadata
+import json
+import pickle
+from pathlib import Path
+import platform
+import subprocess
+import zlib
 import numpy as np
 from collections import defaultdict
 
@@ -10,6 +18,7 @@ GAMMA_SCALE = 1 / 1.61
 DIFFICULTY_TARGET_SECONDS = 120
 DEFAULT_UNLOCK_SECONDS = 10 * DIFFICULTY_TARGET_SECONDS
 RECENT_SPEND_WINDOW_SECONDS = 15 * DIFFICULTY_TARGET_SECONDS
+FEATURE_VERSION = "ring-member-v1"
 
 
 class RingScorer:
@@ -26,6 +35,8 @@ class RingScorer:
         self.analyzer = analyzer
         self.model = None
         self.training_metrics = None
+        self.training_context = None
+        self.last_run_id = None
         self.feature_names = [
             "output_age_rank",
             "normalized_age",
@@ -59,11 +70,9 @@ class RingScorer:
     def _is_deterministic(self, key_image):
         """Check if a resolution is deterministic (not ML-predicted)."""
         if self._deterministic_ki_cache is None:
-            cursor = self.db.conn.execute(
-                "SELECT key_image FROM resolved_spends "
-                "WHERE confidence = 1.0 AND resolved_at_pass >= 0"
+            self._deterministic_ki_cache = set(
+                self.db.get_deterministic_resolved_spends()
             )
-            self._deterministic_ki_cache = set(row[0] for row in cursor)
         return key_image in self._deterministic_ki_cache
 
     def _outputs_per_block(self):
@@ -322,6 +331,7 @@ class RingScorer:
         """Train a model with ring-level holdout split (no data leakage between rings)."""
         rings_data = self.build_training_data()
         self.training_metrics = None
+        self.training_context = None
         if rings_data is None:
             logger.warning("Cannot train: no training data")
             return False
@@ -404,16 +414,82 @@ class RingScorer:
             )
             self.model.fit(X_all_scaled, y_all)
 
+            self.training_context = {
+                "holdout_fraction": holdout_fraction, "split_seed": 42,
+                "split_unit": "ring", "training_rings": len(rings_data),
+                "training_data_sha256": hashlib.sha256(
+                    json.dumps(rings_data, separators=(",", ":"), allow_nan=False).encode()
+                ).hexdigest(),
+                "scan_height": self.db.get_scan_progress(),
+            }
+
             return True
         except ImportError:
             logger.error("scikit-learn not installed. Run: pip install scikit-learn")
             return False
 
+    def _prediction_run_metadata(self, confidence_threshold):
+        """Capture provenance without depending on an unchanged Git working tree."""
+        source_root = Path(__file__).resolve().parent
+        manifest = {
+            path.name: hashlib.sha256(path.read_bytes()).hexdigest()
+            for path in sorted(source_root.glob("*.py"))
+        }
+        revision = None
+        dirty = None
+        try:
+            revision = subprocess.run(
+                ["git", "rev-parse", "HEAD"], cwd=source_root, capture_output=True,
+                text=True, check=True, timeout=5,
+            ).stdout.strip()
+            dirty = bool(subprocess.run(
+                ["git", "status", "--porcelain", "--untracked-files=normal"], cwd=source_root,
+                capture_output=True, text=True, check=True, timeout=5,
+            ).stdout.strip())
+        except (OSError, subprocess.SubprocessError):
+            pass
+        if revision is None:
+            release_path = source_root / "REVISION"
+            if release_path.is_file():
+                candidate = release_path.read_text().strip()
+                if len(candidate) == 40 and all(char in "0123456789abcdef" for char in candidate):
+                    revision = candidate
+        versions = {"python": platform.python_version(), "numpy": np.__version__}
+        try:
+            versions["scikit-learn"] = importlib.metadata.version("scikit-learn")
+        except importlib.metadata.PackageNotFoundError:
+            versions["scikit-learn"] = None
+        tip = self.db.conn.execute(
+            "SELECT height, block_hash FROM blocks ORDER BY height DESC LIMIT 1"
+        ).fetchone()
+        return {
+            "origin": "scorer", "revision": revision, "working_tree_dirty": dirty,
+            "source_manifest": manifest,
+            "working_source_sha256": hashlib.sha256(
+                json.dumps(manifest, sort_keys=True).encode()
+            ).hexdigest(),
+            "feature_version": FEATURE_VERSION, "feature_names": list(self.feature_names),
+            "settings": {
+                "confidence_threshold": confidence_threshold,
+                "model_class": type(self.model).__name__,
+                "model_parameters": self.model.get_params() if hasattr(self.model, "get_params") else None,
+                "scaler_class": type(self.scaler).__name__,
+                "scaler_parameters": self.scaler.get_params() if hasattr(self.scaler, "get_params") else None,
+            },
+            "training_context": self.training_context, "training_metrics": self.training_metrics,
+            "versions": versions, "snapshot_counts": self.db.get_stats(),
+            "scan_tip_hash": tip[1] if tip else None,
+            "score_semantics": "uncalibrated_candidate_score",
+        }
+
     def score_unresolved(self, confidence_threshold=0.95):
         """Score unresolved rings and return high-confidence predictions."""
+        self.last_run_id = None
         if self.model is None:
             logger.warning("Model not trained. Call train() first.")
             return []
+        if not math.isfinite(confidence_threshold) or not 0 <= confidence_threshold <= 1:
+            raise ValueError("Confidence threshold must be finite and in [0, 1]")
 
         unresolved = self.analyzer.get_unresolved_rings()
         candidate_features = []
@@ -440,6 +516,7 @@ class RingScorer:
                 "key_image": ki,
                 "feature_data": feature_data,
                 "ring_size": len(members),
+                "original_ring_size": len({(row[2], row[3]) for row in details}),
                 "start": start,
                 "end": len(candidate_features),
             })
@@ -449,29 +526,49 @@ class RingScorer:
             X_scaled = self.scaler.transform(X)
             all_probas = self.model.predict_proba(X_scaled)[:, 1]
 
-            for ring in candidate_rings:
-                probas = all_probas[ring["start"]:ring["end"]]
-                best_idx = np.argmax(probas)
-                best_prob = probas[best_idx]
-                best_output = ring["feature_data"][best_idx]["output_key"]
+            # Keep artifacts inside SQLite so backups retain the model reference.
+            # Loading pickle is deliberately not exposed by the dashboard/export API.
+            artifact = zlib.compress(pickle.dumps(
+                {"model": self.model, "scaler": self.scaler, "feature_names": self.feature_names},
+                protocol=pickle.HIGHEST_PROTOCOL,
+            ))
+            with self.db.prediction_transaction():
+                run_id = self.db.create_prediction_run(
+                    self._prediction_run_metadata(confidence_threshold), artifact=artifact,
+                )
 
-                if best_prob >= confidence_threshold:
-                    predictions.append({
-                        "key_image": ring["key_image"],
-                        "predicted_output": best_output,
-                        "confidence": float(best_prob),
-                        "ring_size": ring["ring_size"],
-                    })
+                for ring in candidate_rings:
+                    probas = all_probas[ring["start"]:ring["end"]]
+                    best_idx = np.argmax(probas)
+                    best_prob = probas[best_idx]
+                    best_output = ring["feature_data"][best_idx]["output_key"]
+
+                    candidates = [
+                        {"amount": fd["output_key"][0], "index": fd["output_key"][1],
+                         "score": float(score), "features": [float(value) for value in fd["features"]]}
+                        for fd, score in zip(ring["feature_data"], probas)
+                    ]
+                    prediction_id = self.db.save_prediction(
+                        ring["key_image"], best_output, float(best_prob), run_id=run_id,
+                        candidates=candidates, accepted=best_prob >= confidence_threshold,
+                        original_ring_size=ring["original_ring_size"],
+                    )
+
+                    if best_prob >= confidence_threshold:
+                        predictions.append({
+                            "key_image": ring["key_image"],
+                            "predicted_output": best_output,
+                            "confidence": float(best_prob),
+                            "ring_size": ring["ring_size"],
+                            "prediction_id": prediction_id,
+                            "run_id": run_id,
+                        })
+            self.last_run_id = run_id
 
         predictions.sort(key=lambda x: x["confidence"], reverse=True)
         logger.info(f"Scored {len(unresolved)} unresolved rings, "
                     f"{len(predictions)} above {confidence_threshold} confidence")
 
-        # Save predictions for future verification
-        for pred in predictions:
-            self.db.save_prediction(
-                pred["key_image"], pred["predicted_output"], pred["confidence"],
-            )
         self.db.commit()
 
         return predictions
@@ -486,9 +583,10 @@ class RingScorer:
         unverified = self.db.get_unverified_predictions()
         if not unverified:
             logger.info("No unverified predictions to check")
-            return {"checked": 0, "verified": 0, "correct": 0, "wrong": 0}
+            return {"checked": 0, "verified": 0, "correct": 0, "wrong": 0, "accuracy": "N/A"}
 
-        deterministic = self.db.get_resolved_spends()
+        deterministic = self.db.get_deterministic_resolved_spends()
+        scan_height = self.db.get_scan_progress()
         checked = 0
         correct = 0
         wrong = 0
@@ -499,7 +597,20 @@ class RingScorer:
             if ki in deterministic:
                 actual = deterministic[ki]
                 is_correct = pred["predicted_output"] == actual
-                self.db.mark_prediction_verified(ki, is_correct)
+                event = self.db.conn.execute(
+                    "SELECT e.id FROM resolution_events e JOIN resolved_spends rs "
+                    "ON rs.key_image = e.key_image AND rs.real_amount = e.real_amount "
+                    "AND rs.real_output_index = e.real_output_index "
+                    "AND rs.resolved_at_pass = e.resolved_at_pass AND rs.confidence = e.confidence "
+                    "WHERE e.key_image = ? AND e.confidence = 1.0 AND e.resolved_at_pass >= 0 "
+                    "ORDER BY e.id DESC LIMIT 1", (ki,),
+                ).fetchone()
+                recorded = self.db.mark_prediction_verified(
+                    ki, is_correct, prediction_id=pred["prediction_id"], actual_output=actual,
+                    scan_height=scan_height, resolution_event_id=event[0] if event else None,
+                )
+                if not recorded:
+                    continue
                 checked += 1
                 if is_correct:
                     correct += 1
@@ -553,6 +664,9 @@ class RingScorer:
                 output = pred["predicted_output"]
                 confidence = pred["confidence"]
 
+                if ki not in self.analyzer.rings or output not in self.analyzer.rings[ki]:
+                    continue
+
                 # Skip if this output is the sole member of another ring (ground truth)
                 other_kis = self.analyzer.output_to_key_images.get(output, set())
                 conflict = False
@@ -572,7 +686,9 @@ class RingScorer:
                 if ki in self.analyzer.rings:
                     del self.analyzer.rings[ki]
 
-                self.db.mark_resolved(ki, output, pass_num=-1, confidence=confidence)
+                self.analyzer.record_resolution(
+                    ki, output, pass_num=-1, confidence=confidence, method="ml_prediction",
+                )
                 self.analyzer._eliminate_output(output, ki)
                 total_soft_resolved += 1
 
@@ -588,7 +704,9 @@ class RingScorer:
                 real_output = next(iter(self.analyzer.rings[ki]))
                 self.analyzer.resolved[ki] = real_output
                 del self.analyzer.rings[ki]
-                self.db.mark_resolved(ki, real_output, pass_num=-2, confidence=1.0)
+                self.analyzer.record_resolution(
+                    ki, real_output, pass_num=-2, confidence=1.0, method="soft_cascade",
+                )
                 self.analyzer._eliminate_output(real_output, ki)
                 total_soft_resolved += 1
 

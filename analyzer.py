@@ -13,10 +13,21 @@ class Analyzer:
         self.output_to_key_images = defaultdict(set)
         self.resolved = {}
         self.stats = {}
+        self.resolution_event_ids = {}
+        self.elimination_sources = defaultdict(dict)
+        self.hypothesis_event_ids = set()
+        self.scan_height = None
 
     def run(self, max_passes=100):
         logger.info("Loading rings from database...")
         self.rings = self.db.get_all_rings()
+        self.original_sizes = {}
+        self.output_to_key_images = defaultdict(set)
+        self.resolved = {}
+        self.resolution_event_ids = {}
+        self.elimination_sources = defaultdict(dict)
+        self.hypothesis_event_ids = set()
+        self.scan_height = self.db.get_scan_progress()
         total_rings = len(self.rings)
         logger.info(f"Loaded {total_rings} rings")
 
@@ -28,6 +39,7 @@ class Analyzer:
             for output_idx in members:
                 self.output_to_key_images[output_idx].add(ki)
         logger.info(f"Inverse index built: {len(self.output_to_key_images)} unique outputs")
+        self.db.snapshot_legacy_resolutions(self.scan_height)
 
         # Phase 1: Resolve all ring-size-1 rings FIRST (ground truth —
         # the sole member IS the real spend). Must happen before any
@@ -39,12 +51,21 @@ class Analyzer:
                 real_output = next(iter(self.rings[ki]))
                 self.resolved[ki] = real_output
                 del self.rings[ki]
-                self.db.mark_resolved(ki, real_output, pass_num=0)
+                self.db.mark_resolved(
+                    ki, real_output, pass_num=0, method="ring_size_one", scan_height=self.scan_height,
+                )
                 size1_resolved += 1
         logger.info(f"Phase 1: resolved {size1_resolved} ring-size-1 inputs (ground truth)")
 
         # Phase 2: Load previously resolved spends from DB
         previously_resolved = self.db.get_resolved_spends()
+        self.resolution_event_ids = self.db.get_resolution_event_ids()
+        self.hypothesis_event_ids = {
+            self.resolution_event_ids[row[0]] for row in self.db.conn.execute(
+                "SELECT key_image FROM resolved_spends WHERE confidence IS NOT 1.0 "
+                "OR resolved_at_pass IS NULL OR resolved_at_pass < 0"
+            )
+        }
         logger.info(f"Loading {len(previously_resolved)} previously resolved spends")
         for ki, real_output in previously_resolved.items():
             if ki not in self.resolved:
@@ -81,7 +102,7 @@ class Analyzer:
             work_queue = set()
 
             for ki, real_output in newly_resolved:
-                self.db.mark_resolved(ki, real_output, pass_num)
+                self.record_resolution(ki, real_output, pass_num, method="cascade")
                 affected = self._eliminate_output(real_output, ki)
                 for affected_ki in affected:
                     if affected_ki in self.rings and len(self.rings[affected_ki]) == 1:
@@ -93,6 +114,8 @@ class Analyzer:
                             f"(total: {total_resolved}/{total_rings})")
 
             self.db.commit()
+
+        self.db.commit()
 
         # Compute statistics
         ring_size_dist = defaultdict(int)
@@ -133,11 +156,29 @@ class Analyzer:
 
         return self.stats
 
+    def record_resolution(self, key_image, real_output, pass_num, confidence=1.0, method="cascade"):
+        dependencies = self.elimination_sources.get(key_image, {})
+        if method == "cascade":
+            if any(source in self.hypothesis_event_ids for source in dependencies.values()):
+                method, pass_num = "soft_cascade", -2
+        event_id = self.db.mark_resolved(
+            key_image, real_output, pass_num, confidence, method=method,
+            dependencies=dependencies, scan_height=self.scan_height,
+        )
+        self.resolution_event_ids[key_image] = event_id
+        if confidence != 1.0 or pass_num is None or pass_num < 0:
+            self.hypothesis_event_ids.add(event_id)
+        self.elimination_sources.pop(key_image, None)
+        return event_id
+
     def _eliminate_output(self, output_index, source_ki):
         affected = set()
         for other_ki in self.output_to_key_images.get(output_index, set()):
             if other_ki != source_ki and other_ki in self.rings:
-                self.rings[other_ki].discard(output_index)
+                if output_index not in self.rings[other_ki]:
+                    continue
+                self.rings[other_ki].remove(output_index)
+                self.elimination_sources[other_ki][output_index] = self.resolution_event_ids[source_ki]
                 if len(self.rings[other_ki]) == 0:
                     logger.warning(f"Ring {other_ki} reduced to 0 members — "
                                    f"possible data inconsistency")

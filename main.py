@@ -3,14 +3,21 @@ import argparse
 import json
 import logging
 import os
+import sqlite3
+import shlex
+import tempfile
 import sys
+from dataclasses import asdict
 from datetime import datetime, timezone
+from pathlib import Path
 
+from brain import Brain
 from monero_rpc import MoneroRPC
 from models import Database
 from scanner import Scanner
 from analyzer import Analyzer
 from scorer import RingScorer
+from dashboard_export import evidence_summary, prediction_browser
 
 
 def setup_logging(verbose):
@@ -160,64 +167,97 @@ def cmd_verify(args):
 
 
 def cmd_export_viz(args):
+    if not 0 <= getattr(args, "prediction_limit", 200) <= 1000:
+        raise ValueError("prediction limit must be between 0 and 1000")
+    if not 0 <= getattr(args, "evidence_trace_limit", 50) <= 200:
+        raise ValueError("evidence trace limit must be between 0 and 200")
     db = Database(args.db)
-    analyzer = Analyzer(db)
-    stats = analyzer.run(max_passes=args.max_passes)
-    db_stats = db.get_stats()
-    ml_stats = db.get_prediction_stats()
-    ml_training = None
+    try:
+        analyzer = Analyzer(db)
+        stats = analyzer.run(max_passes=args.max_passes)
+        db_stats = db.get_stats()
+        stats = {**stats, **evidence_summary(db, analyzer)}
+        ml_stats = db.get_prediction_stats()
+        ml_training = None
 
-    if args.include_ml_training:
-        scorer = RingScorer(db, analyzer)
-        if scorer.train():
-            ml_training = scorer.training_metrics
+        if args.include_ml_training:
+            scorer = RingScorer(db, analyzer)
+            if scorer.train():
+                ml_training = scorer.training_metrics
 
-    # Load existing history or start fresh
-    data_path = os.path.join(args.output_dir, "data.json")
-    history = []
-    if os.path.exists(data_path):
-        try:
-            with open(data_path) as f:
-                existing = json.load(f)
-                history = existing.get("history", [])
-        except (json.JSONDecodeError, KeyError):
-            pass
+        # Load existing history or start fresh
+        data_path = os.path.join(args.output_dir, "data.json")
+        history = []
+        if os.path.exists(data_path):
+            try:
+                with open(data_path) as f:
+                    existing = json.load(f)
+                    stored_history = existing.get("history", []) if isinstance(existing, dict) else []
+                    history = [item for item in stored_history if isinstance(item, dict)] if isinstance(stored_history, list) else []
+            except (json.JSONDecodeError, KeyError):
+                pass
 
-    # Append current snapshot if blocks changed
-    snapshot = {
-        "blocks_scanned": db_stats["blocks_scanned"],
-        "total_rings": stats["total_rings"],
-        "fully_resolved": stats["fully_resolved"],
-        "partially_reduced": stats["partially_reduced"],
-        "unreduced": stats["unreduced"],
-        "resolution_rate": stats["resolution_rate"],
-        "passes": stats["passes"],
-        "timestamp": datetime.now(timezone.utc).isoformat(),
-    }
-
-    if not history or history[-1]["blocks_scanned"] != snapshot["blocks_scanned"]:
-        history.append(snapshot)
-
-    output = {
-        "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
-        "summary": {
-            **stats,
+        # Keep changes in evidence visible even when no new blocks were scanned.
+        snapshot = {
+            "dataset_id": db.get_dataset_id(),
             "blocks_scanned": db_stats["blocks_scanned"],
-            "transactions": db_stats["transactions"],
-            "ring_members": db_stats["ring_members"],
-        },
-        "ml_predictions": ml_stats,
-        "ml_training": ml_training,
-        "history": history,
-    }
+            "total_rings": stats["total_rings"],
+            "fully_resolved": stats["fully_resolved"],
+            "partially_reduced": stats["partially_reduced"],
+            "unreduced": stats["unreduced"],
+            "resolution_rate": stats["resolution_rate"],
+            "passes": stats["passes"],
+            "deterministic_resolutions": stats["deterministic_resolutions"],
+            "hypothesis_resolutions": stats["hypothesis_resolutions"],
+            "conflict_rings": stats["conflict_rings"],
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+        }
 
-    os.makedirs(args.output_dir, exist_ok=True)
-    with open(data_path, "w") as f:
-        json.dump(output, f, indent=2)
+        if not history or any(history[-1].get(key) != value for key, value in snapshot.items()
+                              if key != "timestamp"):
+            history.append(snapshot)
 
-    print(f"Dashboard data written to {data_path}")
-    print(f"Open docs/index.html in a browser or enable GitHub Pages on the docs/ folder")
-    db.close()
+        output = {
+            "schema_version": 2,
+            "scope": {
+                "dataset_id": db.get_dataset_id(),
+                "scan_start": db.conn.execute("SELECT MIN(height) FROM blocks").fetchone()[0],
+                "scan_end": db.conn.execute("SELECT MAX(height) FROM blocks").fetchone()[0],
+                "exported_at": datetime.now(timezone.utc).isoformat(),
+            },
+            "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
+            "summary": {
+                **stats,
+                "blocks_scanned": db_stats["blocks_scanned"],
+                "transactions": db_stats["transactions"],
+                "ring_members": db_stats["ring_members"],
+            },
+            "ml_predictions": ml_stats,
+            "ml_training": ml_training,
+            "history": history,
+            "prediction_browser": prediction_browser(
+                db, limit=getattr(args, "prediction_limit", 200),
+                trace_limit=getattr(args, "evidence_trace_limit", 50),
+            ),
+        }
+
+        os.makedirs(args.output_dir, exist_ok=True)
+        # Readers should see either the old complete snapshot or the new one.
+        with tempfile.NamedTemporaryFile(mode="w", dir=args.output_dir, suffix=".json.tmp", delete=False) as f:
+            temporary_path = f.name
+            try:
+                json.dump(output, f, indent=2, allow_nan=False)
+                f.close()
+                os.replace(temporary_path, data_path)
+            finally:
+                if os.path.exists(temporary_path):
+                    os.unlink(temporary_path)
+
+        print(f"Dashboard data written to {data_path}")
+        print(f"Serve locally: python -m http.server 8000 --bind 127.0.0.1 --directory {shlex.quote(args.output_dir)}")
+        print("Open http://127.0.0.1:8000 (serve the dashboard HTML/assets from the same directory).")
+    finally:
+        db.close()
 
 
 def cmd_status(args):
@@ -236,6 +276,37 @@ def cmd_status(args):
         print(f"Latest block:        {progress}")
 
     db.close()
+
+
+def cmd_brain(args):
+    uri = Path(args.db).resolve().as_uri() + "?mode=ro"
+    connection = sqlite3.connect(uri, uri=True)
+    try:
+        connection.execute("BEGIN")
+        brain = Brain(connection)
+        if args.key_image:
+            explanation = brain.explain(args.key_image)
+            result = asdict(explanation)
+            resolution = explanation.memory.resolution
+            result["memory"]["resolution_kind"] = (
+                "deterministic" if resolution.deterministic else "hypothesis"
+            ) if resolution else None
+            result["related_rings"] = [
+                asdict(ring) for ring in brain.related_rings(args.key_image, args.related_limit)
+            ]
+            result["lineage"] = asdict(brain.trace(args.key_image, max_nodes=args.trace_limit))
+        else:
+            result = brain.summary()
+        print(json.dumps(result, indent=2))
+    finally:
+        connection.close()
+
+
+def non_negative_int(value):
+    number = int(value)
+    if number < 0:
+        raise argparse.ArgumentTypeError("must be non-negative")
+    return number
 
 
 def main():
@@ -306,9 +377,21 @@ def main():
     viz_parser.add_argument("--max-passes", type=int, default=100)
     viz_parser.add_argument("--include-ml-training", action="store_true",
                             help="Train scorer and include holdout/feature-importance data")
+    viz_parser.add_argument("--prediction-limit", type=non_negative_int, default=200,
+                            help="Newest historical scoring records to export, 0–1000 (default: 200)")
+    viz_parser.add_argument("--evidence-trace-limit", type=non_negative_int, default=50,
+                            help="Events per evidence trace, 0–200 (default: 50)")
 
     # status
     subparsers.add_parser("status", help="Show database statistics")
+
+    # brain
+    brain_parser = subparsers.add_parser("brain", help="Inspect the evidence graph (read-only)")
+    brain_parser.add_argument("--key-image", help="Explain a ring and recall its evidence")
+    brain_parser.add_argument("--related-limit", type=non_negative_int, default=20,
+                              help="Maximum related rings to show (default: 20)")
+    brain_parser.add_argument("--trace-limit", type=non_negative_int, default=100,
+                              help="Maximum resolution events to trace (default: 100)")
 
     args = parser.parse_args()
     setup_logging(args.verbose)
@@ -330,6 +413,11 @@ def main():
             cmd_export_viz(args)
         elif args.command == "status":
             cmd_status(args)
+        elif args.command == "brain":
+            try:
+                cmd_brain(args)
+            except (sqlite3.Error, KeyError) as exc:
+                parser.exit(1, f"Brain error: {exc}\n")
     except KeyboardInterrupt:
         print("\nInterrupted. Progress has been saved.")
         sys.exit(1)

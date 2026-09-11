@@ -1,0 +1,44 @@
+[Unit]
+Description=Monero research collector and dashboard exporter
+Wants=network-online.target
+After=network-online.target
+ConditionPathExists=/etc/xmr/collector.env
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+User=xmr
+Group=xmr
+WorkingDirectory=/opt/xmr/current
+EnvironmentFile=/etc/xmr/collector.env
+Environment=PYTHONUNBUFFERED=1
+Environment=PYTHONDONTWRITEBYTECODE=1
+Environment=OMP_NUM_THREADS=2
+Environment=OPENBLAS_NUM_THREADS=2
+Environment=MKL_NUM_THREADS=2
+Environment=MAX_RINGS=2000000
+Environment=MIN_FREE_GB=5
+Environment=RPC_DELAY_MS=100
+Environment=CONFIRMATIONS=10
+ExecStart=/opt/xmr/venv/bin/python /opt/xmr/current/collector.py --db /var/lib/xmr/monero_analysis.db --output-dir /var/www/xmr --node ${MONERO_RPC_URL} --blocks-per-cycle ${BLOCKS_PER_CYCLE} --interval-seconds ${INTERVAL_SECONDS} --prediction-every ${PREDICTION_EVERY} --max-rings ${MAX_RINGS} --min-free-gb ${MIN_FREE_GB} --rpc-delay-ms ${RPC_DELAY_MS} --confirmations ${CONFIRMATIONS}
+MemoryHigh=5G
+MemoryMax=6G
+Restart=always
+RestartSec=30
+TimeoutStopSec=120
+UMask=0022
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+CapabilityBoundingSet=
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+ReadWritePaths=/var/lib/xmr /var/www/xmr
+
+[Install]
+WantedBy=multi-user.target

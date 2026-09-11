@@ -4,6 +4,14 @@ Monero ring-signature analysis tool. It scans blocks from a Monero node, stores 
 
 This is research code. Deterministic resolutions depend on historical ring-size and cascade assumptions; ML predictions are probabilistic and should be treated as hypotheses until forward-verified.
 
+## Repository knowledge
+
+Start at the [Markdown brain](brain/index.md) for a linked hierarchy of
+architecture, research context, and development workflows. Each topic includes
+source links; [maintenance rules](brain/workflows/maintenance.md) describe how to
+keep it current. The database evidence API is documented under **Evidence brain**
+below.
+
 ## Setup
 
 ```bash
@@ -28,9 +36,20 @@ Or create and populate it by scanning blocks:
 venv/bin/python main.py --node http://127.0.0.1:18081 scan --start 0 --end 1000
 ```
 
-The schema lives in `models.py` and includes `blocks`, `transactions`, `ring_members`, `resolved_spends`, and `ml_predictions`.
+The schema lives in `models.py` and includes `blocks`, `transactions`, `ring_members`,
+`resolved_spends`, `ml_predictions`, `resolution_events`, and `resolution_dependencies`.
 
 ## Usage
+
+### GCP collector and hosting
+
+See the [GCP deployment guide](deploy/gcp/README.md) for a persistent VM that
+collects bounded batches, verifies predictions, periodically scores, and serves
+the interactive dashboard through nginx. Deployment uses an explicit committed
+release and can seed from a consistent backup of the existing SQLite database.
+The collector queries a Monero RPC endpoint; it does not install a full Monero
+daemon. Operational behavior and limits are recorded in the
+[cloud workflow](brain/workflows/cloud.md).
 
 ### Scan blocks
 
@@ -79,28 +98,51 @@ This writes `docs/data.json`, which is rendered by `docs/index.html`. The curren
 - historical scan snapshots
 - ML prediction verification counts
 - ML holdout accuracy and feature importances when exported with `--include-ml-training`
+- separate deterministic/hypothesis counts and conflict flags
+- a searchable prediction-history table and current evidence inspector
+
+Export a bounded selection of historical scores and evidence, then serve locally:
+
+```bash
+venv/bin/python main.py export-viz --prediction-limit 200 --evidence-trace-limit 50
+venv/bin/python -m http.server 8000 --directory docs --bind 127.0.0.1
+```
+
+Open `http://127.0.0.1:8000`. Filters apply to the exported selection; the page
+shows its coverage. Scores are uncalibrated. Historical candidate scores belong
+to their saved run; inspector explanations describe evidence at export time.
+Output amounts and indices are decimal strings in schema-v2 exports to preserve
+exact identities in JavaScript. Limits are 1,000 prediction records and 200
+events per trace; use `--prediction-limit 0` for aggregates only.
+
+New scoring runs preserve previous predictions, candidate alternatives (including
+below-threshold scores), features, model/scaler artifacts, and provenance. Normal
+database opening imports old predictions once, preserving known timestamps and
+outcomes and labeling missing historical context unknown. Verification checks
+outstanding accepted records individually; summary verification counts continue
+to describe the latest accepted prediction per ring.
 
 Current dashboard snapshot:
 
 ```text
-Blocks scanned:    49,701
-Total rings:       308,207
-Fully resolved:    262,463
-Partially reduced: 38,997
-Unreduced:         6,747
-Resolution rate:   85.16%
-Cascade passes:    4
+Blocks scanned:    58,901
+Total rings:       626,416
+Fully resolved:    561,820
+Partially reduced: 54,996
+Unreduced:         9,600
+Resolution rate:   89.69%
+Cascade passes:    5
 ```
 
 Current ML prediction verification:
 
 ```text
 Total predictions:  15,328
-Verified so far:    505
-Correct:            408
-Wrong:              97
-Forward accuracy:   80.8%
-Still unverified:   14,823
+Verified so far:    734
+Correct:            591
+Wrong:              143
+Forward accuracy:   80.5%
+Still unverified:   14,594
 ```
 
 Include ML holdout accuracy and feature importances:
@@ -121,6 +163,75 @@ git push origin main
 
 ```bash
 venv/bin/python main.py status
+```
+
+### Evidence brain
+
+`brain.py` exposes the existing database as a graph: rings and outputs are nodes,
+and ring membership connects them. Outputs are identified by both amount and
+index. Each ring memory includes its transaction inputs, stored resolution, and
+ML prediction with confidence and verification status.
+
+Inspect graph counts or a particular ring:
+
+```bash
+venv/bin/python main.py brain
+venv/bin/python main.py brain --key-image <key_image> --related-limit 10 --trace-limit 100
+```
+
+The command emits JSON and opens an existing database read-only. It does not run
+analysis or load the entire graph into memory. A ring explanation lists original
+candidates, the other rings whose stored deterministic resolutions eliminate
+them, remaining candidates, and conflicting records. Related rings are ranked by
+the number of outputs they share.
+
+Use the typed, immutable records from Python (3.10+):
+
+```python
+from brain import Brain
+from models import Database
+
+db = Database()
+try:
+    brain = Brain(db.conn)
+    memory = brain.recall(key_image)
+    explanation = brain.explain(key_image)
+    neighbors = brain.related_rings(key_image, limit=10)
+    lineage = brain.trace(key_image, max_nodes=100)
+finally:
+    db.close()
+```
+
+Memories are fetched on demand; recall again after scanning or analysis to see
+updates. Predictions and soft-cascade resolutions remain hypotheses and never
+eliminate candidates here. Deterministic classification uses the stored pass and
+confidence metadata, under the analyzer's existing assumptions. `explain()` shows
+current supporting records; `trace()` follows the events recorded when a
+resolution was made.
+
+New analysis runs record immutable resolution events with a method, confidence,
+scan height, and UTC recording time. Every cascade event links each eliminated
+output to the source event that actually removed it. These links retain the
+original source claim even if that ring's current resolution later changes.
+Repeated runs reuse unchanged events. ML-driven cascades retain hypothesis
+status through later passes and cannot become deterministic verification labels.
+
+The `lineage` field in the CLI output contains the root event and its ancestors.
+`complete` means all dependency events are available with known methods; it does
+not mean the conclusion is deterministic or independently proven. `truncated`
+indicates the trace limit was reached, and `missing_event_ids` identifies broken
+links. Stored ML events preserve the chosen output and confidence, not a
+replayable model snapshot.
+
+Opening the database through a regular command creates the new tables. The next
+analysis run imports existing claims as `legacy` events whose original reasoning
+is unknown. Their recording time is the import time, not the historical discovery
+time, and traces through them remain incomplete. The brain command can still
+inspect databases that have not been migrated. Start recording new reasoning with:
+
+```bash
+venv/bin/python main.py analyze
+venv/bin/python main.py brain --key-image <key_image>
 ```
 
 ### Diagnose empty rings
