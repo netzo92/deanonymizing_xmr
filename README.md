@@ -1,6 +1,6 @@
-# deanonymizing_xmr
+# TraceGrove
 
-Monero ring-signature analysis tool. It scans blocks from a Monero node, stores ring data in SQLite, runs deterministic intersection/cascade analysis, and can train ML predictors for unresolved rings.
+TraceGrove is a Monero ring-signature research tool. It scans blocks from a Monero node, stores ring data in SQLite, runs deterministic intersection/cascade analysis, and can train ML predictors for unresolved rings.
 
 This is research code. Deterministic resolutions depend on historical ring-size and cascade assumptions; ML predictions are probabilistic and should be treated as hypotheses until forward-verified.
 
@@ -84,6 +84,10 @@ venv/bin/python main.py export --output results.json
 ```
 
 ### Dashboard
+
+The [TraceGrove dashboard](https://netzo92.github.io/deanonymizing_xmr/) is currently
+hosted on GitHub Pages. Its intended domain is `tracegrove.io`; domain registration
+and DNS setup are pending.
 
 Export the GitHub Pages dashboard data:
 

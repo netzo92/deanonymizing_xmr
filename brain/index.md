@@ -4,9 +4,9 @@ status: maintained
 reviewed: 2026-09-11
 ---
 
-# Repository brain
+# TraceGrove repository brain
 
-This project scans Monero ring data into SQLite, applies intersection/cascade
+TraceGrove scans Monero ring data into SQLite, applies intersection/cascade
 analysis, scores unresolved rings with ML, and exposes evidence through a CLI
 and a static dashboard. These pages describe the working-tree implementation
 reviewed on the date above, including changes that may not yet be committed.
@@ -23,6 +23,7 @@ source links. Loading every page is unnecessary for most tasks.
 
 ## Essential context
 
+- The app is named TraceGrove. Its intended domain, `tracegrove.io`, is pending registration and DNS setup; the live dashboard remains on [GitHub Pages](https://netzo92.github.io/deanonymizing_xmr/). See the [dashboard guide](../README.md#dashboard).
 - A ring is keyed by its key image; an output is identified by both amount and index.
 - Stored deterministic classification requires confidence `1.0` and a non-negative pass number. Its validity still depends on the analyzer's assumptions and input data.
 - Predictions and cascades derived from them remain hypotheses.
