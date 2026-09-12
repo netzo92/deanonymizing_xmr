@@ -11,11 +11,15 @@
     <link rel="stylesheet" href="research-analytics.css">
     <link rel="stylesheet" href="evidence-graph.css">
     <link rel="stylesheet" href="feature-audit.css">
+    <link rel="stylesheet" href="progress-view.css">
+    <link rel="stylesheet" href="live-feed.css">
     <script async id="chart-library" src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script defer src="brain-view.js"></script>
     <script defer src="research-analytics.js"></script>
     <script defer src="evidence-graph.js"></script>
     <script defer src="feature-audit.js"></script>
+    <script defer src="progress-view.js"></script>
+    <script defer src="live-feed.js"></script>
     <script defer src="dashboard.js"></script>
 </head>
 <body>
@@ -24,12 +28,15 @@
         <div>
             <p class="eyebrow">Monero / research workspace</p>
             <h1>TraceGrove</h1>
-            <p class="subtitle">Inspect predictions, their evidence, and what remains uncertain.</p>
+            <p class="subtitle">Follow the chain, inspect ring relationships, and track what the evidence establishes.</p>
         </div>
         <span class="header-badge">Output &amp; transaction evidence</span>
     </header>
     <nav class="workspace-nav" aria-label="Research workspace">
         <a href="#app">Overview</a>
+        <a href="#progress-view">Timeline &amp; groups</a>
+        <a href="#live-observations">Live feed</a>
+        <a href="todos.html">TODOs &amp; findings</a>
         <a href="#knowledge-brain">Research brain</a>
         <a href="#analytics-lab">Analytics lab</a>
         <a href="#feature-observatory">Feature audit</a>
@@ -38,10 +45,20 @@
     </nav>
     <main>
         <div class="workspace-portals">
-            <a href="#knowledge-brain"><span class="portal-kicker">Connected knowledge</span><strong>Explore the research brain ↗</strong><span>Methods, evidence, TODOs, and the next experiments.</span></a>
-            <a href="#analytics-lab"><span class="portal-kicker">Ask better questions</span><strong>Open the analytics lab ↗</strong><span>Compare thresholds, cohorts, ambiguity, and what is still unknown.</span></a>
-            <a href="#feature-observatory"><span class="portal-kicker">Measured experiments</span><strong>Inspect the feature audit ↗</strong><span>See constant features, duplicate signals, and differences between cohorts.</span></a>
+            <a href="#progress-view"><span class="portal-kicker">Measured progress</span><strong>Resolved rings &amp; relationships ↗</strong><span>Follow analysis snapshots and inspect shared outputs.</span></a>
+            <a href="#live-observations"><span class="portal-kicker">Current chain</span><strong>Watch recent blocks ↗</strong><span>Fresh observations alongside historical analysis.</span></a>
+            <a href="todos.html"><span class="portal-kicker">Research notebook</span><strong>TODOs, results &amp; next experiments ↗</strong><span>What is complete, what the real data says, and what to test next.</span></a>
         </div>
+        <div class="refresh-bar">
+            <p id="refresh-status" class="refresh-status" role="status">Loading analysis snapshot…</p>
+            <div class="refresh-controls">
+                <label><input id="auto-refresh" type="checkbox" checked>Auto-refresh analysis every 60 seconds</label>
+                <button id="refresh-now" type="button">Refresh now</button>
+            </div>
+        </div>
+        <section id="live-observations" class="card" aria-label="Current-chain observations" aria-busy="true">
+            <p class="empty-state">Loading current-chain observations…</p>
+        </section>
         <div id="app" tabindex="-1" aria-busy="true">
             <div class="empty-state" role="status">Loading analysis export…</div>
         </div>

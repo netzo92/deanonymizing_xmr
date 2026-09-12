@@ -132,7 +132,7 @@ bash deploy/gcp/publish-static.sh --project YOUR_PROJECT \
 
 Preparation archives the committed source allowlist and rebuilds `brain.json`
 with that revision, validating its repository links before any cloud command.
-Uncommitted changes are excluded. Only the 13 public UI/knowledge/audit assets,
+Uncommitted changes are excluded. Only the 21 public UI/knowledge/audit assets,
 their checksum manifest, and the committed nginx template are transferred with
 the pinned static installer. The source context used for link validation remains
 local; `data.json` and private collector state are not in the upload payload.
@@ -140,7 +140,7 @@ local; `data.json` and private collector state are not in the upload payload.
 The installer shares the full-deployment lock, checks runtime provenance, and
 records the collector PID before and after publication. It preserves
 `/opt/xmr/current`, runtime `REVISION`, `release.json`, dependencies, SQLite,
-`data.json`, `collector-status.json`, and the environment file. It issues no
+`data.json`, `collector-status.json`, `live-observations.json`, and the environment file. It issues no
 collector stop/start/restart commands. The PID observation is a publication
 check, not a guarantee against later systemd restarts.
 
@@ -196,3 +196,24 @@ Official setup references: [IAP SSH](https://docs.cloud.google.com/compute/docs/
 [IAP access requirements](https://docs.cloud.google.com/iap/docs/using-tcp-forwarding),
 [instance creation flags](https://docs.cloud.google.com/sdk/gcloud/reference/compute/instances/create),
 and [IAP file transfer](https://docs.cloud.google.com/sdk/gcloud/reference/compute/scp).
+
+
+## Separate current-chain observer
+
+Full releases also install `xmr-live-observer.service` and pin its code through
+`/opt/xmr/observer-current`. The observer uses `/var/lib/xmr/live_observations.db`
+and atomically writes `/var/www/xmr/live-observations.json`; it does not read or
+write the historical analysis database. Optional environment settings are
+`LIVE_OBSERVER_INTERVAL_SECONDS=120`, `LIVE_OBSERVER_BLOCKS_PER_CYCLE=12`, and
+`LIVE_OBSERVER_CONFIRMATIONS=10`. Defaults sample the latest 12 confirmed blocks
+initially, retain 1,440 summaries, and export 120; request, response and cycle
+budgets prevent unbounded fetches. Skipped ranges, missing ring counts and source
+provenance are explicit in JSON. A tail-hash mismatch requires operator review.
+
+Inspect with `sudo systemctl status xmr-live-observer.service` and
+`sudo journalctl -u xmr-live-observer.service --no-pager -n 30`. Stop/restart this
+service independently of `xmr-collector.service`. Static UI publication preserves
+both services and their mutable exports. A copied observer JSON in `docs/` is a
+GitHub Pages snapshot and is never installed over the running observer's export.
+The browser checks both data feeds every 60 seconds; collection/export duration
+and RPC availability determine when new measurements actually arrive.

@@ -40,7 +40,9 @@ def evidence_summary(db, analyzer):
         )
     }
     counts = dict(total_rings=0, deterministic_resolutions=0, hypothesis_resolutions=0,
-                  unresolved_reduced=0, unresolved_unchanged=0, conflict_rings=0)
+                  unresolved_reduced=0, unresolved_unchanged=0, conflict_rings=0,
+                  original_singleton_rings=0, original_multimember_rings=0,
+                  deterministic_singleton_resolutions=0, deterministic_multimember_resolutions=0)
     observed_claims = 0
     rows = db.conn.execute(
         "SELECT key_image, amount, global_output_index FROM ring_members ORDER BY key_image"
@@ -48,10 +50,14 @@ def evidence_summary(db, analyzer):
     for ki, members in groupby(rows, key=lambda row: row[0]):
         original = {(row[1], row[2]) for row in members}
         counts["total_rings"] += 1
+        cohort = "singleton" if len(original) == 1 else "multimember"
+        counts[f"original_{cohort}_rings"] += 1
         claim = claims.get(ki)
         if claim is not None:
             observed_claims += 1
             counts["deterministic_resolutions" if claim[1] else "hypothesis_resolutions"] += 1
+            if claim[1]:
+                counts[f"deterministic_{cohort}_resolutions"] += 1
         else:
             remaining = analyzer.rings.get(ki, original)
             counts["unresolved_reduced" if len(remaining) < len(original)

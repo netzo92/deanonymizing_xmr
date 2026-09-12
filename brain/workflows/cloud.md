@@ -108,3 +108,30 @@ capacity limits as history grows; it is not an unlimited whole-chain service.
 Source releases record installed dependency versions, but requirements ranges
 do not yet provide a reproducible lockfile. TLS, scheduled backups, and alerts
 are deployment follow-ups; the initial public GCP endpoint serves HTTP.
+
+
+## Current-chain observations
+
+The separate [live observer](../../live_observer.py) samples recent confirmed
+blocks from the configured external RPC source. It uses
+`/var/lib/xmr/live_observations.db`, never the historical analysis database, and
+publishes `live-observations.json` atomically. The
+[service](../../deploy/gcp/live-observer.service) polls every 120 seconds with a
+10-block confirmation lag, at most 12 blocks per cycle, and explicit request,
+time, response-size and disk limits. It stores at most 1,440 block summaries and
+exports the newest 120. Initial coverage is the latest 12 confirmed blocks;
+long outages can produce explicitly recorded skipped ranges. Mismatched stored
+tail hashes pause observation for review.
+
+The page checks analysis and observation JSON every 60 seconds. Actual fresh
+exports depend on RPC availability and work duration. Browser errors retain the
+last successful snapshot and show stale/error state. GitHub Pages remains a
+committed mirror; the GCP dashboard consumes the running services' exports.
+The observer records local fetch times, source-reported block timestamps,
+transaction counts, and decoded ring counts with completeness metadata. These
+are current-chain activity observations, not current-chain resolved rings or
+wallet ownership labels. A private validating node and prospective pool timing
+collection remain separate work.
+
+Validation: [observer tests](../../tests/test_live_observer.py),
+[polling tests](../../tests/test_live_feed.js), and deployment/browser checks.

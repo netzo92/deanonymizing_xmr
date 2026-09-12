@@ -43,13 +43,13 @@ trap 'rm -rf "$temporary"' EXIT
 archive=$temporary/release.tar.gz
 # Explicit allowlist prevents unrelated tracked files from becoming VM content.
 git -C "$repo" archive --format=tar.gz --output "$archive" "$revision" -- \
-  main.py collector.py analyzer.py models.py scorer.py scanner.py monero_rpc.py brain.py \
+  main.py collector.py live_observer.py analyzer.py models.py scorer.py scanner.py monero_rpc.py brain.py \
   dashboard_export.py brain_export.py requirements.txt README.md AGENTS.md brain tests research \
   autoresearch_results.md autoresearch-results.tsv \
   docs/index.html docs/dashboard.js docs/dashboard.css docs/data.json docs/brain.json \
   docs/brain-view.js docs/brain-view.css docs/research-analytics.js docs/research-analytics.css \
   docs/evidence-graph.js docs/evidence-graph.css docs/feature-audit.js docs/feature-audit.css \
-  docs/feature-audit.json deploy/gcp
+  docs/feature-audit.json docs/progress-view.js docs/progress-view.css docs/live-feed.js docs/live-feed.css docs/todos.html docs/todo-results.js docs/todo-results.css docs/research-progress.json deploy/gcp
 git -C "$repo" show "$revision:deploy/gcp/install-release.sh" > "$temporary/install-release.sh"
 cp "$env_file" "$temporary/collector.env"
 chmod 0600 "$temporary/collector.env"

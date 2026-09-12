@@ -36,7 +36,7 @@ The product distinctions above are proposed interpretations for this repository.
 
 ## Research TODOs
 
-- [ ] **G1 — Ring-overlap explorer (P2).** Start with `Brain.related_rings()`, preserving amount in output identity. Compare raw overlap with size/degree-normalized similarity and inspect heavily reused candidates. Done when results are labeled ring-overlap communities, graph limits are explicit, and overlap alone never produces ownership claims.
+- [ ] **G1 — Ring-overlap explorer (P2).** The [progress view](../../docs/progress-view.js) now displays same-transaction groups, exact shared-output groups among exported rings, and bounded reported overlap pairs. These are direct relationships, not transitive ownership clusters. Full size/degree-normalized comparison and controlled validation remain open. Start with `Brain.related_rings()`, preserving amount in output identity. Compare raw overlap with size/degree-normalized similarity and inspect heavily reused candidates. Done when results are labeled ring-overlap communities, graph limits are explicit, and overlap alone never produces ownership claims.
 
 - [ ] **G2 — Co-spend hypotheses (P2; depends on P1–P3).** Join input rings by transaction and attach deterministic/predicted candidates with provenance. Test joint candidate-selection accuracy on controlled multi-input transactions. Authorization of actual spent inputs does not by itself prove one controller or beneficial owner. Retain competing candidates and abstentions; multiplying correlated input scores does not establish joint confidence. Done when joint correctness and failure cases are measured separately from per-ring accuracy.
 

@@ -40,6 +40,10 @@ class DashboardExportTests(unittest.TestCase):
         self.assertEqual(summary["total_rings"], 5)
         self.assertEqual(summary["deterministic_resolutions"], 2)
         self.assertEqual(summary["hypothesis_resolutions"], 1)
+        self.assertEqual(summary["original_singleton_rings"], 1)
+        self.assertEqual(summary["original_multimember_rings"], 4)
+        self.assertEqual(summary["deterministic_singleton_resolutions"], 1)
+        self.assertEqual(summary["deterministic_multimember_resolutions"], 1)
         self.assertEqual(summary["unresolved_reduced"], 1)
         self.assertEqual(summary["unresolved_unchanged"], 1)
         self.assertEqual(summary["orphan_resolution_claims"], 1)
@@ -126,6 +130,8 @@ class DashboardExportTests(unittest.TestCase):
             self.assertEqual(data["prediction_browser"]["exported"], 1)
             self.assertEqual(data["ml_predictions"]["total_predictions"], 1)
             self.assertEqual(len(data["history"]), 1)
+            self.assertEqual(data["history"][0]["original_multimember_rings"], 1)
+            self.assertEqual(data["history"][0]["deterministic_multimember_resolutions"], 0)
             before = (path / "data.json").read_bytes()
             with patch("main.prediction_browser", return_value={"bad_score": float("nan")}), redirect_stdout(StringIO()):
                 with self.assertRaises(ValueError):

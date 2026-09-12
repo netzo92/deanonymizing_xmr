@@ -102,3 +102,26 @@ running collector and its latest `data.json`. Use `/ui-release.json` to verify
 UI source and asset hashes; `/release.json` continues identifying runtime code.
 A research-note update needs a rebuilt Pages JSON and static publication to
 appear on both sites. Full runtime upgrades still use the release installer.
+
+
+## Progress, live feed, and results
+
+The main page now links to the resolution timeline and direct relationship
+views in [progress-view.js](../../docs/progress-view.js), current-chain
+observations in [live-feed.js](../../docs/live-feed.js), and a dedicated
+[TODO/results page](../../docs/todos.html). The latter joins canonical Markdown
+checklists with the frozen [research progress](../../docs/research-progress.json)
+summary; measurements keep their original dataset and selection limits.
+
+History snapshots compare only the same dataset. Net changes in totals are not
+counts of individual resolution events. New exports distinguish original
+singletons from multi-member deterministic resolutions; older snapshots retain
+unknown breakdowns. Direct groups describe shared outputs/transaction inputs,
+not wallet or address ownership. The [cloud workflow](cloud.md) describes the
+separate current-chain feed and its coverage limits.
+
+Rebuild `brain.json` after note updates, run `node --test tests/test_*.js`, and
+check the main and TODO pages on desktop and mobile. Verify automatic refresh
+with changed/unchanged data, paused filters, and failed loads. The live observer
+JSON is mutable runtime data and is excluded from static UI installation; a
+committed copy is only a GitHub Pages snapshot.

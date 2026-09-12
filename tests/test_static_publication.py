@@ -44,6 +44,7 @@ class StaticPublicationTests(unittest.TestCase):
         self.sentinels = {
             'data.json': b'live collector data\n',
             'collector-status.json': b'live collector status\n',
+            'live-observations.json': b'live observer data\n',
             'release.json': json.dumps({'source_commit': self.runtime_revision}).encode(),
         }
         for name, content in self.sentinels.items():
@@ -116,7 +117,7 @@ class StaticPublicationTests(unittest.TestCase):
         self.assert_runtime_preserved()
 
     def test_rejects_unsafe_or_unallowlisted_archive_entries(self):
-        for name in ['data.json', '../private.db', 'unexpected.css']:
+        for name in ['data.json', 'live-observations.json', '../private.db', 'unexpected.css']:
             with self.subTest(name=name):
                 self.make_archive(extra=name)
                 with self.assertRaisesRegex(ValueError, 'unsafe archive entry'):
@@ -173,7 +174,7 @@ class StaticPreparationTests(unittest.TestCase):
         self.root = Path(self.temporary.name)
         self.repo = self.root / 'repo'
         self.repo.mkdir()
-        for file in ['main.py', 'collector.py', 'analyzer.py', 'models.py', 'scorer.py', 'scanner.py', 'monero_rpc.py', 'brain.py', 'dashboard_export.py', 'requirements.txt', 'README.md', 'AGENTS.md', 'autoresearch_results.md', 'autoresearch-results.tsv', 'tests/example.py', 'research/example.py']:
+        for file in ['main.py', 'collector.py', 'live_observer.py', 'analyzer.py', 'models.py', 'scorer.py', 'scanner.py', 'monero_rpc.py', 'brain.py', 'dashboard_export.py', 'requirements.txt', 'README.md', 'AGENTS.md', 'autoresearch_results.md', 'autoresearch-results.tsv', 'tests/example.py', 'research/example.py']:
             path = self.repo / file
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text('committed source\n')

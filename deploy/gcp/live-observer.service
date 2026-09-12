@@ -1,0 +1,41 @@
+[Unit]
+Description=Bounded current Monero chain activity observer
+Wants=network-online.target
+After=network-online.target
+ConditionPathExists=/etc/xmr/collector.env
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+User=xmr
+Group=xmr
+WorkingDirectory=/opt/xmr/observer-current
+EnvironmentFile=/etc/xmr/collector.env
+Environment=PYTHONUNBUFFERED=1
+Environment=PYTHONDONTWRITEBYTECODE=1
+Environment=LIVE_OBSERVER_INTERVAL_SECONDS=120
+Environment=LIVE_OBSERVER_BLOCKS_PER_CYCLE=12
+Environment=LIVE_OBSERVER_CONFIRMATIONS=10
+ExecStart=/opt/xmr/venv/bin/python /opt/xmr/observer-current/live_observer.py --db /var/lib/xmr/live_observations.db --output-dir /var/www/xmr --node ${MONERO_RPC_URL} --interval-seconds ${LIVE_OBSERVER_INTERVAL_SECONDS} --blocks-per-cycle ${LIVE_OBSERVER_BLOCKS_PER_CYCLE} --confirmations ${LIVE_OBSERVER_CONFIRMATIONS}
+MemoryHigh=256M
+MemoryMax=384M
+CPUQuota=25%
+Restart=always
+RestartSec=30
+TimeoutStopSec=60
+UMask=0022
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+CapabilityBoundingSet=
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+ReadWritePaths=/var/lib/xmr /var/www/xmr
+
+[Install]
+WantedBy=multi-user.target

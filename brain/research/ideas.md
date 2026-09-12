@@ -36,3 +36,12 @@ Implementation observations behind these proposals: [prediction storage](../../m
 [scorer](../../scorer.py), [evidence queries](../../brain.py),
 [bounded exports](../../dashboard_export.py), [collector](../../collector.py). Keep fresh observations here and
 promote an idea into the prioritized backlog once its scope and evaluation are clear.
+
+
+## Ideas from the progress and live-feed work
+
+- [ ] **Resolution transitions versus snapshot growth.** Record first deterministic resolution, retraction, and hypothesis-to-deterministic transitions separately from newly imported singleton rings. Current export snapshots measure net totals; their difference cannot establish how many old ambiguous rings were solved. Add per-event and eligible multi-member cohort denominators before reporting a solve rate.
+- [ ] **Prospective coverage ledger.** Reconcile current-block observer gaps, response limits, reorg corrections, and missing transaction details against a second source. Report coverage-weighted activity without treating unobserved ring counts as zero.
+- [ ] **Confirmation-delay forecasts.** After prospective pool observations exist, freeze simple age/fee/weight baselines at observation time and score time-to-confirmation with censored pending cases. Confirmed-block sampling alone cannot recover first-seen pool times.
+- [ ] **Shared-output null model.** Compare observed overlap groups against randomized candidate sets matched on amount bucket, ring size, and output reuse. Test whether a grouping exceeds chance overlap before proposing a wallet-related interpretation.
+- [ ] **Progress regression alerts.** Flag negative deterministic snapshot deltas, changed dataset identity, increased conflict counts, and prolonged publication lag. Preserve the triggering snapshots and show whether the change was new data, revised analysis, or missing coverage.

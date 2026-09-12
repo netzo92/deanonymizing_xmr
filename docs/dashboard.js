@@ -3,6 +3,9 @@
 // Keep identifiers as strings: legacy amount buckets may exceed JS integer precision.
 const COLORS = { green: '#69cf89', purple: '#c8a4ff', yellow: '#e7c467', blue: '#79b8ff', gray: '#758394', orange: '#ff8b4c' };
 const pendingCharts = [];
+const activeCharts = [];
+let browserController = null;
+let renderedDataset = null;
 const isNumber = value => typeof value === 'number' && Number.isFinite(value);
 const known = value => value !== null && value !== undefined && value !== '';
 const display = value => known(value) ? String(value) : 'Unknown';
@@ -163,7 +166,7 @@ function renderSummary(app, data) {
     if (s.orphan_resolution_claims > 0) notice(app, `${count(s.orphan_resolution_claims)} stored resolution claims have no ring membership and are excluded from the ring category totals.`);
 }
 
-function renderBrowser(app, data) {
+function renderBrowser(app, data, restore = null) {
     const browser = data.prediction_browser;
     const section = element('section', 'card');
     section.id = 'predictions';
@@ -215,8 +218,17 @@ function renderBrowser(app, data) {
     inspector.setAttribute('aria-label', 'Selected prediction evidence');
     append(inspector, element('h2', '', 'Evidence inspector'), element('p', 'hint', 'Select a prediction to inspect its frozen scores and current supporting evidence.'));
     app.append(inspector);
-    let page = 0;
-    let selected = null;
+    let page = restore?.page || 0;
+    let selected = rows.find(row => String(row.prediction_id) === restore?.selectedId) || null;
+    if (restore) {
+        for (const [name, value] of Object.entries(restore.filters || {})) {
+            const input = form.elements.namedItem(name);
+            if (input) input.value = value;
+        }
+        if ([10, 25, 50].includes(restore.pageSize)) pageSizeControl.value = String(restore.pageSize);
+    }
+    if (selected) renderInspector(inspector, selected, list(browser.runs));
+    else if (restore?.selectedId) inspector.append(element('p', 'hint', 'The previously selected prediction is outside the latest bounded export. Select an included row to inspect current evidence.'));
     const filters = () => Object.fromEntries(new FormData(form).entries());
     function refresh() {
         const filtered = filterRows(rows, filters());
@@ -264,7 +276,7 @@ function renderBrowser(app, data) {
     previous.addEventListener('click', () => { page--; refresh(); });
     next.addEventListener('click', () => { page++; refresh(); });
     refresh();
-    return row => {
+    const inspect = row => {
         const match = rows.find(item => String(item.prediction_id) === String(row.prediction_id));
         if (!match) return;
         selected = match;
@@ -273,6 +285,8 @@ function renderBrowser(app, data) {
         inspector.focus({ preventScroll: true });
         inspector.scrollIntoView({ behavior: 'auto', block: 'start' });
     };
+    inspect.getState = () => ({page, pageSize: Number(pageSizeControl.value), filters: filters(), selectedId: selected ? String(selected.prediction_id) : null});
+    return inspect;
 }
 
 function renderInspector(parent, row, runs) {
@@ -448,7 +462,7 @@ function drawChart(target, config) {
     try {
         Chart.defaults.color = '#a1aebd';
         Chart.defaults.borderColor = '#303b49';
-        new Chart(target.canvas, config);
+        activeCharts.push(new Chart(target.canvas, config));
     }
     catch { target.holder.hidden = true; target.alternative.open = true; }
 }
@@ -555,13 +569,30 @@ function renderQuality(app, data) {
 
 function renderDashboard(data) {
     const app = document.getElementById('app');
+    const sameDataset = known(data.scope?.dataset_id) && data.scope.dataset_id === renderedDataset;
+    const browserState = sameDataset ? browserController?.getState() : null;
+    const controlState = sameDataset ? [...app.querySelectorAll('#analytics-lab input, #analytics-lab select, #progress-view input, #progress-view select')].map(control => ({section: control.closest('section[id]')?.id, index: [...control.closest('section[id]').querySelectorAll('input, select')].indexOf(control), value: control.value, checked: control.checked})) : [];
+    const openDetails = new Set([...app.querySelectorAll('details')].filter(item => item.open).map(item => item.querySelector('summary')?.textContent));
+    const focusedLabel = document.activeElement?.getAttribute('aria-label');
+    const y = window.scrollY;
+    for (const chart of activeCharts.splice(0)) chart.destroy();
+    pendingCharts.splice(0);
     app.replaceChildren();
     renderSummary(app, data);
+    const progress = element('section');
+    progress.id = 'progress-view';
+    progress.tabIndex = -1;
+    app.append(progress);
     const analytics = element('section', 'card');
     analytics.id = 'analytics-lab';
     analytics.tabIndex = -1;
     app.append(analytics);
-    const inspect = renderBrowser(app, data);
+    const inspect = renderBrowser(app, data, browserState);
+    browserController = inspect;
+    if (window.TraceGroveProgress) {
+        try { window.TraceGroveProgress.mount(progress, data, {onInspect: inspect}); }
+        catch (error) { notice(progress, `Progress could not be displayed: ${display(error.message)}`); }
+    }
     if (window.TraceGroveAnalytics) {
         try { window.TraceGroveAnalytics.mount(analytics, data, {onInspect: inspect}); }
         catch (error) { notice(analytics, `Analytics could not be displayed: ${display(error.message)}`); }
@@ -574,27 +605,67 @@ function renderDashboard(data) {
     raw.download = 'data.json';
     footer.append(raw);
     app.append(footer);
+    for (const saved of controlState) {
+        const control = document.getElementById(saved.section)?.querySelectorAll('input, select')[saved.index];
+        if (!control) continue;
+        if (control.type === 'checkbox') control.checked = saved.checked;
+        else control.value = saved.value;
+        control.dispatchEvent(new Event('input', {bubbles: true}));
+        control.dispatchEvent(new Event('change', {bubbles: true}));
+    }
+    if (sameDataset) {
+        for (const item of app.querySelectorAll('details')) item.open = openDetails.has(item.querySelector('summary')?.textContent);
+        if (focusedLabel) [...app.querySelectorAll('[aria-label]')].find(node => node.getAttribute('aria-label') === focusedLabel)?.focus({preventScroll: true});
+        window.scrollTo(0, y);
+    }
+    renderedDataset = data.scope?.dataset_id;
     app.setAttribute('aria-busy', 'false');
 }
 
-async function boot() {
-    try {
-        const response = await fetch('data.json');
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        const data = await response.json();
-        if (!data || typeof data !== 'object' || !data.summary || typeof data.summary !== 'object') throw new Error('The export is missing its summary object');
-        renderDashboard(data);
-    } catch (error) {
-        const app = document.getElementById('app');
-        app.replaceChildren();
-        const box = element('div', 'empty-state');
-        box.setAttribute('role', 'alert');
-        append(box, element('h2', '', 'Analysis export could not be loaded'), element('p', '', display(error.message)), element('p', '', 'Generate docs/data.json with python main.py export-viz, then serve the docs directory over HTTP.'));
-        const retry = element('button', '', 'Retry loading');
-        retry.addEventListener('click', () => { app.setAttribute('aria-busy', 'true'); boot(); });
-        append(app, append(box, retry));
-        app.setAttribute('aria-busy', 'false');
-    }
+function boot() {
+    const status = document.getElementById('refresh-status');
+    const toggle = document.getElementById('auto-refresh');
+    const button = document.getElementById('refresh-now');
+    let hasData = false, pending = null, force = false;
+    const mirror = location.hostname.endsWith('.github.io');
+    const editing = () => document.getElementById('app').contains(document.activeElement) && document.activeElement?.matches('input, select, textarea');
+    const apply = data => { renderDashboard(data); hasData = true; pending = null; };
+    const polling = window.TraceGroveLive.startPolling({
+        load: async () => {
+            const data = await window.TraceGroveLive.fetchJSON('data.json');
+            if (!data || typeof data !== 'object' || !data.summary || typeof data.summary !== 'object') throw new Error('The export is missing its summary object');
+            return data;
+        },
+        onData: data => {
+            if (hasData && ((!toggle.checked && !force) || editing())) pending = data;
+            else apply(data);
+        },
+        onStatus: result => {
+            force = false;
+            if (!result.ok) {
+                status.textContent = `Analysis check failed (${result.error}). ${hasData ? 'Keeping the last good snapshot.' : 'Retrying every 60 seconds.'}`;
+                if (!hasData) {
+                    const app = document.getElementById('app');
+                    app.replaceChildren(element('p', 'notice', 'Analysis export could not be loaded. Use Refresh now to retry.'));
+                    app.setAttribute('aria-busy', 'false');
+                }
+                return;
+            }
+            status.textContent = pending ? 'New analysis is available. It will appear when auto-refresh is enabled and you finish editing a filter.' : `${mirror ? 'GitHub Pages · published snapshot' : 'Analysis snapshot'} · checked ${new Date(result.checkedAt).toLocaleTimeString()} · ${toggle.checked ? 'checks every 60 seconds' : 'automatic application paused'}`;
+        },
+    });
+    const applyPending = () => {
+        if (pending && toggle.checked && !editing()) { apply(pending); status.textContent = 'New analysis loaded · filters and selection preserved · checks every 60 seconds'; }
+    };
+    document.getElementById('app').addEventListener('focusout', () => setTimeout(applyPending, 0));
+    toggle.addEventListener('change', applyPending);
+    button.addEventListener('click', () => {
+        force = true;
+        if (pending) apply(pending);
+        polling.check();
+    });
+    const live = window.TraceGroveLive.mount(document.getElementById('live-observations'));
+    window.addEventListener('pagehide', () => {polling.stop(); live.stop();}, {once: true});
 }
 
 if (typeof module !== 'undefined' && module.exports) module.exports = { outcome, acceptance, evidenceCategories, historyCohorts, filterRows, identity, sameOutput, percentage };

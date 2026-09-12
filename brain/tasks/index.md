@@ -17,6 +17,7 @@ Priority is a suggested order, not an estimate of research success.
 | Done | P1: Preserve prediction runs | Re-scoring retains earlier guesses and outcomes |
 | Done | D2–D3: Prediction browser and evidence inspector | Bounded exports with run/provenance metadata |
 | Done | D5/D7: Local evidence graph and visual knowledge brain | Typed edges, searchable notes and TODOs, keyboard/mobile access |
+| Done | D9–D11: Timeline, direct groupings, TODO/results and current-chain feed | Dataset-scoped progress; source-linked conclusions; independently sampled recent blocks and periodic page checks |
 | Done | EA1: Audit constant features | Frozen legacy matrix with 24 features, variation, duplicates, and cohort counts |
 | P1 | FA2–FA3: Feature masks and reuse ties | Paired evaluation with training-only masks and explicit tie rules |
 | P1 | P2–P3: Forward evaluation and calibration | Frozen data and independent evaluation boundaries |

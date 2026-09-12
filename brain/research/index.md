@@ -35,6 +35,8 @@ These proposals are a user-requested backlog, not implemented findings.
 
 Existing experiment records:
 
+- [Progress and conclusions](progress-and-conclusions.md): completed work, theoretical implications, frozen measurements, and next experiments for the dedicated TODO/results page.
+
 - [Feature variation audit](feature-variation-audit.md): all 24 features on 2,000 sampled rings; four constant columns, four exact duplicate pairs, and separate original/surviving-candidate contexts.
 - [Retrospective heuristic baselines](heuristic-baselines.md): uniform, newest, oldest, and minimum-reuse comparisons with explicit tie credit and selective-label limits.
 - [Output-origin audit](output-origin-audit.md): a fixed 40-output historical sample resolved through RPC and exposed three constant legacy gamma features; no model-accuracy gain measured.

@@ -210,6 +210,8 @@ def cmd_export_viz(args):
             "deterministic_resolutions": stats["deterministic_resolutions"],
             "hypothesis_resolutions": stats["hypothesis_resolutions"],
             "conflict_rings": stats["conflict_rings"],
+            **{key: stats[key] for key in ("original_singleton_rings", "original_multimember_rings",
+                                          "deterministic_singleton_resolutions", "deterministic_multimember_resolutions")},
             "timestamp": datetime.now(timezone.utc).isoformat(),
         }
 

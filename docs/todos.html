@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+    <title>Research progress &amp; TODOs — TraceGrove</title>
+    <meta name="description" content="Follow TraceGrove's completed experiments, measured findings, open research questions, and improvement checklist.">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="todo-results.css">
+    <script defer src="todo-results.js"></script>
+</head>
+<body class="progress-page">
+    <a class="skip-link" href="#tasks">Skip to research TODOs</a>
+    <header class="progress-header">
+        <a class="progress-brand" href="index.html">TraceGrove <span>/ Research log</span></a>
+        <a class="progress-back" href="index.html">← Open dashboard</a>
+    </header>
+    <main>
+        <section class="progress-hero" aria-labelledby="progress-title">
+            <div>
+                <p class="progress-kicker">Evidence, decisions, next steps</p>
+                <h1 id="progress-title">Research progress</h1>
+                <p class="progress-lead">See what is complete, what the experiments actually measured, and what we should investigate next.</p>
+                <div class="progress-totals" aria-label="Research progress totals">
+                    <a href="?status=open#tasks"><strong id="open-total">—</strong><span>Open checklist items</span></a>
+                    <a href="?status=done#tasks"><strong id="done-total">—</strong><span>Completed checklist items</span></a>
+                    <a href="#results"><strong id="experiment-total">—</strong><span>Completed experiments</span></a>
+                </div>
+            </div>
+            <aside class="progress-snapshot" aria-label="Measured research snapshot">
+                <span class="snapshot-dot" aria-hidden="true"></span>
+                <p class="progress-kicker">Frozen research snapshot</p>
+                <h2 id="snapshot-range">Loading provenance…</h2>
+                <p id="snapshot-description">The completed studies use a historical database, separate from the collector's latest export.</p>
+                <a href="#results">Read the measured findings ↓</a>
+            </aside>
+        </section>
+        <nav class="progress-nav" aria-label="Research progress sections">
+            <a href="#tasks">TODOs &amp; improvements</a>
+            <a href="#results">Measured results</a>
+            <a href="#conclusions">Conclusions</a>
+            <a href="#next">Next experiments</a>
+        </nav>
+        <section id="tasks" class="progress-section" aria-labelledby="tasks-heading" aria-busy="true">
+            <div class="progress-section-title"><div><p class="progress-kicker">The working checklist</p><h2 id="tasks-heading">TODOs &amp; improvements</h2></div><a href="index.html#knowledge-brain">Explore the research brain ↗</a></div>
+            <p class="progress-section-description">Status comes from the canonical Markdown checklists. An open experiment is a proposal; a checked item records completed work, not proof of a research hypothesis.</p>
+            <div id="task-browser"><p class="progress-loading" role="status">Loading research checklists…</p></div>
+        </section>
+        <section id="results" class="progress-section" aria-labelledby="results-heading" aria-busy="true">
+            <div class="progress-section-title"><div><p class="progress-kicker">Completed on historical chain data</p><h2 id="results-heading">Measured results</h2></div><a href="research-progress.json">Snapshot JSON ↗</a></div>
+            <p class="progress-section-description">These studies measure feature behavior and selective retrospective agreement. They establish no address ownership or identity attribution, and no improvement in deployed model performance.</p>
+            <div id="measured-results"><p class="progress-loading" role="status">Loading the frozen experiment results…</p></div>
+        </section>
+        <section id="conclusions" class="progress-section" aria-labelledby="conclusions-heading">
+            <div class="progress-section-title"><div><p class="progress-kicker">Interpretation, with its limits</p><h2 id="conclusions-heading">Theoretical conclusions</h2></div></div>
+            <p class="progress-section-description">These implications motivate experiments. They are not additional measured results or established gains.</p>
+            <div id="theoretical-conclusions"><p class="progress-loading">Waiting for the research snapshot…</p></div>
+        </section>
+        <section id="next" class="progress-section" aria-labelledby="next-heading">
+            <div class="progress-section-title"><div><p class="progress-kicker">Suggested order</p><h2 id="next-heading">The next experiments</h2></div></div>
+            <p class="progress-section-description">Priorities follow the current findings. Each suggestion links back to its checklist and completion criteria.</p>
+            <div id="next-experiments"><p class="progress-loading">Loading next steps…</p></div>
+        </section>
+    </main>
+    <footer class="progress-footer"><span id="progress-provenance">The checklists and experiment summaries are independently versioned snapshots.</span><a href="index.html">Back to dashboard ↑</a></footer>
+    <noscript><p class="notice">Enable JavaScript to filter tasks and view result summaries. The source exports are available as <a href="brain.json">brain.json</a> and <a href="research-progress.json">research-progress.json</a>.</p></noscript>
+</body>
+</html>

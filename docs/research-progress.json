@@ -1,0 +1,238 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-09-12T02:23:35.991041+00:00",
+  "scope": {
+    "scan_start": 0,
+    "scan_end": 58900,
+    "blocks_scanned": 58901,
+    "chain_data_at": "2014-05-27T13:29:40+00:00",
+    "amount_zero_membership_rows": 0,
+    "main_database_sha256": "80e3dfd2cc18e4201b863590cbe5e76efa23e3bbc4759b0be0f6083c1b8535d2",
+    "description": "April\u2013May 2014 chain data, all nonzero amount buckets. These frozen experiments are separate from the live collector and do not establish results for modern Monero."
+  },
+  "experiments": [
+    {
+      "id": "origin-audit",
+      "title": "Output origins are retrievable",
+      "status": "completed",
+      "evidence_kind": "measured",
+      "metric": {
+        "value": 40,
+        "label": "of 40 sampled output origins returned"
+      },
+      "finding": "Actual ages ranged from 15 to 41,150 blocks in the selected contexts, yet all three legacy gamma features were constant. The audit exposed a feature limitation and usable origin metadata.",
+      "limitation": "A fixed 40-output sample and one unauthenticated RPC endpoint do not establish population coverage or any model improvement. The v1 run did not fingerprint WAL state.",
+      "note_id": "brain/research/output-origin-audit.md",
+      "artifact_path": "research/results/output_origins_2026-09-11.json",
+      "artifact_sha256": "9a9daf738b93a8a957e3ebeafbf4677de0c5c3127f72b3bbbad2a9c5ba4685d5",
+      "started_at": "2026-09-12T00:13:22.693046+00:00",
+      "source_revision": "dde2fa5cdff7b895f12ab17c81440717c15ff0bb",
+      "script_sha256": "98d87ab68db67d5f1f6fd8c12c35298fb99a0fce85d3f2d4df6130721ca8c17e",
+      "source_main_sha256": "80e3dfd2cc18e4201b863590cbe5e76efa23e3bbc4759b0be0f6083c1b8535d2",
+      "facts": {
+        "sampled_contexts": 40,
+        "returned_outputs": 40,
+        "age_blocks_min": 15,
+        "age_blocks_median": 3857.5,
+        "age_blocks_max": 41150,
+        "constant_gamma_features": 3
+      }
+    },
+    {
+      "id": "EA1",
+      "title": "Four feature columns are constant",
+      "status": "completed",
+      "evidence_kind": "measured",
+      "metric": {
+        "value": 2000,
+        "label": "sampled rings \u00b7 14,280 candidate vectors"
+      },
+      "finding": "All 24 feature columns were audited. Four complete columns were constant and four pairs were exactly equal in the sample. All 342,720 feature values were finite.",
+      "limitation": "The stratified legacy sample is not population-weighted. Constants and duplicates do not demonstrate a gain from removing features; within-ring context features can still carry useful interactions.",
+      "note_id": "brain/research/feature-variation-audit.md",
+      "artifact_path": "research/results/feature_variation_2026-09-11.json",
+      "artifact_sha256": "b450be6b96aa91d0744f36cd54a2401e3158e97e8ab3b4220aa032eed44db7bc",
+      "started_at": "2026-09-12T01:58:26.057466+00:00",
+      "source_revision": "acc8ed15c1a406d33ad7b45e50a771892c6599e6",
+      "script_sha256": "183627d4371a39a8df5e2273b1f9542ce1e3b16747f71529d8be8b285b8a591a",
+      "source_main_sha256": "80e3dfd2cc18e4201b863590cbe5e76efa23e3bbc4759b0be0f6083c1b8535d2",
+      "source_wal_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "facts": {
+        "sampled_rings": 2000,
+        "sampled_candidates": 14280,
+        "feature_count": 24,
+        "finite_values": 342720,
+        "constant_features": [
+          "gamma_decoy_log_likelihood",
+          "gamma_recent_window",
+          "gamma_age_surprisal",
+          "is_legacy_amount"
+        ],
+        "duplicate_feature_pairs": [
+          [
+            "output_age_rank",
+            "decoy_likelihood_rank"
+          ],
+          [
+            "is_newest_member",
+            "is_most_decoy_like"
+          ],
+          [
+            "gamma_recent_window",
+            "is_legacy_amount"
+          ],
+          [
+            "legacy_triangular_likelihood",
+            "amount_bucket_progress"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "historical-baselines",
+      "title": "Minimum reuse leads this comparison",
+      "status": "completed",
+      "evidence_kind": "measured",
+      "metric": {
+        "value": 12076,
+        "label": "eligible, already-resolved multi-member rings"
+      },
+      "finding": "Minimum original-output reuse reached 82.31% expected agreement with current stored deterministic labels; the highest-index rule reached 78.45%. Tied choices receive fractional credit.",
+      "limitation": "This is selective retrospective agreement, not prediction accuracy. Full-snapshot reuse includes later references; historical label availability and performance on unresolved rings remain unknown.",
+      "note_id": "brain/research/heuristic-baselines.md",
+      "artifact_path": "research/results/heuristic_baselines_2026-09-11.json",
+      "artifact_sha256": "3be0719803e66620a80e3c7f0ecadd1e8d0deae62041a6074cb04765ebef59bd",
+      "started_at": "2026-09-12T01:59:45.619579+00:00",
+      "source_revision": "acc8ed15c1a406d33ad7b45e50a771892c6599e6",
+      "script_sha256": "d065232a0a8c56acdec586b696b8a918acf80204ddacdafede422352b2cdc668",
+      "source_main_sha256": "80e3dfd2cc18e4201b863590cbe5e76efa23e3bbc4759b0be0f6083c1b8535d2",
+      "source_wal_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "facts": {
+        "eligible_rings": 12076,
+        "original_candidate_rows": 43511,
+        "excluded_singletons": 549744,
+        "input_height_min": 3995,
+        "input_height_max": 58899
+      }
+    }
+  ],
+  "baseline_comparison": {
+    "metric": "expected_agreement",
+    "denominator": 12076,
+    "candidate_rows": 43511,
+    "artifact_path": "research/results/heuristic_baselines_2026-09-11.json",
+    "artifact_sha256": "3be0719803e66620a80e3c7f0ecadd1e8d0deae62041a6074cb04765ebef59bd",
+    "rows": [
+      {
+        "id": "minimum_reuse",
+        "label": "Minimum output reuse",
+        "rings": 12076,
+        "expected_correct": 9940.159126984126,
+        "expected_correct_exact": {
+          "numerator": "25049201",
+          "denominator": "2520"
+        },
+        "expected_agreement": 0.8231334156164398,
+        "tie_rings": 2173,
+        "unique_top_choice_fraction": 0.8200563100364359
+      },
+      {
+        "id": "newest",
+        "label": "Highest output index",
+        "rings": 12076,
+        "expected_correct": 9474.0,
+        "expected_correct_exact": {
+          "numerator": "9474",
+          "denominator": "1"
+        },
+        "expected_agreement": 0.7845313017555482,
+        "tie_rings": 0,
+        "unique_top_choice_fraction": 1.0
+      },
+      {
+        "id": "uniform",
+        "label": "Uniform selection",
+        "rings": 12076,
+        "expected_correct": 4168.551551226551,
+        "expected_correct_exact": {
+          "numerator": "115552249",
+          "denominator": "27720"
+        },
+        "expected_agreement": 0.34519307313899894,
+        "tie_rings": 12076,
+        "unique_top_choice_fraction": 0.0
+      },
+      {
+        "id": "oldest",
+        "label": "Lowest output index",
+        "rings": 12076,
+        "expected_correct": 1316.0,
+        "expected_correct_exact": {
+          "numerator": "1316",
+          "denominator": "1"
+        },
+        "expected_agreement": 0.10897648227890029,
+        "tie_rings": 0,
+        "unique_top_choice_fraction": 1.0
+      }
+    ],
+    "tie_method": "1/k expected correct if the current label is among k equally preferred candidates; zero otherwise; no index tiebreak.",
+    "interpretation": "All four rules use the same 12,076 current deterministic multi-member rings and original candidates. Related rings are not independent; chronological quartiles are descriptive, not temporal test splits. These figures establish no address ownership, forward accuracy, or ML gain."
+  },
+  "theoretical_conclusions": [
+    {
+      "id": "ablation",
+      "title": "Test simpler feature sets on the same held-out rings",
+      "statement": "Constant and duplicate columns justify a controlled ablation. They do not show that removing columns improves generalization, speed, or memory. Fit feature masks on training folds and preserve paired results, including a negative outcome.",
+      "status": "theoretical",
+      "note_id": "brain/research/feature-variation-audit.md",
+      "task_id": "FA2"
+    },
+    {
+      "id": "origin-age",
+      "title": "Use origin metadata through a versioned feature experiment",
+      "statement": "The origin audit motivates replacing relative-position proxies with validated creation metadata. The effect still needs a frozen comparison with missing-origin flags and protocol-appropriate assumptions. No performance benefit has been measured.",
+      "status": "theoretical",
+      "note_id": "brain/research/output-origin-audit.md",
+      "task_id": "EA2"
+    },
+    {
+      "id": "temporal-reuse",
+      "title": "Recheck reuse using only prediction-time information",
+      "statement": "Minimum reuse is a useful baseline to challenge in this historical population. Its lead may depend on later graph observations and which rings the analyzer could resolve. Prediction-time snapshots are needed before drawing a forward-performance conclusion.",
+      "status": "theoretical",
+      "note_id": "brain/research/heuristic-baselines.md",
+      "task_id": "HB2"
+    },
+    {
+      "id": "ownership",
+      "title": "Output relationships do not identify wallets or people",
+      "statement": "Shared ring membership, candidate selections, and agreement with stored labels describe outputs and evidence. None of these completed experiments measures common wallet ownership, recovers receiving addresses, or identifies a person. Grouping claims need separately controlled labels and false-merge evaluation.",
+      "status": "theoretical",
+      "note_id": "brain/research/groupings.md",
+      "task_id": "G3"
+    }
+  ],
+  "next_priorities": [
+    {
+      "task_id": "FA2",
+      "title": "Run a paired feature ablation",
+      "why": "Compare the unchanged scorer, constant/duplicate masks, and simple rules on the same frozen eligible test rings. Preserve sample counts, runtime, score changes, and negative results."
+    },
+    {
+      "task_id": "HB2",
+      "title": "Freeze prediction-time reuse and label availability",
+      "why": "Separate the signal available at prediction time from information added later. Current full-snapshot agreement cannot answer that question."
+    },
+    {
+      "task_id": "EA2",
+      "title": "Evaluate versioned origin-age features",
+      "why": "Validate joins and missingness first, then compare origin-age features with the existing proxy under the same independent evaluation boundary."
+    },
+    {
+      "task_id": "FA4",
+      "title": "Expand coverage to independently validated later cohorts",
+      "why": "The completed audits contain no amount-zero data. Audit later protocol eras before transferring historical feature or baseline conclusions."
+    }
+  ]
+}

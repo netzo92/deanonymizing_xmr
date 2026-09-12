@@ -1,0 +1,9 @@
+#live-observations, #progress-view { scroll-margin-top: 90px; }
+.feed-metrics { display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:12px; }
+.feed-status, .refresh-status { color:var(--muted); font-size:.78rem; overflow-wrap:anywhere; }
+.feed-bars { display:flex; align-items:flex-end; gap:4px; height:150px; padding:14px 0 0; margin-top:14px; border-bottom:1px solid var(--line); }
+.feed-bar { display:block; flex:1; min-width:0; background:linear-gradient(#9be3cc,#418875); border-radius:3px 3px 0 0; }
+.refresh-bar { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:10px; padding:12px 0; }
+.refresh-controls { display:flex; align-items:center; flex-wrap:wrap; gap:12px; font-size:.8rem; }
+.refresh-controls label { display:flex; align-items:center; gap:6px; }
+.refresh-controls input { width:auto; }

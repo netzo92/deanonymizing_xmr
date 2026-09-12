@@ -91,6 +91,12 @@ serves the committed snapshot. The intended domain is `tracegrove.io`; domain
 registration, DNS setup, and HTTPS on the GCP endpoint are pending. See the
 [cloud workflow](brain/workflows/cloud.md) for deployment details and collection status.
 
+The historical analysis collector is still catching up. A separate bounded observer
+polls recent confirmed blocks every 120 seconds; it measures transaction/ring
+activity without resolving modern rings. Browser refresh preserves the last valid
+snapshot during failures. The GCP page receives live exports; GitHub Pages remains
+a committed mirror.
+
 Export the GitHub Pages dashboard data:
 
 ```bash
@@ -101,6 +107,10 @@ This writes `docs/data.json`, which is rendered by `docs/index.html`. The curren
 
 - resolution summary
 - effective ring-size distribution split into fully resolved, partially reduced, and unreduced rings
+- a dataset-scoped resolution timeline, with singleton/multi-member breakdowns in new exports
+- direct transaction/shared-output groupings with explicit ownership limits
+- a current-chain observation feed and automatic 60-second page checks
+- a dedicated [TODO/results page](https://netzo92.github.io/deanonymizing_xmr/todos.html) with theoretical implications and real frozen measurements
 - historical scan snapshots
 - ML prediction verification counts
 - ML holdout accuracy and feature importances when exported with `--include-ml-training`
