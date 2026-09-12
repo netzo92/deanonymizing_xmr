@@ -28,6 +28,15 @@
         decoy_likelihood_zscore: ['Standardized decoy proxy', 'The candidate’s approximate decoy value minus the ring mean, divided by population standard deviation; 0 if the deviation is effectively zero.']
     };
     const help = {
+        'Does the tie rule matter?': 'FA3 changes only how one reuse-rank feature handles equal counts. The bars compare agreement with stored labels within each fixed test population. This does not measure sender identification or forward accuracy.',
+        'Explore the rank rule': 'These four invented outputs show how equal counts receive different index-ordered ranks today, or one shared average rank under the experimental rule. Choose an example and point to, tap or focus an output for its calculation.',
+        'Cohort': 'A declared group of rings evaluated together. Here, each row defines its training/test split; compare the two models within that row because different rows can contain different populations.',
+        'Train / test rings': 'Rings used to fit each model, followed by held-out rings used to compare its choices with stored labels. Candidate rows from a ring stay together. These counts are not numbers of independent people or wallets.',
+        'Current correct': 'Current index-ordered rank model selections that match the stored deterministic label, divided by all test rings in this cohort. This is retrospective label agreement under analyzer assumptions.',
+        'Equal-rank correct': 'Experimental equal-midrank model selections that match the stored deterministic label, divided by the same test rings. The deployed model has not adopted this rule.',
+        'Newly correct / wrong': 'Paired changes relative to the current rule: first, rings that switch from a mismatching to a matching selection; second, rings that switch from matching to mismatching. Subtract the second count from the first for the net gain.',
+        'Changed choices': 'Test rings where the two fitted models choose different output identities. Both choices can still disagree with the stored label, so a changed choice is not automatically a gain.',
+        'Train removed': 'Earlier training rings excluded because their sampled component touches a later test output or transaction. Earlier unlabeled rings can form bridges. This offline filter does not prove full-graph independence or common ownership.',
         'Smallest complete score gaps': 'For each scoring record with every candidate score available, subtract the second-highest score from the highest. This table sorts the smallest gaps first. A small gap means the model has two similarly ranked candidates; it is not an error probability.',
         'Resolved rings over export observations': 'Each point is a completed analysis export. The collector scans a block batch, analyzes it, then publishes totals. Growth can include newly imported singleton rings and revisions to earlier rings. A line between points is not a record of individual solve events.',
         'Recent pool snapshots': 'Each bar is one published poll of this node’s pool. Height is the number of returned transactions. An error marker means the count is unknown, not zero. The display shows a bounded recent window, not every poll since collection began.',
@@ -127,6 +136,93 @@
         },onStatus:result=>{document.getElementById('changelog-status').textContent=result.ok?'Published note and task history · latest 100 events shown.':'History check failed; keeping available entries.';}});
         mechanism(document.getElementById('inference-animation'));
     }
-    const api={features,help,scanCoverage,updateScan};if(typeof module==='object'&&module.exports)module.exports=api;root.TraceGroveGuide=api;
-    if(root.document)document.addEventListener('DOMContentLoaded',()=>{installHelp();mountConclusions();if(document.getElementById('knowledge-brain') && root.TraceGroveLive)root.TraceGroveLive.startPolling({load:()=>root.TraceGroveLive.fetchJSON('task-activity.json'),onData:data=>{noteHistory=data;annotateNotes();},onStatus() {}});});
+    const TIE_COHORTS = ['random', 'chronological', 'chronological_purged'];
+    function reuseRanks(counts) {
+        if (!Array.isArray(counts) || counts.length < 2 || counts.length > 32 || counts.some(value => !Number.isSafeInteger(value) || value < 1)) throw Error('A rank example needs at least two positive integer reuse counts.');
+        const ordered = counts.map((value,index) => ({value,index})).sort((a,b) => a.value - b.value || a.index - b.index);
+        const current = Array(counts.length), equal = Array(counts.length);
+        ordered.forEach((item, position) => { current[item.index] = position / (counts.length - 1); });
+        for (let begin = 0; begin < ordered.length;) {
+            let end = begin + 1; while (end < ordered.length && ordered[end].value === ordered[begin].value) end++;
+            const rank = (begin + end - 1) / (2 * (counts.length - 1));
+            for (let i = begin; i < end; i++) equal[ordered[i].index] = rank;
+            begin = end;
+        }
+        return {current,equal};
+    }
+    function reuseExperiment(data) {
+        const integer = value => Number.isSafeInteger(value) && value >= 0;
+        const finite = value => typeof value === 'number' && Number.isFinite(value);
+        const near = (a,b) => finite(a) && Math.abs(a-b) < 1e-10;
+        if (data?.schema_version !== 1 || data.experiment_id !== 'FA3' || typeof data.generated_at !== 'string' || !Number.isFinite(Date.parse(data.generated_at)) || data.scope?.metric !== 'retrospective_label_agreement' || data.scope.scan_start !== 0 || data.scope.scan_end !== 58900 || typeof data.scope.description !== 'string') throw Error('Unsupported or missing FA3 research scope.');
+        if (typeof data.source_revision !== 'string' || !/^[a-f0-9]{40}$/.test(data.source_revision) || !Array.isArray(data.comparisons) || data.comparisons.length !== 3 || new Set(data.comparisons.map(row => row.id)).size !== 3 || !data.comparisons.every(row => TIE_COHORTS.includes(row.id))) throw Error('The three registered FA3 cohorts are incomplete.');
+        if (!Array.isArray(data.limitations) || data.limitations.some(value => typeof value !== 'string') || !Array.isArray(data.sources) || data.sources.some(item => typeof item.label !== 'string' || !source(item.path))) throw Error('Invalid FA3 limitations or source links.');
+        for (const row of data.comparisons) {
+            if (typeof row.label !== 'string' || !['train_rings','test_rings','train_candidates','test_candidates','train_removed','test_rings_with_reuse_ties'].every(key => integer(row[key])) || row.train_rings < 1 || row.test_rings < 1 || row.train_candidates < 2 * row.train_rings || row.test_candidates < 2 * row.test_rings || row.test_rings_with_reuse_ties > row.test_rings) throw Error('Invalid FA3 cohort denominator.');
+            if (row.id === 'random' ? row.cutoff_height !== null || row.train_removed !== 0 : !integer(row.cutoff_height) || row.cutoff_height > data.scope.scan_end) throw Error('Invalid FA3 temporal cutoff.');
+            for (const model of [row.baseline, row.equal_rank]) if (!model || !integer(model.correct) || model.correct > row.test_rings || !near(model.agreement, model.correct / row.test_rings) || !integer(model.top_tied_rings) || model.top_tied_rings > row.test_rings) throw Error('FA3 model rates do not reconcile with exact heldout counts.');
+            const paired = row.paired;
+            if (!paired || !['rings','both_correct','baseline_only_correct','variant_only_correct','neither_correct','changed_selected_outputs'].every(key => integer(paired[key])) || paired.rings !== row.test_rings || paired.both_correct + paired.baseline_only_correct + paired.variant_only_correct + paired.neither_correct !== paired.rings || paired.both_correct + paired.baseline_only_correct !== row.baseline.correct || paired.both_correct + paired.variant_only_correct !== row.equal_rank.correct || paired.net_correct_change !== row.equal_rank.correct - row.baseline.correct || !near(paired.agreement_change, paired.net_correct_change / paired.rings) || paired.changed_selected_outputs < paired.baseline_only_correct + paired.variant_only_correct || paired.changed_selected_outputs > paired.rings) throw Error('FA3 paired outcomes do not reconcile.');
+        }
+        const chronological = data.comparisons.find(row => row.id === 'chronological'), purged = data.comparisons.find(row => row.id === 'chronological_purged');
+        if (chronological.train_removed !== 0 || chronological.cutoff_height !== purged.cutoff_height || chronological.train_rings !== purged.train_rings + purged.train_removed || ['test_rings','test_candidates','test_rings_with_reuse_ties'].some(key => chronological[key] !== purged[key]) || purged.train_candidates > chronological.train_candidates) throw Error('Chronological and purged cohorts must share the same test population.');
+        return data;
+    }
+    function rankExample(host) {
+        const scenarios = {mixed: {label:'Some equal counts',counts:[2,1,1,4]}, all: {label:'Every count is equal',counts:[3,3,3,3]}, none: {label:'No equal counts',counts:[4,1,3,2]}};
+        const panel = el('div',null,'reuse-example');
+        const intro = el('div',null,'reuse-example-intro');
+        intro.append(el('h3','Explore the rank rule'),el('p','Illustrative: four invented outputs from one amount bucket, in ascending index order. These are not chain observations.'));
+        const label = el('label','Reuse-count example'), choose = el('select'); choose.id='reuse-rank-scenario'; choose.setAttribute('aria-label','Choose illustrative reuse counts');
+        for (const [key,scenario] of Object.entries(scenarios)) { const option=el('option',scenario.label); option.value=key; choose.append(option); }
+        label.append(choose); intro.append(label);
+        const chart = el('div',null,'reuse-example-chart');
+        const legend = el('p','Blue: current index-ordered rank · Green: equal midrank','reuse-legend');
+        const rows = el('div',null,'reuse-rank-rows'), description=el('p',null,'reuse-rank-description'); description.id='reuse-rank-description'; description.setAttribute('role','status');
+        const buttons=[], currentBars=[], equalBars=[], captions=[]; let selected=1;
+        const values=()=>scenarios[choose.value];
+        function explain(index, focus=false) {
+            selected=index; const counts=values().counts, ranks=reuseRanks(counts);
+            buttons.forEach((button,i)=>{button.setAttribute('aria-pressed',String(i===index));});
+            const tied=counts.filter(value=>value===counts[index]).length;
+            description.textContent=`Output ${['A','B','C','D'][index]} (invented index ${(index+1)*10}) has reuse count ${counts[index]}. Current rank ${ranks.current[index].toFixed(3)}; equal midrank ${ranks.equal[index].toFixed(3)}. ${tied>1 ? `${tied} candidates share this count. The equal rule gives each their group's average normalized rank.` : 'This count has no ties, so both rules assign the same rank.'}`;
+            if(focus)buttons[index].focus();
+        }
+        for(let i=0;i<4;i++) {
+            const row=el('div',null,'reuse-rank-row'),button=el('button',null,'reuse-output');button.type='button';button.setAttribute('aria-describedby',description.id);buttons.push(button);
+            const tracks=el('div',null,'reuse-rank-tracks'),a=el('div',null,'reuse-rank-track'),b=el('div',null,'reuse-rank-track');
+            const barA=el('span',null,'reuse-rank-current'),barB=el('span',null,'reuse-rank-equal');currentBars.push(barA);equalBars.push(barB);a.append(barA);b.append(barB);tracks.append(a,b);tracks.setAttribute('aria-hidden','true');
+            const caption=el('span',null,'reuse-rank-caption');captions.push(caption);row.append(button,tracks,caption);rows.append(row);
+            button.addEventListener('mouseenter',()=>explain(i));button.addEventListener('focus',()=>explain(i));button.addEventListener('click',()=>explain(i));
+            button.addEventListener('keydown',event=>{let index=i;if(event.key==='ArrowDown'||event.key==='ArrowRight')index=(i+1)%4;else if(event.key==='ArrowUp'||event.key==='ArrowLeft')index=(i+3)%4;else if(event.key==='Home')index=0;else if(event.key==='End')index=3;else return;event.preventDefault();explain(index,true);});
+        }
+        function update() { const counts=values().counts,ranks=reuseRanks(counts);for(let i=0;i<4;i++){buttons[i].textContent=`${['A','B','C','D'][i]} · count ${counts[i]}`;buttons[i].setAttribute('aria-label',`Output ${['A','B','C','D'][i]}, reuse count ${counts[i]}, current rank ${ranks.current[i].toFixed(3)}, equal rank ${ranks.equal[i].toFixed(3)}`);currentBars[i].style.width=`${100*ranks.current[i]}%`;equalBars[i].style.width=`${100*ranks.equal[i]}%`;captions[i].textContent=`${ranks.current[i].toFixed(3)} → ${ranks.equal[i].toFixed(3)}`;}explain(selected); }
+        choose.addEventListener('change',update);chart.append(legend,rows,description,el('p','Midrank = average of the tied group’s zero-based positions, divided by (ring size − 1). When all counts tie, each candidate receives 0.5.','hint'));panel.append(intro,chart);host.append(panel);update();
+    }
+    function mountReuseTies() {
+        const host=document.getElementById('reuse-tie-results');if(!host)return;
+        rankExample(document.getElementById('reuse-rank-example'));
+        const status=document.getElementById('reuse-tie-status');let payload=null;
+        if(!root.TraceGroveLive){status.textContent='The refresh script is unavailable. Reload to retry; the rank example remains usable.';host.setAttribute('aria-busy','false');return;}
+        const pct = value => `${(100*value).toFixed(2)}%`;
+        function render(data) {
+            const container=el('div');
+            container.append(el('h3','Measured agreement within each cohort'),el('p',data.scope.description),el('p',`Heights ${data.scope.scan_start.toLocaleString()}–${data.scope.scan_end.toLocaleString()} · result exported ${date(data.generated_at)}. These are selectively labeled historical rings, not forward or modern-chain accuracy.`,'hint'));
+            const bars=el('div',null,'reuse-result-bars');bars.setAttribute('role','img');bars.setAttribute('aria-label','Current and equal-rank label agreement within each heldout cohort. Exact counts and paired changes follow in the table.');
+            const rows=TIE_COHORTS.map(id=>data.comparisons.find(row=>row.id===id));
+            for(const row of rows){const group=el('div',null,'reuse-result-row');group.append(el('strong',row.label));for(const [name,model,cls] of [['Current',row.baseline,'reuse-rank-current'],['Equal ranks',row.equal_rank,'reuse-rank-equal']]){const line=el('div',null,'reuse-result-line'),track=el('span',null,'reuse-result-track'),fill=el('span',null,cls);fill.style.width=`${100*model.agreement}%`;track.append(fill);line.append(el('span',name),track,el('span',`${model.correct}/${row.test_rings} · ${pct(model.agreement)}`));group.append(line);}bars.append(group);}
+            container.append(bars);
+            const wrap=el('div',null,'reuse-results-table');wrap.tabIndex=0;wrap.dataset.viewKey='reuse-table';wrap.setAttribute('role','region');wrap.setAttribute('aria-label','Scrollable paired reuse-rank experiment results');
+            const table=el('table'),head=el('thead'),header=el('tr');for(const text of ['Cohort','Train / test rings','Current correct','Equal-rank correct','Newly correct / wrong','Changed choices','Train removed']){const th=el('th',text);th.scope='col';header.append(th);}head.append(header);table.append(head);const body=el('tbody');
+            for(const row of rows){const tr=el('tr');for(const text of [row.label,`${row.train_rings.toLocaleString()} / ${row.test_rings.toLocaleString()}`,`${row.baseline.correct} / ${row.test_rings}`,`${row.equal_rank.correct} / ${row.test_rings}`,`${row.paired.variant_only_correct} / ${row.paired.baseline_only_correct}`,row.paired.changed_selected_outputs,row.train_removed])tr.append(el('td',text));body.append(tr);}table.append(body);wrap.append(table);container.append(wrap);
+            container.append(el('p','Comparisons are paired within a cohort: both models score the same test rings. Chronological and purged rows keep the same future test population; purging changes the training population. Differences between cohort rows do not establish a causal effect.','reuse-result-caveat'));
+            const details=el('details');details.dataset.viewKey='reuse-cohort-details';const summary=el('summary','Cohort sizes, prediction ties and limitations');summary.dataset.viewKey='reuse-cohort-summary';details.append(summary);
+            for(const row of rows)details.append(el('p',`${row.label}: ${row.train_candidates.toLocaleString()} training candidates; ${row.test_candidates.toLocaleString()} test candidates. ${row.test_rings_with_reuse_ties}/${row.test_rings} test rings contain equal reuse counts. Tied top model scores: current ${row.baseline.top_tied_rings}, equal rank ${row.equal_rank.top_tied_rings}.${row.cutoff_height===null?'':` Chronological cutoff: height ${row.cutoff_height.toLocaleString()}.`} Net agreement change: ${row.paired.net_correct_change>=0?'+':''}${row.paired.net_correct_change} rings (${row.paired.agreement_change>=0?'+':''}${(100*row.paired.agreement_change).toFixed(2)} percentage points).`));
+            const limits=el('ul');data.limitations.forEach(value=>limits.append(el('li',value)));details.append(limits);container.append(details);
+            const sources=el('p',null,'reuse-result-sources');data.sources.forEach(item=>sources.append(link(`${item.label} ↗`,source(item.path)),' '));sources.append(link(`Source commit ${data.source_revision.slice(0,8)} ↗`,`https://github.com/netzo92/deanonymizing_xmr/commit/${data.source_revision}`),link('Public result JSON ↗','reuse-tie-experiment.json'));container.append(sources);host.replaceChildren(container);
+        }
+        root.TraceGroveReuseTiePoller=root.TraceGroveLive.startPolling({load:()=>root.TraceGroveLive.fetchJSON('reuse-tie-experiment.json').then(reuseExperiment),onData:data=>{payload=data;const preserve=root.TraceGroveResearchActivity?.preserveView || ((element,callback)=>callback());preserve(host,()=>render(data));},onStatus:result=>{host.setAttribute('aria-busy','false');status.textContent=result.ok?`Published FA3 results checked ${date(result.checkedAt)} · checks every 60 seconds.`:`FA3 result check failed (${result.error}). ${payload?'Keeping the last valid results.':'No validated result snapshot is available here yet.'} The illustrative rank example remains usable; retrying every 60 seconds.`;}});
+    }
+    const api={features,help,scanCoverage,updateScan,reuseRanks,reuseExperiment};if(typeof module==='object'&&module.exports)module.exports=api;root.TraceGroveGuide=api;
+    if(root.document)document.addEventListener('DOMContentLoaded',()=>{installHelp();mountConclusions();mountReuseTies();if(document.getElementById('knowledge-brain') && root.TraceGroveLive)root.TraceGroveLive.startPolling({load:()=>root.TraceGroveLive.fetchJSON('task-activity.json'),onData:data=>{noteHistory=data;annotateNotes();},onStatus() {}});});
 })(typeof globalThis!=='undefined'?globalThis:this);

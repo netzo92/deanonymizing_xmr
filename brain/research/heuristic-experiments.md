@@ -87,6 +87,13 @@ its matched chance baseline. Failure modes: indirect graph-label leakage, thresh
 test set, or purging nearly all difficult data. **Evidence status:** source
 confirms random ring splitting; stricter evaluation remains proposed.
 
+The [FA3 follow-up](feature-variation-audit.md#fa3--reuse-tie-comparison-completed)
+completed a retrospective prerequisite at 2026-09-12 05:40:55 UTC: strict later
+blocks and a sampled pre-cutoff component filter, removing 169 of 645 training
+rings. Its feature values still come from the full snapshot and its historical
+label eligibility is unknown. This does not close HE3 or establish forward
+accuracy; the next step is freezing those available-at-time inputs.
+
 ### HE4 — Overlap and co-spend false merges (P2; extends G1–G4)
 
 - [ ] **HE4 — Overlap and co-spend false merges (P2).** Inputs: observed ring-output graph, transactions with multiple input rings, run-specific candidate scores, and separate controlled-wallet spend/ownership labels. Preserve both amounts and indices on every edge.

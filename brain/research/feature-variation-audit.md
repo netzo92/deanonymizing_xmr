@@ -1,5 +1,5 @@
 ---
-summary: EA1 measured all 24 current features on 2,000 historical rings, finding four constants and four exact duplicate pairs.
+summary: EA1 feature measurements and registered FA2/FA3 model comparisons, including mixed reuse-tie results and retrospective limits.
 status: maintained
 reviewed: 2026-09-11
 ---
@@ -164,7 +164,7 @@ and database/WAL preservation, and rejection of a changing source.
 ## Next experiments
 
 - [x] **FA2 — Fixed-split ablation.** Compare current features with constant/duplicate families removed on the same frozen eligible rings and predeclared split. Record time, memory, candidate scores, and outcome differences; do not assume fewer columns improve accuracy.
-- [ ] **FA3 — Reuse tie treatment.** Compare current index-ordered ranks with equal ranks for tied counts, using the same split and explicit chronological/graph controls. Separate genuine reuse information from the index-order signal introduced by ties.
+- [x] **FA3 — Reuse tie treatment.** Compare current index-ordered ranks with equal ranks for tied counts, using the same split and explicit chronological/graph controls. Completed the registered three-split comparison below; equal ranks gained two correct rings only on the random split. The broader improvement hypothesis remains inconclusive, and prediction-time evaluation remains HE3.
 - [ ] **FA4 — Broader feature coverage.** Repeat the audit on an independently validated later snapshot with amount-zero cohorts. Keep absent cohorts visible and check both original-training and surviving-scoring contexts before changing deployed scoring.
 
 
@@ -203,5 +203,84 @@ an output with training and 100 share a transaction; 24 distinct outputs cross
 the split. Full-snapshot features and unknown historical label eligibility remain.
 No modern, forward, independent-label or per-feature causal benefit is established.
 The broader improvement hypothesis remains inconclusive. Next: HE3 temporal/graph
-controls, FA3 tied-reuse ranks and FA4 validated later-era coverage. The deployed
+controls and FA4 validated later-era coverage; the FA3 follow-up is below. The deployed
 scorer still uses its existing 24 features.
+
+
+## FA3 — Reuse tie comparison completed
+
+The [protocol](../../research/reuse_tie_protocol.json),
+[runner](../../research/reuse_tie_experiment.py) and
+[method tests](../../tests/test_reuse_tie_experiment.py) were committed as
+`287922b75c91645a3b6a352ad26efa0f22ba3bea` before any FA3 model fit.
+The [complete result](../../research/results/reuse_ties_2026-09-12/summary.json)
+finished at **2026-09-12 05:40:55 UTC**. This follow-up reused the frozen EA1
+matrix and already-inspected FA2 random split; it is not a new untouched test.
+No database, RPC or deployed scorer was changed.
+
+Only `reuse_rank_in_ring` changes. Current ranks give equal counts different
+positions in ascending output-index order. The alternative assigns the average
+normalized position to all candidates in each tie: all equal counts become
+0.5, and untied ranks remain identical. Other reuse and index-position features
+remain, so this comparison does not isolate every source of either signal.
+
+Each cohort fits the fixed seed-42, 500-tree forest with leaf size 3, balanced
+weights and a training-only scaler. Every variant retains all 24 columns. Six
+fresh processes each run one fit with one worker; no tuning or result-based
+selection is performed.
+
+| Split | Training rings / candidates | Same test rings / candidates | Index-ordered correct | Equal-rank correct | Paired change |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Existing FA2 random split | 648 / 3,643 | 162 / 890 | 142 (87.65%) | 144 (88.89%) | +2 rings (+1.23 percentage points) |
+| Earlier training, later blocks | 645 / 3,998 | 165 / 535 | 159 (96.36%) | 159 (96.36%) | 0 |
+| Same later blocks, connected training removed | 476 / 2,470 | 165 / 535 | 158 (95.76%) | 158 (95.76%) | 0 |
+
+Agreement means matching selective stored deterministic labels under analyzer
+assumptions. The different random and later-block test populations make their
+absolute rates unsuitable as evidence of a generalization improvement.
+The random baseline reproduced every FA2 baseline candidate score and outcome.
+Equal ranks changed three random-test selections: two became correct and one
+remained wrong; none became newly wrong. All three changes were among the 116
+random test rings with reuse ties. Both later-block comparisons changed zero
+selected outputs; each contains 58 test rings with reuse ties. No model produced
+an exact top-score tie in these six fits, so fractional tie agreement equals
+operational agreement. Unchanged choices do not imply identical scores.
+
+**Chronological and graph controls:** the cutoff is height **55,068**, selected
+by the predeclared 80% rule. Training uses strictly earlier heights, with all
+rings in the boundary block assigned to test. Components use original output
+memberships and same-transaction links from only **1,316 sampled earlier rings**,
+including unlabeled bridges. This produces **561 components**, largest **209
+rings**. The overlap filter removes **169 / 645 training rings (26.20%)** in
+components touched by later labeled test identities; **476 remain**. It removes
+all direct sampled output and same-transaction overlap. No at/after-cutoff
+unlabeled bridge builds the components, and labels do not define edges.
+
+The test identities inform an offline evaluation filter; this is not an online
+address-grouping rule. Missing nonsampled rings may connect the remaining
+components. Features still use the full 0–58,900 snapshot and historical label
+availability is unknown. Removing training rings also changes sample size and
+composition. These controls therefore do not complete HE3, prove independence,
+or explain the one-ring difference between chronological baselines causally.
+
+**Conclusion:** equal ranks showed a small gain on one reused random split and
+no selection gain on either later-block comparison. The broader improvement
+hypothesis is **inconclusive**. There is no forward, modern-chain, calibration,
+independent-spend or wallet-ownership finding. The deployed scorer retains its
+index-ordered ranks. All scores, split identities, transformed-vector hashes,
+scaler statistics, paired subgroups, comparator expectations and resource
+observations remain in the result directory.
+
+```bash
+venv/bin/python research/reuse_tie_experiment.py run \
+  --registered-commit 287922b75c91645a3b6a352ad26efa0f22ba3bea \
+  --output-dir research/results/reuse_ties_rerun
+```
+
+Use a new result directory: the runner refuses to overwrite an existing study.
+Next: freeze feature and label availability before each cutoff (HE3), retain
+unverified outcomes, and evaluate independent later-era cohorts (FA4).
+A possible diagnostic is label-blind shuffling within tied reuse groups across
+predeclared seeds. That preserves the rank range while breaking its connection
+to index order, unlike midranks which also reduce within-ring variance. This
+idea is untested and must use a fresh declared evaluation window before fitting.

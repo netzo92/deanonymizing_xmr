@@ -50,7 +50,7 @@ git -C "$repo" archive --format=tar.gz --output "$temporary/source.tar.gz" "$rev
   docs/index.html docs/dashboard.js docs/dashboard.css docs/data.json docs/brain.json \
   docs/brain-view.js docs/brain-view.css docs/research-analytics.js docs/research-analytics.css \
   docs/evidence-graph.js docs/evidence-graph.css \
-  docs/feature-audit.js docs/feature-audit.css docs/feature-audit.json docs/progress-view.js docs/progress-view.css docs/live-feed.js docs/live-feed.css docs/todos.html docs/todo-results.js docs/todo-results.css docs/research-progress.json docs/eras.html docs/era-view.js docs/era-view.css docs/protocol-eras.json docs/pool.html docs/pool-view.js docs/pool-view.css docs/task-activity-view.js docs/task-activity-view.css docs/task-activity.json docs/hypotheses.json docs/conclusions.html docs/research-guide.js docs/research-guide.css deploy/gcp
+  docs/feature-audit.js docs/feature-audit.css docs/feature-audit.json docs/progress-view.js docs/progress-view.css docs/live-feed.js docs/live-feed.css docs/todos.html docs/todo-results.js docs/todo-results.css docs/research-progress.json docs/eras.html docs/era-view.js docs/era-view.css docs/protocol-eras.json docs/pool.html docs/pool-view.js docs/pool-view.css docs/task-activity-view.js docs/task-activity-view.css docs/task-activity.json docs/hypotheses.json docs/conclusions.html docs/research-guide.js docs/research-guide.css docs/reuse-tie-experiment.json deploy/gcp
 tar -xzf "$temporary/source.tar.gz" -C "$temporary/source"
 printf '%s\n' "$revision" > "$temporary/source/REVISION"
 python3 "$temporary/source/brain_export.py" --root "$temporary/source" \
@@ -58,6 +58,7 @@ python3 "$temporary/source/brain_export.py" --root "$temporary/source" \
 python3 "$temporary/source/task_activity.py" --root "$temporary/source" \
   --output "$temporary/source/docs/task-activity.json" --validate-only
 python3 "$temporary/source/research/check_conclusion_claims.py" --root "$temporary/source"
+python3 "$temporary/source/research/export_reuse_tie_result.py" --root "$temporary/source" --check
 cmp "$temporary/source/research/hypotheses.json" "$temporary/source/docs/hypotheses.json" || {
   echo 'Public hypothesis ledger differs from its canonical source.' >&2; exit 1;
 }
@@ -79,7 +80,7 @@ assets = (
     'progress-view.js', 'progress-view.css', 'live-feed.js', 'live-feed.css', 'todos.html', 'todo-results.js', 'todo-results.css', 'research-progress.json',
     'eras.html', 'era-view.js', 'era-view.css', 'protocol-eras.json',
     'pool.html', 'pool-view.js', 'pool-view.css',
-    'task-activity-view.js', 'task-activity-view.css', 'task-activity.json', 'hypotheses.json', 'conclusions.html', 'research-guide.js', 'research-guide.css',
+    'task-activity-view.js', 'task-activity-view.css', 'task-activity.json', 'hypotheses.json', 'conclusions.html', 'research-guide.js', 'research-guide.css', 'reuse-tie-experiment.json',
 )
 hashes = {}
 for asset in assets:

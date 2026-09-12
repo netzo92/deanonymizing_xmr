@@ -123,3 +123,15 @@ limits remain separate from the original three frozen cards above.
 The [private archive](private-node-observations.md#retained-archives-and-measured-storage)
 now preserves retained pool observations before rolling deletion, while controlled
 coverage and forecast evaluation remain open.
+
+
+The [FA3 reuse tie study](feature-variation-audit.md#fa3--reuse-tie-comparison-completed)
+completed at **2026-09-12 05:40:55 UTC**. Equal ranks changed random-split agreement
+from **142 to 144 of 162** rings; both variants matched **159 of 165** later-block
+labels and **158 of 165** after removing connected training rings. The broader
+improvement hypothesis is inconclusive, and the deployed model keeps its current
+tie rule. The conclusions page shows all three paired comparisons, denominators,
+source revision, limits and an interactive illustrative rank example. These
+results refresh from a separate frozen artifact; they are not recomputed by live
+chain collection. HE3 remains open because features and label eligibility were
+not reconstructed at historical cutoffs.

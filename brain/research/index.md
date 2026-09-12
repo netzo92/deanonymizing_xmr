@@ -38,6 +38,8 @@ These proposals are a user-requested backlog, not implemented findings.
 
 Existing experiment records:
 
+- [FA3 reuse tie comparison](feature-variation-audit.md#fa3--reuse-tie-comparison-completed): equal ranks improved random-split agreement from 142 to 144 of 162 rings; later-block and overlap-filtered comparisons showed no gain. Prediction-time evaluation remains open.
+
 - [Progress and conclusions](progress-and-conclusions.md): completed work, theoretical implications, frozen measurements, and next experiments for the dedicated TODO/results page.
 
 - [FA2 paired feature ablation](feature-variation-audit.md#fa2--paired-ablation-completed): 24/20/17 columns each agreed on 142 of 162 test rings; no observed agreement gain, with explicit dependence and historical-scope limits.

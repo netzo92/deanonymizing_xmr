@@ -165,3 +165,26 @@ The [conclusions and feature guide](../../docs/conclusions.html) is the plain-la
 entry point for experiment outcomes, what can/cannot be inferred, all model
 features, note timestamps, and an illustrative inference animation. See
 [task reporting](task-reporting.md#note-edits-and-conclusions) for its publication rules.
+
+
+## Reuse tie experiment display
+
+The conclusions page adds [FA3](../research/feature-variation-audit.md#fa3--reuse-tie-comparison-completed)
+with three paired cohort comparisons, exact training/test counts and an
+illustrative four-output rank widget. Pointer, keyboard and touch can compare
+mixed, all-equal and untied reuse counts; reduced-motion settings suppress bar
+transitions. Equal midranks are experimental; the live scorer still uses its
+existing index-ordered rule.
+
+The [public aggregate](../../docs/reuse-tie-experiment.json) is derived by the
+[offline exporter](../../research/export_reuse_tie_result.py) from the registered
+protocol and six frozen result files. The exporter reconciles candidate outcomes,
+paired totals, split identities and hashes without fitting or opening SQLite.
+Run `python3 research/export_reuse_tie_result.py --check` before publication;
+both static and runtime release preparation enforce it. Static publication
+includes this frozen study without replacing the collector's mutable exports.
+
+The browser checks for published result changes every 60 seconds. It preserves
+the last valid study if validation or a fetch fails, and preserves the separate
+rank widget's focus/selection during results refresh. A research study changes
+when new validated results are published; live collection does not rerun it.

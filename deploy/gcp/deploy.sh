@@ -49,7 +49,7 @@ git -C "$repo" archive --format=tar.gz --output "$archive" "$revision" -- \
   docs/index.html docs/dashboard.js docs/dashboard.css docs/data.json docs/brain.json \
   docs/brain-view.js docs/brain-view.css docs/research-analytics.js docs/research-analytics.css \
   docs/evidence-graph.js docs/evidence-graph.css docs/feature-audit.js docs/feature-audit.css \
-  docs/feature-audit.json docs/progress-view.js docs/progress-view.css docs/live-feed.js docs/live-feed.css docs/todos.html docs/todo-results.js docs/todo-results.css docs/research-progress.json docs/eras.html docs/era-view.js docs/era-view.css docs/protocol-eras.json docs/pool.html docs/pool-view.js docs/pool-view.css docs/task-activity-view.js docs/task-activity-view.css docs/task-activity.json docs/hypotheses.json docs/conclusions.html docs/research-guide.js docs/research-guide.css deploy/gcp
+  docs/feature-audit.json docs/progress-view.js docs/progress-view.css docs/live-feed.js docs/live-feed.css docs/todos.html docs/todo-results.js docs/todo-results.css docs/research-progress.json docs/eras.html docs/era-view.js docs/era-view.css docs/protocol-eras.json docs/pool.html docs/pool-view.js docs/pool-view.css docs/task-activity-view.js docs/task-activity-view.css docs/task-activity.json docs/hypotheses.json docs/conclusions.html docs/research-guide.js docs/research-guide.css docs/reuse-tie-experiment.json deploy/gcp
 git -C "$repo" show "$revision:deploy/gcp/install-release.sh" > "$temporary/install-release.sh"
 cp "$env_file" "$temporary/collector.env"
 chmod 0600 "$temporary/collector.env"

@@ -20,12 +20,13 @@ staging=$(mktemp -d /opt/xmr/releases/.staging.XXXXXXXX)
 trap 'rm -rf "$staging"' EXIT
 tar --extract --gzip --file "$archive" --directory "$staging" --no-same-owner
 printf '%s\n' "$revision" > "$staging/REVISION"
-for required in task_activity.py research/hypotheses.json docs/task-activity.json docs/hypotheses.json docs/conclusions.html docs/research-guide.js docs/research-guide.css docs/task-activity-view.js docs/task-activity-view.css pool_observer.py protocol_eras.py live_observer.py deploy/gcp/live-observer.service collector.py brain_export.py requirements.txt brain/index.md docs/index.html docs/dashboard.js docs/dashboard.css docs/brain-view.js docs/brain-view.css docs/research-analytics.js docs/research-analytics.css docs/evidence-graph.js docs/evidence-graph.css docs/feature-audit.js docs/feature-audit.css docs/feature-audit.json docs/progress-view.js docs/progress-view.css docs/live-feed.js docs/live-feed.css docs/todos.html docs/todo-results.js docs/todo-results.css docs/research-progress.json docs/eras.html docs/era-view.js docs/era-view.css docs/protocol-eras.json docs/pool.html docs/pool-view.js docs/pool-view.css deploy/gcp/collector.service deploy/gcp/nginx.conf; do
+for required in task_activity.py research/hypotheses.json docs/task-activity.json docs/hypotheses.json docs/conclusions.html docs/research-guide.js docs/research-guide.css docs/reuse-tie-experiment.json docs/task-activity-view.js docs/task-activity-view.css pool_observer.py protocol_eras.py live_observer.py deploy/gcp/live-observer.service collector.py brain_export.py requirements.txt brain/index.md docs/index.html docs/dashboard.js docs/dashboard.css docs/brain-view.js docs/brain-view.css docs/research-analytics.js docs/research-analytics.css docs/evidence-graph.js docs/evidence-graph.css docs/feature-audit.js docs/feature-audit.css docs/feature-audit.json docs/progress-view.js docs/progress-view.css docs/live-feed.js docs/live-feed.css docs/todos.html docs/todo-results.js docs/todo-results.css docs/research-progress.json docs/eras.html docs/era-view.js docs/era-view.css docs/protocol-eras.json docs/pool.html docs/pool-view.js docs/pool-view.css deploy/gcp/collector.service deploy/gcp/nginx.conf; do
   [[ -f $staging/$required ]] || { echo "Release is missing $required" >&2; exit 1; }
 done
 python3 "$staging/brain_export.py" --root "$staging" --output "$staging/docs/brain.json"
 python3 "$staging/task_activity.py" --root "$staging" --output "$staging/docs/task-activity.json" --validate-only
 python3 "$staging/research/check_conclusion_claims.py" --root "$staging"
+python3 "$staging/research/export_reuse_tie_result.py" --root "$staging" --check
 cmp "$staging/research/hypotheses.json" "$staging/docs/hypotheses.json" || { echo "Public hypothesis ledger differs from canonical source." >&2; exit 1; }
 python3 - "$staging/docs/task-activity.json" <<'PYCODE'
 import json, sys
@@ -116,7 +117,7 @@ ln -sfn "$release" /opt/xmr/current.next
 mv -Tf /opt/xmr/current.next /opt/xmr/current
 ln -sfn "$release" /opt/xmr/observer-current.next
 mv -Tf /opt/xmr/observer-current.next /opt/xmr/observer-current
-for asset in index.html dashboard.js dashboard.css brain.json brain-view.js brain-view.css research-analytics.js research-analytics.css evidence-graph.js evidence-graph.css feature-audit.js feature-audit.css feature-audit.json progress-view.js progress-view.css live-feed.js live-feed.css todos.html todo-results.js todo-results.css research-progress.json eras.html era-view.js era-view.css protocol-eras.json pool.html pool-view.js pool-view.css task-activity-view.js task-activity-view.css task-activity.json hypotheses.json conclusions.html research-guide.js research-guide.css; do
+for asset in index.html dashboard.js dashboard.css brain.json brain-view.js brain-view.css research-analytics.js research-analytics.css evidence-graph.js evidence-graph.css feature-audit.js feature-audit.css feature-audit.json progress-view.js progress-view.css live-feed.js live-feed.css todos.html todo-results.js todo-results.css research-progress.json eras.html era-view.js era-view.css protocol-eras.json pool.html pool-view.js pool-view.css task-activity-view.js task-activity-view.css task-activity.json hypotheses.json conclusions.html research-guide.js research-guide.css reuse-tie-experiment.json; do
   install -o xmr -g xmr -m 0644 "$release/docs/$asset" "/var/www/xmr/$asset.next"
   mv -f "/var/www/xmr/$asset.next" "/var/www/xmr/$asset"
 done
@@ -147,7 +148,7 @@ assets = ('index.html', 'dashboard.js', 'dashboard.css', 'brain.json',
           'progress-view.js', 'progress-view.css', 'live-feed.js', 'live-feed.css', 'todos.html', 'todo-results.js', 'todo-results.css', 'research-progress.json',
           'eras.html', 'era-view.js', 'era-view.css', 'protocol-eras.json',
           'pool.html', 'pool-view.js', 'pool-view.css',
-          'task-activity-view.js', 'task-activity-view.css', 'task-activity.json', 'hypotheses.json', 'conclusions.html', 'research-guide.js', 'research-guide.css')
+          'task-activity-view.js', 'task-activity-view.css', 'task-activity.json', 'hypotheses.json', 'conclusions.html', 'research-guide.js', 'research-guide.css', 'reuse-tie-experiment.json')
 manifest = {
     'schema_version': 1, 'source_commit': sys.argv[1], 'runtime_source_commit': sys.argv[1],
     'published_at': datetime.datetime.now(datetime.timezone.utc).isoformat(),

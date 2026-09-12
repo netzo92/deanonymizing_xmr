@@ -195,6 +195,20 @@ class StaticPreparationTests(unittest.TestCase):
             target = self.repo / file
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(ROOT / file, target)
+        # The actual offline guard must pass on the committed frozen study;
+        # preparation never substitutes a mock checker or refits the models.
+        fa3_sources = ['research/export_reuse_tie_result.py', 'research/reuse_tie_experiment.py',
+            'research/reuse_tie_protocol.json', 'research/feature_ablation.py',
+            'research/feature_ablation_protocol.json', 'scorer.py', 'docs/reuse-tie-experiment.json',
+            'research/results/feature_variation_matrix_2026-09-11.json.gz',
+            'research/results/feature_variation_2026-09-11.json',
+            'research/results/feature_ablation_2026-09-12/all_features.json',
+            'research/results/feature_ablation_2026-09-12/summary.json']
+        fa3_sources += [str(p.relative_to(ROOT)) for p in (ROOT/'research/results/reuse_ties_2026-09-12').glob('*.json')]
+        for file in fa3_sources:
+            target = self.repo / file
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(ROOT / file, target)
 
         ledger = json.dumps({'schema_version': 1, 'entries': []}) + '\n'
         (self.repo / 'research/hypotheses.json').write_text(ledger)
@@ -265,6 +279,18 @@ class StaticPreparationTests(unittest.TestCase):
         result = self.prepare()
         self.assertNotEqual(result.returncode, 0)
         self.assertIn('Public hypothesis ledger differs', result.stderr)
+        self.assertFalse((self.root / 'prepared/static.tar.gz').exists())
+
+    def test_changed_fa3_display_count_fails_before_upload_preparation(self):
+        path = self.repo / 'docs/reuse-tie-experiment.json'
+        value = json.loads(path.read_text())
+        value['comparisons'][0]['equal_rank']['correct'] += 1
+        path.write_text(json.dumps(value))
+        self.git('add', 'docs/reuse-tie-experiment.json')
+        self.git('commit', '-qm', 'Drift displayed FA3 result away from saved scores')
+        self.revision = self.git('rev-parse', 'HEAD').strip()
+        result = self.prepare()
+        self.assertNotEqual(result.returncode, 0)
         self.assertFalse((self.root / 'prepared/static.tar.gz').exists())
 
     def test_cloud_client_transfers_only_public_payload_and_pinned_static_installer(self):

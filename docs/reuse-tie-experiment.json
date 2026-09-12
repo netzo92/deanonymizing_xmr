@@ -1,0 +1,142 @@
+{
+  "schema_version": 1,
+  "experiment_id": "FA3",
+  "generated_at": "2026-09-12T05:40:55.944268+00:00",
+  "source_revision": "287922b75c91645a3b6a352ad26efa0f22ba3bea",
+  "scope": {
+    "scan_start": 0,
+    "scan_end": 58900,
+    "metric": "retrospective_label_agreement",
+    "description": "Fixed tie-policy sensitivity on the frozen legacy EA1 sample; agreement with selective stored labels under three registered evaluation partitions."
+  },
+  "comparisons": [
+    {
+      "id": "random",
+      "label": "FA2 random ring split",
+      "train_rings": 648,
+      "test_rings": 162,
+      "train_candidates": 3643,
+      "test_candidates": 890,
+      "train_removed": 0,
+      "cutoff_height": null,
+      "test_rings_with_reuse_ties": 116,
+      "paired": {
+        "rings": 162,
+        "both_correct": 142,
+        "baseline_only_correct": 0,
+        "variant_only_correct": 2,
+        "neither_correct": 18,
+        "net_correct_change": 2,
+        "agreement_change": 0.012345679012345678,
+        "changed_selected_outputs": 3
+      },
+      "baseline": {
+        "correct": 142,
+        "agreement": 0.8765432098765432,
+        "top_tied_rings": 0
+      },
+      "equal_rank": {
+        "correct": 144,
+        "agreement": 0.8888888888888888,
+        "top_tied_rings": 0
+      }
+    },
+    {
+      "id": "chronological",
+      "label": "Later blocks; earlier training",
+      "train_rings": 645,
+      "test_rings": 165,
+      "train_candidates": 3998,
+      "test_candidates": 535,
+      "train_removed": 0,
+      "cutoff_height": 55068,
+      "test_rings_with_reuse_ties": 58,
+      "paired": {
+        "rings": 165,
+        "both_correct": 159,
+        "baseline_only_correct": 0,
+        "variant_only_correct": 0,
+        "neither_correct": 6,
+        "net_correct_change": 0,
+        "agreement_change": 0.0,
+        "changed_selected_outputs": 0
+      },
+      "baseline": {
+        "correct": 159,
+        "agreement": 0.9636363636363636,
+        "top_tied_rings": 0
+      },
+      "equal_rank": {
+        "correct": 159,
+        "agreement": 0.9636363636363636,
+        "top_tied_rings": 0
+      }
+    },
+    {
+      "id": "chronological_purged",
+      "label": "Same later blocks; connected training removed",
+      "train_rings": 476,
+      "test_rings": 165,
+      "train_candidates": 2470,
+      "test_candidates": 535,
+      "train_removed": 169,
+      "cutoff_height": 55068,
+      "test_rings_with_reuse_ties": 58,
+      "paired": {
+        "rings": 165,
+        "both_correct": 158,
+        "baseline_only_correct": 0,
+        "variant_only_correct": 0,
+        "neither_correct": 7,
+        "net_correct_change": 0,
+        "agreement_change": 0.0,
+        "changed_selected_outputs": 0
+      },
+      "baseline": {
+        "correct": 158,
+        "agreement": 0.9575757575757575,
+        "top_tied_rings": 0
+      },
+      "equal_rank": {
+        "correct": 158,
+        "agreement": 0.9575757575757575,
+        "top_tied_rings": 0
+      }
+    }
+  ],
+  "limitations": [
+    "Retrospective agreement with selective stored deterministic labels, not independent spend truth or forward accuracy.",
+    "All data are sampled legacy nonzero-amount rings from heights 0\u201358,900. The source-weighted population, modern eras and unresolved outcomes are not evaluated.",
+    "The random split and its baseline were already inspected in FA2. This is a follow-up sensitivity experiment, not a fresh untouched test.",
+    "Feature values still use the full original snapshot. Historical feature availability and label eligibility were not reconstructed; HE3 remains open.",
+    "Graph components use only sampled memberships before the cutoff. Heldout test identities are used to quarantine overlapping training components: an offline evaluation filter, not an online grouping rule.",
+    "The frozen matrix contains only 2,000 sampled rings. Missing rings and wider source-graph paths can connect apparently separate components; zero sampled overlap does not prove independence.",
+    "The chronological and purged comparisons use the same test rings but different training sizes/populations. Their differences do not isolate a causal effect of overlap.",
+    "Only reuse_rank_in_ring changes. Other reuse and index-position features remain; this cannot isolate all reuse or all index information.",
+    "Retraining can change predictions even for test rings without reuse ties. These subgroups are descriptive diagnostics, not causal negative controls.",
+    "One fixed model seed and one fit per variant/cohort, with no tuning, significance test or independence-assuming interval. Single timing/RSS observations do not establish repeatable efficiency gains.",
+    "Candidate scores are uncalibrated model outputs. No result identifies sender, address or wallet ownership; the live scorer is not changed by this runner."
+  ],
+  "sources": [
+    {
+      "label": "FA3 registered protocol",
+      "path": "research/reuse_tie_protocol.json"
+    },
+    {
+      "label": "FA3 frozen results and worker hashes",
+      "path": "research/results/reuse_ties_2026-09-12/summary.json"
+    },
+    {
+      "label": "FA3 experiment implementation",
+      "path": "research/reuse_tie_experiment.py"
+    },
+    {
+      "label": "Frozen EA1 feature audit",
+      "path": "research/results/feature_variation_2026-09-11.json"
+    },
+    {
+      "label": "Saved FA2 baseline comparison",
+      "path": "research/results/feature_ablation_2026-09-12/summary.json"
+    }
+  ]
+}
