@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+    <title>Pool observation pilot — TraceGrove</title>
+    <meta name="description" content="Follow prospective Monero transaction-pool observations, collection coverage, and observed confirmations with explicit limits.">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="pool-view.css">
+    <script defer src="live-feed.js"></script>
+    <script defer src="pool-view.js"></script>
+</head>
+<body class="pool-page">
+    <a class="skip-link" href="#pool-observations">Skip to pool observations</a>
+    <header class="pool-header">
+        <a class="pool-brand" href="index.html">TraceGrove <span>/ Pool pilot</span></a>
+        <nav aria-label="Main navigation"><a href="index.html">Dashboard</a><a href="eras.html">Security eras</a><a href="todos.html">Research &amp; TODOs</a></nav>
+    </header>
+    <main>
+        <section class="pool-hero" aria-labelledby="pool-title">
+            <div><p class="pool-kicker">Prospective observation · PN2 pilot</p><h1 id="pool-title">Before the next block.</h1><p class="pool-lead">Watch a node's transaction pool and learn how much our observer actually sees. Confirmations come from block matches; a missing transaction remains an open question.</p></div>
+            <aside class="pool-method"><p class="pool-kicker">What this pilot measures</p><div class="pool-journey" aria-hidden="true"><span>Observed</span><i>→</i><span>Followed</span><i>→</i><span>Block match</span></div><p>Local sightings, collection gaps, and observed outcomes.</p><strong>Observation first. Forecast evaluation comes later.</strong></aside>
+        </section>
+        <div id="pool-root" aria-busy="true"><p class="pool-empty" role="status">Loading the pool observation pilot…</p></div>
+        <section class="pool-next" aria-labelledby="pool-next-title">
+            <div><p class="pool-kicker">From collection to testable research</p><h2 id="pool-next-title">What comes next</h2><p>These links show the canonical checklist status. A running collector does not by itself complete the evaluation criteria.</p></div>
+            <a href="todos.html?status=all&amp;task=PN1#tasks"><span>PN1</span><strong>Validate the observation source</strong><small>Node synchronization, version, and data checks →</small></a>
+            <a href="todos.html?status=all&amp;task=PN2#tasks"><span>PN2</span><strong>Measure what we miss</strong><small>Polling gaps, first sightings, and follow-up coverage →</small></a>
+            <a href="todos.html?status=all&amp;task=PN3#tasks"><span>PN3</span><strong>Test confirmation forecasts</strong><small>Later cohorts, simple baselines, and censored outcomes →</small></a>
+        </section>
+    </main>
+    <footer class="pool-footer"><p>Pool observations provide no sender, IP, wallet, or address-ownership labels.</p><a href="index.html">Back to dashboard ↑</a></footer>
+    <noscript><p class="notice">Enable JavaScript to explore the pilot, or read the <a href="pool-observations.json">aggregate observation snapshot</a>.</p></noscript>
+</body>
+</html>

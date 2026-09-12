@@ -44,13 +44,13 @@ mkdir "$temporary/source" "$temporary/payload"
 # The complete, committed source context is needed to validate links in brain/.
 # It stays local; neither the source archive nor its data snapshot is uploaded.
 git -C "$repo" archive --format=tar.gz --output "$temporary/source.tar.gz" "$revision" -- \
-  main.py collector.py live_observer.py analyzer.py models.py scorer.py scanner.py monero_rpc.py brain.py \
+  main.py collector.py live_observer.py pool_observer.py analyzer.py models.py scorer.py scanner.py monero_rpc.py brain.py \
   dashboard_export.py protocol_eras.py brain_export.py requirements.txt README.md AGENTS.md brain tests research \
   autoresearch_results.md autoresearch-results.tsv references/README.md references/monero-source.json \
   docs/index.html docs/dashboard.js docs/dashboard.css docs/data.json docs/brain.json \
   docs/brain-view.js docs/brain-view.css docs/research-analytics.js docs/research-analytics.css \
   docs/evidence-graph.js docs/evidence-graph.css \
-  docs/feature-audit.js docs/feature-audit.css docs/feature-audit.json docs/progress-view.js docs/progress-view.css docs/live-feed.js docs/live-feed.css docs/todos.html docs/todo-results.js docs/todo-results.css docs/research-progress.json docs/eras.html docs/era-view.js docs/era-view.css docs/protocol-eras.json deploy/gcp
+  docs/feature-audit.js docs/feature-audit.css docs/feature-audit.json docs/progress-view.js docs/progress-view.css docs/live-feed.js docs/live-feed.css docs/todos.html docs/todo-results.js docs/todo-results.css docs/research-progress.json docs/eras.html docs/era-view.js docs/era-view.css docs/protocol-eras.json docs/pool.html docs/pool-view.js docs/pool-view.css deploy/gcp
 tar -xzf "$temporary/source.tar.gz" -C "$temporary/source"
 printf '%s\n' "$revision" > "$temporary/source/REVISION"
 python3 "$temporary/source/brain_export.py" --root "$temporary/source" \
@@ -69,6 +69,7 @@ assets = (
     'feature-audit.js', 'feature-audit.css', 'feature-audit.json',
     'progress-view.js', 'progress-view.css', 'live-feed.js', 'live-feed.css', 'todos.html', 'todo-results.js', 'todo-results.css', 'research-progress.json',
     'eras.html', 'era-view.js', 'era-view.css', 'protocol-eras.json',
+    'pool.html', 'pool-view.js', 'pool-view.css',
 )
 hashes = {}
 for asset in assets:

@@ -68,9 +68,10 @@ The [two bounded public-node probes](../../research/results/upstream_pool_probe_
 at 2026-09-12 02:39 UTC also found a restricted, synchronized endpoint serving
 aggregate pool statistics: **35 pool transactions** and **79,120 total weight**.
 The legacy RPC field is named `bytes_total`; the source accumulates transaction
-weight there. This was a one-time capability check. The running observer still
-collects confirmed blocks, not a continuous pool dataset. The pool audit explains
-why individual receipt/relay/backlog timestamps require separate handling.
+weight there. This was a one-time capability check. The confirmed-block observer
+remains separate from the subsequently implemented [pool pilot](private-node-observations.md).
+The source audit explains why individual receipt/relay/backlog timestamps require
+separate handling; it is not evidence of forecast improvement.
 
 Neither comparison validates address groupings or a model improvement. The
 historical studies, present-day activity, source behavior and future hypotheses
@@ -82,7 +83,7 @@ must retain separate denominators and dates.
 - [ ] **UA2 — Generalize the origin RPC/cache interface (supports HE1/EA2).** Preserve exact amount/index requests and positional responses, request txid explicitly, reject partial/mismatched batches, and cache by network/source/cutoff. Done when legacy and amount-zero fixtures plus sampled real joins reconcile without inventing missing ages. Follow with the existing measured-age ablation rather than counting the plumbing as an accuracy gain.
 - [ ] **UA3 — Replay a versioned wallet sampler (supports FA2).** Reconstruct the weighted gamma/recent mixture, correct unlocked-output anchor and density mapping, then add without-replacement and rejection behavior. Keep raw draw likelihood separate from final ring construction. Done when simulations reproduce pinned upstream behavior on fixed distributions and a frozen evaluation reports positive or negative results without changing deterministic labels.
 - [ ] **UA4 — Preserve protocol context and audit eligibility.** Store block/transaction versions, creating transaction unlock metadata and coinbase status. Test historical version boundaries, amount exceptions and incomplete timestamp context. Done when valid fixtures remain valid, invalid/missing cases are diagnostics, and modern constraints are not retroactively applied to 2014 rings.
-- [ ] **UA5 — Prospective pool forecasting pilot.** Capture aggregate pool count/weight/fee/age and local poll times first; design own-node per-transaction observation/confirmation joins separately. Preserve polling outages and censored pending transactions. Done when rolling-origin simple baselines, coverage and forecast calibration are reported; sender attribution and real-spend inference are outside this outcome.
+- [ ] **UA5 — Prospective pool forecasting pilot.** Capture aggregate pool count/weight/fee/age and local poll times first; design own-node per-transaction observation/confirmation joins separately. Preserve polling outages and censored pending transactions. Done when rolling-origin simple baselines, coverage and forecast calibration are reported; sender attribution and real-spend inference are outside this outcome. **Partial:** the [pool recorder and display](private-node-observations.md) now support bounded per-transaction sightings and block joins in a separate private database. The controlled cohort, archived evaluation and forward forecasts remain open.
 - [ ] **UA6 — Source-aware grouping null model (supports G1/G3/G5).** Add validated origin-transaction edges and simulate ring overlap under versioned candidate selection, amount buckets and output density. Done when chance overlap, shared-origin evaluation dependence and controlled false merges are measured. Keep direct relationships and competing candidate hypotheses reversible.
 
 Reproduce the JSON reconciliation with `python3 research/upstream_context_audit.py`.

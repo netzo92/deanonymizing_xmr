@@ -1,0 +1,39 @@
+[Unit]
+Description=TraceGrove private validating Monero node
+Wants=network-online.target
+After=network-online.target
+RequiresMountsFor=/var/lib/monero
+ConditionPathIsMountPoint=/var/lib/monero
+ConditionPathExists=/etc/monero/monerod.conf
+StartLimitIntervalSec=300
+StartLimitBurst=3
+
+[Service]
+Type=simple
+User=monero
+Group=monero
+ExecStart=/opt/monero/current/monerod --config-file /etc/monero/monerod.conf --non-interactive
+Restart=on-failure
+RestartSec=30
+TimeoutStopSec=300
+KillSignal=SIGTERM
+UMask=0027
+LimitNOFILE=65536
+MemoryHigh=5G
+MemoryMax=6G
+CPUQuota=190%
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6 AF_NETLINK
+ReadWritePaths=/var/lib/monero
+
+[Install]
+WantedBy=multi-user.target

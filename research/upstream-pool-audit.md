@@ -110,13 +110,15 @@ members, then retain aggregates. The
 [export at lines 288–327](https://github.com/netzo92/deanonymizing_xmr/blob/dd5452bb07f212f6c099e6d159fab1a48874fa2e/live_observer.py#L288-L327)
 explicitly labels `observed_at` as block fetch time.
 
-It currently persists **no pool snapshots or pool hashes, per-transaction
+At this audit revision it persists **no pool snapshots or pool hashes, per-transaction
 first/last sightings, fee/weight observations, or transaction-to-confirmation
 joins**. Current ring-size counts support activity summaries, not the following
 forecasts. Confirmed transaction hashes/fees/weights can be fetched from history
 when needed; past node receipt times, failed polls, disappearing entries and
 missing pool observations cannot be reconstructed from those blocks. No observer
-or collector changes are part of this audit.
+or collector changes are part of this audit. A subsequent implementation is
+documented in the [prospective pool pilot](../brain/research/private-node-observations.md);
+its measurements do not alter this frozen probe.
 
 ## Prioritized research ideas
 

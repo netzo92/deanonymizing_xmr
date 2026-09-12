@@ -132,7 +132,7 @@ bash deploy/gcp/publish-static.sh --project YOUR_PROJECT \
 
 Preparation archives the committed source allowlist and rebuilds `brain.json`
 with that revision, validating its repository links before any cloud command.
-Uncommitted changes are excluded. Only the 25 public UI/knowledge/audit assets,
+Uncommitted changes are excluded. Only the 28 public UI/knowledge/audit assets,
 their checksum manifest, and the committed nginx template are transferred with
 the pinned static installer. The source context used for link validation remains
 local; `data.json` and private collector state are not in the upload payload.
@@ -217,3 +217,64 @@ both services and their mutable exports. A copied observer JSON in `docs/` is a
 GitHub Pages snapshot and is never installed over the running observer's export.
 The browser checks both data feeds every 60 seconds; collection/export duration
 and RPC availability determine when new measurements actually arrive.
+
+## Prospective pool observations
+
+The bounded pool recorder can run on the existing collector VM. It has a separate
+immutable runtime, `/opt/xmr/pool-current`, a dedicated private database at
+`/var/lib/xmr-pool/pool_observations.db`, and its own systemd resource limits.
+It publishes only aggregate `pool-observations.json` for [pool.html](../../docs/pool.html).
+`pool-release.json` records the deployed observer commit and payload hashes.
+Neither installing this service nor publishing its page restarts the existing
+two collectors. The pool installer checks their PIDs before and after deployment.
+
+Copy [pool-observer.env.example](pool-observer.env.example) to a private file,
+then deploy committed code and UI separately:
+
+```bash
+bash deploy/gcp/deploy-pool.sh --project YOUR_PROJECT --name tracegrove \
+  --commit FULL_GIT_COMMIT --env-file /tmp/tracegrove-pool.env
+bash deploy/gcp/publish-static.sh --project YOUR_PROJECT --name tracegrove \
+  --commit FULL_GIT_COMMIT
+```
+
+`deploy-pool.sh --prepare-only DIR` validates and prepares only code locally;
+it does not copy the environment into the review artifacts. Pool deployments
+share the standard deployment lock, preserve existing pool data and exports,
+and restore the old pool runtime/configuration after a detected start failure.
+Publication waits for a successful fresh observation from the new runtime; the
+service being active alone is insufficient.
+Full collector releases do not upgrade this separately pinned pool service.
+Check a successful observation after every upgrade: an active process alone
+does not establish a working RPC or fresh data.
+
+Default limits: one cycle then a 60-second wait, 24 requests/45 seconds per
+cycle, 8 MiB per response, 1,000 pool entries per response, six followed blocks
+per cycle, two-block confirmation lag, 20,000 tracked transactions, 200,000
+sighting rows, 24-hour raw retention, six-hour unresolved follow-up, 250 MiB free
+disk floor and 256 MiB SQLite cap. The service has a 384 MiB memory cap and 25%
+CPU quota. A limit/error retains explicit coverage gaps; it is not a zero-pool
+observation. The pilot is not a permanent study archive.
+
+Only complete accepted pool lists update current counts. Transactions become
+confirmed through observed block membership; disappearance alone stays absent.
+Published delay includes local polling and the confirmation lag. Initial inventory,
+cross-session and interrupted follow-up records are excluded from the delay
+sample. PN2 controlled coverage and PN3 forecast evaluation remain open in the
+[research plan](../../brain/research/private-node-observations.md).
+
+### Private validating node
+
+The [private-node package](private-node/README.md) prepares a separate VM and
+verified Monero release. The recommended pruned configuration would cost approximately
+$85/month before egress. The user chose to keep only the public-RPC pilot; this
+extra VM and its disks have not been created.
+It starts with a 300 GiB retained SSD data disk and 20 GiB boot disk. RPC is
+reachable only from the collector's internal IP; SSH uses IAP. No public RPC or
+inbound P2P service is configured. The existing historical collector retains its
+current source until node synchronization and required RPC checks succeed.
+
+Changing the pool source or visibility requires a new cohort database. The
+recorder intentionally refuses to mix public and private sources in the same
+existing store. Review the service database path and preserve the previous cohort
+before any cutover; merely changing `POOL_NODE_URL` will fail safely.

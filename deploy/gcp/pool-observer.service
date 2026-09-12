@@ -1,0 +1,39 @@
+[Unit]
+Description=TraceGrove prospective transaction-pool observer
+Wants=network-online.target
+After=network-online.target
+ConditionPathExists=/etc/xmr/pool-observer.env
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+User=xmr
+Group=xmr
+WorkingDirectory=/opt/xmr/pool-current
+EnvironmentFile=/etc/xmr/pool-observer.env
+Environment=PYTHONUNBUFFERED=1
+Environment=PYTHONDONTWRITEBYTECODE=1
+ExecStart=/opt/xmr/venv/bin/python /opt/xmr/pool-current/pool_observer.py --db /var/lib/xmr-pool/pool_observations.db --output-dir /var/www/xmr --node ${POOL_NODE_URL} --source-mode ${POOL_SOURCE_MODE} --interval-seconds ${POOL_INTERVAL_SECONDS} --confirmations ${POOL_CONFIRMATIONS}
+MemoryHigh=192M
+MemoryMax=384M
+CPUQuota=25%
+Nice=10
+Restart=always
+RestartSec=30
+TimeoutStopSec=75
+UMask=0027
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+CapabilityBoundingSet=
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+ReadWritePaths=/var/lib/xmr-pool /var/www/xmr
+
+[Install]
+WantedBy=multi-user.target

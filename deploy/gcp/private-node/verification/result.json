@@ -1,0 +1,16 @@
+{
+  "version": "0.18.5.1",
+  "source_commit": "4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5",
+  "archive": "monero-linux-x64-v0.18.5.1.tar.bz2",
+  "archive_url": "https://downloads.getmonero.org/cli/monero-linux-x64-v0.18.5.1.tar.bz2",
+  "archive_sha256": "22a7dda7b0cb699fdd6b7674c3b4a4465b337cc98a54983523b759e1e7cc9958",
+  "signer_fingerprint": "81AC591FE9C4B65C5806AFC3F0AF4D462A0BDF92",
+  "signature_valid": true,
+  "signed_manifest_sha256": "6d302c2becbd529822e8f6ef422e3f7a42045f8386e85251dbbf4b1e913266c4",
+  "signing_key_file_sha256": "7dcb19c87d41a4399b4877054111f7dbfd30531545678bc2be218bd56903904c",
+  "archive_verified": true,
+  "archive_size_bytes": 84575716,
+  "verified_at": "2026-09-12",
+  "method": "Isolated existing Debian12 GPG verified vendored signed manifest and pinned primary key; downloaded local archive SHA256 matched its signed exact filename entry. No daemon executed.",
+  "monerod_archive_member": "monero-x86_64-linux-gnu-v0.18.5.1/monerod"
+}

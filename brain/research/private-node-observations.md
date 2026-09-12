@@ -9,11 +9,14 @@ reviewed: 2026-09-11
 Parent: [research](index.md). Related: [cloud workflow](../workflows/cloud.md),
 [measurable experiments](heuristic-experiments.md), [protocol limits](protocol-limits.md).
 
-Sources for implemented behavior: [collector](../../collector.py),
-[RPC client](../../monero_rpc.py), [cloud service](../../deploy/gcp/collector.service).
-The deployed collector queries an external RPC node. A private validating node
-and prospective transaction-pool recorder are proposed additions, not installed
-capabilities described by this page.
+Sources: [pool recorder](../../pool_observer.py),
+[recorder tests](../../tests/test_pool_observer.py),
+[pool page](../../docs/pool.html), and [deployment guide](../../deploy/gcp/README.md).
+The historical collector still queries an external RPC node. The prospective
+recorder is implemented as a separate bounded service; its public page identifies
+the actual source, freshness, retained scope, and failures. A private validating
+node is prepared separately, deferred at the user’s request to keep only the public-RPC pilot.
+Neither a synchronized private node nor a forecast improvement is established.
 
 ## What a private node adds
 
@@ -34,23 +37,49 @@ network/adversary models. A relay observation is not a sender identity label.
 The useful initial targets here are collection completeness and confirmation
 delay, using measurements from the node we operate.
 
-## Proposed observation record
+## Implemented observation record
 
-Store a node/version identifier, network and tip hash, transaction hash,
-observation UTC and monotonic time, node `receive_time`, first/last observation,
-fee/weight, pool state, poll success/duration, and eventual confirmation
-height/hash. Add a new observer-session ID after restart. Record clock offsets,
-poll gaps, and late discovery instead of silently backfilling arrival times.
+The recorder stores source/version metadata when available, network and tip hash,
+transaction hash, UTC and monotonic observation times, available node `receive_time`
+snapshots, first/last sighting, exact fee/weight, pool state, poll duration/outcome,
+and observed confirmation height/hash. Every observer restart creates a session;
+known daemon start-time changes, polling gaps and wall-clock jumps interrupt
+follow-up. An endpoint can be load balanced: endpoint identity is not proof of
+one daemon instance. Public-RPC version/start/receipt fields can remain unknown.
 
-Keep raw observations in durable storage outside `/var/www/xmr`. Publish bounded
-aggregates and research cohort coverage. Wallet secrets and peer-IP attribution
+The separate private SQLite database lives at
+`/var/lib/xmr-pool/pool_observations.db`, outside `/var/www/xmr` and outside both
+existing collectors' data stores. Its default retention is a rolling 24 hours,
+with a six-hour follow-up horizon, 20,000 tracked transactions, 200,000 sighting
+rows and a 256 MiB SQLite cap. This is a feasibility pilot, not a permanent study
+archive. Publish only bounded aggregates and research cohort coverage. Wallet secrets and peer-IP attribution
 are not inputs to these experiments. RPC configuration should remain private;
 the [daemon reference](https://docs.getmonero.org/interacting/monerod-reference/)
 documents bind, restricted-RPC, synchronization, and pruning controls.
 
+## What the display can establish
+
+The pool page shows snapshot counts, exact total fees/weights, receipt-time
+availability, poll history, gaps, retained transaction states, and block matches.
+Confirmed, pending, absent and censored states partition retained transactions;
+cold-start and interrupted-follow-up flags overlap those states. Counts across
+retained followed blocks have a different rolling denominator.
+
+Displayed delay is elapsed monotonic time from the first local pool fetch to
+our later block detection. It includes polling and the configured two-block
+follow-up lag. Only same-session, non-cold-start, uninterrupted observations
+whose matching block is above the first-sighting tip enter the delay sample.
+Pool disappearance alone never supplies a confirmation. The first inventory is
+left-truncated; there is no historical arrival reconstruction.
+
+A complete response describes entries returned by that endpoint. It does not
+prove we saw all broadcasts or all entries between polls. Restricted public RPC
+and unrestricted private RPC have different visibility; source/version/visibility
+changes require separate cohorts. Raw timing records are not published.
+
 ## Prioritized TODOs
 
-### PN1 — Validating-node pilot (P1; infrastructure proposal)
+### PN1 — Validating-node pilot (P1; configuration prepared)
 
 - [ ] **PN1 — Validating-node pilot (P1).** Inputs: an explicit daemon release, full/pruned storage choice, available SSD/RAM, sync progress, RPC latency/errors, and sampled block/output joins. Baseline: the current external RPC collector.
 
@@ -63,10 +92,13 @@ from the research SQLite database and size it independently of the current
 
 Failure modes: bootstrap responses masquerading as local validation, disk
 exhaustion, insufficient retained data for an experiment, and assuming node
-agreement proves independence. **Evidence status:** official operational
-capability; resource needs and benefit for this workload remain unmeasured.
+agreement proves independence. **Evidence status:** a separate 2-vCPU/8-GB VM,
+300-GiB retained pruned data disk, private RPC firewall and signed v0.18.5.1
+binary deployment are prepared in the [node package](../../deploy/gcp/private-node/README.md).
+Fixed cost would be approximately $85/month plus egress; provisioning was deferred at the user’s request. Synchronization, RPC compatibility, resource measurements and collector
+cutover remain open. A successful source/download audit is not a synchronized node.
 
-### PN2 — Observation completeness pilot (P1; depends on PN1)
+### PN2 — Observation completeness pilot (P1; recorder implemented, evaluation open)
 
 - [ ] **PN2 — Observation completeness pilot (P1).** Inputs: pool snapshots, poll timing, observer sessions, chain confirmations, and a small controlled-transaction cohort. Baseline: confirmed-block timestamps alone.
 
@@ -78,8 +110,11 @@ short pilot establishes feasibility before continuous retention is enabled.
 
 Failure modes: losing short-lived pool entries between polls, time drift,
 reappearing transactions, or interpreting "not observed" as "not broadcast."
-**Evidence status:** prospective design; the current collector stores no pool
-observations and provides no historical arrival dataset.
+**Evidence status:** the separate recorder and aggregate display implement
+prospective collection, gaps, bounded follow-up and censoring. The public-RPC
+pilot can run before PN1, but own-node comparison, a controlled submission cohort,
+measured coverage, restart experiments and a frozen evaluation archive remain
+open. No controlled transactions have been submitted by this implementation.
 
 ### PN3 — Confirmation forecasts (P2; depends on PN2)
 
@@ -97,5 +132,14 @@ outcome at the study boundary is not a failed forecast.
 Failure modes: leaking eventual confirmation into features, dropping unconfirmed
 transactions, fitting only unusually fast controlled transactions, and treating
 pool eviction as confirmation. **Evidence status:** a testable forecasting
-hypothesis, with no claimed improvement. A useful display would show the forecast
-range, observation quality, realized delay, and baseline side by side.
+hypothesis, with no claimed improvement. A future forecast display should show the forecast
+range, observation quality, realized delay, and baseline side by side. The current
+histogram is descriptive observed detection timing, not a forecast evaluation.
+
+## Ideas recorded during implementation
+
+- [ ] **Freeze complete observation cohorts before longer studies.** Export a versioned private archive before rolling retention expires; include pending/censored records, exact feature-availability times, source visibility, software/configuration and clock/poll diagnostics. Choose retention and storage from measured bytes per poll.
+- [ ] **Represent time as observation intervals.** First appearance lies between successful polls for continuing observation. Compare interval-aware forecasts with point estimates; keep startup inventory and outages separate.
+- [ ] **Compare public and private visibility simultaneously.** During a bounded overlap, compare anonymous aggregate coverage and later block matches with separate cohorts. Do not combine restricted broadcasted views with unrestricted relay-state views into one population.
+- [ ] **Ablate node receipt time against local sightings.** After PN2, test whether receipt timestamps add forward forecast value beyond local observation age, fee density and backlog. Preserve zero/redacted values as unknown and record receipt-time changes.
+- [ ] **Measure retention and horizon selection bias.** Report delayed confirmations and dropped follow-up separately; repeat with longer frozen windows before making claims about network-wide coverage.

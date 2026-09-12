@@ -45,6 +45,8 @@ class StaticPublicationTests(unittest.TestCase):
             'data.json': b'live collector data\n',
             'collector-status.json': b'live collector status\n',
             'live-observations.json': b'live observer data\n',
+            'pool-observations.json': b'live pool data\n',
+            'pool-release.json': b'pool runtime provenance\n',
             'release.json': json.dumps({'source_commit': self.runtime_revision}).encode(),
         }
         for name, content in self.sentinels.items():
@@ -174,7 +176,7 @@ class StaticPreparationTests(unittest.TestCase):
         self.root = Path(self.temporary.name)
         self.repo = self.root / 'repo'
         self.repo.mkdir()
-        for file in ['main.py', 'collector.py', 'live_observer.py', 'analyzer.py', 'models.py', 'scorer.py', 'scanner.py', 'monero_rpc.py', 'brain.py', 'dashboard_export.py', 'protocol_eras.py', 'requirements.txt', 'README.md', 'AGENTS.md', 'autoresearch_results.md', 'autoresearch-results.tsv', 'tests/example.py', 'research/example.py', 'references/README.md', 'references/monero-source.json']:
+        for file in ['main.py', 'collector.py', 'live_observer.py', 'analyzer.py', 'models.py', 'scorer.py', 'scanner.py', 'monero_rpc.py', 'brain.py', 'dashboard_export.py', 'protocol_eras.py', 'pool_observer.py', 'requirements.txt', 'README.md', 'AGENTS.md', 'autoresearch_results.md', 'autoresearch-results.tsv', 'tests/example.py', 'research/example.py', 'references/README.md', 'references/monero-source.json']:
             path = self.repo / file
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text('committed source\n')

@@ -22,7 +22,7 @@ Focused research plans and primary-source context:
 
 - [Protocol eras and limits](protocol-limits.md): historical findings, modern applicability, and claims/cohort audits.
 - [Measurable heuristic experiments](heuristic-experiments.md): accurate output origins, age baselines, graph-aware temporal tests, and grouping false merges.
-- [Private-node observations](private-node-observations.md): validating-node pilot, prospective pool coverage, and confirmation-delay forecasts.
+- [Private-node observations](private-node-observations.md): implemented bounded pool recorder/display, prepared node configuration, and open controlled-coverage/forecast experiments.
 
 Each plan specifies inputs, baselines, success metrics, failure modes, and evidence
 status. External literature findings remain distinct from local measurements.

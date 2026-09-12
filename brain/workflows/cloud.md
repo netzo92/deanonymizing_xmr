@@ -130,8 +130,35 @@ committed mirror; the GCP dashboard consumes the running services' exports.
 The observer records local fetch times, source-reported block timestamps,
 transaction counts, and decoded ring counts with completeness metadata. These
 are current-chain activity observations, not current-chain resolved rings or
-wallet ownership labels. A private validating node and prospective pool timing
-collection remain separate work.
+wallet ownership labels. The separate pool pilot below adds prospective sightings;
+a private validating node remains deferred at the user’s request; synchronization has not started.
 
 Validation: [observer tests](../../tests/test_live_observer.py),
 [polling tests](../../tests/test_live_feed.js), and deployment/browser checks.
+
+
+## Prospective transaction-pool pilot
+
+The [pool observer](../../pool_observer.py) uses its own service, immutable release
+and private data directory. [deploy-pool.sh](../../deploy/gcp/deploy-pool.sh)
+installs only that runtime and checks that historical-collector and live-observer
+PIDs remain unchanged. Pool deployment shares the existing deployment lock;
+[publication tests](../../tests/test_pool_publication.py) cover source guards,
+existing-data preservation, failed starts and rollback. UI publication is separate.
+
+The service requests a pool list every 60 seconds after a bounded cycle, then
+follows at most six blocks with a two-block lag. It publishes
+`pool-observations.json`; `pool-release.json` records runtime provenance.
+Raw sightings live at `/var/lib/xmr-pool/pool_observations.db`. It cannot modify
+the existing research databases through its systemd write paths. Raw retention
+is 24 hours by default with independent row, byte, request and follow-up bounds.
+The [research note](../research/private-node-observations.md) defines the outcome
+populations, local detection delays, source visibility and open experiments.
+
+A private `monerod` would run on a proposed separate VM; it is not cohosted with the
+historical analyzer. The [node package](../../deploy/gcp/private-node/README.md)
+contains a reviewable provision plan, verified release material and installation
+instructions. Additional resource creation requires approval of the estimated
+running cost. The source is not switched automatically; synchronization and
+sampled RPC reconciliation must pass first, and pool source changes require a
+separate cohort database.

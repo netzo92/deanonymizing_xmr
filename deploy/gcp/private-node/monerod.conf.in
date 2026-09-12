@@ -1,0 +1,27 @@
+# Mainnet pilot. RPC is available only through a source-IP-restricted VPC rule.
+data-dir=/var/lib/monero/chain
+log-file=/var/lib/monero/logs/monerod.log
+log-level=0
+max-log-file-size=10000000
+max-log-files=3
+rpc-bind-ip=@PRIVATE_IP@
+rpc-bind-port=18081
+confirm-external-bind=1
+restricted-rpc=0
+rpc-use-ipv6=0
+rpc-ssl=disabled
+no-zmq=1
+no-igd=1
+hide-my-port=1
+in-peers=0
+out-peers=12
+limit-rate-up=64
+limit-rate-down=8192
+max-concurrency=2
+prune-blockchain=@PRUNE@
+sync-pruned-blocks=0
+fast-block-sync=0
+disable-dns-checkpoints=1
+db-sync-mode=safe:sync
+check-updates=disabled
+# No bootstrap-daemon-address: synchronization and pool observations stay local.
