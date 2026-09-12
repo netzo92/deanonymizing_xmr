@@ -1,0 +1,331 @@
+{
+  "checked_at": "2026-09-12T04:10:14.157526+00:00",
+  "checks": {
+    "database_integrity": true,
+    "current_snapshot": true,
+    "pending": true,
+    "disappeared": true,
+    "confirmed": true,
+    "censored": true,
+    "polls_total": true,
+    "successful_polls": true,
+    "failed_polls": true,
+    "sessions_total": true,
+    "tracked_partition": true,
+    "eligible_delays": true,
+    "block_matches": true,
+    "block_transactions": true,
+    "receipt_partition": true,
+    "last_success": true,
+    "source_revision": true,
+    "historical_writer_preserved": true,
+    "block_writer_preserved": true,
+    "runtime_hash": true
+  },
+  "services": {
+    "xmr-collector": {
+      "MainPID": "38954",
+      "MemoryCurrent": "938885120",
+      "ActiveState": "active"
+    },
+    "xmr-live-observer": {
+      "MainPID": "38956",
+      "MemoryCurrent": "30269440",
+      "ActiveState": "active"
+    },
+    "xmr-pool-observer": {
+      "MainPID": "39757",
+      "MemoryCurrent": "22753280",
+      "ActiveState": "active"
+    }
+  },
+  "snapshot": {
+    "schema_version": 1,
+    "state": "observing",
+    "generated_at": "2026-09-12T04:10:04.792337+00:00",
+    "last_success_at": "2026-09-12T04:10:04.786322+00:00",
+    "source": {
+      "mode": "public_rpc",
+      "origin": "http://xmr-node.cakewallet.com:18081",
+      "network": "mainnet",
+      "node_version": null,
+      "restricted": true,
+      "synchronized": true,
+      "bootstrap": false,
+      "untrusted": false,
+      "node_start_time_known": false,
+      "daemon_instance_identity": "unknown",
+      "pool_untrusted": false,
+      "cohort_id": "0abc1138f5004c62bc5d4f5d7c8aed75",
+      "source_revision": "5faef380378a94a8964dfaa9a057608f4e1d5c6d",
+      "observer_sha256": "0170fb72685e083e7135a4a0be196e57720c53b1852058e627a082cdf7ecadd1"
+    },
+    "current": {
+      "snapshot_at": "2026-09-12T04:10:04.720127+00:00",
+      "transaction_count": 11,
+      "reported_pool_count": 11,
+      "complete": true,
+      "tracking_complete": true,
+      "untracked_due_limit": 0,
+      "fee_atomic_total": "2606820000",
+      "weight_total": "23739",
+      "receive_time_known": 0,
+      "receive_time_unknown": 11
+    },
+    "outcomes": {
+      "pending": 11,
+      "disappeared": 31,
+      "confirmed": 119,
+      "censored": 0,
+      "tracked_transactions": 161,
+      "cold_start_transactions": 1,
+      "followup_censored_transactions": 0,
+      "observed_confirmations": 119,
+      "confirmations_seen_before_block": 119,
+      "confirmed_block_transactions": 341,
+      "confirmation_delay": {
+        "sample_count": 118,
+        "median_seconds": 186.8148732569989,
+        "p90_seconds": 487.0911008809999,
+        "bins": [
+          {
+            "label": "< 1 minute",
+            "count": 0
+          },
+          {
+            "label": "1\u20135 minutes",
+            "count": 71
+          },
+          {
+            "label": "5\u201315 minutes",
+            "count": 47
+          },
+          {
+            "label": "15\u201360 minutes",
+            "count": 0
+          },
+          {
+            "label": "1 hour or more",
+            "count": 0
+          }
+        ],
+        "excluded_count": 1,
+        "basis": "First local pool observation to local confirmed-block detection; monotonic same-session, non-cold-start, uninterrupted follow-up only. Includes polling and confirmation lag; not mining or network propagation latency."
+      }
+    },
+    "coverage": {
+      "first_observed_at": "2026-09-12T03:53:47.175163+00:00",
+      "session_started_at": "2026-09-12T03:53:47.175163+00:00",
+      "sessions_total": 1,
+      "polls_total": 17,
+      "session_successful_polls": 17,
+      "successful_polls": 17,
+      "failed_polls": 0,
+      "initial_block_from_height": 3760573,
+      "initial_window_left_truncated": true,
+      "confirmed_target_height": 3760590,
+      "last_processed_height": 3760590,
+      "blocks_behind": 0,
+      "pruned_transactions": 0,
+      "last_poll_complete": true,
+      "retained_observations": 366
+    },
+    "chain_tip": {
+      "height": 3760592,
+      "hash": "a2237b7ed28c9c3c6bc4660aaf12aa86952a3fc967c852a2497570621f0c7e45",
+      "observed_at": "2026-09-12T04:10:04.748713+00:00"
+    },
+    "poll_history": [
+      {
+        "duration_seconds": 0.3682025890011573,
+        "pool_fetch_seconds": 0.02719866500046919,
+        "state": "observing",
+        "pool_count": 1,
+        "pool_complete": true,
+        "error_type": null,
+        "started_at": "2026-09-12T03:53:47.295280+00:00"
+      },
+      {
+        "duration_seconds": 2.2664186830006656,
+        "pool_fetch_seconds": 1.642106501998569,
+        "state": "observing",
+        "pool_count": 0,
+        "pool_complete": true,
+        "error_type": null,
+        "started_at": "2026-09-12T03:54:47.670500+00:00"
+      },
+      {
+        "duration_seconds": 0.20622131500022078,
+        "pool_fetch_seconds": 0.10784496999986004,
+        "state": "observing",
+        "pool_count": 15,
+        "pool_complete": true,
+        "error_type": null,
+        "started_at": "2026-09-12T03:55:49.944254+00:00"
+      },
+      {
+        "duration_seconds": 1.4985161240001617,
+        "pool_fetch_seconds": 0.07913079200079665,
+        "state": "observing",
+        "pool_count": 6,
+        "pool_complete": true,
+        "error_type": null,
+        "started_at": "2026-09-12T03:56:50.157022+00:00"
+      },
+      {
+        "duration_seconds": 0.23913206399993214,
+        "pool_fetch_seconds": 0.11123438899994653,
+        "state": "observing",
+        "pool_count": 15,
+        "pool_complete": true,
+        "error_type": null,
+        "started_at": "2026-09-12T03:57:51.663134+00:00"
+      },
+      {
+        "duration_seconds": 0.2403321550009423,
+        "pool_fetch_seconds": 0.13718159300151456,
+        "state": "observing",
+        "pool_count": 21,
+        "pool_complete": true,
+        "error_type": null,
+        "started_at": "2026-09-12T03:58:51.910278+00:00"
+      },
+      {
+        "duration_seconds": 0.26904133900097804,
+        "pool_fetch_seconds": 0.1472169179996854,
+        "state": "observing",
+        "pool_count": 32,
+        "pool_complete": true,
+        "error_type": null,
+        "started_at": "2026-09-12T03:59:52.159377+00:00"
+      },
+      {
+        "duration_seconds": 0.28208730699952866,
+        "pool_fetch_seconds": 0.17696421100117732,
+        "state": "observing",
+        "pool_count": 43,
+        "pool_complete": true,
+        "error_type": null,
+        "started_at": "2026-09-12T04:00:52.436543+00:00"
+      },
+      {
+        "duration_seconds": 1.5581556359993556,
+        "pool_fetch_seconds": 0.7270518969999102,
+        "state": "observing",
+        "pool_count": 59,
+        "pool_complete": true,
+        "error_type": null,
+        "started_at": "2026-09-12T04:01:52.727322+00:00"
+      },
+      {
+        "duration_seconds": 0.3342823149996548,
+        "pool_fetch_seconds": 0.22009536400037177,
+        "state": "observing",
+        "pool_count": 70,
+        "pool_complete": true,
+        "error_type": null,
+        "started_at": "2026-09-12T04:02:54.296135+00:00"
+      },
+      {
+        "duration_seconds": 2.54001906799931,
+        "pool_fetch_seconds": 0.8962456710014521,
+        "state": "observing",
+        "pool_count": 18,
+        "pool_complete": true,
+        "error_type": null,
+        "started_at": "2026-09-12T04:03:54.641801+00:00"
+      },
+      {
+        "duration_seconds": 1.0311602669989952,
+        "pool_fetch_seconds": 0.10868500499964284,
+        "state": "observing",
+        "pool_count": 11,
+        "pool_complete": true,
+        "error_type": null,
+        "started_at": "2026-09-12T04:04:57.192474+00:00"
+      },
+      {
+        "duration_seconds": 3.2189657340004487,
+        "pool_fetch_seconds": 0.07883616400067694,
+        "state": "observing",
+        "pool_count": 7,
+        "pool_complete": true,
+        "error_type": null,
+        "started_at": "2026-09-12T04:05:58.235923+00:00"
+      },
+      {
+        "duration_seconds": 0.271593532001134,
+        "pool_fetch_seconds": 0.13606317000085255,
+        "state": "observing",
+        "pool_count": 22,
+        "pool_complete": true,
+        "error_type": null,
+        "started_at": "2026-09-12T04:07:01.465635+00:00"
+      },
+      {
+        "duration_seconds": 0.24926773100014543,
+        "pool_fetch_seconds": 0.14355931099998998,
+        "state": "observing",
+        "pool_count": 31,
+        "pool_complete": true,
+        "error_type": null,
+        "started_at": "2026-09-12T04:08:01.746149+00:00"
+      },
+      {
+        "duration_seconds": 1.2795166180003434,
+        "pool_fetch_seconds": 0.5466512610000791,
+        "state": "observing",
+        "pool_count": 4,
+        "pool_complete": true,
+        "error_type": null,
+        "started_at": "2026-09-12T04:09:02.007807+00:00"
+      },
+      {
+        "duration_seconds": 1.490270849000808,
+        "pool_fetch_seconds": 0.9099054399994202,
+        "state": "observing",
+        "pool_count": 11,
+        "pool_complete": true,
+        "error_type": null,
+        "started_at": "2026-09-12T04:10:03.296312+00:00"
+      }
+    ],
+    "gaps": [],
+    "error": null,
+    "limits": {
+      "interval_seconds": 60,
+      "confirmations": 2,
+      "blocks_per_cycle": 6,
+      "initial_blocks": 6,
+      "catchup_window_blocks": 120,
+      "max_pool_transactions": 1000,
+      "max_block_transactions": 2000,
+      "max_tracked_transactions": 20000,
+      "max_observations": 200000,
+      "retain_polls": 1440,
+      "retain_blocks": 1440,
+      "followup_seconds": 21600,
+      "retention_seconds": 86400,
+      "max_requests": 24,
+      "cycle_budget_seconds": 45,
+      "rpc_timeout_seconds": 10,
+      "max_response_bytes": 8388608,
+      "min_free_mb": 250
+    },
+    "interpretation": [
+      "Prospective feasibility pilot; no forecast model or forecast improvement is established.",
+      "Raw pool sightings and transaction records use a rolling 24-hour default retention, with additional row and storage limits; this pilot is not a permanent study archive.",
+      "An RPC endpoint may be load balanced. Endpoint identity is not a known daemon instance; version and start time can be redacted. Detected node changes censor follow-up.",
+      "Pool disappearance is not confirmation. Confirmation requires transaction membership in a followed block.",
+      "Pool receipt times belong to the source node, may change with relay state, and zero/redacted values remain unknown. Raw records are private.",
+      "The two node-info reads and pool request are not an atomic node snapshot. Reported pool count may differ from the observed list.",
+      "Public restricted RPC observes a different pool visibility population from a private unrestricted node; cohorts must remain separate.",
+      "Current totals describe the last complete pool list; transaction states and delay samples cover retained tracked records. Confirmation coverage totals cover retained followed blocks.",
+      "Initial chain coverage is left-truncated; startup sightings, observation gaps, cross-session timings and incomplete follow-up are excluded from the delay sample.",
+      "This records activity and local detection timing, not sender identity, real ring members, or wallet ownership."
+    ]
+  },
+  "database_bytes": 225280,
+  "reproduction": "Read-only SQLite transaction compared public counts, current snapshot, eligible delay count, followed-block totals and source hashes; original writer PIDs checked without restart.",
+  "validation_script": "research/check_pool_pilot.py"
+}

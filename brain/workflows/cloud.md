@@ -162,3 +162,23 @@ instructions. Additional resource creation requires approval of the estimated
 running cost. The source is not switched automatically; synchronization and
 sampled RPC reconciliation must pass first, and pool source changes require a
 separate cohort database.
+
+
+The public-RPC pool service was deployed from
+`5faef380378a94a8964dfaa9a057608f4e1d5c6d` at 2026-09-12 03:53 UTC.
+The [first reconciled measurement](../research/private-node-observations.md)
+records real block matches and eligible local intervals. Both original writer
+processes remained unchanged during pool and static publication.
+
+## Current fixed running cost
+
+Read-only resource inventory at 2026-09-12 03:51 UTC found one running
+`e2-standard-2`, one attached 100-GiB `pd-balanced` disk, and one in-use static
+IPv4. There are no private-node resources, forwarding rules, Cloud Routers/NAT
+or snapshots in this project. At 730 hours/month, current fixed cost is about
+**$62.57/month**: $48.92 VM, $10.00 disk, $3.65 IPv4. Outbound traffic, tax and
+credits are additional; this estimates the ongoing configuration rather than an
+accrued invoice or the whole billing account. The pool service adds no separate
+fixed compute allocation. Sources: [VM pricing](https://cloud.google.com/products/compute/pricing/general-purpose),
+[disk pricing](https://cloud.google.com/compute/disks-image-pricing), and
+[IP/network pricing](https://cloud.google.com/vpc/network-pricing).

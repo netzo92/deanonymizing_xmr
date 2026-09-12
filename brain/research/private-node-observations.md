@@ -77,6 +77,41 @@ prove we saw all broadcasts or all entries between polls. Restricted public RPC
 and unrestricted private RPC have different visibility; source/version/visibility
 changes require separate cohorts. Raw timing records are not published.
 
+## First deployed measurement
+
+Public-RPC collection began at **2026-09-12 03:53:47 UTC** on the existing GCP VM,
+using recorder commit `5faef380378a94a8964dfaa9a057608f4e1d5c6d` and cohort
+`0abc1138f5004c62bc5d4f5d7c8aed75`. The
+[frozen aggregate and validation](../../research/results/pool_pilot_2026-09-12.json)
+record the **04:10:04 UTC** snapshot:
+
+| Measured population | Count |
+| --- | ---: |
+| Successful collection rounds / attempted | 17 / 17 |
+| Retained tracked transactions | 161 |
+| Observed confirmed / still pending / absent / censored | 119 / 11 / 31 / 0 |
+| Eligible local detection intervals | 118 |
+| Cold-start confirmations excluded from intervals | 1 |
+| Transactions across 18 followed blocks | 341 |
+| Current returned entries with known / unknown node receipt time | 0 / 11 |
+
+The eligible interval median was **186.8 seconds**, with a 90th percentile of
+**487.1 seconds**. These include polling and two-block follow-up lag; they are not
+network-wide confirmation latencies. The sample is short, left-truncated and
+restricted to observed confirmations. There is no trained forecast or measured
+forecast improvement. The result establishes working prospective collection and
+block matching on this source. The 31 absent records are not inferred failures.
+
+[Read-only reconciliation](../../research/check_pool_pilot.py) checked 20
+conditions against the separate SQLite store, public export and runtime manifest;
+all passed. The two existing writer PIDs stayed unchanged, and the pool process
+used roughly 22 MiB of memory at the check. Validation also includes 171 Python
+project tests, 11 private-node package tests, 84 JavaScript tests, and real Chrome
+checks of live observations and mobile/refresh behavior. The binary/node package
+was verified but not deployed: the user chose to keep only the public-RPC pilot.
+The public page continues updating; this record and the Pages copy are frozen
+aggregates, while raw pilot records remain subject to rolling retention.
+
 ## Prioritized TODOs
 
 ### PN1 — Validating-node pilot (P1; configuration prepared)
