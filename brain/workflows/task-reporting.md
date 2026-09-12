@@ -81,3 +81,29 @@ marker is local to this browser and site origin; a different device or the Pages
 mirror has separate read state. A first visit establishes a baseline. Failed
 storage or fetches must not hide the available history or erase the last valid
 published result.
+
+
+## Note edits and conclusions
+
+The same export now includes `note_events`: additions, content edits and removals
+of Markdown notes, with UTC committer times and content hashes. These are separate
+from task creation/closure. A byte-identical note has no new edit event when only
+unrelated files change. Note path changes appear as removal/addition, not inferred
+renames. The brain reader displays first-recorded and last-committed-edit dates
+only when the note hash matches the dated source manifest. The manually entered
+`reviewed` field retains its original meaning; it is not an automatic edit clock.
+
+The [conclusions page](../../docs/conclusions.html) shows supported scope,
+unknowns, individual experiment conclusions, all 24 feature definitions and a
+combined note/task changelog. [Shared explanations](../../docs/research-guide.js)
+provide question-mark help by hover, keyboard focus or tap. The inference animation
+uses invented candidates, not live solve events; reduced-motion preferences remove
+transitions. Stored-block percentage uses `blocks_scanned / (observed_tip + 1)`;
+unknown/incompatible counts stay unknown, and block counts do not prove transaction
+body completeness. Each point on the resolution timeline is a batch export.
+
+Run [guide checks](../../tests/test_research_guide.js), Git-history tests, ledger
+checks and browser interaction checks after changes. The [claim validator](../../research/check_conclusion_claims.py)
+and [manifest](../../research/conclusion-claims.json) guard the three frozen
+historical cards before static/full publication. New conclusions must retain their
+own dates, cohort denominators and evidence limits.

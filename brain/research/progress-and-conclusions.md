@@ -94,7 +94,7 @@ as a separately dated artifact with its population, method, and limitations.
 
 ## Reporting ideas discovered while connecting the results
 
-- [ ] **RP1 — Machine-checkable conclusion claims.** Represent each displayed numerical claim with its artifact path, JSON field, denominator, and file hash. The current page tests reconcile its three frozen summaries; extend this to a small claim manifest so later result updates cannot leave stale conclusions. Completion requires a failing check when a source number, denominator, or hash changes without updating its claim.
+- [x] **RP1 — Machine-checkable conclusion claims.** Represent each displayed numerical claim with its artifact path, JSON field, denominator, and file hash. The current page tests reconcile its three frozen summaries; extend this to a small claim manifest so later result updates cannot leave stale conclusions. Completed with an [85-claim manifest](../../research/conclusion-claims.json), [offline validator](../../research/check_conclusion_claims.py), eight denominator/rate reconciliations, and [mutation tests](../../tests/test_conclusion_claims.py) that fail on source, hash, denominator, numeric-prose or unmapped-metric drift. Static publication runs the guard. This scope is the three frozen historical cards; the full hypothesis ledger has separate artifact checks.
 - [ ] **RP2 — Experiment versus deployment status.** Track a completed study, an accepted implementation change, and a deployed feature version separately. A successful ablation should not appear as a live-model improvement until the selected change and deployment are recorded. Completion requires independently visible study, implementation, and deployment provenance for one controlled example.
 
 ## Updating the page
@@ -110,3 +110,16 @@ search, and exact task IDs such as `todos.html?status=all&task=FA2#tasks`.
 Run `node --test tests/test_todo_results.js`, check Markdown links with
 `python3 brain_export.py --check` after rebuilding, and test the webpage after
 every update. Follow the [workspace publication checks](../workflows/research-workspace.md).
+
+
+## Latest result and readable conclusions
+
+The [conclusions page](../../docs/conclusions.html) now separates supported scope,
+unknowns, experiment results, all 24 feature explanations, future work and dated
+note/task changes. The [FA2 ablation](feature-variation-audit.md#fa2--paired-ablation-completed)
+adds a completed 162-ring paired comparison: all 24/20/17-column variants agreed
+with 142 stored labels, with no agreement gain. Its population and dependence
+limits remain separate from the original three frozen cards above.
+The [private archive](private-node-observations.md#retained-archives-and-measured-storage)
+now preserves retained pool observations before rolling deletion, while controlled
+coverage and forecast evaluation remain open.

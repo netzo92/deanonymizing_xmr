@@ -75,6 +75,7 @@
         }
         let lastData = null;
         function render(data) {
+            globalThis.TraceGroveGuide?.updateScan(null, data);
             if (!data || data.schema_version !== 1 || !Array.isArray(data.blocks)) throw new Error('The observer export has an unsupported format');
             lastData = data;
             content.replaceChildren();

@@ -148,8 +148,7 @@ reappearing transactions, or interpreting "not observed" as "not broadcast."
 **Evidence status:** the separate recorder and aggregate display implement
 prospective collection, gaps, bounded follow-up and censoring. The public-RPC
 pilot can run before PN1, but own-node comparison, a controlled submission cohort,
-measured coverage, restart experiments and a frozen evaluation archive remain
-open. No controlled transactions have been submitted by this implementation.
+measured coverage, restart experiments remain open. A retained evaluation archive is now implemented below. No controlled transactions have been submitted by this implementation.
 
 ### PN3 — Confirmation forecasts (P2; depends on PN2)
 
@@ -173,8 +172,45 @@ histogram is descriptive observed detection timing, not a forecast evaluation.
 
 ## Ideas recorded during implementation
 
-- [ ] **Freeze complete observation cohorts before longer studies.** Export a versioned private archive before rolling retention expires; include pending/censored records, exact feature-availability times, source visibility, software/configuration and clock/poll diagnostics. Choose retention and storage from measured bytes per poll.
+- [x] **Freeze complete observation cohorts before longer studies.** Export a versioned private archive before rolling retention expires; include pending/censored records, exact feature-availability times, source visibility, software/configuration and clock/poll diagnostics. Choose retention and storage from measured bytes per poll.
 - [ ] **Represent time as observation intervals.** First appearance lies between successful polls for continuing observation. Compare interval-aware forecasts with point estimates; keep startup inventory and outages separate.
 - [ ] **Compare public and private visibility simultaneously.** During a bounded overlap, compare anonymous aggregate coverage and later block matches with separate cohorts. Do not combine restricted broadcasted views with unrestricted relay-state views into one population.
 - [ ] **Ablate node receipt time against local sightings.** After PN2, test whether receipt timestamps add forward forecast value beyond local observation age, fee density and backlog. Preserve zero/redacted values as unknown and record receipt-time changes.
 - [ ] **Measure retention and horizon selection bias.** Report delayed confirmations and dropped follow-up separately; repeat with longer frozen windows before making claims about network-wide coverage.
+
+
+## Retained archives and measured storage
+
+The [offline archiver](../../research/pool_archive.py) now freezes a consistent,
+private SQLite copy plus hashed runtime files, effective current configuration,
+source/session provenance and a manifest of feature-time semantics. It validates
+the pool application ID and schema, opens the live source read-only, and preserves
+all retained tables, including pending/censored cases. It cannot recover data
+already pruned or invent durable-commit timestamps or past session configuration.
+The [archive checks](../../tests/test_pool_archive.py) cover consistency, retained
+states, exact values, permissions, bounded storage and source preservation.
+
+The [frozen aggregate](../../research/results/pool_archive_2026-09-12.json) at
+**2026-09-12 05:00:09 UTC** contains 651 tracked transactions, 1,437 sighting rows,
+65 successful polls, 45 followed blocks and one session. States reconcile as
+635 confirmed + 11 pending + 5 absent + 0 censored. All sighting rows retain exact
+fee/weight and local/monotonic time; all node receipt times remain unknown.
+No recorded pruning, missing first sightings or poll/session references were
+found; lifetime/network completeness remains unestablished.
+
+The backup is **753,664 bytes**, or **11,594.83 allocated bytes per retained poll**.
+This whole-database ratio includes indexes and other tables; it is not a marginal
+per-poll growth rate. A deliberately rough 1,440-poll extrapolation is about
+15.9 MiB per daily snapshot, not a measured steady-state requirement.
+A six-hour timer on the existing VM is capped at **2 GiB / 128 immutable archives**
+and reserves at least 5 GiB free space. It stops and publishes an error at a cap;
+it does not delete study records. At four snapshots per day, the count budget is
+roughly 32 days before review, with storage limits possibly reached earlier.
+
+Raw archives are outside the web root at `/var/lib/xmr-pool-archives` (0700
+folder / 0600 files). Only aggregate status is published on the
+[pool page](../../docs/pool.html#pool-archive). Installation preserved all three
+writer PIDs and did not provision cloud resources. The latest successful freeze
+and failures update independently of the live pool feed. Archives overlap: future
+studies must deduplicate observations and preserve outcomes that are still unknown.
+PN2 controlled coverage and PN3 forecasts remain open.

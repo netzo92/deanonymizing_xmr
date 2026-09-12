@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "state": "archived",
+  "attempted_at": "2026-09-12T05:00:09.262180+00:00",
+  "last_success_at": "2026-09-12T05:00:09.353237+00:00",
+  "latest": {
+    "archive_id": "pool-20260912T050009353237Z-09e2cb5b27ef78b3",
+    "coverage": {
+      "all_retained_rows_preserved": true,
+      "already_pruned_evidence": false,
+      "failed_polls": 0,
+      "initial_chain_window_left_truncated": true,
+      "lifetime_cohort_complete": false,
+      "polls_total": 65,
+      "pruned_transactions": 0,
+      "pruning_flags": {
+        "block_prefix_missing": false,
+        "missing_feature_history": false,
+        "observation_prefix_missing": false,
+        "polls_pruned": false,
+        "sessions_pruned": false,
+        "transactions_pruned": false
+      },
+      "sessions_total": 1,
+      "successful_polls": 65,
+      "unrecorded_pruning_possible": true
+    },
+    "diagnostics": {
+      "clock_difference_over_5_seconds": 0,
+      "complete_pool_snapshots": 65,
+      "failed_retained_polls": 0,
+      "gap_counts": {},
+      "in_progress_polls": 0,
+      "negative_monotonic_poll_durations": 0,
+      "observations_without_retained_poll": 0,
+      "observations_without_retained_transaction": 0,
+      "transactions_without_first_observation": 0,
+      "transactions_without_retained_first_session": 0
+    },
+    "feature_availability": {
+      "durable_commit_time_recorded": false,
+      "historical_effective_configuration_recorded": false,
+      "observations_with_exact_fee_and_weight": 1437,
+      "observations_with_local_and_monotonic_time": 1437,
+      "receipt_time_known_observations": 0,
+      "receipt_time_unknown_observations": 1437
+    },
+    "generated_at": "2026-09-12T05:00:09.353237+00:00",
+    "interpretation": [
+      "All retained pending and censored records are frozen; unresolved outcomes remain unknown at this boundary.",
+      "A prior observation or poll already removed by retention cannot be recovered. No lifetime completeness or forecast improvement is established.",
+      "Separate archives overlap; do not add their counts or treat repeated transactions as independent samples."
+    ],
+    "outcomes": {
+      "censored": 0,
+      "cold_start": 1,
+      "confirmed": 635,
+      "disappeared": 5,
+      "eligible_delays": 634,
+      "followup_censored": 0,
+      "pending": 11,
+      "unresolved_at_freeze": 16
+    },
+    "rows": {
+      "blocks": 45,
+      "gaps": 0,
+      "meta": 23,
+      "observations": 1437,
+      "polls": 65,
+      "sessions": 1,
+      "transactions": 651
+    },
+    "schema_version": 1,
+    "scope": "retained_snapshot",
+    "source": {
+      "cohort_id": "0abc1138f5004c62bc5d4f5d7c8aed75",
+      "mode": "public_rpc",
+      "network": "mainnet",
+      "node_version": null,
+      "observer_sha256": "0170fb72685e083e7135a4a0be196e57720c53b1852058e627a082cdf7ecadd1",
+      "restricted": true,
+      "runtime_matches_latest_session": true,
+      "source_revision": "5faef380378a94a8964dfaa9a057608f4e1d5c6d"
+    },
+    "storage": {
+      "archive_budget_bytes": 2147483648,
+      "archive_count_limit": 128,
+      "bytes_per_retained_observation": 524.4704244954767,
+      "bytes_per_retained_poll": 11594.83076923077,
+      "database_bytes": 753664,
+      "measurement_basis": "Whole allocated SQLite backup bytes divided by retained rows; includes indexes, other tables and free pages, not marginal bytes per new row."
+    }
+  },
+  "manifest_sha256": "245baf763af58d08f7b389347a4936c7819f62d047ef22fe7027a4b2af5ecab5",
+  "policy": {
+    "interval_seconds": 21600,
+    "max_archive_bytes": 2147483648,
+    "max_archives": 128,
+    "deletion": "none; stop at capacity"
+  },
+  "error": null
+}

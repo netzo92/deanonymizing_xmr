@@ -190,6 +190,12 @@ class StaticPreparationTests(unittest.TestCase):
             shutil.copy2(ROOT / 'deploy/gcp' / file, self.repo / 'deploy/gcp' / file)
         shutil.copy2(ROOT / 'brain_export.py', self.repo / 'brain_export.py')
         shutil.copy2(ROOT / 'task_activity.py', self.repo / 'task_activity.py')
+        claims = json.loads((ROOT / 'research/conclusion-claims.json').read_text())
+        for file in ['research/check_conclusion_claims.py', 'research/conclusion-claims.json', 'docs/research-progress.json', *[item['path'] for item in claims['artifacts'].values()]]:
+            target = self.repo / file
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(ROOT / file, target)
+
         ledger = json.dumps({'schema_version': 1, 'entries': []}) + '\n'
         (self.repo / 'research/hypotheses.json').write_text(ledger)
         (self.repo / 'docs/hypotheses.json').write_text(ledger)

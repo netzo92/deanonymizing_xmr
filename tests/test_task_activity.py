@@ -75,6 +75,19 @@ class TaskActivityTests(unittest.TestCase):
         self.assertEqual(task["first_recorded"]["status"], "completed")
         self.assertEqual([event["kind"] for event in task["events"]], ["first_recorded"])
 
+    def test_note_prose_edits_have_dates_without_inventing_task_transitions(self):
+        first = self.commit("Initial prose.\n")
+        edited = self.commit("Measured conclusion changed.\n")
+        self.commit()
+        payload = self.build()
+        self.assertEqual(payload['events'], [])
+        self.assertEqual([event['kind'] for event in payload['note_events']], ['note_added','note_updated'])
+        self.assertEqual([event['commit'] for event in payload['note_events']], [first,edited])
+        self.assertEqual(payload['note_events'][-1]['at'], '2026-09-11T17:02:00Z')
+        broken = copy.deepcopy(payload)
+        broken['note_events'][-1]['content_sha256'] = '0' * 64
+        self.assertRaisesRegex(ValueError, 'Note history', validate_snapshot, self.root, broken)
+
     def test_body_edits_and_line_moves_keep_stable_title_or_code_identity(self):
         self.commit("- [ ] **Research question.** Original body.\n- [ ] **D1 — Original title.** Body.\n")
         before = self.build()

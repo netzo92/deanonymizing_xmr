@@ -40,6 +40,7 @@ Existing experiment records:
 
 - [Progress and conclusions](progress-and-conclusions.md): completed work, theoretical implications, frozen measurements, and next experiments for the dedicated TODO/results page.
 
+- [FA2 paired feature ablation](feature-variation-audit.md#fa2--paired-ablation-completed): 24/20/17 columns each agreed on 142 of 162 test rings; no observed agreement gain, with explicit dependence and historical-scope limits.
 - [Feature variation audit](feature-variation-audit.md): all 24 features on 2,000 sampled rings; four constant columns, four exact duplicate pairs, and separate original/surviving-candidate contexts.
 - [Retrospective heuristic baselines](heuristic-baselines.md): uniform, newest, oldest, and minimum-reuse comparisons with explicit tie credit and selective-label limits.
 - [Output-origin audit](output-origin-audit.md): a fixed 40-output historical sample resolved through RPC and exposed three constant legacy gamma features; no model-accuracy gain measured.

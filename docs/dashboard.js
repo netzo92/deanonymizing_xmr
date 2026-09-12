@@ -629,7 +629,7 @@ function boot() {
     let hasData = false, pending = null, force = false;
     const mirror = location.hostname.endsWith('.github.io');
     const editing = () => document.getElementById('app').contains(document.activeElement) && document.activeElement?.matches('input, select, textarea');
-    const apply = data => { renderDashboard(data); hasData = true; pending = null; };
+    const apply = data => { window.TraceGroveGuide?.updateScan(data); renderDashboard(data); hasData = true; pending = null; };
     const polling = window.TraceGroveLive.startPolling({
         load: async () => {
             const data = await window.TraceGroveLive.fetchJSON('data.json');

@@ -12,6 +12,8 @@
     <script defer src="live-feed.js"></script>
     <script defer src="task-activity-view.js"></script>
     <script defer src="todo-results.js"></script>
+    <link rel="stylesheet" href="research-guide.css">
+    <script defer src="research-guide.js"></script>
 </head>
 <body class="progress-page">
     <a class="skip-link" href="#tasks">Skip to research TODOs</a>
@@ -48,7 +50,8 @@
             <a href="#results">Measured results</a>
             <a href="#conclusions">Conclusions</a>
             <a href="#next">Next experiments</a>
-        </nav>
+        <a href="conclusions.html">Conclusions &amp; experiments</a>
+    </nav>
         <section id="activity" class="progress-section" aria-labelledby="activity-heading" aria-busy="true">
             <div class="progress-section-title"><div><p class="progress-kicker">Dated changes, with source history</p><h2 id="activity-heading">Task activity</h2></div><a href="task-activity.json">Activity JSON ↗</a></div>
             <p class="progress-section-description">Follow first appearances, closures and reopened work. “First recorded” is the earliest available Git record, not a known creation time. Initially checked items do not imply that we observed their closure.</p>

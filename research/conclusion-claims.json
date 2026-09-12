@@ -1,0 +1,1527 @@
+{
+  "schema_version": 1,
+  "display_path": "docs/research-progress.json",
+  "scope": "Three frozen historical study cards, exact fields, numeric prose and denominators. The separate hypothesis ledger has its own artifact reconciliation tests.",
+  "artifacts": {
+    "origin": {
+      "path": "research/results/output_origins_2026-09-11.json",
+      "sha256": "9a9daf738b93a8a957e3ebeafbf4677de0c5c3127f72b3bbbad2a9c5ba4685d5"
+    },
+    "feature": {
+      "path": "research/results/feature_variation_2026-09-11.json",
+      "sha256": "b450be6b96aa91d0744f36cd54a2401e3158e97e8ab3b4220aa032eed44db7bc"
+    },
+    "baseline": {
+      "path": "research/results/heuristic_baselines_2026-09-11.json",
+      "sha256": "3be0719803e66620a80e3c7f0ecadd1e8d0deae62041a6074cb04765ebef59bd"
+    }
+  },
+  "claims": [
+    {
+      "id": "claim-1",
+      "target": "/scope/scan_start",
+      "expected": {
+        "artifact": "feature",
+        "pointer": "/scope/scan_start"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator_reason": "Cohort boundary or reviewed qualitative interpretation; no rate is claimed."
+    },
+    {
+      "id": "claim-2",
+      "target": "/scope/scan_end",
+      "expected": {
+        "artifact": "feature",
+        "pointer": "/scope/scan_end"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator_reason": "Cohort boundary or reviewed qualitative interpretation; no rate is claimed."
+    },
+    {
+      "id": "claim-3",
+      "target": "/scope/blocks_scanned",
+      "expected": {
+        "artifact": "feature",
+        "pointer": "/scope/blocks_scanned"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator_reason": "Cohort boundary or reviewed qualitative interpretation; no rate is claimed."
+    },
+    {
+      "id": "claim-4",
+      "target": "/scope/amount_zero_membership_rows",
+      "expected": {
+        "artifact": "feature",
+        "pointer": "/scope/amount_branches/amount_zero/membership_rows"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator_reason": "Cohort boundary or reviewed qualitative interpretation; no rate is claimed."
+    },
+    {
+      "id": "claim-5",
+      "target": "/experiments/0/facts/sampled_contexts",
+      "expected": {
+        "artifact": "origin",
+        "pointer": "/summary/sampled_contexts"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "sampled output contexts",
+        "value": {
+          "artifact": "origin",
+          "pointer": "/summary/sampled_contexts"
+        }
+      }
+    },
+    {
+      "id": "claim-6",
+      "target": "/experiments/0/facts/returned_outputs",
+      "expected": {
+        "artifact": "origin",
+        "pointer": "/summary/returned_outputs"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "sampled output contexts",
+        "value": {
+          "artifact": "origin",
+          "pointer": "/summary/sampled_contexts"
+        }
+      }
+    },
+    {
+      "id": "claim-7",
+      "target": "/experiments/0/facts/age_blocks_min",
+      "expected": {
+        "artifact": "origin",
+        "pointer": "/summary/age_blocks_min"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "sampled output contexts",
+        "value": {
+          "artifact": "origin",
+          "pointer": "/summary/sampled_contexts"
+        }
+      }
+    },
+    {
+      "id": "claim-8",
+      "target": "/experiments/0/facts/age_blocks_median",
+      "expected": {
+        "artifact": "origin",
+        "pointer": "/summary/age_blocks_median"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "sampled output contexts",
+        "value": {
+          "artifact": "origin",
+          "pointer": "/summary/sampled_contexts"
+        }
+      }
+    },
+    {
+      "id": "claim-9",
+      "target": "/experiments/0/facts/age_blocks_max",
+      "expected": {
+        "artifact": "origin",
+        "pointer": "/summary/age_blocks_max"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "sampled output contexts",
+        "value": {
+          "artifact": "origin",
+          "pointer": "/summary/sampled_contexts"
+        }
+      }
+    },
+    {
+      "id": "claim-10",
+      "target": "/experiments/0/facts/constant_gamma_features",
+      "expected": {
+        "op": "constant_series_count",
+        "values": [
+          {
+            "artifact": "origin",
+            "pointer": "/summary/gamma_recent_window_values"
+          },
+          {
+            "artifact": "origin",
+            "pointer": "/summary/gamma_log_likelihood_values"
+          },
+          {
+            "artifact": "origin",
+            "pointer": "/summary/gamma_surprisal_values"
+          }
+        ]
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "sampled output contexts",
+        "value": {
+          "artifact": "origin",
+          "pointer": "/summary/sampled_contexts"
+        }
+      }
+    },
+    {
+      "id": "claim-11",
+      "target": "/experiments/1/facts/sampled_rings",
+      "expected": {
+        "artifact": "feature",
+        "pointer": "/sampling/sampled_rings"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "sampled rings",
+        "value": {
+          "artifact": "feature",
+          "pointer": "/sampling/sampled_rings"
+        }
+      }
+    },
+    {
+      "id": "claim-12",
+      "target": "/experiments/1/facts/sampled_candidates",
+      "expected": {
+        "artifact": "feature",
+        "pointer": "/sampling/sampled_candidates"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "sampled rings",
+        "value": {
+          "artifact": "feature",
+          "pointer": "/sampling/sampled_rings"
+        }
+      }
+    },
+    {
+      "id": "claim-13",
+      "target": "/experiments/1/facts/feature_count",
+      "expected": {
+        "op": "len",
+        "value": {
+          "artifact": "feature",
+          "pointer": "/features"
+        }
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "sampled rings",
+        "value": {
+          "artifact": "feature",
+          "pointer": "/sampling/sampled_rings"
+        }
+      }
+    },
+    {
+      "id": "claim-14",
+      "target": "/experiments/1/facts/finite_values",
+      "expected": {
+        "op": "sum",
+        "value": {
+          "op": "pluck",
+          "value": {
+            "artifact": "feature",
+            "pointer": "/features"
+          },
+          "field": "finite_count"
+        }
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "sampled rings",
+        "value": {
+          "artifact": "feature",
+          "pointer": "/sampling/sampled_rings"
+        }
+      }
+    },
+    {
+      "id": "claim-15",
+      "target": "/experiments/2/facts/eligible_rings",
+      "expected": {
+        "artifact": "baseline",
+        "pointer": "/summary/rings"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "eligible resolved multi-member rings",
+        "value": {
+          "artifact": "baseline",
+          "pointer": "/summary/rings"
+        }
+      }
+    },
+    {
+      "id": "claim-16",
+      "target": "/experiments/2/facts/original_candidate_rows",
+      "expected": {
+        "artifact": "baseline",
+        "pointer": "/summary/candidate_rows"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "eligible resolved multi-member rings",
+        "value": {
+          "artifact": "baseline",
+          "pointer": "/summary/rings"
+        }
+      }
+    },
+    {
+      "id": "claim-17",
+      "target": "/experiments/2/facts/excluded_singletons",
+      "expected": {
+        "artifact": "baseline",
+        "pointer": "/eligibility/exclusions/singleton"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "eligible resolved multi-member rings",
+        "value": {
+          "artifact": "baseline",
+          "pointer": "/summary/rings"
+        }
+      }
+    },
+    {
+      "id": "claim-18",
+      "target": "/experiments/2/facts/input_height_min",
+      "expected": {
+        "artifact": "baseline",
+        "pointer": "/summary/input_height_min"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "eligible resolved multi-member rings",
+        "value": {
+          "artifact": "baseline",
+          "pointer": "/summary/rings"
+        }
+      }
+    },
+    {
+      "id": "claim-19",
+      "target": "/experiments/2/facts/input_height_max",
+      "expected": {
+        "artifact": "baseline",
+        "pointer": "/summary/input_height_max"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "eligible resolved multi-member rings",
+        "value": {
+          "artifact": "baseline",
+          "pointer": "/summary/rings"
+        }
+      }
+    },
+    {
+      "id": "claim-20",
+      "target": "/baseline_comparison/rows/0/rings",
+      "expected": {
+        "artifact": "baseline",
+        "pointer": "/summary/baselines/minimum_reuse/rings"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "eligible resolved multi-member rings",
+        "value": {
+          "artifact": "baseline",
+          "pointer": "/summary/rings"
+        }
+      }
+    },
+    {
+      "id": "claim-21",
+      "target": "/baseline_comparison/rows/0/expected_correct",
+      "expected": {
+        "artifact": "baseline",
+        "pointer": "/summary/baselines/minimum_reuse/expected_correct"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "eligible resolved multi-member rings",
+        "value": {
+          "artifact": "baseline",
+          "pointer": "/summary/rings"
+        }
+      }
+    },
+    {
+      "id": "claim-22",
+      "target": "/baseline_comparison/rows/0/expected_correct_exact/numerator",
+      "expected": {
+        "artifact": "baseline",
+        "pointer": "/summary/baselines/minimum_reuse/expected_correct_exact/numerator"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "eligible resolved multi-member rings",
+        "value": {
+          "artifact": "baseline",
+          "pointer": "/summary/rings"
+        }
+      }
+    },
+    {
+      "id": "claim-23",
+      "target": "/baseline_comparison/rows/0/expected_correct_exact/denominator",
+      "expected": {
+        "artifact": "baseline",
+        "pointer": "/summary/baselines/minimum_reuse/expected_correct_exact/denominator"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "eligible resolved multi-member rings",
+        "value": {
+          "artifact": "baseline",
+          "pointer": "/summary/rings"
+        }
+      }
+    },
+    {
+      "id": "claim-24",
+      "target": "/baseline_comparison/rows/0/expected_agreement",
+      "expected": {
+        "artifact": "baseline",
+        "pointer": "/summary/baselines/minimum_reuse/expected_accuracy"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "eligible resolved multi-member rings",
+        "value": {
+          "artifact": "baseline",
+          "pointer": "/summary/rings"
+        }
+      }
+    },
+    {
+      "id": "claim-25",
+      "target": "/baseline_comparison/rows/0/tie_rings",
+      "expected": {
+        "artifact": "baseline",
+        "pointer": "/summary/baselines/minimum_reuse/tie_rings"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "eligible resolved multi-member rings",
+        "value": {
+          "artifact": "baseline",
+          "pointer": "/summary/rings"
+        }
+      }
+    },
+    {
+      "id": "claim-26",
+      "target": "/baseline_comparison/rows/0/unique_top_choice_fraction",
+      "expected": {
+        "artifact": "baseline",
+        "pointer": "/summary/baselines/minimum_reuse/unique_top_choice_fraction"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "eligible resolved multi-member rings",
+        "value": {
+          "artifact": "baseline",
+          "pointer": "/summary/rings"
+        }
+      }
+    },
+    {
+      "id": "claim-27",
+      "target": "/baseline_comparison/rows/1/rings",
+      "expected": {
+        "artifact": "baseline",
+        "pointer": "/summary/baselines/newest/rings"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "eligible resolved multi-member rings",
+        "value": {
+          "artifact": "baseline",
+          "pointer": "/summary/rings"
+        }
+      }
+    },
+    {
+      "id": "claim-28",
+      "target": "/baseline_comparison/rows/1/expected_correct",
+      "expected": {
+        "artifact": "baseline",
+        "pointer": "/summary/baselines/newest/expected_correct"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "eligible resolved multi-member rings",
+        "value": {
+          "artifact": "baseline",
+          "pointer": "/summary/rings"
+        }
+      }
+    },
+    {
+      "id": "claim-29",
+      "target": "/baseline_comparison/rows/1/expected_correct_exact/numerator",
+      "expected": {
+        "artifact": "baseline",
+        "pointer": "/summary/baselines/newest/expected_correct_exact/numerator"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "eligible resolved multi-member rings",
+        "value": {
+          "artifact": "baseline",
+          "pointer": "/summary/rings"
+        }
+      }
+    },
+    {
+      "id": "claim-30",
+      "target": "/baseline_comparison/rows/1/expected_correct_exact/denominator",
+      "expected": {
+        "artifact": "baseline",
+        "pointer": "/summary/baselines/newest/expected_correct_exact/denominator"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "eligible resolved multi-member rings",
+        "value": {
+          "artifact": "baseline",
+          "pointer": "/summary/rings"
+        }
+      }
+    },
+    {
+      "id": "claim-31",
+      "target": "/baseline_comparison/rows/1/expected_agreement",
+      "expected": {
+        "artifact": "baseline",
+        "pointer": "/summary/baselines/newest/expected_accuracy"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "eligible resolved multi-member rings",
+        "value": {
+          "artifact": "baseline",
+          "pointer": "/summary/rings"
+        }
+      }
+    },
+    {
+      "id": "claim-32",
+      "target": "/baseline_comparison/rows/1/tie_rings",
+      "expected": {
+        "artifact": "baseline",
+        "pointer": "/summary/baselines/newest/tie_rings"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "eligible resolved multi-member rings",
+        "value": {
+          "artifact": "baseline",
+          "pointer": "/summary/rings"
+        }
+      }
+    },
+    {
+      "id": "claim-33",
+      "target": "/baseline_comparison/rows/1/unique_top_choice_fraction",
+      "expected": {
+        "artifact": "baseline",
+        "pointer": "/summary/baselines/newest/unique_top_choice_fraction"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "eligible resolved multi-member rings",
+        "value": {
+          "artifact": "baseline",
+          "pointer": "/summary/rings"
+        }
+      }
+    },
+    {
+      "id": "claim-34",
+      "target": "/baseline_comparison/rows/2/rings",
+      "expected": {
+        "artifact": "baseline",
+        "pointer": "/summary/baselines/uniform/rings"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "eligible resolved multi-member rings",
+        "value": {
+          "artifact": "baseline",
+          "pointer": "/summary/rings"
+        }
+      }
+    },
+    {
+      "id": "claim-35",
+      "target": "/baseline_comparison/rows/2/expected_correct",
+      "expected": {
+        "artifact": "baseline",
+        "pointer": "/summary/baselines/uniform/expected_correct"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "eligible resolved multi-member rings",
+        "value": {
+          "artifact": "baseline",
+          "pointer": "/summary/rings"
+        }
+      }
+    },
+    {
+      "id": "claim-36",
+      "target": "/baseline_comparison/rows/2/expected_correct_exact/numerator",
+      "expected": {
+        "artifact": "baseline",
+        "pointer": "/summary/baselines/uniform/expected_correct_exact/numerator"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "eligible resolved multi-member rings",
+        "value": {
+          "artifact": "baseline",
+          "pointer": "/summary/rings"
+        }
+      }
+    },
+    {
+      "id": "claim-37",
+      "target": "/baseline_comparison/rows/2/expected_correct_exact/denominator",
+      "expected": {
+        "artifact": "baseline",
+        "pointer": "/summary/baselines/uniform/expected_correct_exact/denominator"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "eligible resolved multi-member rings",
+        "value": {
+          "artifact": "baseline",
+          "pointer": "/summary/rings"
+        }
+      }
+    },
+    {
+      "id": "claim-38",
+      "target": "/baseline_comparison/rows/2/expected_agreement",
+      "expected": {
+        "artifact": "baseline",
+        "pointer": "/summary/baselines/uniform/expected_accuracy"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "eligible resolved multi-member rings",
+        "value": {
+          "artifact": "baseline",
+          "pointer": "/summary/rings"
+        }
+      }
+    },
+    {
+      "id": "claim-39",
+      "target": "/baseline_comparison/rows/2/tie_rings",
+      "expected": {
+        "artifact": "baseline",
+        "pointer": "/summary/baselines/uniform/tie_rings"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "eligible resolved multi-member rings",
+        "value": {
+          "artifact": "baseline",
+          "pointer": "/summary/rings"
+        }
+      }
+    },
+    {
+      "id": "claim-40",
+      "target": "/baseline_comparison/rows/2/unique_top_choice_fraction",
+      "expected": {
+        "artifact": "baseline",
+        "pointer": "/summary/baselines/uniform/unique_top_choice_fraction"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "eligible resolved multi-member rings",
+        "value": {
+          "artifact": "baseline",
+          "pointer": "/summary/rings"
+        }
+      }
+    },
+    {
+      "id": "claim-41",
+      "target": "/baseline_comparison/rows/3/rings",
+      "expected": {
+        "artifact": "baseline",
+        "pointer": "/summary/baselines/oldest/rings"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "eligible resolved multi-member rings",
+        "value": {
+          "artifact": "baseline",
+          "pointer": "/summary/rings"
+        }
+      }
+    },
+    {
+      "id": "claim-42",
+      "target": "/baseline_comparison/rows/3/expected_correct",
+      "expected": {
+        "artifact": "baseline",
+        "pointer": "/summary/baselines/oldest/expected_correct"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "eligible resolved multi-member rings",
+        "value": {
+          "artifact": "baseline",
+          "pointer": "/summary/rings"
+        }
+      }
+    },
+    {
+      "id": "claim-43",
+      "target": "/baseline_comparison/rows/3/expected_correct_exact/numerator",
+      "expected": {
+        "artifact": "baseline",
+        "pointer": "/summary/baselines/oldest/expected_correct_exact/numerator"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "eligible resolved multi-member rings",
+        "value": {
+          "artifact": "baseline",
+          "pointer": "/summary/rings"
+        }
+      }
+    },
+    {
+      "id": "claim-44",
+      "target": "/baseline_comparison/rows/3/expected_correct_exact/denominator",
+      "expected": {
+        "artifact": "baseline",
+        "pointer": "/summary/baselines/oldest/expected_correct_exact/denominator"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "eligible resolved multi-member rings",
+        "value": {
+          "artifact": "baseline",
+          "pointer": "/summary/rings"
+        }
+      }
+    },
+    {
+      "id": "claim-45",
+      "target": "/baseline_comparison/rows/3/expected_agreement",
+      "expected": {
+        "artifact": "baseline",
+        "pointer": "/summary/baselines/oldest/expected_accuracy"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "eligible resolved multi-member rings",
+        "value": {
+          "artifact": "baseline",
+          "pointer": "/summary/rings"
+        }
+      }
+    },
+    {
+      "id": "claim-46",
+      "target": "/baseline_comparison/rows/3/tie_rings",
+      "expected": {
+        "artifact": "baseline",
+        "pointer": "/summary/baselines/oldest/tie_rings"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "eligible resolved multi-member rings",
+        "value": {
+          "artifact": "baseline",
+          "pointer": "/summary/rings"
+        }
+      }
+    },
+    {
+      "id": "claim-47",
+      "target": "/baseline_comparison/rows/3/unique_top_choice_fraction",
+      "expected": {
+        "artifact": "baseline",
+        "pointer": "/summary/baselines/oldest/unique_top_choice_fraction"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "eligible resolved multi-member rings",
+        "value": {
+          "artifact": "baseline",
+          "pointer": "/summary/rings"
+        }
+      }
+    },
+    {
+      "id": "claim-48",
+      "target": "/experiments/0/metric/value",
+      "expected": {
+        "artifact": "origin",
+        "pointer": "/summary/sampled_contexts"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "sampled output contexts",
+        "value": {
+          "artifact": "origin",
+          "pointer": "/summary/sampled_contexts"
+        }
+      }
+    },
+    {
+      "id": "claim-49",
+      "target": "/experiments/1/metric/value",
+      "expected": {
+        "artifact": "feature",
+        "pointer": "/sampling/sampled_rings"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "sampled rings",
+        "value": {
+          "artifact": "feature",
+          "pointer": "/sampling/sampled_rings"
+        }
+      }
+    },
+    {
+      "id": "claim-50",
+      "target": "/experiments/2/metric/value",
+      "expected": {
+        "artifact": "baseline",
+        "pointer": "/summary/rings"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "eligible resolved multi-member rings",
+        "value": {
+          "artifact": "baseline",
+          "pointer": "/summary/rings"
+        }
+      }
+    },
+    {
+      "id": "claim-51",
+      "target": "/baseline_comparison/denominator",
+      "expected": {
+        "artifact": "baseline",
+        "pointer": "/summary/rings"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "eligible resolved multi-member rings",
+        "value": {
+          "artifact": "baseline",
+          "pointer": "/summary/rings"
+        }
+      }
+    },
+    {
+      "id": "claim-52",
+      "target": "/baseline_comparison/candidate_rows",
+      "expected": {
+        "artifact": "baseline",
+        "pointer": "/summary/candidate_rows"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "eligible resolved multi-member rings",
+        "value": {
+          "artifact": "baseline",
+          "pointer": "/summary/rings"
+        }
+      }
+    },
+    {
+      "id": "claim-53",
+      "target": "/experiments/1/facts/constant_features",
+      "expected": {
+        "op": "pluck",
+        "value": {
+          "op": "filter",
+          "value": {
+            "artifact": "feature",
+            "pointer": "/features"
+          },
+          "where": {
+            "globally_constant": {
+              "literal": true
+            }
+          }
+        },
+        "field": "name"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "sampled rings",
+        "value": {
+          "artifact": "feature",
+          "pointer": "/sampling/sampled_rings"
+        }
+      }
+    },
+    {
+      "id": "claim-54",
+      "target": "/experiments/1/facts/duplicate_feature_pairs",
+      "expected": {
+        "artifact": "feature",
+        "pointer": "/duplicate_feature_pairs"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "sampled rings",
+        "value": {
+          "artifact": "feature",
+          "pointer": "/sampling/sampled_rings"
+        }
+      }
+    },
+    {
+      "id": "claim-55",
+      "target": "/experiments/0/metric/label",
+      "expected": {
+        "op": "format",
+        "template": "of {n} sampled output origins returned",
+        "values": {
+          "n": {
+            "artifact": "origin",
+            "pointer": "/summary/sampled_contexts"
+          }
+        }
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "sampled output contexts",
+        "value": {
+          "artifact": "origin",
+          "pointer": "/summary/sampled_contexts"
+        }
+      }
+    },
+    {
+      "id": "claim-56",
+      "target": "/experiments/1/metric/label",
+      "expected": {
+        "op": "format",
+        "template": "sampled rings \u00b7 {n:,} candidate vectors",
+        "values": {
+          "n": {
+            "artifact": "feature",
+            "pointer": "/sampling/sampled_candidates"
+          }
+        }
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "sampled rings",
+        "value": {
+          "artifact": "feature",
+          "pointer": "/sampling/sampled_rings"
+        }
+      }
+    },
+    {
+      "id": "claim-57",
+      "target": "/experiments/0/finding",
+      "expected": {
+        "op": "format",
+        "template": "Actual ages ranged from {lo} to {hi:,} blocks in the selected contexts, yet all {n:words} legacy gamma features were constant. The audit exposed a feature limitation and usable origin metadata.",
+        "values": {
+          "lo": {
+            "artifact": "origin",
+            "pointer": "/summary/age_blocks_min"
+          },
+          "hi": {
+            "artifact": "origin",
+            "pointer": "/summary/age_blocks_max"
+          },
+          "n": {
+            "op": "constant_series_count",
+            "values": [
+              {
+                "artifact": "origin",
+                "pointer": "/summary/gamma_recent_window_values"
+              },
+              {
+                "artifact": "origin",
+                "pointer": "/summary/gamma_log_likelihood_values"
+              },
+              {
+                "artifact": "origin",
+                "pointer": "/summary/gamma_surprisal_values"
+              }
+            ]
+          }
+        }
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "sampled output contexts",
+        "value": {
+          "artifact": "origin",
+          "pointer": "/summary/sampled_contexts"
+        }
+      }
+    },
+    {
+      "id": "claim-58",
+      "target": "/experiments/0/limitation",
+      "expected": {
+        "op": "format",
+        "template": "A fixed {n}-output sample and one unauthenticated RPC endpoint do not establish population coverage or any model improvement. The v1 run did not fingerprint WAL state.",
+        "values": {
+          "n": {
+            "artifact": "origin",
+            "pointer": "/summary/sampled_contexts"
+          }
+        }
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "sampled output contexts",
+        "value": {
+          "artifact": "origin",
+          "pointer": "/summary/sampled_contexts"
+        }
+      }
+    },
+    {
+      "id": "claim-59",
+      "target": "/experiments/1/title",
+      "expected": {
+        "op": "format",
+        "template": "{n:Words} feature columns are constant",
+        "values": {
+          "n": {
+            "op": "len",
+            "value": {
+              "op": "filter",
+              "value": {
+                "artifact": "feature",
+                "pointer": "/features"
+              },
+              "where": {
+                "globally_constant": {
+                  "literal": true
+                }
+              }
+            }
+          }
+        }
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "sampled rings",
+        "value": {
+          "artifact": "feature",
+          "pointer": "/sampling/sampled_rings"
+        }
+      }
+    },
+    {
+      "id": "claim-60",
+      "target": "/experiments/1/finding",
+      "expected": {
+        "op": "format",
+        "template": "All {n} feature columns were audited. {c:Words} complete columns were constant and {dups:words} pairs were exactly equal in the sample. All {finite:,} feature values were finite.",
+        "values": {
+          "n": {
+            "op": "len",
+            "value": {
+              "artifact": "feature",
+              "pointer": "/features"
+            }
+          },
+          "c": {
+            "op": "len",
+            "value": {
+              "op": "filter",
+              "value": {
+                "artifact": "feature",
+                "pointer": "/features"
+              },
+              "where": {
+                "globally_constant": {
+                  "literal": true
+                }
+              }
+            }
+          },
+          "dups": {
+            "op": "len",
+            "value": {
+              "artifact": "feature",
+              "pointer": "/duplicate_feature_pairs"
+            }
+          },
+          "finite": {
+            "op": "sum",
+            "value": {
+              "op": "pluck",
+              "value": {
+                "artifact": "feature",
+                "pointer": "/features"
+              },
+              "field": "finite_count"
+            }
+          }
+        }
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "sampled rings",
+        "value": {
+          "artifact": "feature",
+          "pointer": "/sampling/sampled_rings"
+        }
+      }
+    },
+    {
+      "id": "claim-61",
+      "target": "/experiments/2/finding",
+      "expected": {
+        "op": "format",
+        "template": "Minimum original-output reuse reached {reuse:.2%} expected agreement with current stored deterministic labels; the highest-index rule reached {newest:.2%}. Tied choices receive fractional credit.",
+        "values": {
+          "reuse": {
+            "artifact": "baseline",
+            "pointer": "/summary/baselines/minimum_reuse/expected_accuracy"
+          },
+          "newest": {
+            "artifact": "baseline",
+            "pointer": "/summary/baselines/newest/expected_accuracy"
+          }
+        }
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "eligible resolved multi-member rings",
+        "value": {
+          "artifact": "baseline",
+          "pointer": "/summary/rings"
+        }
+      }
+    },
+    {
+      "id": "claim-62",
+      "target": "/baseline_comparison/interpretation",
+      "expected": {
+        "op": "format",
+        "template": "All {n:words} rules use the same {rings:,} current deterministic multi-member rings and original candidates. Related rings are not independent; chronological quartiles are descriptive, not temporal test splits. These figures establish no address ownership, forward accuracy, or ML gain.",
+        "values": {
+          "n": {
+            "op": "len",
+            "value": {
+              "artifact": "baseline",
+              "pointer": "/summary/baselines"
+            }
+          },
+          "rings": {
+            "artifact": "baseline",
+            "pointer": "/summary/rings"
+          }
+        }
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "eligible resolved multi-member rings",
+        "value": {
+          "artifact": "baseline",
+          "pointer": "/summary/rings"
+        }
+      }
+    },
+    {
+      "id": "claim-63",
+      "target": "/scope/description",
+      "expected": {
+        "op": "format",
+        "template": "April\u2013May {year} chain data, all nonzero amount buckets. These frozen experiments are separate from the live collector and do not establish results for modern Monero.",
+        "values": {
+          "year": {
+            "op": "date_part",
+            "value": {
+              "artifact": "feature",
+              "pointer": "/scope/chain_data_at"
+            },
+            "part": "year"
+          }
+        }
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator_reason": "Cohort boundary or reviewed qualitative interpretation; no rate is claimed."
+    },
+    {
+      "id": "claim-64",
+      "target": "/experiments/0/title",
+      "expected": {
+        "literal": "Output origins are retrievable"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "sampled output contexts",
+        "value": {
+          "artifact": "origin",
+          "pointer": "/summary/sampled_contexts"
+        }
+      }
+    },
+    {
+      "id": "claim-65",
+      "target": "/experiments/1/limitation",
+      "expected": {
+        "literal": "The stratified legacy sample is not population-weighted. Constants and duplicates do not demonstrate a gain from removing features; within-ring context features can still carry useful interactions."
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "sampled rings",
+        "value": {
+          "artifact": "feature",
+          "pointer": "/sampling/sampled_rings"
+        }
+      }
+    },
+    {
+      "id": "claim-66",
+      "target": "/experiments/2/title",
+      "expected": {
+        "literal": "Minimum reuse leads this comparison"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "eligible resolved multi-member rings",
+        "value": {
+          "artifact": "baseline",
+          "pointer": "/summary/rings"
+        }
+      }
+    },
+    {
+      "id": "claim-67",
+      "target": "/experiments/2/metric/label",
+      "expected": {
+        "literal": "eligible, already-resolved multi-member rings"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "eligible resolved multi-member rings",
+        "value": {
+          "artifact": "baseline",
+          "pointer": "/summary/rings"
+        }
+      }
+    },
+    {
+      "id": "claim-68",
+      "target": "/experiments/2/limitation",
+      "expected": {
+        "literal": "This is selective retrospective agreement, not prediction accuracy. Full-snapshot reuse includes later references; historical label availability and performance on unresolved rings remain unknown."
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "eligible resolved multi-member rings",
+        "value": {
+          "artifact": "baseline",
+          "pointer": "/summary/rings"
+        }
+      }
+    },
+    {
+      "id": "claim-69",
+      "target": "/baseline_comparison/tie_method",
+      "expected": {
+        "literal": "1/k expected correct if the current label is among k equally preferred candidates; zero otherwise; no index tiebreak."
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator": {
+        "unit": "eligible resolved multi-member rings",
+        "value": {
+          "artifact": "baseline",
+          "pointer": "/summary/rings"
+        }
+      }
+    },
+    {
+      "id": "claim-70",
+      "target": "/theoretical_conclusions/0/title",
+      "expected": {
+        "literal": "Test simpler feature sets on the same held-out rings"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator_reason": "Cohort boundary or reviewed qualitative interpretation; no rate is claimed."
+    },
+    {
+      "id": "claim-71",
+      "target": "/theoretical_conclusions/0/statement",
+      "expected": {
+        "literal": "Constant and duplicate columns justify a controlled ablation. They do not show that removing columns improves generalization, speed, or memory. Fit feature masks on training folds and preserve paired results, including a negative outcome."
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator_reason": "Cohort boundary or reviewed qualitative interpretation; no rate is claimed."
+    },
+    {
+      "id": "claim-72",
+      "target": "/theoretical_conclusions/1/title",
+      "expected": {
+        "literal": "Use origin metadata through a versioned feature experiment"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator_reason": "Cohort boundary or reviewed qualitative interpretation; no rate is claimed."
+    },
+    {
+      "id": "claim-73",
+      "target": "/theoretical_conclusions/1/statement",
+      "expected": {
+        "literal": "The origin audit motivates replacing relative-position proxies with validated creation metadata. The effect still needs a frozen comparison with missing-origin flags and protocol-appropriate assumptions. No performance benefit has been measured."
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator_reason": "Cohort boundary or reviewed qualitative interpretation; no rate is claimed."
+    },
+    {
+      "id": "claim-74",
+      "target": "/theoretical_conclusions/2/title",
+      "expected": {
+        "literal": "Recheck reuse using only prediction-time information"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator_reason": "Cohort boundary or reviewed qualitative interpretation; no rate is claimed."
+    },
+    {
+      "id": "claim-75",
+      "target": "/theoretical_conclusions/2/statement",
+      "expected": {
+        "literal": "Minimum reuse is a useful baseline to challenge in this historical population. Its lead may depend on later graph observations and which rings the analyzer could resolve. Prediction-time snapshots are needed before drawing a forward-performance conclusion."
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator_reason": "Cohort boundary or reviewed qualitative interpretation; no rate is claimed."
+    },
+    {
+      "id": "claim-76",
+      "target": "/theoretical_conclusions/3/title",
+      "expected": {
+        "literal": "Output relationships do not identify wallets or people"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator_reason": "Cohort boundary or reviewed qualitative interpretation; no rate is claimed."
+    },
+    {
+      "id": "claim-77",
+      "target": "/theoretical_conclusions/3/statement",
+      "expected": {
+        "literal": "Shared ring membership, candidate selections, and agreement with stored labels describe outputs and evidence. None of these completed experiments measures common wallet ownership, recovers receiving addresses, or identifies a person. Grouping claims need separately controlled labels and false-merge evaluation."
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator_reason": "Cohort boundary or reviewed qualitative interpretation; no rate is claimed."
+    },
+    {
+      "id": "claim-78",
+      "target": "/next_priorities/0/title",
+      "expected": {
+        "literal": "Run a paired feature ablation"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator_reason": "Cohort boundary or reviewed qualitative interpretation; no rate is claimed."
+    },
+    {
+      "id": "claim-79",
+      "target": "/next_priorities/0/why",
+      "expected": {
+        "literal": "Compare the unchanged scorer, constant/duplicate masks, and simple rules on the same frozen eligible test rings. Preserve sample counts, runtime, score changes, and negative results."
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator_reason": "Cohort boundary or reviewed qualitative interpretation; no rate is claimed."
+    },
+    {
+      "id": "claim-80",
+      "target": "/next_priorities/1/title",
+      "expected": {
+        "literal": "Freeze prediction-time reuse and label availability"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator_reason": "Cohort boundary or reviewed qualitative interpretation; no rate is claimed."
+    },
+    {
+      "id": "claim-81",
+      "target": "/next_priorities/1/why",
+      "expected": {
+        "literal": "Separate the signal available at prediction time from information added later. Current full-snapshot agreement cannot answer that question."
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator_reason": "Cohort boundary or reviewed qualitative interpretation; no rate is claimed."
+    },
+    {
+      "id": "claim-82",
+      "target": "/next_priorities/2/title",
+      "expected": {
+        "literal": "Evaluate versioned origin-age features"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator_reason": "Cohort boundary or reviewed qualitative interpretation; no rate is claimed."
+    },
+    {
+      "id": "claim-83",
+      "target": "/next_priorities/2/why",
+      "expected": {
+        "literal": "Validate joins and missingness first, then compare origin-age features with the existing proxy under the same independent evaluation boundary."
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator_reason": "Cohort boundary or reviewed qualitative interpretation; no rate is claimed."
+    },
+    {
+      "id": "claim-84",
+      "target": "/next_priorities/3/title",
+      "expected": {
+        "literal": "Expand coverage to independently validated later cohorts"
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator_reason": "Cohort boundary or reviewed qualitative interpretation; no rate is claimed."
+    },
+    {
+      "id": "claim-85",
+      "target": "/next_priorities/3/why",
+      "expected": {
+        "literal": "The completed audits contain no amount-zero data. Audit later protocol eras before transferring historical feature or baseline conclusions."
+      },
+      "meaning": "Frozen historical study only; see the displayed interpretation and source population.",
+      "denominator_reason": "Cohort boundary or reviewed qualitative interpretation; no rate is claimed."
+    }
+  ],
+  "assertions": [
+    {
+      "id": "same-ring-denominator-minimum_reuse",
+      "left": {
+        "artifact": "baseline",
+        "pointer": "/summary/baselines/minimum_reuse/rings"
+      },
+      "right": {
+        "artifact": "baseline",
+        "pointer": "/summary/rings"
+      }
+    },
+    {
+      "id": "fractional-rate-minimum_reuse",
+      "left": {
+        "artifact": "baseline",
+        "pointer": "/summary/baselines/minimum_reuse/expected_accuracy"
+      },
+      "right": {
+        "op": "ratio",
+        "numerator": {
+          "artifact": "baseline",
+          "pointer": "/summary/baselines/minimum_reuse/expected_correct"
+        },
+        "denominator": {
+          "artifact": "baseline",
+          "pointer": "/summary/baselines/minimum_reuse/rings"
+        }
+      },
+      "absolute_tolerance": 1e-12
+    },
+    {
+      "id": "same-ring-denominator-newest",
+      "left": {
+        "artifact": "baseline",
+        "pointer": "/summary/baselines/newest/rings"
+      },
+      "right": {
+        "artifact": "baseline",
+        "pointer": "/summary/rings"
+      }
+    },
+    {
+      "id": "fractional-rate-newest",
+      "left": {
+        "artifact": "baseline",
+        "pointer": "/summary/baselines/newest/expected_accuracy"
+      },
+      "right": {
+        "op": "ratio",
+        "numerator": {
+          "artifact": "baseline",
+          "pointer": "/summary/baselines/newest/expected_correct"
+        },
+        "denominator": {
+          "artifact": "baseline",
+          "pointer": "/summary/baselines/newest/rings"
+        }
+      },
+      "absolute_tolerance": 1e-12
+    },
+    {
+      "id": "same-ring-denominator-uniform",
+      "left": {
+        "artifact": "baseline",
+        "pointer": "/summary/baselines/uniform/rings"
+      },
+      "right": {
+        "artifact": "baseline",
+        "pointer": "/summary/rings"
+      }
+    },
+    {
+      "id": "fractional-rate-uniform",
+      "left": {
+        "artifact": "baseline",
+        "pointer": "/summary/baselines/uniform/expected_accuracy"
+      },
+      "right": {
+        "op": "ratio",
+        "numerator": {
+          "artifact": "baseline",
+          "pointer": "/summary/baselines/uniform/expected_correct"
+        },
+        "denominator": {
+          "artifact": "baseline",
+          "pointer": "/summary/baselines/uniform/rings"
+        }
+      },
+      "absolute_tolerance": 1e-12
+    },
+    {
+      "id": "same-ring-denominator-oldest",
+      "left": {
+        "artifact": "baseline",
+        "pointer": "/summary/baselines/oldest/rings"
+      },
+      "right": {
+        "artifact": "baseline",
+        "pointer": "/summary/rings"
+      }
+    },
+    {
+      "id": "fractional-rate-oldest",
+      "left": {
+        "artifact": "baseline",
+        "pointer": "/summary/baselines/oldest/expected_accuracy"
+      },
+      "right": {
+        "op": "ratio",
+        "numerator": {
+          "artifact": "baseline",
+          "pointer": "/summary/baselines/oldest/expected_correct"
+        },
+        "denominator": {
+          "artifact": "baseline",
+          "pointer": "/summary/baselines/oldest/rings"
+        }
+      },
+      "absolute_tolerance": 1e-12
+    }
+  ]
+}

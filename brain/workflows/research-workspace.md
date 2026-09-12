@@ -160,3 +160,8 @@ observed closures/reopenings, imported completed tasks, local read-state notices
 scientific verdicts and the required publication sequence. The historical
 `research-progress.json` cards retain their frozen cohorts; the ledger covers
 all research checklists without combining different experiments' denominators.
+
+The [conclusions and feature guide](../../docs/conclusions.html) is the plain-language
+entry point for experiment outcomes, what can/cannot be inferred, all model
+features, note timestamps, and an illustrative inference animation. See
+[task reporting](task-reporting.md#note-edits-and-conclusions) for its publication rules.

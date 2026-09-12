@@ -21,6 +21,8 @@
     <script defer src="progress-view.js"></script>
     <script defer src="live-feed.js"></script>
     <script defer src="dashboard.js"></script>
+    <link rel="stylesheet" href="research-guide.css">
+    <script defer src="research-guide.js"></script>
 </head>
 <body>
     <a class="skip-link" href="#app">Skip to analysis</a>
@@ -34,6 +36,7 @@
     </header>
     <nav class="workspace-nav" aria-label="Research workspace">
         <a href="#app">Overview</a>
+        <a href="conclusions.html">Conclusions &amp; experiments</a>
         <a href="#progress-view">Timeline &amp; groups</a>
         <a href="eras.html">Security eras</a>
         <a href="pool.html">Pool observations</a>
@@ -46,10 +49,11 @@
         <a href="#evidence-inspector">Evidence graph</a>
     </nav>
     <main>
+        <section id="chain-scan-progress" aria-live="polite"><h2>Chain blocks in published analysis</h2><p>Loading coverage…</p></section>
         <div class="workspace-portals">
             <a href="#progress-view"><span class="portal-kicker">Measured progress</span><strong>Resolved rings &amp; relationships ↗</strong><span>Follow analysis snapshots and inspect shared outputs.</span></a>
             <a href="eras.html"><span class="portal-kicker">Security over time</span><strong>Compare protocol eras ↗</strong><span>See upgrades, evidence, coverage gaps, and supported conclusions.</span></a>
-            <a href="todos.html"><span class="portal-kicker">Research notebook</span><strong>TODOs, results &amp; next experiments ↗</strong><span>What is complete, what the real data says, and what to test next.</span></a>
+            <a href="conclusions.html"><span class="portal-kicker">Research notebook</span><strong>Conclusions &amp; experiments ↗</strong><span>What is complete, what the real data says, and what to test next.</span></a>
         </div>
         <div class="refresh-bar">
             <p id="refresh-status" class="refresh-status" role="status">Loading analysis snapshot…</p>

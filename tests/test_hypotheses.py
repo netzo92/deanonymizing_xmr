@@ -98,13 +98,14 @@ class HypothesisLedgerTests(unittest.TestCase):
         # These broad claims have prerequisites or observations, but no finished test.
         for identifier in ("confirmation-forecast-value", "actual-age-improvement", "forward-generalization",
                            "model-over-baselines", "calibration-abstention", "ownership-false-merges",
-                           "era-transfer-and-errors", "constant-duplicate-ablation"):
+                           "era-transfer-and-errors"):
             self.assertEqual(self.entries[identifier]["outcome"], "untested", identifier)
         self.assertEqual(self.entries["private-node-pilot"]["execution_status"], "deferred")
         self.assertEqual(self.entries["private-node-pilot"]["outcome"], "untested")
         self.assertEqual(self.entries["independent-rpc-agreement"]["execution_status"], "not_started")
         self.assertEqual(self.entries["pool-observation-completeness"]["outcome"], "inconclusive")
         self.assertEqual(self.entries["historical-model-search"]["outcome"], "inconclusive")
+        self.assertEqual(self.entries["constant-duplicate-ablation"]["outcome"], "inconclusive")
 
     def test_frozen_hashes_timestamps_denominators_and_source_revisions(self):
         for entry in self.entries.values():
@@ -190,6 +191,30 @@ class HypothesisLedgerTests(unittest.TestCase):
         self.assertEqual(snapshot["current"]["receive_time_unknown"], snapshot["current"]["transaction_count"])
         self.assertIn("two-block follow-up lag", text)
         self.assertIn("not validated network coverage", self.entries["pool-observation-completeness"]["measured_conclusion"])
+
+    def test_fa2_frozen_score_files_reconcile_with_reported_paired_result(self):
+        wrapper = self.artifact('constant-duplicate-ablation', 'feature_ablation_2026-09-12.json')
+        directory = ROOT / 'research/results/feature_ablation_2026-09-12'
+        summary = json.loads((directory / 'summary.json').read_text())
+        self.assertEqual(wrapper['summary'], summary)
+        for name, provenance in summary['artifacts'].items():
+            raw = (directory / name).read_bytes()
+            self.assertEqual(hashlib.sha256(raw).hexdigest(), provenance['sha256'])
+            self.assertEqual(len(raw), provenance['bytes'])
+        records = {}
+        for name, variant in summary['variants'].items():
+            rows = json.loads((directory / (name + '.json')).read_text())['outcomes']
+            records[name] = rows
+            self.assertEqual(len(rows), summary['split']['test']['rings'])
+            self.assertEqual(sum(row['correct'] for row in rows), variant['summary']['correct'])
+            self.assertEqual(sum(len(row['candidates']) for row in rows), summary['split']['test']['candidates'])
+            self.assertEqual(variant['summary']['correct'], 142)
+        baseline = records['all_features']
+        for name, comparison in summary['paired_vs_all_features'].items():
+            other = records[name]
+            self.assertEqual([row['key_image'] for row in baseline], [row['key_image'] for row in other])
+            self.assertEqual(sum(a['selected_output'] != b['selected_output'] for a,b in zip(baseline,other)), comparison['changed_selected_outputs'])
+            self.assertEqual(comparison['net_correct_change'], 0)
 
 
 if __name__ == "__main__":

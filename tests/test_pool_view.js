@@ -4,6 +4,17 @@ const assert = require('node:assert/strict');
 const api = require('../docs/pool-view.js');
 const {createPoller} = require('../docs/live-feed.js');
 
+test('archive state preserves failed and overdue freezes without claiming live coverage', () => {
+    const data = {schema_version:1,state:'archived',last_success_at:'2026-09-12T05:00:00Z',policy:{interval_seconds:21600},latest:{schema_version:1,scope:'retained_snapshot',rows:{transactions:5,observations:10,polls:2},storage:{database_bytes:65536}}};
+    assert.equal(api.archiveSummary(data, Date.parse('2026-09-12T06:00:00Z')).stale, false);
+    assert.equal(api.archiveSummary(data, Date.parse('2026-09-12T13:00:00Z')).stale, true);
+    assert.equal(api.archiveSummary({...data,state:'error'}).failed, true);
+    assert.throws(() => api.archiveSummary({...data,latest:null}));
+    assert.throws(() => api.archiveSummary({...data,latest:{...data.latest,rows:{...data.latest.rows,transactions:-1}}}));
+    assert.throws(() => api.archiveSummary({...data,latest:{...data.latest,scope:'all_network_transactions'}}));
+    assert.equal(api.archiveSummary({schema_version:1,state:'error',policy:{interval_seconds:21600}}).latest, undefined);
+});
+
 function snapshot() {
     return {schema_version: 1, state: 'observing', generated_at: '2026-09-12T04:00:00Z', last_success_at: '2026-09-12T04:00:00Z', source: {mode: 'public_rpc', synchronized: true, restricted: true, bootstrap: false}, current: {transaction_count: 10, reported_pool_count: 11, complete: true, tracking_complete: true, untracked_due_limit: 0, fee_atomic_total: '18446744073709551615', weight_total: '79120', receive_time_known: 0, receive_time_unknown: 10}, coverage: {polls_total: 3, successful_polls: 2, failed_polls: 1, initial_window_left_truncated: true}, outcomes: {tracked_transactions: 20, pending: 10, disappeared: 3, confirmed: 5, censored: 2, cold_start_transactions: 8, followup_censored_transactions: 6, observed_confirmations: 5, confirmed_block_transactions: 40, confirmations_seen_before_block: 3, confirmation_delay: {sample_count: 2, median_seconds: 120, p90_seconds: 168, excluded_count: 3, bins: [{label: '< 1 minute', count: 0}, {label: '1–5 minutes', count: 2}], basis: 'Same-session monotonic observation to block detection'}}, poll_history: [{started_at: '2026-09-12T03:58:00Z', state: 'observing', pool_count: 8, pool_complete: true}, {started_at: '2026-09-12T03:59:00Z', state: 'error', pool_count: null, pool_complete: false, error_type: 'RPCError'}, {started_at: '2026-09-12T04:00:00Z', state: 'observing', pool_count: 10, pool_complete: true}], gaps: [], limits: {interval_seconds: 60, confirmations: 2, retention_seconds: 86400}};
 }

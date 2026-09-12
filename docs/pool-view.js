@@ -117,7 +117,7 @@
         const grid = el('div', 'pool-grid'), history = el('article', 'pool-card');history.append(el('h3', '', 'Recent pool snapshots'));
         const polls = model.polls.slice(-60);
         if (polls.length) {
-            history.append(el('p', '', `Showing ${fmt(polls.length)} of ${fmt(model.polls.length)} published polls, oldest to newest. Bar height represents returned transactions. Failed pool fetches have a marker, not a zero count; a later collection error can still leave a complete pool snapshot.`));
+            history.append(el('p', '', `Showing the latest ${fmt(polls.length)} polls in this published window, oldest to newest. Each bar is the number of transactions this node returned. An error marker means the count is unknown, not zero.`));
             const bars = el('div', 'pool-poll-bars');bars.setAttribute('role', 'img');bars.setAttribute('aria-label', 'Pool count across recent polls. Colors distinguish complete, partial, failed and unknown observations; exact values are in the poll table.');
             const max = Math.max(1, ...polls.filter(poll => pollKind(poll) !== 'failed' && count(poll.pool_count)).map(poll => poll.pool_count));
             polls.forEach(poll => {const kind = pollKind(poll), bar = el('span', `pool-poll-bar is-${kind}`);bar.style.height = `${kind === 'failed' || !count(poll.pool_count) ? 9 : Math.max(2, 100 * poll.pool_count / max)}%`;bar.title = `${date(poll.started_at)} · ${kind} · count ${fmt(poll.pool_count)}`;bars.append(bar);});
@@ -173,6 +173,36 @@
         if (array(data.interpretation).length) {const ul = el('ul');data.interpretation.filter(value => typeof value === 'string').forEach(value => ul.append(el('li', '', value)));provenance.append(ul);}
         provenance.append(add(el('p'), link('Download the aggregate snapshot →', 'pool-observations.json')));card.append(provenance);return card;
     }
+    function archiveSummary(data, now = Date.now()) {
+        if (!object(data) || data.schema_version !== 1 || !['archived', 'error'].includes(data.state) || !object(data.policy) || !count(data.policy.interval_seconds) || data.policy.interval_seconds < 1) throw Error('Invalid archive status');
+        const latest = data.latest;
+        if (latest !== undefined && latest !== null) {
+            if (!object(latest) || latest.schema_version !== 1 || latest.scope !== 'retained_snapshot' || !object(latest.rows) || !object(latest.storage)) throw Error('Invalid retained archive summary');
+            for (const key of ['transactions', 'observations', 'polls']) if (!count(latest.rows[key])) throw Error('Invalid archive row count');
+            if (!count(latest.storage.database_bytes) || !Number.isFinite(Date.parse(data.last_success_at))) throw Error('Invalid archive size or time');
+        }
+        if (data.state === 'archived' && !latest) throw Error('Archive success requires a saved snapshot');
+        const age = latest ? Math.max(0, (now - Date.parse(data.last_success_at)) / 1000) : null;
+        return {latest, age, stale: age !== null && age > data.policy.interval_seconds + 3600, failed: data.state === 'error'};
+    }
+    function mountArchive(host, live, fetchJSON) {
+        const section = el('section', 'pool-section');section.id = 'pool-archive';
+        section.append(sectionHead('Preserving observations for research', 'A separate job freezes retained records every six hours on the existing server. Raw transaction and timing records stay private.'));
+        const status = el('p', 'pool-small', 'Checking the archive status…'), content = el('div', 'pool-card');section.append(status, content);host.append(section);
+        let last = null;
+        const poller = live.startPolling({load: () => Promise.resolve(fetchJSON('pool-archive-status.json')).then(data => {archiveSummary(data);return data;}), onData(data) {
+            const model = archiveSummary(data), latest = model.latest;
+            const view = el('div');
+            view.append(el('h3', '', model.failed ? 'Archive needs attention' : model.stale ? 'Last freeze is overdue' : 'Private snapshot preserved'));
+            if (latest) view.append(facts([['Last successful freeze', date(data.last_success_at)], ['Retained transactions', fmt(latest.rows.transactions)], ['Sighting rows', fmt(latest.rows.observations)], ['Collection rounds retained', fmt(latest.rows.polls)], ['Frozen database size', `${(latest.storage.database_bytes / 1048576).toFixed(2)} MiB`]]));
+            view.append(el('p', '', `Schedule: every ${duration(data.policy.interval_seconds)}. Storage cap: ${count(data.policy.max_archive_bytes) ? (data.policy.max_archive_bytes / 1073741824).toFixed(0) + ' GiB' : 'unknown'} / ${fmt(data.policy.max_archives)} snapshots. Archives stop at capacity; existing study records are not automatically deleted.`));
+            if (model.failed) view.append(el('p', 'pool-notice', 'The last archive attempt failed. The last successful freeze remains listed; new retention protection is not established until the job succeeds.'));
+            if (model.stale) view.append(el('p', 'pool-notice', 'No successful freeze has been published within the expected schedule. The live observation feed has a separate status.'));
+            view.append(el('p', 'pool-small', 'Each freeze contains all records still retained at capture, including pending and censored cases. It is not a complete network census or proof that earlier records were preserved. Overlapping snapshots must be reconciled before a forecast study.'), link('Archive aggregate and retention diagnostics →', 'pool-archive-status.json'));
+            content.replaceChildren(view);last = data;
+        }, onStatus(result) {const overdue = last && archiveSummary(last).stale;if (overdue && content.querySelector('h3')) content.querySelector('h3').textContent = 'Last freeze is overdue';status.textContent = result.ok ? overdue ? 'Archive is overdue: the last successful freeze exceeds its expected schedule.' : 'Archive status checked · page checks every 60 seconds.' : `Archive status unavailable. ${last ? 'Keeping the last successful display.' : 'No archive success is established on this page yet.'} Retrying every 60 seconds.`;}});
+        return poller;
+    }
     function mount(host, options = {}) {
         const live = options.live || root.TraceGroveLive;
         const content = el('div'), status = el('p', '', 'Checking the pool observation snapshot…');status.setAttribute('role', 'status');
@@ -214,8 +244,9 @@
             const age = live.freshness(lastData?.last_success_at, Date.now(), lastData?.limits?.interval_seconds || 120);
             status.textContent = `${lastData?.state === 'error' || lastData?.error ? 'Observer reports an error' : lastData?.state === 'paused' ? 'Observer paused' : lastData?.state === 'warming_up' ? 'Pilot warming up' : 'Snapshot loaded'} · ${age.state}${age.seconds === null ? '' : ` (${duration(age.seconds)} since last success)`} · page checks every 60 seconds.`;
         }});
-        refresh.addEventListener('click', () => {refresh.disabled = true;Promise.resolve(polling.check()).finally(() => {refresh.disabled = false;});});
-        return {refresh: () => polling.check(), stop: () => polling.stop(), getSnapshot: () => lastData};
+        const archivePolling = mountArchive(host, live, options.fetchJSON || live.fetchJSON);
+        refresh.addEventListener('click', () => {refresh.disabled = true;Promise.allSettled([polling.check(), archivePolling.check()]).finally(() => {refresh.disabled = false;});});
+        return {refresh: () => Promise.allSettled([polling.check(), archivePolling.check()]), stop: () => {polling.stop();archivePolling.stop();}, getSnapshot: () => lastData};
     }
-    return {integer, formatInteger, formatXMR, feeDensity, duration, sourceSummary, pollKind, delaySummary, validateSnapshot, derive, mount};
+    return {integer, formatInteger, formatXMR, feeDensity, duration, sourceSummary, pollKind, delaySummary, validateSnapshot, derive, archiveSummary, mount};
 });

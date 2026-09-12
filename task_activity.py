@@ -173,8 +173,18 @@ def build_activity(root):
     history = git.history()
     records, events, previous, cache = {}, [], {}, {}
     head_pages = {}
+    previous_pages, note_events = {}, []
     for point in history:
         head_pages = git.pages(point["commit"], cache)
+        for path in sorted(previous_pages.keys() | head_pages.keys()):
+            before_raw, after_raw = previous_pages.get(path), head_pages.get(path)
+            if before_raw != after_raw:
+                note_events.append({**point, "note_id": path,
+                    "kind": "note_removed" if after_raw is None else "note_added" if before_raw is None else "note_updated",
+                    "content_sha256": hashlib.sha256(after_raw).hexdigest() if after_raw is not None else None})
+                if len(note_events) > MAX_EVENTS:
+                    raise ValueError("Note change history exceeds the bounded size")
+        previous_pages = head_pages
         observed = parse_tasks(head_pages)
         for identifier in sorted(previous.keys() | observed.keys()):
             before, after = previous.get(identifier), observed.get(identifier)
@@ -229,7 +239,7 @@ def build_activity(root):
                     "root_commit": history[0]["commit"], "commit_count": len(history),
                     "mode": "first_parent", "complete": True},
         "content_sha256": digest(manifest), "source_manifest": manifest,
-        "working_tree_changes": changed, "tasks": tasks, "events": events,
+        "working_tree_changes": changed, "tasks": tasks, "events": events, "note_events": note_events,
         "summary": summary_for(tasks, events),
     }
 
@@ -323,6 +333,21 @@ def validate_snapshot(root, payload):
     require(all(isinstance(event, dict) for event in events), "Invalid activity feed")
     require(sorted(json.dumps(event, sort_keys=True) for event in projected) ==
             sorted(json.dumps(event, sort_keys=True) for event in events), "Activity feed does not reconcile with task histories")
+    note_events = payload.get("note_events", [])
+    require(isinstance(note_events, list) and len(note_events) <= MAX_EVENTS, "Invalid note history")
+    last_notes, note_keys = {}, set()
+    for event in note_events:
+        require(point_valid(event) and isinstance(event.get("note_id"), str) and event["note_id"].startswith("brain/")
+                and ".." not in Path(event["note_id"]).parts and event["note_id"].endswith(".md")
+                and event.get("kind") in {"note_added", "note_updated", "note_removed"}, "Invalid note event")
+        key = (event["note_id"], event["commit"])
+        require(key not in note_keys, "Duplicate note change")
+        note_keys.add(key)
+        value = event.get("content_sha256")
+        require(value is None if event["kind"] == "note_removed" else isinstance(value, str) and re.fullmatch("[a-f0-9]{64}", value), "Invalid note content hash")
+        last_notes[event["note_id"]] = value
+    if note_events and not payload["working_tree_changes"]:
+        require({key: value for key, value in last_notes.items() if value is not None} == payload["source_manifest"], "Note history does not match current Markdown")
     require(payload.get("summary") == summary_for(tasks, events), "Task activity totals do not reconcile")
     require(payload["working_tree_changes"] or not any(task["pending_change"] for task in tasks),
             "Pending task changes require a dirty source snapshot")
@@ -346,7 +371,7 @@ def main():
                 # A follow-up commit containing only generated artifacts does not
                 # invalidate recorded task history. New transitions still do.
                 keys = ("schema_version", "repository_url", "content_sha256", "source_manifest",
-                        "working_tree_changes", "tasks", "events", "summary")
+                        "working_tree_changes", "tasks", "events", "note_events", "summary")
                 history = Git(args.root.resolve()).history()
                 first_parent = {point["commit"]: index for index, point in enumerate(history)}
                 recorded_index = first_parent.get(stored["history"]["head_commit"])
@@ -355,7 +380,7 @@ def main():
                     and stored["history"]["commit_count"] == recorded_index + 1
                     and stored["history"]["head_at"] == history[recorded_index]["at"]
                     and all(first_parent.get(event["commit"], MAX_COMMITS) <= recorded_index for event in stored["events"]))
-                if not history_matches or any(stored[key] != rebuilt[key] for key in keys):
+                if not history_matches or any(stored.get(key) != rebuilt[key] for key in keys):
                     raise ValueError("Task activity differs from Git history; run python task_activity.py")
             print("Task activity matches the Markdown sources" + (" and Git history" if args.check else ""))
             return

@@ -351,6 +351,8 @@
             const metadata = el('p', 'brain-note-meta', `${branchInfo(note.branch).label} · ${text(note.status) || 'Status unknown'} · reviewed ${text(note.reviewed) || 'unknown'}`);
             const source = resolveLink(`/${note.id}`, note.id, new Set(), data.source_commit);
             if (source) { const link = el('a', '', 'View Markdown ↗'); link.href = source.url; link.target = '_blank'; link.rel = 'noopener noreferrer'; metadata.append(link); }
+            metadata.dataset.noteId = note.id;
+            metadata.dataset.contentHash = data.source_manifest?.[note.id] || '';
             reader.append(crumbs, metadata);
             if (!matches.has(note.id)) reader.append(el('p', 'brain-selected-outside', 'This selected note is outside the current filters. Reset filters to see its place in the full grove.'));
             const markdown = el('div', 'brain-markdown');

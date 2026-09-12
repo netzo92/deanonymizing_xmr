@@ -32,25 +32,25 @@
           "id": "brain/research/heuristic-experiments.md#HE1",
           "note_id": "brain/research/heuristic-experiments.md",
           "code": "HE1",
-          "title": "HE1 — Output-origin joins (P0)."
+          "title": "HE1 \u2014 Output-origin joins (P0)."
         },
         {
           "id": "brain/research/groupings.md#G5",
           "note_id": "brain/research/groupings.md",
           "code": "G5",
-          "title": "G5 — Output origins and controlled labels (P2)."
+          "title": "G5 \u2014 Output origins and controlled labels (P2)."
         },
         {
           "id": "brain/research/upstream-heuristics.md#UA2",
           "note_id": "brain/research/upstream-heuristics.md",
           "code": "UA2",
-          "title": "UA2 — Generalize the origin RPC/cache interface (supports HE1/EA2)."
+          "title": "UA2 \u2014 Generalize the origin RPC/cache interface (supports HE1/EA2)."
         }
       ],
       "execution_status": "completed",
       "outcome": "supported",
       "theoretical_conclusion": "Exact (amount, index) origins can provide creation-height features; a returned origin does not identify the real ring member or an owner.",
-      "measured_conclusion": "All 40 requests returned creation heights and transaction IDs; no returned height exceeded its earliest stored reference. Ages were 15–41,150 blocks (median 3,857.5). One RPC and v1 WAL limitations prevent a completeness or independent-validation claim.",
+      "measured_conclusion": "All 40 requests returned creation heights and transaction IDs; no returned height exceeded its earliest stored reference. Ages were 15\u201341,150 blocks (median 3,857.5). One RPC and v1 WAL limitations prevent a completeness or independent-validation claim.",
       "remaining": [
         "Complete the production origin join/cache and independent consistency checks under HE1/UA2."
       ],
@@ -81,7 +81,7 @@
           "path": "research/results/output_origins_2026-09-11.json",
           "sha256": "9a9daf738b93a8a957e3ebeafbf4677de0c5c3127f72b3bbbad2a9c5ba4685d5",
           "observed_at": "2026-09-12T00:13:49.395101+00:00",
-          "scope": "Fixed stratified sample of nonzero-amount output references from heights 0–58,900; one external RPC; v1 did not fingerprint WAL state.",
+          "scope": "Fixed stratified sample of nonzero-amount output references from heights 0\u201358,900; one external RPC; v1 did not fingerprint WAL state.",
           "denominators": {
             "sampled_output_contexts": 40,
             "returned_outputs": 40
@@ -104,12 +104,12 @@
           "id": "brain/research/output-origin-audit.md#EA1",
           "note_id": "brain/research/output-origin-audit.md",
           "code": "EA1",
-          "title": "EA1 — Constant-feature audit."
+          "title": "EA1 \u2014 Constant-feature audit."
         }
       ],
       "execution_status": "completed",
       "outcome": "refuted",
-      "theoretical_conclusion": "The nonzero-amount branch maps relative index position into a 0–15-block recent window, which always returns constants. This refutes age discrimination by those three features in this branch; it does not refute every age feature.",
+      "theoretical_conclusion": "The nonzero-amount branch maps relative index position into a 0\u201315-block recent window, which always returns constants. This refutes age discrimination by those three features in this branch; it does not refute every age feature.",
       "measured_conclusion": "All 40 origin contexts produced one identical gamma-feature triple although 39 measured ages exceeded 15 blocks. EA1 independently found the three gamma columns constant over 14,280 legacy candidate rows. No repair or accuracy gain was tested.",
       "remaining": [
         "Measure any replacement with a new feature version and frozen ablation (EA2)."
@@ -129,7 +129,7 @@
           "path": "research/results/output_origins_2026-09-11.json",
           "sha256": "9a9daf738b93a8a957e3ebeafbf4677de0c5c3127f72b3bbbad2a9c5ba4685d5",
           "observed_at": "2026-09-12T00:13:49.395101+00:00",
-          "scope": "Fixed stratified sample of nonzero-amount output references from heights 0–58,900; one external RPC; v1 did not fingerprint WAL state.",
+          "scope": "Fixed stratified sample of nonzero-amount output references from heights 0\u201358,900; one external RPC; v1 did not fingerprint WAL state.",
           "denominators": {
             "sampled_output_contexts": 40,
             "returned_outputs": 40
@@ -168,7 +168,7 @@
           "id": "brain/research/output-origin-audit.md#EA1",
           "note_id": "brain/research/output-origin-audit.md",
           "code": "EA1",
-          "title": "EA1 — Constant-feature audit."
+          "title": "EA1 \u2014 Constant-feature audit."
         }
       ],
       "execution_status": "completed",
@@ -220,19 +220,19 @@
           "id": "brain/research/predictions.md#P4",
           "note_id": "brain/research/predictions.md",
           "code": "P4",
-          "title": "P4 — Baselines and ablations (P2; depends on P2)."
+          "title": "P4 \u2014 Baselines and ablations (P2; depends on P2)."
         },
         {
           "id": "brain/research/heuristic-experiments.md#HE2",
           "note_id": "brain/research/heuristic-experiments.md",
           "code": "HE2",
-          "title": "HE2 — Age baselines and ablation (P1)."
+          "title": "HE2 \u2014 Age baselines and ablation (P1)."
         },
         {
           "id": "brain/research/heuristic-baselines.md#HB2",
           "note_id": "brain/research/heuristic-baselines.md",
           "code": "HB2",
-          "title": "HB2 — Prediction-time reuse baseline (P1; depends on evidence history)."
+          "title": "HB2 \u2014 Prediction-time reuse baseline (P1; depends on evidence history)."
         }
       ],
       "execution_status": "completed",
@@ -265,7 +265,7 @@
           "path": "research/results/heuristic_baselines_2026-09-11.json",
           "sha256": "3be0719803e66620a80e3c7f0ecadd1e8d0deae62041a6074cb04765ebef59bd",
           "observed_at": "2026-09-12T01:59:48.860844+00:00",
-          "scope": "All eligible already-resolved multi-member rings in legacy heights 0–58,900. Conditional stored labels and whole-snapshot reuse, with fractional tie credit; no forward split.",
+          "scope": "All eligible already-resolved multi-member rings in legacy heights 0\u201358,900. Conditional stored labels and whole-snapshot reuse, with fractional tie credit; no forward split.",
           "denominators": {
             "rings": 12076,
             "candidate_rows": 43511
@@ -288,19 +288,19 @@
           "id": "brain/research/heuristic-experiments.md#HE1",
           "note_id": "brain/research/heuristic-experiments.md",
           "code": "HE1",
-          "title": "HE1 — Output-origin joins (P0)."
+          "title": "HE1 \u2014 Output-origin joins (P0)."
         },
         {
           "id": "brain/research/groupings.md#G5",
           "note_id": "brain/research/groupings.md",
           "code": "G5",
-          "title": "G5 — Output origins and controlled labels (P2)."
+          "title": "G5 \u2014 Output origins and controlled labels (P2)."
         },
         {
           "id": "brain/research/upstream-heuristics.md#UA2",
           "note_id": "brain/research/upstream-heuristics.md",
           "code": "UA2",
-          "title": "UA2 — Generalize the origin RPC/cache interface (supports HE1/EA2)."
+          "title": "UA2 \u2014 Generalize the origin RPC/cache interface (supports HE1/EA2)."
         }
       ],
       "execution_status": "in_progress",
@@ -338,7 +338,7 @@
           "path": "research/results/output_origins_2026-09-11.json",
           "sha256": "9a9daf738b93a8a957e3ebeafbf4677de0c5c3127f72b3bbbad2a9c5ba4685d5",
           "observed_at": "2026-09-12T00:13:49.395101+00:00",
-          "scope": "Fixed stratified sample of nonzero-amount output references from heights 0–58,900; one external RPC; v1 did not fingerprint WAL state.",
+          "scope": "Fixed stratified sample of nonzero-amount output references from heights 0\u201358,900; one external RPC; v1 did not fingerprint WAL state.",
           "denominators": {
             "sampled_output_contexts": 40,
             "returned_outputs": 40
@@ -361,19 +361,19 @@
           "id": "brain/research/output-origin-audit.md#EA2",
           "note_id": "brain/research/output-origin-audit.md",
           "code": "EA2",
-          "title": "EA2 — Versioned origin-age features and ablation (P1; depends on HE1/HE3)."
+          "title": "EA2 \u2014 Versioned origin-age features and ablation (P1; depends on HE1/HE3)."
         },
         {
           "id": "brain/research/heuristic-experiments.md#HE2",
           "note_id": "brain/research/heuristic-experiments.md",
           "code": "HE2",
-          "title": "HE2 — Age baselines and ablation (P1)."
+          "title": "HE2 \u2014 Age baselines and ablation (P1)."
         },
         {
           "id": "brain/research/predictions.md#P6",
           "note_id": "brain/research/predictions.md",
           "code": "P6",
-          "title": "P6 — Error review and transfer (P2)."
+          "title": "P6 \u2014 Error review and transfer (P2)."
         }
       ],
       "execution_status": "not_started",
@@ -407,7 +407,7 @@
           "path": "research/results/output_origins_2026-09-11.json",
           "sha256": "9a9daf738b93a8a957e3ebeafbf4677de0c5c3127f72b3bbbad2a9c5ba4685d5",
           "observed_at": "2026-09-12T00:13:49.395101+00:00",
-          "scope": "Fixed stratified sample of nonzero-amount output references from heights 0–58,900; one external RPC; v1 did not fingerprint WAL state.",
+          "scope": "Fixed stratified sample of nonzero-amount output references from heights 0\u201358,900; one external RPC; v1 did not fingerprint WAL state.",
           "denominators": {
             "sampled_output_contexts": 40,
             "returned_outputs": 40
@@ -446,39 +446,50 @@
           "id": "brain/research/feature-variation-audit.md#FA2",
           "note_id": "brain/research/feature-variation-audit.md",
           "code": "FA2",
-          "title": "FA2 — Fixed-split ablation."
+          "title": "FA2 \u2014 Fixed-split ablation."
         }
       ],
-      "execution_status": "not_started",
-      "outcome": "untested",
-      "theoretical_conclusion": "Redundant columns may waste work or alter model fitting; neither accuracy improvement nor score equivalence follows automatically.",
-      "measured_conclusion": "EA1 found four constants and four exact duplicate pairs. No paired feature-mask experiment has been run; its 810 labeled training rings cannot silently stand in for all 12,076 baseline rings.",
+      "execution_status": "completed",
+      "outcome": "inconclusive",
+      "theoretical_conclusion": "Constant/duplicate removal can simplify a feature representation without changing aggregate agreement in a particular test. This result does not establish equivalent generalization or the usefulness of individual columns. Full-snapshot selective labels and dependence remain: 15 test rings share outputs with training and 100 share a transaction.",
+      "measured_conclusion": "FA2 completed at 2026-09-12 05:00:14 UTC on the frozen EA1 legacy matrix. Training used 648 rings; all variants scored the same 162 test rings / 890 candidates. The 24-, 20- and 17-column models each agreed with 142 labels (87.65%); each reduced variant changed one wrong selection and gained zero correct rings. No agreement improvement was observed. Single-run timings and small RSS differences do not establish a repeatable efficiency gain.",
       "remaining": [
-        "Freeze identical eligible rings and grouped splits.",
-        "Choose masks using training folds only and report paired scores, accuracy, runtime and memory, including negative results."
+        "Run prediction-time and graph-separated evaluation with independent eligible labels (HE3).",
+        "Repeat resource measurements and evaluate tied-reuse ranks (FA3) and validated later-era cohorts (FA4).",
+        "The deployed scorer remains unchanged; no modern, forward or calibrated benefit was established."
       ],
       "sources": [
         {
           "label": "feature-variation-audit.md",
           "path": "brain/research/feature-variation-audit.md"
+        },
+        {
+          "label": "FA2 registered protocol",
+          "path": "research/feature_ablation_protocol.json"
+        },
+        {
+          "label": "FA2 runner",
+          "path": "research/feature_ablation.py"
         }
       ],
       "evidence": [
         {
-          "path": "research/results/feature_variation_2026-09-11.json",
-          "sha256": "b450be6b96aa91d0744f36cd54a2401e3158e97e8ab3b4220aa032eed44db7bc",
-          "observed_at": "2026-09-12T01:58:30.608117+00:00",
-          "scope": "Balanced legacy sample; 810 original training rings and 1,190 surviving-candidate scoring rings; whole-snapshot features; no modern/amount-zero cohort.",
+          "path": "research/results/feature_ablation_2026-09-12.json",
+          "sha256": "9402ae330e25f57a5f07ac076f3f8218a83130ff81f8b66dbfbbbe6bce4b259a",
+          "observed_at": "2026-09-12T05:00:14.384488+00:00",
+          "scope": "Fixed retrospective EA1 sample, training-only masks, same seed42 split; selective legacy labels and shared graph/transactions, no live scorer mutation.",
           "denominators": {
-            "rings": 2000,
-            "candidate_rows": 14280
+            "training_rings": 648,
+            "test_rings": 162,
+            "test_candidates": 890
           },
           "denominator_fields": {
-            "rings": "/sampling/sampled_rings",
-            "candidate_rows": "/sampling/sampled_candidates"
+            "training_rings": "/summary/split/train/rings",
+            "test_rings": "/summary/split/test/rings",
+            "test_candidates": "/summary/split/test/candidates"
           },
-          "run_id": "EA1",
-          "source_commit": "acc8ed15c1a406d33ad7b45e50a771892c6599e6"
+          "run_id": "FA2-753fd14",
+          "source_commit": "753fd144fc98a98745e08932b6abcbc7ebafd85b"
         }
       ]
     },
@@ -491,7 +502,7 @@
           "id": "brain/research/feature-variation-audit.md#FA3",
           "note_id": "brain/research/feature-variation-audit.md",
           "code": "FA3",
-          "title": "FA3 — Reuse tie treatment."
+          "title": "FA3 \u2014 Reuse tie treatment."
         }
       ],
       "execution_status": "not_started",
@@ -539,7 +550,7 @@
           "id": "brain/research/heuristic-baselines.md#HB2",
           "note_id": "brain/research/heuristic-baselines.md",
           "code": "HB2",
-          "title": "HB2 — Prediction-time reuse baseline (P1; depends on evidence history)."
+          "title": "HB2 \u2014 Prediction-time reuse baseline (P1; depends on evidence history)."
         }
       ],
       "execution_status": "not_started",
@@ -565,7 +576,7 @@
           "path": "research/results/heuristic_baselines_2026-09-11.json",
           "sha256": "3be0719803e66620a80e3c7f0ecadd1e8d0deae62041a6074cb04765ebef59bd",
           "observed_at": "2026-09-12T01:59:48.860844+00:00",
-          "scope": "All eligible already-resolved multi-member rings in legacy heights 0–58,900. Conditional stored labels and whole-snapshot reuse, with fractional tie credit; no forward split.",
+          "scope": "All eligible already-resolved multi-member rings in legacy heights 0\u201358,900. Conditional stored labels and whole-snapshot reuse, with fractional tie credit; no forward split.",
           "denominators": {
             "rings": 12076,
             "candidate_rows": 43511
@@ -588,13 +599,13 @@
           "id": "brain/research/predictions.md#P2",
           "note_id": "brain/research/predictions.md",
           "code": "P2",
-          "title": "P2 — Frozen forward evaluation (P1)."
+          "title": "P2 \u2014 Frozen forward evaluation (P1)."
         },
         {
           "id": "brain/research/heuristic-experiments.md#HE3",
           "note_id": "brain/research/heuristic-experiments.md",
           "code": "HE3",
-          "title": "HE3 — Temporal and graph separation (P0)."
+          "title": "HE3 \u2014 Temporal and graph separation (P0)."
         },
         {
           "id": "brain/research/ideas.md#title-5dc4016837ad6835",
@@ -655,7 +666,7 @@
           "id": "brain/research/predictions.md#P3",
           "note_id": "brain/research/predictions.md",
           "code": "P3",
-          "title": "P3 — Calibration and abstention (P1; depends on P1–P2)."
+          "title": "P3 \u2014 Calibration and abstention (P1; depends on P1\u2013P2)."
         }
       ],
       "execution_status": "not_started",
@@ -691,7 +702,7 @@
           "id": "brain/research/predictions.md#P4",
           "note_id": "brain/research/predictions.md",
           "code": "P4",
-          "title": "P4 — Baselines and ablations (P2; depends on P2)."
+          "title": "P4 \u2014 Baselines and ablations (P2; depends on P2)."
         }
       ],
       "execution_status": "not_started",
@@ -717,7 +728,7 @@
           "path": "research/results/heuristic_baselines_2026-09-11.json",
           "sha256": "3be0719803e66620a80e3c7f0ecadd1e8d0deae62041a6074cb04765ebef59bd",
           "observed_at": "2026-09-12T01:59:48.860844+00:00",
-          "scope": "All eligible already-resolved multi-member rings in legacy heights 0–58,900. Conditional stored labels and whole-snapshot reuse, with fractional tie credit; no forward split.",
+          "scope": "All eligible already-resolved multi-member rings in legacy heights 0\u201358,900. Conditional stored labels and whole-snapshot reuse, with fractional tie credit; no forward split.",
           "denominators": {
             "rings": 12076,
             "candidate_rows": 43511
@@ -740,7 +751,7 @@
           "id": "brain/research/predictions.md#P5",
           "note_id": "brain/research/predictions.md",
           "code": "P5",
-          "title": "P5 — Alternatives and ambiguity (P2; depends on P1–P3)."
+          "title": "P5 \u2014 Alternatives and ambiguity (P2; depends on P1\u2013P3)."
         }
       ],
       "execution_status": "not_started",
@@ -776,19 +787,19 @@
           "id": "brain/research/predictions.md#P6",
           "note_id": "brain/research/predictions.md",
           "code": "P6",
-          "title": "P6 — Error review and transfer (P2)."
+          "title": "P6 \u2014 Error review and transfer (P2)."
         },
         {
           "id": "brain/research/feature-variation-audit.md#FA4",
           "note_id": "brain/research/feature-variation-audit.md",
           "code": "FA4",
-          "title": "FA4 — Broader feature coverage."
+          "title": "FA4 \u2014 Broader feature coverage."
         },
         {
           "id": "brain/research/security-eras.md#ER2",
           "note_id": "brain/research/security-eras.md",
           "code": "ER2",
-          "title": "ER2 — Populate comparable evidence by era."
+          "title": "ER2 \u2014 Populate comparable evidence by era."
         }
       ],
       "execution_status": "not_started",
@@ -861,13 +872,13 @@
           "id": "brain/research/groupings.md#G1",
           "note_id": "brain/research/groupings.md",
           "code": "G1",
-          "title": "G1 — Ring-overlap explorer (P2)."
+          "title": "G1 \u2014 Ring-overlap explorer (P2)."
         },
         {
           "id": "brain/research/upstream-heuristics.md#UA6",
           "note_id": "brain/research/upstream-heuristics.md",
           "code": "UA6",
-          "title": "UA6 — Source-aware grouping null model (supports G1/G3/G5)."
+          "title": "UA6 \u2014 Source-aware grouping null model (supports G1/G3/G5)."
         },
         {
           "id": "brain/research/ideas.md#title-7fe788d16b4df241",
@@ -921,13 +932,13 @@
           "id": "brain/research/groupings.md#G2",
           "note_id": "brain/research/groupings.md",
           "code": "G2",
-          "title": "G2 — Co-spend hypotheses (P2; depends on P1–P3)."
+          "title": "G2 \u2014 Co-spend hypotheses (P2; depends on P1\u2013P3)."
         },
         {
           "id": "brain/research/heuristic-experiments.md#HE4",
           "note_id": "brain/research/heuristic-experiments.md",
           "code": "HE4",
-          "title": "HE4 — Overlap and co-spend false merges (P2)."
+          "title": "HE4 \u2014 Overlap and co-spend false merges (P2)."
         },
         {
           "id": "brain/research/ideas.md#title-d3252b892d00f7d4",
@@ -973,13 +984,13 @@
           "id": "brain/research/groupings.md#G3",
           "note_id": "brain/research/groupings.md",
           "code": "G3",
-          "title": "G3 — Cluster validation (P3; depends on G2)."
+          "title": "G3 \u2014 Cluster validation (P3; depends on G2)."
         },
         {
           "id": "brain/research/heuristic-experiments.md#HE4",
           "note_id": "brain/research/heuristic-experiments.md",
           "code": "HE4",
-          "title": "HE4 — Overlap and co-spend false merges (P2)."
+          "title": "HE4 \u2014 Overlap and co-spend false merges (P2)."
         }
       ],
       "execution_status": "not_started",
@@ -1011,7 +1022,7 @@
           "id": "brain/research/groupings.md#G4",
           "note_id": "brain/research/groupings.md",
           "code": "G4",
-          "title": "G4 — Reversible cluster records (P3; depends on G3)."
+          "title": "G4 \u2014 Reversible cluster records (P3; depends on G3)."
         },
         {
           "id": "brain/research/ideas.md#title-bc9b4c955945dbcf",
@@ -1057,7 +1068,7 @@
           "id": "brain/research/upstream-heuristics.md#UA3",
           "note_id": "brain/research/upstream-heuristics.md",
           "code": "UA3",
-          "title": "UA3 — Replay a versioned wallet sampler (supports FA2)."
+          "title": "UA3 \u2014 Replay a versioned wallet sampler (supports FA2)."
         }
       ],
       "execution_status": "not_started",
@@ -1093,13 +1104,13 @@
           "id": "brain/research/protocol-limits.md#RL1",
           "note_id": "brain/research/protocol-limits.md",
           "code": "RL1",
-          "title": "RL1 — Protocol cohort manifest (P0; partially implemented)."
+          "title": "RL1 \u2014 Protocol cohort manifest (P0; partially implemented)."
         },
         {
           "id": "brain/research/upstream-heuristics.md#UA4",
           "note_id": "brain/research/upstream-heuristics.md",
           "code": "UA4",
-          "title": "UA4 — Preserve protocol context and audit eligibility."
+          "title": "UA4 \u2014 Preserve protocol context and audit eligibility."
         }
       ],
       "execution_status": "in_progress",
@@ -1143,7 +1154,7 @@
           "id": "brain/research/protocol-limits.md#RL2",
           "note_id": "brain/research/protocol-limits.md",
           "code": "RL2",
-          "title": "RL2 — Applicability ledger (P1; research design)."
+          "title": "RL2 \u2014 Applicability ledger (P1; research design)."
         }
       ],
       "execution_status": "not_started",
@@ -1175,7 +1186,7 @@
           "id": "brain/research/protocol-limits.md#RL3",
           "note_id": "brain/research/protocol-limits.md",
           "code": "RL3",
-          "title": "RL3 — Claims audit in the display (P1; partially implemented)."
+          "title": "RL3 \u2014 Claims audit in the display (P1; partially implemented)."
         }
       ],
       "execution_status": "in_progress",
@@ -1211,7 +1222,7 @@
           "id": "brain/research/security-eras.md#ER1",
           "note_id": "brain/research/security-eras.md",
           "code": "ER1",
-          "title": "ER1 — Source-pinned era taxonomy."
+          "title": "ER1 \u2014 Source-pinned era taxonomy."
         }
       ],
       "execution_status": "completed",
@@ -1250,12 +1261,12 @@
           "id": "brain/research/security-eras.md#ER3",
           "note_id": "brain/research/security-eras.md",
           "code": "ER3",
-          "title": "ER3 — Sample matched upgrade windows."
+          "title": "ER3 \u2014 Sample matched upgrade windows."
         }
       ],
       "execution_status": "not_started",
       "outcome": "untested",
-      "theoretical_conclusion": "Ring-size/proof-format discontinuities test structural expectations, not an upgrade’s causal anonymity effect or prediction accuracy.",
+      "theoretical_conclusion": "Ring-size/proof-format discontinuities test structural expectations, not an upgrade\u2019s causal anonymity effect or prediction accuracy.",
       "measured_conclusion": "No declared before/during/after upgrade-window collection has been completed. Current activity and legacy scans leave the intermediate comparative windows missing.",
       "remaining": [
         "Freeze bounded block windows, hashes, source coverage and transition exclusions.",
@@ -1282,19 +1293,19 @@
           "id": "brain/research/upstream-heuristics.md#UA1",
           "note_id": "brain/research/upstream-heuristics.md",
           "code": "UA1",
-          "title": "UA1 — Inspect a pinned Monero implementation."
+          "title": "UA1 \u2014 Inspect a pinned Monero implementation."
         },
         {
           "id": "brain/research/security-eras.md#ER2",
           "note_id": "brain/research/security-eras.md",
           "code": "ER2",
-          "title": "ER2 — Populate comparable evidence by era."
+          "title": "ER2 \u2014 Populate comparable evidence by era."
         }
       ],
       "execution_status": "completed",
       "outcome": "supported",
       "theoretical_conclusion": "Observed ring sizes can be reconciled with current structural expectations, separately from real-spend prediction or ownership.",
-      "measured_conclusion": "The separate 13-block snapshot contained 231 transactions, 395 input rings and 6,320 memberships; all 395 observed rings had size 16. The external node’s software version and actual spends were not established.",
+      "measured_conclusion": "The separate 13-block snapshot contained 231 transactions, 395 input rings and 6,320 memberships; all 395 observed rings had size 16. The external node\u2019s software version and actual spends were not established.",
       "remaining": [
         "Collect missing eras and eligible evaluation labels for comparative claims; this sample cannot fill those gaps."
       ],
@@ -1354,7 +1365,7 @@
           "id": "brain/research/upstream-heuristics.md#UA1",
           "note_id": "brain/research/upstream-heuristics.md",
           "code": "UA1",
-          "title": "UA1 — Inspect a pinned Monero implementation."
+          "title": "UA1 \u2014 Inspect a pinned Monero implementation."
         },
         {
           "id": "brain/research/ideas.md#title-0a059309cf79c781",
@@ -1368,7 +1379,7 @@
       "theoretical_conclusion": "Source inspection supplies testable implementation assumptions, not evidence that new heuristics improve accuracy or recover ownership.",
       "measured_conclusion": "Three linked source audits use Monero v0.18.5.1 / 4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5. Frozen origin/current observations reconcile with the stated limits; no validating node was synchronized.",
       "remaining": [
-        "Implement and evaluate UA2–UA6 separately."
+        "Implement and evaluate UA2\u2013UA6 separately."
       ],
       "sources": [
         {
@@ -1428,7 +1439,7 @@
           "id": "brain/research/private-node-observations.md#PN1",
           "note_id": "brain/research/private-node-observations.md",
           "code": "PN1",
-          "title": "PN1 — Validating-node pilot (P1)."
+          "title": "PN1 \u2014 Validating-node pilot (P1)."
         }
       ],
       "execution_status": "deferred",
@@ -1436,7 +1447,7 @@
       "theoretical_conclusion": "A private node can validate its chain and provide controlled RPC semantics; it still does not supply real-spend or owner labels, and node agreement alone does not prove independence.",
       "measured_conclusion": "A separate pruned-node package and verified release are prepared. The user chose to keep only the public-RPC pilot; no new node was provisioned or synchronized and no private/public runtime comparison exists.",
       "remaining": [
-        "Deferred at the user’s request because of the added recurring cost.",
+        "Deferred at the user\u2019s request because of the added recurring cost.",
         "If resumed, measure sync, RPC/pruning compatibility, resource growth and independently sampled origin/tail agreement before any collector cutover."
       ],
       "sources": [
@@ -1464,13 +1475,13 @@
           "id": "brain/research/private-node-observations.md#PN2",
           "note_id": "brain/research/private-node-observations.md",
           "code": "PN2",
-          "title": "PN2 — Observation completeness pilot (P1)."
+          "title": "PN2 \u2014 Observation completeness pilot (P1)."
         },
         {
           "id": "brain/research/upstream-heuristics.md#UA5",
           "note_id": "brain/research/upstream-heuristics.md",
           "code": "UA5",
-          "title": "UA5 — Prospective pool forecasting pilot."
+          "title": "UA5 \u2014 Prospective pool forecasting pilot."
         },
         {
           "id": "brain/research/ideas.md#title-1257d3b9a06a8210",
@@ -1542,27 +1553,21 @@
           "id": "brain/research/private-node-observations.md#PN2",
           "note_id": "brain/research/private-node-observations.md",
           "code": "PN2",
-          "title": "PN2 — Observation completeness pilot (P1)."
+          "title": "PN2 \u2014 Observation completeness pilot (P1)."
         },
         {
           "id": "brain/research/ideas.md#title-68a7daecd933b4df",
           "note_id": "brain/research/ideas.md",
           "code": null,
           "title": "Prospective coverage ledger."
-        },
-        {
-          "id": "brain/research/private-node-observations.md#title-ef8bcce16c3c2607",
-          "note_id": "brain/research/private-node-observations.md",
-          "code": null,
-          "title": "Freeze complete observation cohorts before longer studies."
         }
       ],
       "execution_status": "in_progress",
       "outcome": "inconclusive",
       "theoretical_conclusion": "One complete RPC response describes returned entries, not every broadcast between polls. Startup inventory, endpoint visibility, missing periods and delayed outcomes affect coverage.",
-      "measured_conclusion": "The first 17 rounds demonstrate working collection and block joins. The 119 tracked confirmations and 341 transactions in 18 followed blocks use different truncated populations; their ratio is not validated network coverage. No controlled submission cohort, independent second-source coverage or restart experiment has been completed.",
+      "measured_conclusion": "The first 17 rounds demonstrate working collection and block joins. The 119 tracked confirmations and 341 transactions in 18 followed blocks use different truncated populations; their ratio is not validated network coverage. No controlled submission cohort, independent second-source coverage or restart experiment has been completed. A later retained archive froze 651 transactions and 65 polls; that preserves observations but is not validated network coverage.",
       "remaining": [
-        "Freeze private cohorts before 24-hour retention expires, preserving pending/censored cases and feature times.",
+        "Reconcile overlapping private freezes into a declared study cohort with pending/censored cases; controlled coverage remains untested.",
         "Evaluate controlled submissions, gaps/restarts, duplicate rates, bytes per observation and second-source agreement."
       ],
       "sources": [
@@ -1613,13 +1618,13 @@
           "id": "brain/research/private-node-observations.md#PN3",
           "note_id": "brain/research/private-node-observations.md",
           "code": "PN3",
-          "title": "PN3 — Confirmation forecasts (P2)."
+          "title": "PN3 \u2014 Confirmation forecasts (P2)."
         },
         {
           "id": "brain/research/upstream-heuristics.md#UA5",
           "note_id": "brain/research/upstream-heuristics.md",
           "code": "UA5",
-          "title": "UA5 — Prospective pool forecasting pilot."
+          "title": "UA5 \u2014 Prospective pool forecasting pilot."
         },
         {
           "id": "brain/research/ideas.md#title-a9d53515744fdebc",
@@ -2365,24 +2370,17 @@
       "question": "Can every numerical conclusion be checked against a frozen artifact while study, implementation and deployment states remain distinct?",
       "task_refs": [
         {
-          "id": "brain/research/progress-and-conclusions.md#RP1",
-          "note_id": "brain/research/progress-and-conclusions.md",
-          "code": "RP1",
-          "title": "RP1 — Machine-checkable conclusion claims."
-        },
-        {
           "id": "brain/research/progress-and-conclusions.md#RP2",
           "note_id": "brain/research/progress-and-conclusions.md",
           "code": "RP2",
-          "title": "RP2 — Experiment versus deployment status."
+          "title": "RP2 \u2014 Experiment versus deployment status."
         }
       ],
       "execution_status": "in_progress",
       "outcome": "not_applicable",
       "theoretical_conclusion": "Checklist closure and a successful deployment cannot validate a scientific hypothesis. Claim values, denominators and provenance need separate checks.",
-      "measured_conclusion": "The progress page already reconciles three frozen studies. This curated ledger adds source hashes, sample denominators and separate execution/outcome fields; the full claim manifest and controlled study-to-deployment example remain open.",
+      "measured_conclusion": "The three historical cards now have an explicit 85-claim manifest and eight rate/denominator checks. A controlled accepted-study-to-deployed-model example remains open; the latest FA2 study did not change the deployed scorer.",
       "remaining": [
-        "Extend field-level claims and enforce failure when a source value/denominator/hash changes.",
         "Record one controlled accepted study, selected implementation and deployed version independently."
       ],
       "sources": [
@@ -2410,7 +2408,7 @@
           "id": "brain/research/predictions.md#P1",
           "note_id": "brain/research/predictions.md",
           "code": "P1",
-          "title": "P1 — Immutable prediction runs (P0)."
+          "title": "P1 \u2014 Immutable prediction runs (P0)."
         }
       ],
       "execution_status": "completed",
@@ -2478,7 +2476,7 @@
           "id": "brain/research/groupings.md#G3",
           "note_id": "brain/research/groupings.md",
           "code": "G3",
-          "title": "G3 — Cluster validation (P3; depends on G2)."
+          "title": "G3 \u2014 Cluster validation (P3; depends on G2)."
         },
         {
           "id": "brain/research/ideas.md#title-bc9b4c955945dbcf",
@@ -2521,7 +2519,7 @@
       ],
       "execution_status": "not_started",
       "outcome": "untested",
-      "theoretical_conclusion": "RPC structural checks and a provider’s synchronized/untrusted fields are not independent consensus validation. Different endpoints may share infrastructure.",
+      "theoretical_conclusion": "RPC structural checks and a provider\u2019s synchronized/untrusted fields are not independent consensus validation. Different endpoints may share infrastructure.",
       "measured_conclusion": "The saved audits used one external RPC. No declared multi-source agreement study with independently assessed source provenance has been completed.",
       "remaining": [
         "Record source identity limitations and compare exact hashes and sampled origin/transaction data with an independently selected source.",
@@ -2546,7 +2544,7 @@
           "path": "research/results/output_origins_2026-09-11.json",
           "sha256": "9a9daf738b93a8a957e3ebeafbf4677de0c5c3127f72b3bbbad2a9c5ba4685d5",
           "observed_at": "2026-09-12T00:13:49.395101+00:00",
-          "scope": "Fixed stratified sample of nonzero-amount output references from heights 0–58,900; one external RPC; v1 did not fingerprint WAL state.",
+          "scope": "Fixed stratified sample of nonzero-amount output references from heights 0\u201358,900; one external RPC; v1 did not fingerprint WAL state.",
           "denominators": {
             "sampled_output_contexts": 40,
             "returned_outputs": 40
@@ -2569,19 +2567,19 @@
           "id": "brain/research/predictions.md#P2",
           "note_id": "brain/research/predictions.md",
           "code": "P2",
-          "title": "P2 — Frozen forward evaluation (P1)."
+          "title": "P2 \u2014 Frozen forward evaluation (P1)."
         },
         {
           "id": "brain/research/predictions.md#P3",
           "note_id": "brain/research/predictions.md",
           "code": "P3",
-          "title": "P3 — Calibration and abstention (P1; depends on P1–P2)."
+          "title": "P3 \u2014 Calibration and abstention (P1; depends on P1\u2013P2)."
         },
         {
           "id": "brain/research/predictions.md#P6",
           "note_id": "brain/research/predictions.md",
           "code": "P6",
-          "title": "P6 — Error review and transfer (P2)."
+          "title": "P6 \u2014 Error review and transfer (P2)."
         }
       ],
       "execution_status": "not_started",
@@ -2611,7 +2609,7 @@
           "path": "research/results/heuristic_baselines_2026-09-11.json",
           "sha256": "3be0719803e66620a80e3c7f0ecadd1e8d0deae62041a6074cb04765ebef59bd",
           "observed_at": "2026-09-12T01:59:48.860844+00:00",
-          "scope": "All eligible already-resolved multi-member rings in legacy heights 0–58,900. Conditional stored labels and whole-snapshot reuse, with fractional tie credit; no forward split.",
+          "scope": "All eligible already-resolved multi-member rings in legacy heights 0\u201358,900. Conditional stored labels and whole-snapshot reuse, with fractional tie credit; no forward split.",
           "denominators": {
             "rings": 12076,
             "candidate_rows": 43511
@@ -2624,6 +2622,100 @@
           "source_commit": "acc8ed15c1a406d33ad7b45e50a771892c6599e6"
         }
       ]
+    },
+    {
+      "id": "private-pool-archive",
+      "kind": "engineering",
+      "question": "Can we preserve complete retained pool snapshots before rolling deletion, within a fixed storage budget?",
+      "task_refs": [
+        {
+          "id": "brain/research/private-node-observations.md#title-ef8bcce16c3c2607",
+          "note_id": "brain/research/private-node-observations.md",
+          "code": null,
+          "title": "Freeze complete observation cohorts before longer studies."
+        }
+      ],
+      "execution_status": "completed",
+      "outcome": "not_applicable",
+      "theoretical_conclusion": "Immutable retained snapshots preserve reproducibility and unknown outcomes. They cannot recover earlier missing observations, establish network completeness or validate forecasts. Overlapping archives are not independent samples.",
+      "measured_conclusion": "A private freeze at 2026-09-12 05:00:09 UTC preserved 651 transactions, 1,437 sightings and 65 polls: 635 confirmed, 11 pending, 5 absent and 0 censored. The 753,664-byte database averaged 11,594.83 allocated bytes per retained poll. Every sighting retained exact fees, weights and local times; node receipt times were unknown. A six-hour timer is deployed on the existing VM with a 2 GiB / 128-archive cap; all three writer PIDs were preserved.",
+      "remaining": [
+        "Reconcile overlapping freezes and follow pending/censored cases under a predeclared forecasting protocol.",
+        "Review storage before capacity is reached; the job stops rather than deleting immutable study data.",
+        "Durable database commit times and historical effective configuration were not recorded."
+      ],
+      "sources": [
+        {
+          "label": "Private pool archiver",
+          "path": "research/pool_archive.py"
+        },
+        {
+          "label": "Observation research",
+          "path": "brain/research/private-node-observations.md"
+        },
+        {
+          "label": "Archive service",
+          "path": "deploy/gcp/pool-archive.service"
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/results/pool_archive_2026-09-12.json",
+          "sha256": "10c86688c6e27ff6910011dae728d1defb931ef97795bd778e8c2fcd765bb367",
+          "observed_at": "2026-09-12T05:00:09.353237+00:00",
+          "scope": "Consistent snapshot of all currently retained pool records, including unknown outcomes. Initial-chain truncation and possible unrecorded earlier pruning remain explicit.",
+          "denominators": {
+            "tracked_transactions": 651,
+            "sighting_rows": 1437,
+            "retained_polls": 65,
+            "followed_blocks": 45
+          },
+          "denominator_fields": {
+            "tracked_transactions": "/rows/transactions",
+            "sighting_rows": "/rows/observations",
+            "retained_polls": "/rows/polls",
+            "followed_blocks": "/rows/blocks"
+          },
+          "run_id": "pool-20260912T050009353237Z-09e2cb5b27ef78b3",
+          "source_commit": "5faef380378a94a8964dfaa9a057608f4e1d5c6d"
+        }
+      ]
+    },
+    {
+      "id": "machine-checkable-claims",
+      "kind": "engineering",
+      "question": "Do frozen historical claim values, denominators and source hashes reconcile before publication?",
+      "task_refs": [
+        {
+          "id": "brain/research/progress-and-conclusions.md#RP1",
+          "note_id": "brain/research/progress-and-conclusions.md",
+          "code": "RP1",
+          "title": "RP1 \u2014 Machine-checkable conclusion claims."
+        }
+      ],
+      "execution_status": "completed",
+      "outcome": "not_applicable",
+      "theoretical_conclusion": "A claim manifest checks reproducible reporting; it does not validate the scientific assumptions or completeness of the underlying data.",
+      "measured_conclusion": "85 declared claims across three frozen historical studies and eight denominator/rate reconciliations pass. Deliberate source-number, source-hash, display-denominator, numeric-prose and unmapped-metric mutations fail. Both static and full release preparation run the offline validator.",
+      "remaining": [
+        "Extend the manifest when adding or changing the frozen historical cards; ledger experiments retain separate evidence checks.",
+        "RP2 study/implementation/deployment provenance remains open."
+      ],
+      "sources": [
+        {
+          "label": "Claim manifest",
+          "path": "research/conclusion-claims.json"
+        },
+        {
+          "label": "Claim validator",
+          "path": "research/check_conclusion_claims.py"
+        },
+        {
+          "label": "Mutation tests",
+          "path": "tests/test_conclusion_claims.py"
+        }
+      ],
+      "evidence": []
     }
   ]
 }

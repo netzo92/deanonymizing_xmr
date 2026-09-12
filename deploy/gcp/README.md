@@ -297,3 +297,29 @@ committed Markdown and requires the public hypothesis JSON to match its canonica
 research source. Stale exports fail before publication. GitHub Pages receives the
 committed snapshots, while the GCP static publisher preserves all running
 collectors and their independently changing exports.
+
+
+## Private retained pool archives
+
+`bash deploy/gcp/deploy-pool-archive.sh --commit FULL_COMMIT --project PROJECT --name tracegrove`
+installs only the offline archival job from committed sources. Use `--prepare-only DIR`
+for a local bundle. It preserves all three writer PIDs and never deploys a Monero node.
+The xmr-user oneshot freezes the existing pool database read-only into
+`/var/lib/xmr-pool-archives`, outside the public root, with 0700/0600 permissions.
+It records runtime/config hashes, retains every still-present table and pending/censored
+case, and publishes only `pool-archive-status.json` plus a separate release manifest.
+
+The timer runs every six hours (with a boot trigger); snapshots overlap. The default
+cap is 2 GiB or 128 archives with a 5 GiB disk reserve. It stops at capacity without
+deleting studies, publishes a generic error preserving the last successful summary,
+and reports detailed failure locally in `journalctl -u xmr-pool-archive`.
+The status page flags a successful freeze overdue after seven hours. The archive has
+no network access and no write permission to the live pool database directory.
+Its current source schema requires SQLite DELETE journal mode. A successful retained
+freeze does not recover prior pruning or supply missing global arrival/commit times.
+The static publisher preserves its mutable status and release files.
+
+The conclusions page and shared feature help are static UI assets. Note edit history
+is generated with `task_activity.py` from Git and validated against Markdown at publish
+time; live collectors do not edit notes. `research/check_conclusion_claims.py` validates
+frozen study claims before publication.

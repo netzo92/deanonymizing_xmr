@@ -163,6 +163,45 @@ and database/WAL preservation, and rejection of a changing source.
 
 ## Next experiments
 
-- [ ] **FA2 — Fixed-split ablation.** Compare current features with constant/duplicate families removed on the same frozen eligible rings and predeclared split. Record time, memory, candidate scores, and outcome differences; do not assume fewer columns improve accuracy.
+- [x] **FA2 — Fixed-split ablation.** Compare current features with constant/duplicate families removed on the same frozen eligible rings and predeclared split. Record time, memory, candidate scores, and outcome differences; do not assume fewer columns improve accuracy.
 - [ ] **FA3 — Reuse tie treatment.** Compare current index-ordered ranks with equal ranks for tied counts, using the same split and explicit chronological/graph controls. Separate genuine reuse information from the index-order signal introduced by ties.
 - [ ] **FA4 — Broader feature coverage.** Repeat the audit on an independently validated later snapshot with amount-zero cohorts. Keep absent cohorts visible and check both original-training and surviving-scoring contexts before changing deployed scoring.
+
+
+## FA2 — Paired ablation completed
+
+The [registered protocol](../../research/feature_ablation_protocol.json) and
+[runner](../../research/feature_ablation.py) were committed as
+`753fd144fc98a98745e08932b6abcbc7ebafd85b` before fitting. The
+[complete result](../../research/results/feature_ablation_2026-09-12.json) finished
+at **2026-09-12 05:00:14 UTC**. It reads the frozen EA1 matrix only: no database,
+RPC, original-label mutation or live scorer change.
+
+The fixed seed-42 split used 648 training rings and the same 162 held-out rings
+(890 candidates) for all variants. Masks were discovered on training rows only.
+The 500-tree random forest, leaf size 3 and balanced weights were held constant;
+one CPU worker and a fresh process per variant bounded local work.
+
+| Variant | Columns | Agreement with stored labels | Forest fit time | Process peak RSS |
+| --- | ---: | ---: | ---: | ---: |
+| All features | 24 | 142 / 162 (87.65%) | 1.051 s | 212,303,872 bytes |
+| Remove constants | 20 | 142 / 162 (87.65%) | 1.231 s | 210,239,488 bytes |
+| Remove constants and exact duplicates | 17 | 142 / 162 (87.65%) | 1.196 s | 208,912,384 bytes |
+
+Each reduced variant changed one selected output on a ring that remained wrong;
+there were zero newly correct or newly incorrect rings. Scores, selected outputs,
+scaler statistics, exact labels, masks and runtime versions are saved under the
+[result directory](../../research/results/feature_ablation_2026-09-12).
+
+**Conclusion:** fewer columns produced no agreement gain in this one test.
+The small memory differences and single timings do not establish a repeatable
+capacity or speed improvement. All models use the same `max_features=sqrt`
+setting; changing dimensionality can itself change forest sampling behavior.
+
+The test is retrospective and selectively labeled. Of 162 test rings, 15 share
+an output with training and 100 share a transaction; 24 distinct outputs cross
+the split. Full-snapshot features and unknown historical label eligibility remain.
+No modern, forward, independent-label or per-feature causal benefit is established.
+The broader improvement hypothesis remains inconclusive. Next: HE3 temporal/graph
+controls, FA3 tied-reuse ranks and FA4 validated later-era coverage. The deployed
+scorer still uses its existing 24 features.
