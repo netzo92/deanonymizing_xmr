@@ -3,141 +3,147 @@
   "scope": {
     "dataset_id": "3929c809-62e6-43ae-929b-92a9d91d4ece",
     "scan_start": 0,
-    "scan_end": 68900,
-    "exported_at": "2026-09-12T02:31:32.589579+00:00",
-    "chain_data_at": "2014-06-03T11:13:15+00:00"
+    "scan_end": 69900,
+    "exported_at": "2026-09-12T02:50:03.106504+00:00",
+    "chain_data_at": "2014-06-04T04:08:08+00:00"
   },
-  "generated_at": "2026-09-12 02:31 UTC",
+  "generated_at": "2026-09-12 02:50 UTC",
   "summary": {
-    "total_rings": 918913,
-    "fully_resolved": 847193,
-    "partially_reduced": 60493,
-    "unreduced": 11227,
+    "total_rings": 955056,
+    "fully_resolved": 881264,
+    "partially_reduced": 61792,
+    "unreduced": 12000,
     "passes": 5,
     "effective_ring_size_distribution": {
-      "1": 847193,
-      "2": 23117,
-      "3": 16538,
-      "4": 11993,
-      "5": 7643,
-      "6": 4742,
-      "7": 2269,
-      "8": 1509,
-      "9": 1081,
-      "10": 867,
-      "11": 604,
-      "12": 400,
-      "13": 269,
-      "14": 184,
-      "15": 139,
-      "16": 88,
-      "17": 60,
-      "18": 47,
-      "19": 20,
-      "20": 27,
-      "21": 20,
-      "22": 15,
-      "23": 8,
-      "24": 7,
+      "1": 881264,
+      "2": 24257,
+      "3": 16680,
+      "4": 12029,
+      "5": 7676,
+      "6": 4780,
+      "7": 2305,
+      "8": 1584,
+      "9": 1142,
+      "10": 954,
+      "11": 683,
+      "12": 501,
+      "13": 329,
+      "14": 227,
+      "15": 194,
+      "16": 125,
+      "17": 87,
+      "18": 61,
+      "19": 27,
+      "20": 30,
+      "21": 18,
+      "22": 18,
+      "23": 5,
+      "24": 8,
       "25": 6,
-      "26": 12,
-      "27": 5,
-      "28": 10,
-      "29": 6,
-      "30": 4,
+      "26": 11,
+      "27": 6,
+      "28": 11,
+      "29": 5,
+      "30": 3,
       "31": 3,
       "32": 2,
       "33": 3,
       "34": 4,
       "35": 2,
       "36": 3,
-      "38": 2,
+      "37": 1,
+      "38": 1,
       "39": 2,
       "40": 2,
       "41": 1,
       "42": 3,
       "43": 1,
       "45": 1,
-      "164": 1
+      "163": 1
     },
     "partially_reduced_ring_size_distribution": {
-      "2": 16749,
-      "3": 14896,
-      "4": 10672,
-      "5": 7549,
-      "6": 3123,
-      "7": 2256,
-      "8": 1505,
-      "9": 1055,
-      "10": 863,
-      "11": 482,
-      "12": 387,
-      "13": 269,
-      "14": 184,
-      "15": 139,
-      "16": 88,
-      "17": 60,
-      "18": 47,
-      "19": 20,
-      "20": 26,
-      "21": 20,
-      "22": 15,
-      "23": 8,
-      "24": 7,
+      "2": 17202,
+      "3": 14938,
+      "4": 10713,
+      "5": 7584,
+      "6": 3165,
+      "7": 2294,
+      "8": 1580,
+      "9": 1116,
+      "10": 950,
+      "11": 562,
+      "12": 488,
+      "13": 329,
+      "14": 227,
+      "15": 194,
+      "16": 125,
+      "17": 87,
+      "18": 61,
+      "19": 27,
+      "20": 29,
+      "21": 18,
+      "22": 18,
+      "23": 5,
+      "24": 8,
       "25": 6,
-      "26": 12,
-      "27": 5,
-      "28": 10,
-      "29": 6,
-      "30": 4,
+      "26": 11,
+      "27": 6,
+      "28": 11,
+      "29": 5,
+      "30": 3,
       "31": 3,
       "32": 2,
       "33": 3,
       "34": 4,
       "35": 2,
       "36": 3,
-      "38": 2,
+      "37": 1,
+      "38": 1,
       "39": 2,
       "40": 2,
       "41": 1,
       "42": 3,
       "43": 1,
       "45": 1,
-      "164": 1
+      "163": 1
     },
     "unreduced_ring_size_distribution": {
-      "2": 6368,
-      "3": 1642,
-      "4": 1321,
-      "5": 94,
-      "6": 1619,
-      "7": 13,
+      "2": 7055,
+      "3": 1742,
+      "4": 1316,
+      "5": 92,
+      "6": 1615,
+      "7": 11,
       "8": 4,
       "9": 26,
       "10": 4,
-      "11": 122,
+      "11": 121,
       "12": 13,
       "20": 1
     },
-    "resolution_rate": "92.20%",
-    "deterministic_resolutions": 847193,
+    "resolution_rate": "92.27%",
+    "deterministic_resolutions": 881264,
     "hypothesis_resolutions": 0,
-    "unresolved_reduced": 60493,
-    "unresolved_unchanged": 11227,
+    "unresolved_reduced": 61792,
+    "unresolved_unchanged": 12000,
     "conflict_rings": 0,
+    "original_singleton_rings": 864686,
+    "original_multimember_rings": 90370,
+    "deterministic_singleton_resolutions": 864686,
+    "deterministic_multimember_resolutions": 16578,
     "orphan_resolution_claims": 0,
-    "deterministic_resolution_rate": "92.20%",
-    "blocks_scanned": 68901,
-    "transactions": 20948,
-    "ring_members": 1402252
+    "deterministic_resolution_rate": "92.27%",
+    "blocks_scanned": 69901,
+    "transactions": 22536,
+    "ring_members": 1458585
   },
   "ml_predictions": {
     "total_predictions": 37993,
-    "verified": 912,
-    "correct": 724,
-    "wrong": 188,
-    "unverified": 37081,
-    "accuracy": "79.4%"
+    "verified": 923,
+    "correct": 731,
+    "wrong": 192,
+    "unverified": 37070,
+    "accuracy": "79.2%"
   },
   "ml_training": null,
   "history": [
@@ -444,6 +450,24 @@
       "hypothesis_resolutions": 0,
       "conflict_rings": 0,
       "timestamp": "2026-09-12T02:31:32.589425+00:00"
+    },
+    {
+      "dataset_id": "3929c809-62e6-43ae-929b-92a9d91d4ece",
+      "blocks_scanned": 69901,
+      "total_rings": 955056,
+      "fully_resolved": 881264,
+      "partially_reduced": 61792,
+      "unreduced": 12000,
+      "resolution_rate": "92.27%",
+      "passes": 5,
+      "deterministic_resolutions": 881264,
+      "hypothesis_resolutions": 0,
+      "conflict_rings": 0,
+      "original_singleton_rings": 864686,
+      "original_multimember_rings": 90370,
+      "deterministic_singleton_resolutions": 864686,
+      "deterministic_multimember_resolutions": 16578,
+      "timestamp": "2026-09-12T02:50:03.106361+00:00"
     }
   ],
   "prediction_browser": {
@@ -6856,6 +6880,10 @@
               "shared_outputs": 1
             },
             {
+              "key_image": "06b3d5551d4c5c0af62294570f269c597af80ebcde8b4c73a7fd70510426c2a0",
+              "shared_outputs": 1
+            },
+            {
               "key_image": "11e46dee36eb9d43db4255aadf7deb290d5d6f076d512eab95c91bda99f9e491",
               "shared_outputs": 1
             },
@@ -6885,10 +6913,6 @@
             },
             {
               "key_image": "81d9d28e59b6ba54b0ed7ade997271c12e8d80248cd0150710b952cc4cf1d0fe",
-              "shared_outputs": 1
-            },
-            {
-              "key_image": "9d3487327880295fb23ed841bc4355194b6d309d614d7c85b0da2ad7e6c33824",
               "shared_outputs": 1
             }
           ],
@@ -8746,6 +8770,10 @@
               "shared_outputs": 1
             },
             {
+              "key_image": "58ff0770eefb5ffeb6bae637ebbb4b6621aa56f87b83c07ffc90767aabf43f44",
+              "shared_outputs": 1
+            },
+            {
               "key_image": "5a72bccb455ccb83999a395d4a1c66f0a6a828799c3533761462afd53dc41212",
               "shared_outputs": 1
             },
@@ -8771,10 +8799,6 @@
             },
             {
               "key_image": "b1fe9ebf11cc660a7904b0be54e89c5b1514144a703e9a467855f20c265507bb",
-              "shared_outputs": 1
-            },
-            {
-              "key_image": "fb5dc9654ebaa5a105c6e747d8d5071643faf470cd75ed06e0f3e75741cb78a5",
               "shared_outputs": 1
             }
           ],
@@ -10904,16 +10928,16 @@
               "shared_outputs": 1
             },
             {
-              "key_image": "b02e4edbad0653e3ebfe5f460e6b25aced938083da0e17e0998aa406ebd49f3f",
+              "key_image": "99585a005d2d94aa367568872d6ccfa0f851f246b0e24ede8d6c34627145af06",
               "shared_outputs": 1
             },
             {
-              "key_image": "eb569bc679ce7dba9cbafe10b34e1c31401ff9fa879f6b2451e82de96339df02",
+              "key_image": "b02e4edbad0653e3ebfe5f460e6b25aced938083da0e17e0998aa406ebd49f3f",
               "shared_outputs": 1
             }
           ],
           "related_rings_limit": 10,
-          "related_rings_truncated": false,
+          "related_rings_truncated": true,
           "lineage": {
             "root_event_id": null,
             "events": [],
@@ -11896,6 +11920,10 @@
               "shared_outputs": 1
             },
             {
+              "key_image": "40d228c00631a25c38c5260ddcf6ff6edd8c5221664730d61564c759418211f8",
+              "shared_outputs": 1
+            },
+            {
               "key_image": "42283bbe685b196a70d37635311daa31f6a81ba245a4e23ebf9c472d8bcb2c57",
               "shared_outputs": 1
             },
@@ -11925,10 +11953,6 @@
             },
             {
               "key_image": "90cf5c0ff15f49b9f86fefd20d688894804216f1f02e3e92149b49016779049c",
-              "shared_outputs": 1
-            },
-            {
-              "key_image": "99623c4f46b1ca4a12248292b587bcae562fbe66bfc4b9adde8ae8668bb1a3eb",
               "shared_outputs": 1
             }
           ],
@@ -19010,6 +19034,14 @@
               "shared_outputs": 1
             },
             {
+              "key_image": "1cbd3d030f6df4688e93b44c4a937c2d936649f2ef536d240317654f3d4d2c55",
+              "shared_outputs": 1
+            },
+            {
+              "key_image": "1e56c9291911617caf930a72a120a138f65ec6fb4cf83592f41dadc8ce844630",
+              "shared_outputs": 1
+            },
+            {
               "key_image": "4373fd540b99910884db94bc2ec21aa17876619d7bd78704bc71ba0e75de3170",
               "shared_outputs": 1
             },
@@ -19027,14 +19059,6 @@
             },
             {
               "key_image": "7fe6f1614401639cb539aed06c90c6554f019d16c92e03c43ef40e94f1cd2da2",
-              "shared_outputs": 1
-            },
-            {
-              "key_image": "85ec4286b740da59cc1a4d77213d9161ae5b0c5ad16dcac026a3f823ca644f4c",
-              "shared_outputs": 1
-            },
-            {
-              "key_image": "985cbdc9a307895b907a91b3ca8cc423d70122d9bd01708a24a709b085c884c9",
               "shared_outputs": 1
             }
           ],
@@ -21376,12 +21400,12 @@
               "shared_outputs": 1
             },
             {
-              "key_image": "ecd855fdbbc3c46d5bd663e4aba614375e9b57ea06e66e31149ac53ab9e97abc",
+              "key_image": "ebd6d23edb5ad5502121343a2606268dd27134c766445df981123eee7fa8dc17",
               "shared_outputs": 1
             }
           ],
           "related_rings_limit": 10,
-          "related_rings_truncated": false,
+          "related_rings_truncated": true,
           "lineage": {
             "root_event_id": null,
             "events": [],
@@ -21739,8 +21763,10 @@
                 "amount": "900000000",
                 "index": "1805"
               },
-              "eliminated_by": [],
-              "eliminated_by_count": 0,
+              "eliminated_by": [
+                "1937fa31ba6149b8ed306f361a89cd41c743f829ce8d695f7ab19798d8e5279b"
+              ],
+              "eliminated_by_count": 1,
               "eliminated_by_truncated": false
             }
           ],
@@ -21756,20 +21782,20 @@
             {
               "amount": "900000000",
               "index": "1464"
-            },
-            {
-              "amount": "900000000",
-              "index": "1805"
             }
           ],
           "conflicts": [],
           "candidate_count": 4,
           "input_count": 1,
-          "remaining_candidate_count": 4,
+          "remaining_candidate_count": 3,
           "candidates_truncated": false,
           "inputs_truncated": false,
           "remaining_candidates_truncated": false,
           "related_rings": [
+            {
+              "key_image": "1937fa31ba6149b8ed306f361a89cd41c743f829ce8d695f7ab19798d8e5279b",
+              "shared_outputs": 1
+            },
             {
               "key_image": "392707523b6a4b7f2d5b4d7f6c566c4e073f27c58b7a3367875153f55e947e0a",
               "shared_outputs": 1
@@ -21805,14 +21831,10 @@
             {
               "key_image": "dcd5c9089a7652cd6a8ee1e827d112c4cfc8bcdb61086446aedc712707c4973a",
               "shared_outputs": 1
-            },
-            {
-              "key_image": "ed7c15baebf960b32ac669a68f7cbd4edbad22dfbfffeca3f03f464c2bfc4af0",
-              "shared_outputs": 1
             }
           ],
           "related_rings_limit": 10,
-          "related_rings_truncated": false,
+          "related_rings_truncated": true,
           "lineage": {
             "root_event_id": null,
             "events": [],
@@ -23465,6 +23487,10 @@
               "shared_outputs": 1
             },
             {
+              "key_image": "290203991ca6393451063678a56c3214a307fb301d5df305c9954bc3954d457e",
+              "shared_outputs": 1
+            },
+            {
               "key_image": "2e524c466007d09249c3b3d12d0968c622a454f5b216946b9752d7d08ae56c57",
               "shared_outputs": 1
             },
@@ -23482,10 +23508,6 @@
             },
             {
               "key_image": "4abce6c55cccf3e2f4254e4853feb1bc4e3cec2eb1c6546b84b594f82894e968",
-              "shared_outputs": 1
-            },
-            {
-              "key_image": "4ba581d0ee145208e145b2ca1e89d93ce028e0fa4b1e777e348349cdf5647d3a",
               "shared_outputs": 1
             }
           ],
@@ -26914,7 +26936,7 @@
               "shared_outputs": 2
             },
             {
-              "key_image": "06e0e9436e9a6afbc15a1460aa40b6451dccde10b92e0026fb0acb3ff92b8cfb",
+              "key_image": "049f6c88c8746a78460dbb677e43274a6d4dd71c17c2cddf077ed3dec14115c3",
               "shared_outputs": 1
             }
           ],
@@ -33254,7 +33276,7 @@
               "shared_outputs": 1
             },
             {
-              "key_image": "591aa9b0759900d14d572b31604c79b86873a6a9db053c0e9aa4ef8d1b176f8b",
+              "key_image": "572a547e631269666f67628d4f2f6c8006b84edc66f3a4860648cb74cdd8e9ed",
               "shared_outputs": 1
             }
           ],
@@ -34990,6 +35012,10 @@
               "shared_outputs": 1
             },
             {
+              "key_image": "72cefc73554a8a19fdcb7dcadea344fdcf2d79e7a6b110ecc28e104202cf49b0",
+              "shared_outputs": 1
+            },
+            {
               "key_image": "845c1a481023c333d03bc93a07925310066f718d3fcd70e0d8fed18f93548a30",
               "shared_outputs": 1
             },
@@ -35113,7 +35139,12 @@
           "candidates_truncated": false,
           "inputs_truncated": false,
           "remaining_candidates_truncated": false,
-          "related_rings": [],
+          "related_rings": [
+            {
+              "key_image": "959d52f9582625a0d762aca4dddd6346e2516dd7a6e5be6a509e26438c1a4211",
+              "shared_outputs": 1
+            }
+          ],
           "related_rings_limit": 10,
           "related_rings_truncated": false,
           "lineage": {
@@ -36038,6 +36069,10 @@
               "shared_outputs": 1
             },
             {
+              "key_image": "0e40982fa710f1320a34127fda40ff1346ef0c7ea5e32ee686838f922e23c58b",
+              "shared_outputs": 1
+            },
+            {
               "key_image": "19700a9ef595b769aac5aeace879e372015066118bb6b43eecfc3ae0d1900aee",
               "shared_outputs": 1
             },
@@ -36067,10 +36102,6 @@
             },
             {
               "key_image": "514151eee3b29c778bf7d484629e6fcad94ef863b17b9d36c0d6291380e9b417",
-              "shared_outputs": 1
-            },
-            {
-              "key_image": "543606c625457763cbc3b954e44095facd5fe7b233a32002108f7ab30dab4327",
               "shared_outputs": 1
             }
           ],
@@ -43352,6 +43383,10 @@
               "shared_outputs": 1
             },
             {
+              "key_image": "ad52a18ca6b5aa70afb4e13b5a0c1372e5ffe8ed34e64b7218ba4666d9c7f574",
+              "shared_outputs": 1
+            },
+            {
               "key_image": "ca5faf08359a768947fd2e9194a71f531a5089e8594a95a747f91a7ca03da62a",
               "shared_outputs": 1
             },
@@ -48266,10 +48301,10 @@
     }
   },
   "collection": {
-    "chain_tip": 3760530,
+    "chain_tip": 3760538,
     "confirmation_lag": 10,
-    "blocks_behind": 3691630,
+    "blocks_behind": 3690638,
     "mode": "remote_rpc",
-    "published_at": "2026-09-12T02:31:33.397125+00:00"
+    "published_at": "2026-09-12T02:50:03.916068+00:00"
   }
 }

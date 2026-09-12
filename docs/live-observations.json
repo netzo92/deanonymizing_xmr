@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "state": "caught_up",
-  "generated_at": "2026-09-12T02:44:01.091265+00:00",
-  "last_success_at": "2026-09-12T02:44:01.085525+00:00",
+  "generated_at": "2026-09-12T02:50:06.334008+00:00",
+  "last_success_at": "2026-09-12T02:50:06.328616+00:00",
   "source": {
     "mode": "public_rpc",
     "origin": "http://xmr-node.cakewallet.com:18081",
@@ -10,13 +10,13 @@
     "observer_sha256": "7db5f13a38e94f11d19d06d092e85af69184341690bc9f03b8f54afe4882f6db"
   },
   "chain_tip": {
-    "height": 3760546,
-    "hash": "4d4eac5d163f1b3cada3570e1bab2716e599bb86e3a7590afb9cdbda996e67f4",
-    "chain_timestamp": "2026-09-12T02:42:28+00:00",
-    "observed_at": "2026-09-12T02:44:00.541920+00:00"
+    "height": 3760550,
+    "hash": "42387e2a744080784e8df0407e41d8949e5bf6dd3b6507017ed8a1149e853110",
+    "chain_timestamp": "2026-09-12T02:49:45+00:00",
+    "observed_at": "2026-09-12T02:50:05.767330+00:00"
   },
-  "confirmed_target_height": 3760536,
-  "last_processed_height": 3760536,
+  "confirmed_target_height": 3760540,
+  "last_processed_height": 3760540,
   "blocks_behind_confirmed": 0,
   "blocks": [
     {
@@ -316,16 +316,74 @@
         "16": 16
       },
       "detail_status": "complete"
+    },
+    {
+      "height": 3760537,
+      "hash": "b900369e336e822ff3a5c6ebcfe944e52fce256d888e965c165ab3eac16bcee2",
+      "previous_hash": "a8b88136cdc37de61c6e4ad11e9850d97cfeee6810320558b3d032d89310bc78",
+      "chain_timestamp": "2026-09-12T02:23:23+00:00",
+      "observed_at": "2026-09-12T02:46:02.294172+00:00",
+      "source_origin": "http://xmr-node.cakewallet.com:18081",
+      "transaction_count": 9,
+      "ring_input_count": 12,
+      "ring_member_count": 192,
+      "ring_size_distribution": {
+        "16": 12
+      },
+      "detail_status": "complete"
+    },
+    {
+      "height": 3760538,
+      "hash": "ffec1658a013546f68cd5d3bfe42fe215b9528add05fd4122e2108c0882e0c8d",
+      "previous_hash": "b900369e336e822ff3a5c6ebcfe944e52fce256d888e965c165ab3eac16bcee2",
+      "chain_timestamp": "2026-09-12T02:29:35+00:00",
+      "observed_at": "2026-09-12T02:46:02.579671+00:00",
+      "source_origin": "http://xmr-node.cakewallet.com:18081",
+      "transaction_count": 47,
+      "ring_input_count": 85,
+      "ring_member_count": 1360,
+      "ring_size_distribution": {
+        "16": 85
+      },
+      "detail_status": "complete"
+    },
+    {
+      "height": 3760539,
+      "hash": "5ca2dc9860410afc5131bed138d05d7c7393b77bc5659c76b783a4311543eab2",
+      "previous_hash": "ffec1658a013546f68cd5d3bfe42fe215b9528add05fd4122e2108c0882e0c8d",
+      "chain_timestamp": "2026-09-12T02:29:38+00:00",
+      "observed_at": "2026-09-12T02:50:05.911275+00:00",
+      "source_origin": "http://xmr-node.cakewallet.com:18081",
+      "transaction_count": 0,
+      "ring_input_count": 0,
+      "ring_member_count": 0,
+      "ring_size_distribution": {},
+      "detail_status": "complete"
+    },
+    {
+      "height": 3760540,
+      "hash": "804c7aee6f3283cec265e00682c8979b1a0856056aace9449cf52977e90252df",
+      "previous_hash": "5ca2dc9860410afc5131bed138d05d7c7393b77bc5659c76b783a4311543eab2",
+      "chain_timestamp": "2026-09-12T02:36:14+00:00",
+      "observed_at": "2026-09-12T02:50:06.322876+00:00",
+      "source_origin": "http://xmr-node.cakewallet.com:18081",
+      "transaction_count": 60,
+      "ring_input_count": 96,
+      "ring_member_count": 1536,
+      "ring_size_distribution": {
+        "16": 96
+      },
+      "detail_status": "complete"
     }
   ],
   "window": {
-    "block_count": 20,
+    "block_count": 24,
     "first_height": 3760517,
-    "last_height": 3760536,
-    "transaction_count": 410,
-    "ring_input_count": 709,
-    "ring_member_count": 11344,
-    "blocks_with_ring_counts": 20,
+    "last_height": 3760540,
+    "transaction_count": 526,
+    "ring_input_count": 902,
+    "ring_member_count": 14432,
+    "blocks_with_ring_counts": 24,
     "height_range_complete": true
   },
   "gaps": [],
@@ -333,7 +391,7 @@
   "retention": {
     "stored_block_limit": 1440,
     "exported_block_limit": 120,
-    "stored_blocks": 20,
+    "stored_blocks": 24,
     "coverage_start_height": 3760517,
     "pruned_before_height": null,
     "gap_record_limit": 200,
