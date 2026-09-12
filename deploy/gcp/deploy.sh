@@ -44,7 +44,11 @@ archive=$temporary/release.tar.gz
 # Explicit allowlist prevents unrelated tracked files from becoming VM content.
 git -C "$repo" archive --format=tar.gz --output "$archive" "$revision" -- \
   main.py collector.py analyzer.py models.py scorer.py scanner.py monero_rpc.py brain.py \
-  dashboard_export.py requirements.txt docs/index.html docs/dashboard.js docs/dashboard.css docs/data.json deploy/gcp
+  dashboard_export.py brain_export.py requirements.txt README.md AGENTS.md brain tests research \
+  autoresearch_results.md autoresearch-results.tsv \
+  docs/index.html docs/dashboard.js docs/dashboard.css docs/data.json docs/brain.json \
+  docs/brain-view.js docs/brain-view.css docs/research-analytics.js docs/research-analytics.css \
+  docs/evidence-graph.js docs/evidence-graph.css deploy/gcp
 git -C "$repo" show "$revision:deploy/gcp/install-release.sh" > "$temporary/install-release.sh"
 cp "$env_file" "$temporary/collector.env"
 chmod 0600 "$temporary/collector.env"

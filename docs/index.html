@@ -5,9 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="color-scheme" content="dark">
     <title>TraceGrove — Monero Ring Analysis</title>
-    <meta name="description" content="Explore Monero ring connections, prediction history, and the evidence behind each hypothesis with TraceGrove.">
+    <meta name="description" content="Explore Monero ring evidence, prediction analytics, and an interactive research brain of methods, findings, and open experiments.">
     <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="brain-view.css">
+    <link rel="stylesheet" href="research-analytics.css">
+    <link rel="stylesheet" href="evidence-graph.css">
     <script async id="chart-library" src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script defer src="brain-view.js"></script>
+    <script defer src="research-analytics.js"></script>
+    <script defer src="evidence-graph.js"></script>
     <script defer src="dashboard.js"></script>
 </head>
 <body>
@@ -20,8 +26,24 @@
         </div>
         <span class="header-badge">Output &amp; transaction evidence</span>
     </header>
-    <main id="app" tabindex="-1" aria-busy="true">
-        <div class="empty-state" role="status">Loading analysis export…</div>
+    <nav class="workspace-nav" aria-label="Research workspace">
+        <a href="#app">Overview</a>
+        <a href="#knowledge-brain">Research brain</a>
+        <a href="#analytics-lab">Analytics lab</a>
+        <a href="#predictions">Predictions</a>
+        <a href="#evidence-inspector">Evidence graph</a>
+    </nav>
+    <main>
+        <div class="workspace-portals">
+            <a href="#knowledge-brain"><span class="portal-kicker">Connected knowledge</span><strong>Explore the research brain ↗</strong><span>Methods, evidence, TODOs, and the next experiments.</span></a>
+            <a href="#analytics-lab"><span class="portal-kicker">Ask better questions</span><strong>Open the analytics lab ↗</strong><span>Compare thresholds, cohorts, ambiguity, and what is still unknown.</span></a>
+        </div>
+        <div id="app" tabindex="-1" aria-busy="true">
+            <div class="empty-state" role="status">Loading analysis export…</div>
+        </div>
+        <section id="knowledge-brain" tabindex="-1" aria-label="Research brain" aria-busy="true">
+            <p class="empty-state">Loading the research brain…</p>
+        </section>
     </main>
     <noscript><p class="notice">JavaScript is required to explore this export. The underlying data is available in <a href="data.json">data.json</a>.</p></noscript>
 </body>

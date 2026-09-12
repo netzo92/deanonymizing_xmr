@@ -1,0 +1,1517 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-09-12T00:27:22.235901+00:00",
+  "source_commit": null,
+  "repository_url": "https://github.com/netzo92/deanonymizing_xmr",
+  "root_id": "brain/index.md",
+  "nodes": [
+    {
+      "id": "brain/architecture/index.md",
+      "path": "brain/architecture/index.md",
+      "title": "Architecture",
+      "summary": "Module ownership and the path from node data to stored evidence.",
+      "branch": "architecture",
+      "status": "maintained",
+      "reviewed": "2026-09-11",
+      "content": "# Architecture\n\nParent: [repository brain](../index.md).\n\nThe Python CLI coordinates RPC ingestion, SQLite persistence, analysis, and ML.\nThe evidence API queries persisted state on demand; the browser dashboard reads\nan exported JSON snapshot.\n\n| Read next | Contents |\n| --- | --- |\n| [Pipeline](pipeline.md) | Module map, execution flow, scanning and cascade behavior |\n| [Storage and evidence](storage-and-evidence.md) | Table roles, identities, hypothesis status, immutable lineage |\n\nRelated: [evaluation](../research/evaluation.md) explains what results mean;\n[development](../workflows/development.md) describes command effects.\n\nSources: [main.py](../../main.py), [models.py](../../models.py),\n[brain.py](../../brain.py).\n",
+      "todos": [],
+      "sources": [
+        {
+          "label": "main.py",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/main.py"
+        },
+        {
+          "label": "models.py",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/models.py"
+        },
+        {
+          "label": "brain.py",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/brain.py"
+        }
+      ],
+      "links": [
+        "brain/index.md",
+        "brain/architecture/pipeline.md",
+        "brain/architecture/storage-and-evidence.md",
+        "brain/research/evaluation.md",
+        "brain/workflows/development.md"
+      ]
+    },
+    {
+      "id": "brain/architecture/pipeline.md",
+      "path": "brain/architecture/pipeline.md",
+      "title": "Pipeline",
+      "summary": "Runtime module map and scanning, analysis, scoring, and export flow.",
+      "branch": "architecture",
+      "status": "maintained",
+      "reviewed": "2026-09-11",
+      "content": "# Pipeline\n\nParent: [architecture](index.md).\n\n| Module | Responsibility |\n| --- | --- |\n| [main.py](../../main.py) | Argument parsing and command orchestration |\n| [monero_rpc.py](../../monero_rpc.py) | HTTP RPC calls, transaction decoding, batching, connection/timeout retries |\n| [scanner.py](../../scanner.py) | Resume scans, parse key inputs, expand relative offsets, persist ring members |\n| [models.py](../../models.py) | SQLite schema, reads, predictions, and resolution recording |\n| [analyzer.py](../../analyzer.py) | Candidate sets, inverse output index, cascade elimination, statistics |\n| [scorer.py](../../scorer.py) | Feature extraction, training, scoring, verification, soft cascade |\n| [brain.py](../../brain.py) | Read-through evidence graph and resolution ancestry |\n| [dashboard_export.py](../../dashboard_export.py) | Evidence-class counts and bounded prediction/inspector records |\n| [docs/index.html](../../docs/index.html) | Dashboard consuming [exported data](../../docs/data.json) |\n\n## Execution\n\n`Monero node → RPC → Scanner → SQLite → Analyzer → Scorer / exports`\n\n`SQLite → Brain → JSON explanations and lineage`\n\n`Scanner.scan()` resumes after the maximum stored block height. Relative key\noffsets become absolute indices through cumulative sums. Rings retain the\namount alongside each index. Each new block, its transactions, and its ring\nmembers are written under one SQLite savepoint. Incomplete/mismatched RPC\nresponses or decoding/write failures roll back that entire block; a caught scan\nfailure commits previously completed blocks in the current batch. Retrying a stored\nblock skips it, preventing duplicate memberships. RPC status, HTTP, connection,\ntimeout, and malformed-response failures surface as `RPCError`.\n\nResume still uses the maximum height: it does not audit or repair legacy partial\nblocks, gaps, or reorganizations, and stored heights are skipped without checking\ntheir current chain hashes. A clean new scan receives the atomic-ingestion\nguarantee; an older database needs an independent completeness audit. RPC\nvalidation checks response structure and requested identities, not cryptographic\nblock/transaction validity. Synthetic failure and retry coverage lives in\n[scanner tests](../../tests/test_scanner.py).\n\n`Analyzer.run()` loads all rings and builds an inverse index. It resolves\noriginal size-one rings before applying eliminations, imports old claims into\nhistory, loads stored resolutions, then runs cascade passes until the work queue\nis empty or the pass limit is reached. A ring reduced to zero members is reported\nas a possible data inconsistency.\n\nExisting hypothesis resolutions are also loaded. Dependency tracking preserves\ntheir hypothesis status through later cascades. Calling plain `analyze` on a\ndatabase previously used for soft cascades does not remove those hypotheses.\n\nThe scorer trains on deterministic labels. Prediction-only scoring saves guesses;\nsoft cascade applies guesses to the analyzer and records their descendants.\nSee [evaluation](../research/evaluation.md) before interpreting accuracy.\n\nExports run analysis before writing JSON. `export-viz` optionally trains ML and\nappends dashboard history when the scan or evidence summary changes. Read\n[command effects](../workflows/development.md) before invoking reporting commands.\n",
+      "todos": [],
+      "sources": [
+        {
+          "label": "main.py",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/main.py"
+        },
+        {
+          "label": "monero_rpc.py",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/monero_rpc.py"
+        },
+        {
+          "label": "scanner.py",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/scanner.py"
+        },
+        {
+          "label": "models.py",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/models.py"
+        },
+        {
+          "label": "analyzer.py",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/analyzer.py"
+        },
+        {
+          "label": "scorer.py",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/scorer.py"
+        },
+        {
+          "label": "brain.py",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/brain.py"
+        },
+        {
+          "label": "dashboard_export.py",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/dashboard_export.py"
+        },
+        {
+          "label": "docs/index.html",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/docs/index.html"
+        },
+        {
+          "label": "exported data",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/docs/data.json"
+        },
+        {
+          "label": "scanner tests",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/tests/test_scanner.py"
+        }
+      ],
+      "links": [
+        "brain/architecture/index.md",
+        "brain/research/evaluation.md",
+        "brain/workflows/development.md"
+      ]
+    },
+    {
+      "id": "brain/architecture/storage-and-evidence.md",
+      "path": "brain/architecture/storage-and-evidence.md",
+      "title": "Storage and evidence",
+      "summary": "SQLite entities, deterministic classification, and evidence lineage semantics.",
+      "branch": "architecture",
+      "status": "maintained",
+      "reviewed": "2026-09-11",
+      "content": "# Storage and evidence\n\nParent: [architecture](index.md).\n\nSources: [schema and Database methods](../../models.py),\n[evidence records and Brain methods](../../brain.py),\n[cascade recording](../../analyzer.py).\n\n| Table | Meaning |\n| --- | --- |\n| `blocks` | Stored block heights and headers |\n| `transactions` | Transaction metadata and block association |\n| `ring_members` | Key-image membership, transaction/input context, amount and output index |\n| `resolved_spends` | Current resolution claim per key image |\n| `ml_predictions` | Compatibility cache of the latest accepted prediction per ring |\n| `prediction_runs` | Scoring run, dataset identity, cutoff, code/features/settings metadata |\n| `prediction_records`, `prediction_candidates` | Immutable per-run choices, acceptance status, scores and frozen candidate features |\n| `prediction_artifacts` | Compressed model/scaler bytes addressed by SHA-256, excluded from dashboard exports |\n| `prediction_verifications` | Recorded outcomes, observed label/event and verification timing/provenance |\n| `prediction_current` | Links the compatibility cache to its accepted history record |\n| `analysis_metadata` | Persistent dataset identity and migration marker |\n| `resolution_events` | Recorded resolution claims with method, pass, confidence, scan height, and time |\n| `resolution_dependencies` | Each eliminated output and the source event used to eliminate it |\n\nAn output's identity is `(amount, global_output_index)`. Matching on index alone\ncan connect unrelated outputs. Membership rows may repeat; graph queries\ndeduplicate where they count distinct members or shared outputs.\n\n## Claims and history\n\nThe stored deterministic predicate is `confidence = 1.0 AND resolved_at_pass >= 0`.\nKnown event methods are `ring_size_one`, `cascade`, `ml_prediction`,\n`soft_cascade`, and `legacy`. The writer validates known-method membership and\ndependencies, and prevents deterministic cascades from depending on hypotheses.\n\nEvents retain original dependency IDs when current claims change. Unchanged\nclaims with matching methods and dependencies reuse their events. Legacy imports\npreserve claims whose original reasoning is unknown; import time is not the\nhistorical discovery time. Immutability is an application convention, not a\ndatabase-wide prohibition on direct SQL updates.\n\nPrediction history imports existing cache rows once, retaining creation times and\noutcomes while marking unknown model, cutoff, and verification provenance.\nRe-scoring preserves prior records, including rejected/below-threshold scores.\nVerification checks each outstanding accepted history record against its own\nchosen output. Historical outcomes do not overwrite the latest cache entry.\nLater-scan timing is recorded separately from unknown or same-scan verification;\nit alone does not prove a clean forward experiment.\n\n## Evidence API\n\n- `recall()` returns an immutable snapshot of members, inputs, resolution, and prediction.\n- `related_rings()` ranks neighboring rings by distinct shared outputs.\n- `explain()` uses current stored deterministic claims to explain eliminations and conflicts; hypotheses do not eliminate candidates here.\n- `trace()` follows recorded event ancestry. `complete` means available ancestry with known methods, not an independently proven conclusion. Limits, missing events, stale claims, and legacy origins affect completeness.\n- `summary()` counts graph entities and separates deterministic from hypothesis resolutions.\n\nThe CLI `brain` command opens an existing database with SQLite `mode=ro`.\nRegular `Database()` initialization creates schema and configures WAL mode.\nSee [development](../workflows/development.md) for the distinction in commands.\n\n[Dashboard export](../../dashboard_export.py) counts only observed rings for its\nevidence categories, flags conflicts separately, and bounds prediction/evidence\ndetails. Output identity integers become decimal strings in schema-v2 JSON to\navoid browser precision loss. Its inspector combines frozen scores with explicitly\nlabeled current evidence; it does not reconstruct historical eliminations.\n\nBehavioral examples: [graph tests](../../tests/test_brain.py),\n[lineage tests](../../tests/test_lineage.py). Related:\n[evaluation](../research/evaluation.md).\n",
+      "todos": [],
+      "sources": [
+        {
+          "label": "schema and Database methods",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/models.py"
+        },
+        {
+          "label": "evidence records and Brain methods",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/brain.py"
+        },
+        {
+          "label": "cascade recording",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/analyzer.py"
+        },
+        {
+          "label": "Dashboard export",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/dashboard_export.py"
+        },
+        {
+          "label": "graph tests",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/tests/test_brain.py"
+        },
+        {
+          "label": "lineage tests",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/tests/test_lineage.py"
+        }
+      ],
+      "links": [
+        "brain/architecture/index.md",
+        "brain/workflows/development.md",
+        "brain/research/evaluation.md"
+      ]
+    },
+    {
+      "id": "brain/index.md",
+      "path": "brain/index.md",
+      "title": "TraceGrove repository brain",
+      "summary": "Entry point for repository knowledge, navigation, and durable context.",
+      "branch": "root",
+      "status": "maintained",
+      "reviewed": "2026-09-11",
+      "content": "# TraceGrove repository brain\n\nTraceGrove scans Monero ring data into SQLite, applies intersection/cascade\nanalysis, scores unresolved rings with ML, and exposes evidence through a CLI\nand a static dashboard. These pages describe the working-tree implementation\nreviewed on the date above, including changes that may not yet be committed.\n\nRead this page first, choose a branch below, then open the relevant leaf and its\nsource links. Loading every page is unnecessary for most tasks.\n\n| Branch | What it answers |\n| --- | --- |\n| [Architecture](architecture/index.md) | Which modules own scanning, storage, inference, and evidence? |\n| [Research](research/index.md) | What do labels and accuracy measurements establish? |\n| [Workflows](workflows/index.md) | How do I run checks and maintain this knowledge? |\n| [TODOs](tasks/index.md) | Which dashboard and prediction improvements should come next? |\n\n## Essential context\n\n- The app is named TraceGrove. Its [GCP dashboard](http://35.254.148.94/) receives collector exports; [GitHub Pages](https://netzo92.github.io/deanonymizing_xmr/) serves the committed snapshot. The intended domain, `tracegrove.io`, is pending registration and DNS setup. See the [dashboard guide](../README.md#dashboard) and [cloud workflow](workflows/cloud.md).\n- A ring is keyed by its key image; an output is identified by both amount and index.\n- Stored deterministic classification requires confidence `1.0` and a non-negative pass number. Its validity still depends on the analyzer's assumptions and input data.\n- Predictions and cascades derived from them remain hypotheses.\n- `brain.py` is the database evidence API. This `brain/` directory is the Markdown knowledge hierarchy; it contains no Python package initializer.\n- Source code defines current behavior. Tests supply examples of intended behavior. Markdown summaries and historical metrics can become stale.\n\n## Quick routes\n\n- CLI or scan change → [pipeline](architecture/pipeline.md).\n- Schema, graph, or lineage change → [storage and evidence](architecture/storage-and-evidence.md).\n- Scorer or accuracy question → [evaluation](research/evaluation.md).\n- Commands and tests → [development](workflows/development.md).\n- New knowledge or conflicting notes → [maintenance](workflows/maintenance.md).\n- Future predictions → [prediction experiments](research/predictions.md) and [grouping research](research/groupings.md).\n- Measured improvement opportunity → [output-origin audit](research/output-origin-audit.md) and its follow-up experiments.\n- Visual notes, TODOs, and analytics → [workspace guide](workflows/research-workspace.md).\n\nSources: [project README](../README.md), [CLI](../main.py),\n[agent entry point](../AGENTS.md). This brain is maintained through file edits;\nthere is no background synchronization or automatic ingestion.\n",
+      "todos": [],
+      "sources": [
+        {
+          "label": "GCP dashboard",
+          "url": "http://35.254.148.94/"
+        },
+        {
+          "label": "GitHub Pages",
+          "url": "https://netzo92.github.io/deanonymizing_xmr/"
+        },
+        {
+          "label": "dashboard guide",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/README.md#dashboard"
+        },
+        {
+          "label": "project README",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/README.md"
+        },
+        {
+          "label": "CLI",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/main.py"
+        },
+        {
+          "label": "agent entry point",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/AGENTS.md"
+        }
+      ],
+      "links": [
+        "brain/architecture/index.md",
+        "brain/research/index.md",
+        "brain/workflows/index.md",
+        "brain/tasks/index.md",
+        "brain/workflows/cloud.md",
+        "brain/architecture/pipeline.md",
+        "brain/architecture/storage-and-evidence.md",
+        "brain/research/evaluation.md",
+        "brain/workflows/development.md",
+        "brain/workflows/maintenance.md",
+        "brain/research/predictions.md",
+        "brain/research/groupings.md",
+        "brain/research/output-origin-audit.md",
+        "brain/workflows/research-workspace.md"
+      ]
+    },
+    {
+      "id": "brain/research/evaluation.md",
+      "path": "brain/research/evaluation.md",
+      "title": "Evaluation",
+      "summary": "Deterministic labels, holdout measurement, and forward verification boundaries.",
+      "branch": "research",
+      "status": "maintained",
+      "reviewed": "2026-09-11",
+      "content": "# Evaluation\n\nParent: [research](index.md).\n\nSources: [RingScorer](../../scorer.py), [Database](../../models.py),\n[CLI workflows](../../main.py),\n[verification tests](../../tests/test_prediction_verification.py).\n\n## Current training behavior\n\n`build_training_data()` uses deterministic resolutions. `train()` splits by ring\nwith seed 42 and default holdout fraction 0.2; candidates from a ring stay\ntogether. Scaling is fit on the training split. The implementation uses a\n500-tree random forest with minimum leaf size 3 and balanced class weights,\nthen refits the scaler and model on all available training rings for prediction.\n\nHoldout accuracy counts rings where the highest-scored member matches the label.\nIt is not candidate-level accuracy. A ring split prevents sharing candidates of\nthe same ring across splits, but does not establish independence between related\nrings. Some graph-derived features use the current scanned snapshot, so the\nmeasurement is not a full forward-time evaluation.\n\n## Forward verification\n\nUse a database kept free of exploratory soft-cascade claims:\n\n1. Run `predict` to perform analysis, train, and save predictions without applying ML guesses to `resolved_spends`.\n2. Later scan additional blocks into that same database.\n3. Run `verify`, which runs analysis before comparing saved guesses with deterministic resolutions.\n4. Report correct, wrong, verified, and unverified counts together.\n\nCommands and explicit database paths are in\n[development](../workflows/development.md). `analyze --score` applies ML guesses\nand their cascades; subsequent plain analysis retains stored hypotheses. Use a\nseparate experimental database for that workflow.\n\nVerification reads deterministic labels from the database rather than trusting\nall in-memory analyzer resolutions. Hypotheses cannot serve as verification\nlabels. Agreement with deterministic evidence remains conditional on the\nunderlying data and analysis assumptions.\n\n## Open measurement questions\n\n- Does holdout performance transfer to later scan heights and unresolved rings?\n- How much do shared outputs and snapshot-derived features affect validation?\n- How representative is the verified subset of all saved predictions?\n- Are model scores calibrated as probabilities? A confidence threshold alone does not demonstrate calibration.\n\nThese are questions to investigate, not established findings or assigned tasks.\nNew scoring runs retain model/scaler artifacts, source/feature metadata, candidate\nscores and raw feature values. Older imported predictions have unknown model and\nfeature context. Resolution lineage itself still records the selected output and\nconfidence rather than embedding model artifacts. Complete forward evaluation\nalso needs frozen label eligibility and independent temporal splits; see\n[prediction research](predictions.md).\n\nRelated: [storage and evidence](../architecture/storage-and-evidence.md),\n[historical experiment records](index.md).\n",
+      "todos": [],
+      "sources": [
+        {
+          "label": "RingScorer",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/scorer.py"
+        },
+        {
+          "label": "Database",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/models.py"
+        },
+        {
+          "label": "CLI workflows",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/main.py"
+        },
+        {
+          "label": "verification tests",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/tests/test_prediction_verification.py"
+        }
+      ],
+      "links": [
+        "brain/research/index.md",
+        "brain/workflows/development.md",
+        "brain/research/predictions.md",
+        "brain/architecture/storage-and-evidence.md"
+      ]
+    },
+    {
+      "id": "brain/research/groupings.md",
+      "path": "brain/research/groupings.md",
+      "title": "Predicted groupings",
+      "summary": "Feasibility and research TODOs for output and transaction groupings.",
+      "branch": "research",
+      "status": "maintained",
+      "reviewed": "2026-09-11",
+      "content": "# Predicted groupings\n\nParent: [research](index.md). Related: [predictions](predictions.md),\n[dashboard TODOs](../tasks/dashboard.md),\n[storage and evidence](../architecture/storage-and-evidence.md).\n\n## What could be grouped?\n\nMonero uses one-time output addresses; public chain data does not directly map\nthese outputs to published receiving addresses. See the Monero project's\n[stealth-address explanation](https://web.getmonero.org/resources/moneropedia/stealthaddress.html).\n\nThe current [schema](../../models.py) stores key images, transactions, and\n`(amount, index)` references. It lacks wallet-address ownership and complete\noutput-origin tables. A feasible initial display is an explorer of output and\ntransaction relationships with explicit evidence types.\n\n| Group | Meaning | Does not establish |\n| --- | --- | --- |\n| Inputs in one transaction | Observed transaction structure | Which ring members were spent |\n| Rings sharing candidates | Observed ring overlap | Common sender or ownership |\n| Predicted co-spent outputs | Selected candidates for distinct inputs of one transaction | Correct selection of every candidate or common beneficial ownership |\n| Similar transaction patterns | Statistical similarity under chosen features | A unique wallet, address, or person |\n| Candidate output cluster | Hypothesized relationships supported by typed edges | An identified entity or recovered receiving address |\n\nOutputs can appear in multiple rings as possible signers; overlap is therefore\nnot ownership evidence. See the official\n[ring-signature explanation](https://web.getmonero.org/resources/moneropedia/ringsignatures.html).\nThe product distinctions above are proposed interpretations for this repository.\n\n## Research TODOs\n\n- [ ] **G1 — Ring-overlap explorer (P2).** Start with `Brain.related_rings()`, preserving amount in output identity. Compare raw overlap with size/degree-normalized similarity and inspect heavily reused candidates. Done when results are labeled ring-overlap communities, graph limits are explicit, and overlap alone never produces ownership claims.\n\n- [ ] **G2 — Co-spend hypotheses (P2; depends on P1–P3).** Join input rings by transaction and attach deterministic/predicted candidates with provenance. Test joint candidate-selection accuracy on controlled multi-input transactions. Authorization of actual spent inputs does not by itself prove one controller or beneficial owner. Retain competing candidates and abstentions; multiplying correlated input scores does not establish joint confidence. Done when joint correctness and failure cases are measured separately from per-ring accuracy.\n\n- [ ] **G3 — Cluster validation (P3; depends on G2).** Use synthetic graphs and locally controlled wallet transactions with known output ownership/spends. Measure pairwise precision/recall, false merges, and stability across thresholds, periods, and added blocks. Include unrelated wallets using similar construction patterns as negative controls. Compare conservative baselines before graph models. Done when labels and confidence have measured meaning on held-out data; disclose limits of generalizing controlled data to the public chain.\n\n- [ ] **G4 — Reversible cluster records (P3; depends on G3).** Store run-specific groups, members, typed evidence edges, supporting prediction/event IDs, and superseded links. Preserve versions as evidence changes. A weak bridge must not irreversibly merge groups; connected-component transitivity is not proof of common ownership. Done when each grouping can be explained, split, and compared across runs without changing deterministic labels.\n\n- [ ] **G5 — Output origins and controlled labels (P2).** Assess scanner/RPC changes to map `(amount, index)` to creating transaction, output position, and height, including mining outputs. Verify completeness before drawing transaction-flow edges. Keep controlled wallet output/spend labels separate from model inputs. Done when source-output joins are validated and label-derived features cannot leak answers into training.\n\nSuggested display: select transaction → inspect input rings → toggle predicted\nspend edges → inspect candidate groups and their supporting links. Keep “wallet\ngroup” labels experimental until controlled ownership evaluation supports them.\nPublic-address recovery and identity attribution are not established outcomes.\n",
+      "todos": [
+        {
+          "text": "**G1 — Ring-overlap explorer (P2).** Start with `Brain.related_rings()`, preserving amount in output identity. Compare raw overlap with size/degree-normalized similarity and inspect heavily reused candidates. Done when results are labeled ring-overlap communities, graph limits are explicit, and overlap alone never produces ownership claims.",
+          "done": false
+        },
+        {
+          "text": "**G2 — Co-spend hypotheses (P2; depends on P1–P3).** Join input rings by transaction and attach deterministic/predicted candidates with provenance. Test joint candidate-selection accuracy on controlled multi-input transactions. Authorization of actual spent inputs does not by itself prove one controller or beneficial owner. Retain competing candidates and abstentions; multiplying correlated input scores does not establish joint confidence. Done when joint correctness and failure cases are measured separately from per-ring accuracy.",
+          "done": false
+        },
+        {
+          "text": "**G3 — Cluster validation (P3; depends on G2).** Use synthetic graphs and locally controlled wallet transactions with known output ownership/spends. Measure pairwise precision/recall, false merges, and stability across thresholds, periods, and added blocks. Include unrelated wallets using similar construction patterns as negative controls. Compare conservative baselines before graph models. Done when labels and confidence have measured meaning on held-out data; disclose limits of generalizing controlled data to the public chain.",
+          "done": false
+        },
+        {
+          "text": "**G4 — Reversible cluster records (P3; depends on G3).** Store run-specific groups, members, typed evidence edges, supporting prediction/event IDs, and superseded links. Preserve versions as evidence changes. A weak bridge must not irreversibly merge groups; connected-component transitivity is not proof of common ownership. Done when each grouping can be explained, split, and compared across runs without changing deterministic labels.",
+          "done": false
+        },
+        {
+          "text": "**G5 — Output origins and controlled labels (P2).** Assess scanner/RPC changes to map `(amount, index)` to creating transaction, output position, and height, including mining outputs. Verify completeness before drawing transaction-flow edges. Keep controlled wallet output/spend labels separate from model inputs. Done when source-output joins are validated and label-derived features cannot leak answers into training.",
+          "done": false
+        }
+      ],
+      "sources": [
+        {
+          "label": "stealth-address explanation",
+          "url": "https://web.getmonero.org/resources/moneropedia/stealthaddress.html"
+        },
+        {
+          "label": "schema",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/models.py"
+        },
+        {
+          "label": "ring-signature explanation",
+          "url": "https://web.getmonero.org/resources/moneropedia/ringsignatures.html"
+        }
+      ],
+      "links": [
+        "brain/research/index.md",
+        "brain/research/predictions.md",
+        "brain/tasks/dashboard.md",
+        "brain/architecture/storage-and-evidence.md"
+      ]
+    },
+    {
+      "id": "brain/research/heuristic-experiments.md",
+      "path": "brain/research/heuristic-experiments.md",
+      "title": "Measurable heuristic experiments",
+      "summary": "Concrete experiments for output ages, temporal evaluation, and grouping with falsifiable baselines.",
+      "branch": "research",
+      "status": "maintained",
+      "reviewed": "2026-09-11",
+      "content": "# Measurable heuristic experiments\n\nParent: [research](index.md). Related: [protocol limits](protocol-limits.md),\n[prediction plan](predictions.md), [groupings](groupings.md),\n[evaluation](evaluation.md), [node observations](private-node-observations.md).\n\nSources for current behavior: [scorer](../../scorer.py),\n[RPC client](../../monero_rpc.py), [scanner](../../scanner.py),\n[evidence graph](../../brain.py). All experiments below are proposals;\nno improvement or address-ownership result has been demonstrated here.\n\n## Current data gap\n\nThe scorer estimates ages from output indices and snapshot-wide rates. Its\nlegacy fallback measures relative position inside a ring. These are proxies,\nnot measured output creation ages. The scanner stores ring references but not\na complete table of creating outputs, and the existing `get_outs()` helper\nhardcodes `amount=0`; it cannot safely resolve every legacy `(amount, index)`.\n\nThe official [output RPC](https://docs.getmonero.org/rpc-library/monerod-rpc/#get_outs)\naccepts both amount and index, with `get_txid` for creating transaction IDs.\n[Transaction RPC](https://docs.getmonero.org/rpc-library/monerod-rpc/#get_transactions)\nprovides output indices. These support a proposed origin join; they do not reveal\nthe recipient's published address or the real spend in an arbitrary ring.\n\nThe [40-output origin audit](output-origin-audit.md) resolved every sampled\nhistorical reference and found three constant legacy gamma features. This is\nbounded feasibility evidence for HE1 and a concrete reason for feature ablation;\nit does not complete origin ingestion or demonstrate a prediction gain.\n\n## Prioritized TODOs\n\n### HE1 — Accurate output-origin joins (P0; extends G5)\n\n- [ ] **HE1 — Output-origin joins (P0).** Inputs: `(amount, index)`, creating transaction/hash, output position, block height/hash, unlock metadata, and RPC provenance, including miner outputs. Validate pair identities within one network/dataset; keep test networks separate.\n\nBaseline: today's index-derived age. Success: every reference in a declared\nevaluation cohort resolves uniquely or is explicitly marked missing; repeated\njoins agree, sampled results agree with an independently validating node, and\nno output is created after the input transaction. Measure missing/conflicting\njoin rates and proxy-age error before training. Use height difference as the\nprimary age and block timestamp difference as a separate, noisy measure.\n\nFailure modes: merging amount buckets, skipping coinbase outputs, assuming a\npartial scan contains every origin, reordered RPC responses, or ignoring a\nreorganization. **Evidence status:** missing capability confirmed in source;\nits effect on prediction quality remains unmeasured.\n\n### HE2 — Age baselines and feature ablation (P1; depends on HE1/RL1)\n\n- [ ] **HE2 — Age baselines and ablation (P1).** Inputs: origin ages, ring members, protocol cohorts, and labels eligible before each frozen cutoff. Compare uniform random, newest-member, oldest-member, age-only ranking, and the current random forest on the same rings.\n\nFit any age-distribution or likelihood-ratio model on training/calibration data\nonly; a low decoy likelihood alone is not a posterior probability of real spend.\nSuccess: report top-1 accuracy and accepted-prediction precision at matched\ncoverage across predeclared future windows, with ring counts and uncertainty.\nAdopt a feature family only when its gain survives removal/addition tests and\nthe frozen test protocol. Distribution drift is motivated by the\n[OSPEAD report](https://web.getmonero.org/2025/04/05/ospead-optimal-ring-signature-research.html),\nnot evidence that this experiment will succeed.\n\nFailure modes: using current whole-dataset rates for old predictions, testing\nonly easy verified rings, or mixing legacy and later populations. **Evidence\nstatus:** hypotheses; baselines and exact-age ablations are not implemented.\n\n### HE3 — Temporal and graph separation (P0; extends P2)\n\n- [ ] **HE3 — Temporal and graph separation (P0).** Inputs: immutable prediction runs, training-ring IDs, features frozen at height H, label-eligibility timestamps/heights, and ring-output edges available at H. Baseline: the current random ring holdout.\n\nUse chronological training, calibration, and test windows. Add a sensitivity\ntest that keeps shared-output/transaction groups from crossing fitting and test\nsets; never construct those groups from future edges. Record any giant component\nand the fraction of data lost to separation. Success: publish test accuracy,\nverified fraction, unscorable fraction, and group-aware uncertainty for both\nprotocols; a measured performance drop is a useful finding.\n\nNegative controls: randomize the positive label among existing members of each\nring, shuffle candidate order, and compare frozen reuse counts with an explicitly\nlabeled future-data leakage control. A randomized-label model should approach\nits matched chance baseline. Failure modes: indirect graph-label leakage, threshold tuning on the\ntest set, or purging nearly all difficult data. **Evidence status:** source\nconfirms random ring splitting; stricter evaluation remains proposed.\n\n### HE4 — Overlap and co-spend false merges (P2; extends G1–G4)\n\n- [ ] **HE4 — Overlap and co-spend false merges (P2).** Inputs: observed ring-output graph, transactions with multiple input rings, run-specific candidate scores, and separate controlled-wallet spend/ownership labels. Preserve both amounts and indices on every edge.\n\nBaselines: no inferred ownership edges; raw shared-candidate counts; size- and\ndegree-normalized overlap. Evaluate co-spend candidate selection separately from\ncommon-ownership grouping. Success: on withheld controlled wallets, report\njoint input-selection accuracy, pairwise precision/recall, false merges per\n1,000 proposed links, largest false merged component, and threshold/seed stability.\nChoose thresholds on calibration data and retain competing candidates.\n\nNegative controls: unrelated wallets with similar transaction patterns, popular\ndecoys, and synthetic graphs preserving ring size and output-degree distributions.\nFailure modes: hubs creating spurious communities, correlated ring errors, or a\nsingle weak edge merging many unrelated groups. Never multiply marginal scores\nand call the result validated joint confidence. **Evidence status:** proposed;\nobserved overlap establishes shared candidates, not ownership.\n\n## Result contract\n\nRecord source revision, dependency versions, dataset fingerprint, cutoff and\ntest windows, cohort counts, label provenance, baseline, metric with uncertainty,\ncoverage, and runtime/memory. Publish failures and abstentions. The display can\nthen show a baseline comparison, cohort chart, or reversible group proposal\nwithout promoting an unvalidated method into deterministic evidence.\n",
+      "todos": [
+        {
+          "text": "**HE1 — Output-origin joins (P0).** Inputs: `(amount, index)`, creating transaction/hash, output position, block height/hash, unlock metadata, and RPC provenance, including miner outputs. Validate pair identities within one network/dataset; keep test networks separate.",
+          "done": false
+        },
+        {
+          "text": "**HE2 — Age baselines and ablation (P1).** Inputs: origin ages, ring members, protocol cohorts, and labels eligible before each frozen cutoff. Compare uniform random, newest-member, oldest-member, age-only ranking, and the current random forest on the same rings.",
+          "done": false
+        },
+        {
+          "text": "**HE3 — Temporal and graph separation (P0).** Inputs: immutable prediction runs, training-ring IDs, features frozen at height H, label-eligibility timestamps/heights, and ring-output edges available at H. Baseline: the current random ring holdout.",
+          "done": false
+        },
+        {
+          "text": "**HE4 — Overlap and co-spend false merges (P2).** Inputs: observed ring-output graph, transactions with multiple input rings, run-specific candidate scores, and separate controlled-wallet spend/ownership labels. Preserve both amounts and indices on every edge.",
+          "done": false
+        }
+      ],
+      "sources": [
+        {
+          "label": "scorer",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/scorer.py"
+        },
+        {
+          "label": "RPC client",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/monero_rpc.py"
+        },
+        {
+          "label": "scanner",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/scanner.py"
+        },
+        {
+          "label": "evidence graph",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/brain.py"
+        },
+        {
+          "label": "output RPC",
+          "url": "https://docs.getmonero.org/rpc-library/monerod-rpc/#get_outs"
+        },
+        {
+          "label": "Transaction RPC",
+          "url": "https://docs.getmonero.org/rpc-library/monerod-rpc/#get_transactions"
+        },
+        {
+          "label": "OSPEAD report",
+          "url": "https://web.getmonero.org/2025/04/05/ospead-optimal-ring-signature-research.html"
+        }
+      ],
+      "links": [
+        "brain/research/index.md",
+        "brain/research/protocol-limits.md",
+        "brain/research/predictions.md",
+        "brain/research/groupings.md",
+        "brain/research/evaluation.md",
+        "brain/research/private-node-observations.md",
+        "brain/research/output-origin-audit.md"
+      ]
+    },
+    {
+      "id": "brain/research/ideas.md",
+      "path": "brain/research/ideas.md",
+      "title": "Ideas discovered during implementation",
+      "summary": "Potential improvements discovered while implementing prediction history and the dashboard.",
+      "branch": "research",
+      "status": "maintained",
+      "reviewed": "2026-09-11",
+      "content": "# Ideas discovered during implementation\n\nParent: [research](index.md). Related: [prediction research](predictions.md),\n[groupings](groupings.md), [dashboard TODOs](../tasks/dashboard.md).\n\nCaptured at the user's request. Unchecked items are proposals; inclusion does not\nimply they have been validated or implemented. Completed items name their evidence.\n\n- [ ] **Prediction changes across runs.** Show when a ring's chosen output changes, the score margin, and eventual outcomes. Immutable runs make it possible to distinguish stable predictions from repeatedly changing guesses. Test whether instability predicts errors before using it as a confidence feature.\n- [ ] **Verification-label drift.** A later stored deterministic claim can differ from the claim that originally verified a prediction. Preserve the old verification event and flag the discrepancy instead of silently rewriting history. Link both source resolution events and evaluate how often this happens.\n- [ ] **Dataset lineage versus snapshot identity.** Database copies should share a lineage ID, but copies can diverge. Add a reproducible snapshot fingerprint and parent-snapshot relation so two runs at the same maximum block height are not assumed to use identical data.\n- [ ] **Unscorable rings as a coverage category.** Distinguish accepted, below-threshold, and unable-to-score rings. Missing transaction heights or features should remain visible; they must not disappear from the coverage denominator.\n- [ ] **Correlated-error stress tests.** Test calibration and grouping on connected ring components and deliberately shared decoy pools. A high per-ring score may not imply that every selected candidate in a transaction is correct.\n- [ ] **Cluster stability timeline.** Once grouping is validated, show group merges, splits, and weak bridge edges across runs. Evaluate stability under added blocks and small score-threshold changes before interpreting a persistent group as meaningful.\n- [ ] **Export coverage and on-demand shards.** Bounded exports keep the static site usable, but newest-first samples may hide older outcomes. Add an explicit cohort manifest and optional shards by run/outcome/height; retain exact dataset-wide denominators alongside subset filters.\n- [ ] **Scalable evidence retrieval.** Benchmark indexed output lookups and batched explanations across hundreds of thousands of resolutions. Share repeated evidence between historical records for the same ring to shrink export files without losing run-specific scores.\n- [ ] **Prediction-time label eligibility.** Record which deterministic labels and exclusions existed before a run. Saved model artifacts and candidate features permit score replay, but later verification at a higher height does not prove that its answer was unavailable at prediction time. Add an audit for that distinction to forward evaluation.\n- [ ] **Historical feature provenance.** Preserve training-ring identities and split membership alongside the training-data fingerprint. This would allow an experiment reviewer to reproduce label selection and split decisions, in addition to replaying the saved inference model.\n- [x] **Chain coverage versus export freshness.** The cloud export and dashboard now show the last scanned block timestamp, export time, and observed node lag separately. The first cloud snapshot ends at block 59,900 (2014-05-28), although exported in 2026. Verified against the stored tail and in Chrome. A fresh export must not imply modern-chain coverage or transfer of historical model results to current transactions; see [cloud validation](../workflows/cloud.md).\n- [ ] **Deployment manifest.** The cloud release now records its source commit, and publication checks compare live asset hashes. Remaining: persist a manifest of HTML, JavaScript, CSS, and JSON hashes, including independently changing data exports. A successful build should not mask a stale cache or mismatched data and interface versions.\n- [ ] **Collection completeness watermark.** Record completion per block and audit old scans for missing transaction bodies. A contiguous range of stored heights alone cannot establish that legacy ingestion captured every transaction.\n- [ ] **Reorganization recovery.** The collector checks a confirmed tail hash and pauses on mismatch. Design rollback/replay of affected transactions, resolutions, predictions, and lineage without rewriting historical claims as if they never existed.\n- [ ] **RPC provenance and agreement.** Record node identity and independently compare block hashes or sampled transactions across nodes. Structural RPC validation does not replace consensus validation.\n- [ ] **Batched scoring and incremental cloud analysis.** Batch holdout predictions and unresolved-ring scoring with bounded feature arrays; reuse the existing Analyzer for export instead of rebuilding the graph twice per cycle. Check score equivalence on a fixed snapshot and model. Separate continuous ingestion from incremental graph updates and periodic training as the dataset grows.\n- [ ] **Resource metrics and ML failure isolation.** Record elapsed time, peak memory, candidate counts, and bytes written separately for scanning, analysis, training, scoring, and export. Budget training size/tree complexity from those measurements. Isolate ML work so a failed or oversized prediction run cannot repeatedly block cycle advancement and publication of newly collected data.\n- [ ] **Web updates without interrupting collection.** A documentation/UI release currently restarts the collector along with the source release. Separate static publication from runtime upgrades, publish asset sets atomically, and expose the UI and collector revisions independently. Test asset rollback and snapshot compatibility while a long scan is running; individual block writes must remain atomic.\n- [ ] **Private node and prospective mempool experiments.** Evaluate a private `monerod` as the collector's source and record transaction-pool `receive_time`, local observation times, fee/weight, and eventual confirmation height. The [pool RPC](https://docs.getmonero.org/rpc-library/monerod-rpc/#get_transaction_pool) exposes when that node first received a transaction; it is not a global arrival timestamp. Hypothesis: these observations improve confirmation-delay forecasts or contextual features in forward evaluation. Measure polling gaps and node restarts; historical blocks cannot reconstruct observations that were never collected. These timings do not establish senders or address ownership. Plan SSD capacity and synchronization for the chosen full/pruned configuration using the [official node setup guidance](https://docs.getmonero.org/running-node/monerod-systemd/).\n\nImplementation observations behind these proposals: [prediction storage](../../models.py),\n[scorer](../../scorer.py), [evidence queries](../../brain.py),\n[bounded exports](../../dashboard_export.py), [collector](../../collector.py). Keep fresh observations here and\npromote an idea into the prioritized backlog once its scope and evaluation are clear.\n",
+      "todos": [
+        {
+          "text": "**Prediction changes across runs.** Show when a ring's chosen output changes, the score margin, and eventual outcomes. Immutable runs make it possible to distinguish stable predictions from repeatedly changing guesses. Test whether instability predicts errors before using it as a confidence feature.",
+          "done": false
+        },
+        {
+          "text": "**Verification-label drift.** A later stored deterministic claim can differ from the claim that originally verified a prediction. Preserve the old verification event and flag the discrepancy instead of silently rewriting history. Link both source resolution events and evaluate how often this happens.",
+          "done": false
+        },
+        {
+          "text": "**Dataset lineage versus snapshot identity.** Database copies should share a lineage ID, but copies can diverge. Add a reproducible snapshot fingerprint and parent-snapshot relation so two runs at the same maximum block height are not assumed to use identical data.",
+          "done": false
+        },
+        {
+          "text": "**Unscorable rings as a coverage category.** Distinguish accepted, below-threshold, and unable-to-score rings. Missing transaction heights or features should remain visible; they must not disappear from the coverage denominator.",
+          "done": false
+        },
+        {
+          "text": "**Correlated-error stress tests.** Test calibration and grouping on connected ring components and deliberately shared decoy pools. A high per-ring score may not imply that every selected candidate in a transaction is correct.",
+          "done": false
+        },
+        {
+          "text": "**Cluster stability timeline.** Once grouping is validated, show group merges, splits, and weak bridge edges across runs. Evaluate stability under added blocks and small score-threshold changes before interpreting a persistent group as meaningful.",
+          "done": false
+        },
+        {
+          "text": "**Export coverage and on-demand shards.** Bounded exports keep the static site usable, but newest-first samples may hide older outcomes. Add an explicit cohort manifest and optional shards by run/outcome/height; retain exact dataset-wide denominators alongside subset filters.",
+          "done": false
+        },
+        {
+          "text": "**Scalable evidence retrieval.** Benchmark indexed output lookups and batched explanations across hundreds of thousands of resolutions. Share repeated evidence between historical records for the same ring to shrink export files without losing run-specific scores.",
+          "done": false
+        },
+        {
+          "text": "**Prediction-time label eligibility.** Record which deterministic labels and exclusions existed before a run. Saved model artifacts and candidate features permit score replay, but later verification at a higher height does not prove that its answer was unavailable at prediction time. Add an audit for that distinction to forward evaluation.",
+          "done": false
+        },
+        {
+          "text": "**Historical feature provenance.** Preserve training-ring identities and split membership alongside the training-data fingerprint. This would allow an experiment reviewer to reproduce label selection and split decisions, in addition to replaying the saved inference model.",
+          "done": false
+        },
+        {
+          "text": "**Chain coverage versus export freshness.** The cloud export and dashboard now show the last scanned block timestamp, export time, and observed node lag separately. The first cloud snapshot ends at block 59,900 (2014-05-28), although exported in 2026. Verified against the stored tail and in Chrome. A fresh export must not imply modern-chain coverage or transfer of historical model results to current transactions; see [cloud validation](../workflows/cloud.md).",
+          "done": true
+        },
+        {
+          "text": "**Deployment manifest.** The cloud release now records its source commit, and publication checks compare live asset hashes. Remaining: persist a manifest of HTML, JavaScript, CSS, and JSON hashes, including independently changing data exports. A successful build should not mask a stale cache or mismatched data and interface versions.",
+          "done": false
+        },
+        {
+          "text": "**Collection completeness watermark.** Record completion per block and audit old scans for missing transaction bodies. A contiguous range of stored heights alone cannot establish that legacy ingestion captured every transaction.",
+          "done": false
+        },
+        {
+          "text": "**Reorganization recovery.** The collector checks a confirmed tail hash and pauses on mismatch. Design rollback/replay of affected transactions, resolutions, predictions, and lineage without rewriting historical claims as if they never existed.",
+          "done": false
+        },
+        {
+          "text": "**RPC provenance and agreement.** Record node identity and independently compare block hashes or sampled transactions across nodes. Structural RPC validation does not replace consensus validation.",
+          "done": false
+        },
+        {
+          "text": "**Batched scoring and incremental cloud analysis.** Batch holdout predictions and unresolved-ring scoring with bounded feature arrays; reuse the existing Analyzer for export instead of rebuilding the graph twice per cycle. Check score equivalence on a fixed snapshot and model. Separate continuous ingestion from incremental graph updates and periodic training as the dataset grows.",
+          "done": false
+        },
+        {
+          "text": "**Resource metrics and ML failure isolation.** Record elapsed time, peak memory, candidate counts, and bytes written separately for scanning, analysis, training, scoring, and export. Budget training size/tree complexity from those measurements. Isolate ML work so a failed or oversized prediction run cannot repeatedly block cycle advancement and publication of newly collected data.",
+          "done": false
+        },
+        {
+          "text": "**Web updates without interrupting collection.** A documentation/UI release currently restarts the collector along with the source release. Separate static publication from runtime upgrades, publish asset sets atomically, and expose the UI and collector revisions independently. Test asset rollback and snapshot compatibility while a long scan is running; individual block writes must remain atomic.",
+          "done": false
+        },
+        {
+          "text": "**Private node and prospective mempool experiments.** Evaluate a private `monerod` as the collector's source and record transaction-pool `receive_time`, local observation times, fee/weight, and eventual confirmation height. The [pool RPC](https://docs.getmonero.org/rpc-library/monerod-rpc/#get_transaction_pool) exposes when that node first received a transaction; it is not a global arrival timestamp. Hypothesis: these observations improve confirmation-delay forecasts or contextual features in forward evaluation. Measure polling gaps and node restarts; historical blocks cannot reconstruct observations that were never collected. These timings do not establish senders or address ownership. Plan SSD capacity and synchronization for the chosen full/pruned configuration using the [official node setup guidance](https://docs.getmonero.org/running-node/monerod-systemd/).",
+          "done": false
+        }
+      ],
+      "sources": [
+        {
+          "label": "pool RPC",
+          "url": "https://docs.getmonero.org/rpc-library/monerod-rpc/#get_transaction_pool"
+        },
+        {
+          "label": "official node setup guidance",
+          "url": "https://docs.getmonero.org/running-node/monerod-systemd/"
+        },
+        {
+          "label": "prediction storage",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/models.py"
+        },
+        {
+          "label": "scorer",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/scorer.py"
+        },
+        {
+          "label": "evidence queries",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/brain.py"
+        },
+        {
+          "label": "bounded exports",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/dashboard_export.py"
+        },
+        {
+          "label": "collector",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/collector.py"
+        }
+      ],
+      "links": [
+        "brain/research/index.md",
+        "brain/research/predictions.md",
+        "brain/research/groupings.md",
+        "brain/tasks/dashboard.md",
+        "brain/workflows/cloud.md"
+      ]
+    },
+    {
+      "id": "brain/research/index.md",
+      "path": "brain/research/index.md",
+      "title": "Research",
+      "summary": "Evidence standards, protocol-era limits, measurable experiments, and historical records.",
+      "branch": "research",
+      "status": "maintained",
+      "reviewed": "2026-09-11",
+      "content": "# Research\n\nParent: [repository brain](../index.md).\n\nResearch results depend on label provenance, the scanned snapshot, and the\nevaluation procedure. Stored resolutions describe output-selection claims;\nthey do not by themselves establish a person's identity.\n\nRead [evaluation](evaluation.md) for training, holdout, forward verification,\nand unresolved measurement questions.\n\nFocused research plans and primary-source context:\n\n- [Protocol eras and limits](protocol-limits.md): historical findings, modern applicability, and claims/cohort audits.\n- [Measurable heuristic experiments](heuristic-experiments.md): accurate output origins, age baselines, graph-aware temporal tests, and grouping false merges.\n- [Private-node observations](private-node-observations.md): validating-node pilot, prospective pool coverage, and confirmation-delay forecasts.\n\nEach plan specifies inputs, baselines, success metrics, failure modes, and evidence\nstatus. External literature findings remain distinct from local measurements.\n\nProposed future work:\n\n- [Prediction experiments](predictions.md): historical runs, time-based evaluation, calibration, and abstention.\n- [Grouping research](groupings.md): output/transaction relationships and cluster validation.\n- [Ideas discovered during implementation](ideas.md): prediction changes, label drift, coverage gaps, and cluster stability.\n- [Prioritized TODOs](../tasks/index.md): implementation order and dashboard acceptance criteria.\n\nThese proposals are a user-requested backlog, not implemented findings.\n\nExisting experiment records:\n\n- [Output-origin audit](output-origin-audit.md): a fixed 40-output historical sample resolved through RPC and exposed three constant legacy gamma features; no model-accuracy gain measured.\n- [Autoresearch notes](../../autoresearch_results.md): historical baseline and feature importances.\n- [Iteration table](../../autoresearch-results.tsv): logged models and metrics.\n- [README](../../README.md): example holdout and forward-verification snapshots.\n\nThese records describe different runs and procedures. Do not combine their\nnumbers into a current benchmark or assume they describe the current model.\nNew results should record the code revision, local changes, dataset/scan height,\ncommand, evaluation type, sample counts, and limitations. Follow\n[maintenance](../workflows/maintenance.md) when adding a result page.\n",
+      "todos": [],
+      "sources": [
+        {
+          "label": "Autoresearch notes",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/autoresearch_results.md"
+        },
+        {
+          "label": "Iteration table",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/autoresearch-results.tsv"
+        },
+        {
+          "label": "README",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/README.md"
+        }
+      ],
+      "links": [
+        "brain/index.md",
+        "brain/research/evaluation.md",
+        "brain/research/protocol-limits.md",
+        "brain/research/heuristic-experiments.md",
+        "brain/research/private-node-observations.md",
+        "brain/research/predictions.md",
+        "brain/research/groupings.md",
+        "brain/research/ideas.md",
+        "brain/tasks/index.md",
+        "brain/research/output-origin-audit.md",
+        "brain/workflows/maintenance.md"
+      ]
+    },
+    {
+      "id": "brain/research/output-origin-audit.md",
+      "path": "brain/research/output-origin-audit.md",
+      "title": "Output-origin audit: a measured legacy feature limitation",
+      "summary": "A 40-output RPC audit found usable origin heights and constant legacy gamma features.",
+      "branch": "research",
+      "status": "maintained",
+      "reviewed": "2026-09-11",
+      "content": "# Output-origin audit: a measured legacy feature limitation\n\nParent: [research](index.md). Related: [heuristic experiments](heuristic-experiments.md),\n[protocol limits](protocol-limits.md), [evaluation](evaluation.md).\n\nSources: [current audit script](../../research/output_origin_audit.py),\n[exact executed version 1](../../research/output_origin_audit_v1.py),\n[saved requests, responses, sample and results](../../research/results/output_origins_2026-09-11.json),\n[scorer implementation](../../scorer.py),\n[official output RPC documentation](https://docs.getmonero.org/rpc-library/monerod-rpc/#get_outs).\n\n## Finding\n\nAll 40 sampled `(amount, index)` references returned creation heights and creating\ntransaction IDs. None of the returned heights exceeded the earliest referencing\ninput height stored in the source database. In the selected ring contexts, actual\nages ranged from **15 to 41,150 blocks**, with median **3,857.5 blocks**.\n\nNevertheless, all 40 contexts produced exactly the same three gamma features:\n\n| Scorer feature | Observed value in every sampled context |\n| --- | --- |\n| `gamma_decoy_log_likelihood` | `-7.495541943884256` |\n| `gamma_recent_window` | `1.0` |\n| `gamma_age_surprisal` | `0.14991083887768514` |\n\nThis collapse follows directly from the legacy branch in\n`RingScorer._gamma_decoy_features()`. For nonzero amounts it maps ring-relative\nindex position to a value between 0 and 15, multiplies by 120, then always takes\nthe `<= 15 * 120` recent-window branch. That branch returns constants. The source\ndatabase contains **zero amount-zero membership rows**, so its legacy population\ncannot obtain within-population information from these three features as written.\nOther age-rank, reuse, and legacy features can still vary.\n\nThe fallback is a relative-position proxy, not measured age. Although 39 of the\n40 sampled contexts had actual ages above 15 blocks, this is **not a calibrated\nrecent/old misclassification rate**, and no proxy-versus-age MAE is reported.\nThe measured block ages are not converted into elapsed wall-clock time.\nThe audit shows usable origin metadata and a constant-feature problem; **it\nmeasures no prediction-accuracy gain** from replacing or removing features.\n\n## Exact sample and provenance\n\nExecuted on 2026-09-11 in America/Los_Angeles, from\n`2026-09-12T00:13:22.693046+00:00` through\n`2026-09-12T00:13:49.395101+00:00` UTC. RPC work took **17.226 seconds**:\nfour batches of ten outputs, one-second pauses between batches, no retries,\nand a configured 90-second RPC budget.\n\nThe node was `http://xmr-node.cakewallet.com:18081`, using `/get_outs` with\n`get_txid=true` and each output's actual amount and index. All four responses\nreported `status=OK` and `untrusted=false`. This flag is the node's assertion;\none unauthenticated HTTP endpoint does not provide independent chain validation.\nThe request order was used to associate returned outputs with identities.\n\n| Referencing-ring stratum | Distinct output identities in sampling frame | Sampled | Selected-context age: min / median / max blocks |\n| --- | --- | --- | --- |\n| Stored deterministic: `confidence=1.0`, `resolved_at_pass>=0` | 561,820 | 20 | 15 / 827.5 / 30,551 |\n| Unresolved: no row in `resolved_spends` | 291,878 | 20 | 178 / 7,514 / 41,150 |\n\nWithin each stratum, enumerate distinct `(amount, index)` pairs and retain the\n20 lowest SHA-256 values of the UTF-8 string\n`20260911:category:amount:index`, where category is `deterministic_ring` or\n`unresolved_ring`. For each selected output, choose the lexicographically first\nreferencing key image within that stratum to obtain its ring context. The two\nsamples happened to contain **40 distinct outputs**, with no cross-stratum\nduplicates. This samples output references, not a representative set of rings,\ntransactions, wallets, or real spends. Each frame includes possible decoys.\n\nSource: the original `monero_analysis.db`, 58,901 blocks at heights 0–58,900.\nIts tail hash was\n`b075843a91fae3a3a9a27629503a45f9316ef0b3ecdc31f87e8a1a977e61caa9`.\nNo schema migration or analysis was run. The script uses SQLite URI `mode=ro`,\n`PRAGMA query_only=ON`, and a read transaction; it never instantiates the\nrepository's database wrapper. SHA-256 was identical before and after:\n\n```text\ndatabase: 80e3dfd2cc18e4201b863590cbe5e76efa23e3bbc4759b0be0f6083c1b8535d2\nscorer.py: 1505277b4a79879fdcc7d1dc42e37075911716f7fa66ffd8eacd1389b78e998b\nexecuted audit script v1: 98d87ab68db67d5f1f6fd8c12c35298fb99a0fce85d3f2d4df6130721ca8c17e\ngit HEAD: dde2fa5cdff7b895f12ab17c81440717c15ff0bb\n```\n\nThe audit script/results were new working-tree files when run; their file hashes\nidentify the actual versions independently of Git HEAD. Other concurrent\ndashboard/documentation edits were not inputs to this measurement. The saved\nartifact contains only the sampled public-chain references, RPC responses,\naggregate counts, hashes, and audit provenance; it contains no database copy.\n\nThe v1 fingerprint covers the main SQLite file only; it did not record a WAL\nfingerprint. The read transaction fixes the rows observed during sampling, but\na main-file hash alone cannot identify a logical snapshot if a nonempty WAL is\npresent. The exact v1 source and original JSON remain preserved. The reviewed\nv2 script records main-file and WAL hashes before and after, flags changes to\neither, rejects database/sidecar output aliases, and rejects ambiguous input\ncontexts. Reproducible v2 results require `persistent_source_files_unchanged=true`.\nThe v2 runner closes SQLite explicitly and reads release provenance from a valid\n`REVISION` file, then Git, or records `unknown` when neither is available.\nSQLite shared-memory coordination state is intentionally excluded from this\nlogical-data fingerprint; read-only connections can still update that state.\n\nReproduce against the same database bytes and scorer version:\n\n```bash\nvenv/bin/python research/output_origin_audit.py \\\n  --db monero_analysis.db \\\n  --node http://xmr-node.cakewallet.com:18081 \\\n  --seed 20260911 --per-stratum 20 --rpc-budget-seconds 90 \\\n  --output research/results/output_origins_rerun.json\n```\n\nThe node's responses and receipt times can change; compare identity selection,\norigin heights, source hashes, and summary counts before comparing runs. This\nsmall historical sample does not establish modern-chain coverage, correctness\nof stored resolution labels, or common ownership of any outputs.\n\n## Independent review and tests\n\n[Thirteen focused tests](../../tests/test_output_origin_audit.py) passed without\npublic-node requests. They verify seeded distinct-identity sampling, exact\nintegers above JavaScript's safe range, stratum/context selection, legacy proxy\ncollapse, whole-batch RPC rejection, the request budget, visible age conflicts\nand missing outputs, WAL fingerprints, read-only schema preservation, and output\nalias protection. Replaying the saved responses reproduces all 40 original\nsample rows and the exact saved summary; the preserved v1 source matches the\nrecorded script SHA-256.\n\n```bash\nvenv/bin/python -m unittest discover -s tests -p 'test_output_origin_audit.py' -v\n```\n\n## Follow-up TODOs\n\n- [ ] **EA1 — Constant-feature audit (P0; supported by this finding).** Inputs: frozen feature matrices and protocol/ring-size cohorts. Baseline: the current 24-feature scorer. Report distinct values, missingness, and variance for every feature per cohort, including cohort sizes. Success: automatically identify these three legacy constants and other zero-information columns, with results linked to a feature version. Failure modes: confusing cohort-constant features with globally useless features or claiming that dropping a constant must improve a retrained random forest.\n- [ ] **EA2 — Versioned origin-age features and ablation (P1; depends on HE1/HE3).** Inputs: validated creation heights, immutable prediction-time contexts, explicit missing-origin flags, and frozen temporal splits. Baselines: current proxy features and simple actual-age rank. Introduce a new feature version without rewriting old scores/artifacts. Success: compare top-1 accuracy and precision at matched coverage across declared cohorts, with sample counts and uncertainty; retain a negative result. Failure modes: applying modern decoy assumptions to 2014 data, leaking later graph state, or hiding incomplete joins. No gain is assumed from this audit.\n",
+      "todos": [
+        {
+          "text": "**EA1 — Constant-feature audit (P0; supported by this finding).** Inputs: frozen feature matrices and protocol/ring-size cohorts. Baseline: the current 24-feature scorer. Report distinct values, missingness, and variance for every feature per cohort, including cohort sizes. Success: automatically identify these three legacy constants and other zero-information columns, with results linked to a feature version. Failure modes: confusing cohort-constant features with globally useless features or claiming that dropping a constant must improve a retrained random forest.",
+          "done": false
+        },
+        {
+          "text": "**EA2 — Versioned origin-age features and ablation (P1; depends on HE1/HE3).** Inputs: validated creation heights, immutable prediction-time contexts, explicit missing-origin flags, and frozen temporal splits. Baselines: current proxy features and simple actual-age rank. Introduce a new feature version without rewriting old scores/artifacts. Success: compare top-1 accuracy and precision at matched coverage across declared cohorts, with sample counts and uncertainty; retain a negative result. Failure modes: applying modern decoy assumptions to 2014 data, leaking later graph state, or hiding incomplete joins. No gain is assumed from this audit.",
+          "done": false
+        }
+      ],
+      "sources": [
+        {
+          "label": "current audit script",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/research/output_origin_audit.py"
+        },
+        {
+          "label": "exact executed version 1",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/research/output_origin_audit_v1.py"
+        },
+        {
+          "label": "saved requests, responses, sample and results",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/research/results/output_origins_2026-09-11.json"
+        },
+        {
+          "label": "scorer implementation",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/scorer.py"
+        },
+        {
+          "label": "official output RPC documentation",
+          "url": "https://docs.getmonero.org/rpc-library/monerod-rpc/#get_outs"
+        },
+        {
+          "label": "Thirteen focused tests",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/tests/test_output_origin_audit.py"
+        }
+      ],
+      "links": [
+        "brain/research/index.md",
+        "brain/research/heuristic-experiments.md",
+        "brain/research/protocol-limits.md",
+        "brain/research/evaluation.md"
+      ]
+    },
+    {
+      "id": "brain/research/predictions.md",
+      "path": "brain/research/predictions.md",
+      "title": "Prediction research",
+      "summary": "Proposed experiments for measurable predictions and useful uncertainty displays.",
+      "branch": "research",
+      "status": "maintained",
+      "reviewed": "2026-09-11",
+      "content": "# Prediction research\n\nParent: [research](index.md). Related: [TODO order](../tasks/index.md),\n[evaluation](evaluation.md), [groupings](groupings.md).\n\nSources for current gaps: [scorer](../../scorer.py),\n[prediction persistence](../../models.py), [export handler](../../main.py).\nUnchecked items are proposals, not measured improvements. Completed infrastructure is linked below.\n\n- [x] **P1 — Immutable prediction runs (P0).** Record revision/local-change fingerprint, dataset identity, scan cutoff, feature version, model/scaler reference, settings, and creation time. Persist per-run candidate scores and append verification events with verification height. Done when scoring the same ring twice retains both guesses and outcomes; migration marks unavailable historical metadata unknown. Implemented in [models.py](../../models.py) and [scorer.py](../../scorer.py), with [history tests](../../tests/test_prediction_history.py). The latest accepted cache remains compatible; its replacement no longer erases historical records. Failed scoring/verification operations roll back atomically. A real-model smoke check reproduced saved candidate scores from the artifact and frozen features.\n\n- [ ] **P2 — Frozen forward evaluation (P1).** Freeze training/features at height H, save predictions, then evaluate against later evidence at H+Δ without rebuilding old features. Repeat across windows and report verified fraction alongside accuracy. Add shared-output/group splits as sensitivity checks for related rings. Done when later blocks cannot alter saved prediction-time features and results record sample counts, time windows, label provenance, and the unverified population.\n\n- [ ] **P3 — Calibration and abstention (P1; depends on P1–P2).** Compare raw scores with held-out calibration and measure precision/coverage across acceptance thresholds. Separate chronological fitting, calibration, threshold-selection, and test data. Current binary candidate scores need not sum to one within a ring; normalization alone does not establish posterior probabilities. Done when frozen test reports include reliability bins, counts, calibration error, and coverage curves. Calibration on the verified subset must be labeled as such.\n\n- [ ] **P4 — Baselines and ablations (P2; depends on P2).** Compare the random forest with random-member and simple age/reuse baselines on identical eligible rings. Remove feature families individually. Report ring top-1 accuracy at matched coverage, sliced by ring size and historical period. Account for related rings in uncertainty estimates. Done when claimed improvements persist across multiple frozen windows rather than only a random holdout.\n\n- [ ] **P5 — Alternatives and ambiguity (P2; depends on P1–P3).** Retain candidate rankings, top-score margins, and cases below the current saving threshold. Investigate a ring-level ranking model reflecting one real candidate per ring. Measure top-k recall and top-1 precision at matched coverage. Display entropy as probability uncertainty only with a justified distribution. Done when the UI can show alternatives and explain abstention without treating an unvalidated score as certainty.\n\n- [ ] **P6 — Error review and transfer (P2).** Inspect high-score mistakes, conflicts, legacy lineage, and performance by scan period/ring size. Compare estimated age features with accurate output-origin metadata, which requires ingestion changes. Done when reports distinguish data errors, label assumptions, and model errors and do not extrapolate historical performance to untested periods.\n\nFor each experiment record hypothesis, frozen run IDs, baseline, primary metric,\nsample sizes, result, and decision. Keep negative or inconclusive findings linked.\n",
+      "todos": [
+        {
+          "text": "**P1 — Immutable prediction runs (P0).** Record revision/local-change fingerprint, dataset identity, scan cutoff, feature version, model/scaler reference, settings, and creation time. Persist per-run candidate scores and append verification events with verification height. Done when scoring the same ring twice retains both guesses and outcomes; migration marks unavailable historical metadata unknown. Implemented in [models.py](../../models.py) and [scorer.py](../../scorer.py), with [history tests](../../tests/test_prediction_history.py). The latest accepted cache remains compatible; its replacement no longer erases historical records. Failed scoring/verification operations roll back atomically. A real-model smoke check reproduced saved candidate scores from the artifact and frozen features.",
+          "done": true
+        },
+        {
+          "text": "**P2 — Frozen forward evaluation (P1).** Freeze training/features at height H, save predictions, then evaluate against later evidence at H+Δ without rebuilding old features. Repeat across windows and report verified fraction alongside accuracy. Add shared-output/group splits as sensitivity checks for related rings. Done when later blocks cannot alter saved prediction-time features and results record sample counts, time windows, label provenance, and the unverified population.",
+          "done": false
+        },
+        {
+          "text": "**P3 — Calibration and abstention (P1; depends on P1–P2).** Compare raw scores with held-out calibration and measure precision/coverage across acceptance thresholds. Separate chronological fitting, calibration, threshold-selection, and test data. Current binary candidate scores need not sum to one within a ring; normalization alone does not establish posterior probabilities. Done when frozen test reports include reliability bins, counts, calibration error, and coverage curves. Calibration on the verified subset must be labeled as such.",
+          "done": false
+        },
+        {
+          "text": "**P4 — Baselines and ablations (P2; depends on P2).** Compare the random forest with random-member and simple age/reuse baselines on identical eligible rings. Remove feature families individually. Report ring top-1 accuracy at matched coverage, sliced by ring size and historical period. Account for related rings in uncertainty estimates. Done when claimed improvements persist across multiple frozen windows rather than only a random holdout.",
+          "done": false
+        },
+        {
+          "text": "**P5 — Alternatives and ambiguity (P2; depends on P1–P3).** Retain candidate rankings, top-score margins, and cases below the current saving threshold. Investigate a ring-level ranking model reflecting one real candidate per ring. Measure top-k recall and top-1 precision at matched coverage. Display entropy as probability uncertainty only with a justified distribution. Done when the UI can show alternatives and explain abstention without treating an unvalidated score as certainty.",
+          "done": false
+        },
+        {
+          "text": "**P6 — Error review and transfer (P2).** Inspect high-score mistakes, conflicts, legacy lineage, and performance by scan period/ring size. Compare estimated age features with accurate output-origin metadata, which requires ingestion changes. Done when reports distinguish data errors, label assumptions, and model errors and do not extrapolate historical performance to untested periods.",
+          "done": false
+        }
+      ],
+      "sources": [
+        {
+          "label": "scorer",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/scorer.py"
+        },
+        {
+          "label": "prediction persistence",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/models.py"
+        },
+        {
+          "label": "export handler",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/main.py"
+        },
+        {
+          "label": "history tests",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/tests/test_prediction_history.py"
+        }
+      ],
+      "links": [
+        "brain/research/index.md",
+        "brain/tasks/index.md",
+        "brain/research/evaluation.md",
+        "brain/research/groupings.md"
+      ]
+    },
+    {
+      "id": "brain/research/private-node-observations.md",
+      "path": "brain/research/private-node-observations.md",
+      "title": "Private-node observations",
+      "summary": "Prospective node measurements for reliable ingestion and testable confirmation forecasts.",
+      "branch": "research",
+      "status": "maintained",
+      "reviewed": "2026-09-11",
+      "content": "# Private-node observations\n\nParent: [research](index.md). Related: [cloud workflow](../workflows/cloud.md),\n[measurable experiments](heuristic-experiments.md), [protocol limits](protocol-limits.md).\n\nSources for implemented behavior: [collector](../../collector.py),\n[RPC client](../../monero_rpc.py), [cloud service](../../deploy/gcp/collector.service).\nThe deployed collector queries an external RPC node. A private validating node\nand prospective transaction-pool recorder are proposed additions, not installed\ncapabilities described by this page.\n\n## What a private node adds\n\nRunning one's own `monerod` reduces dependence on another operator's RPC data;\nthe Monero project documents this in [running a node](https://docs.getmonero.org/running-node/).\nIt also creates an observation point for future transaction-pool activity.\nHistorical block replay cannot reconstruct observations that were never recorded.\n\nThe [pool RPC](https://docs.getmonero.org/rpc-library/monerod-rpc/#get_transaction_pool)\ndocuments transaction hashes, `receive_time`, relay information, fee, and weight.\n`receive_time` describes that node's receipt, not universal network arrival or\nwallet creation time. A transaction disappearing from the pool is not by itself\nproof of confirmation; join it to a subsequently observed block.\n\nNetwork propagation has its own uncertainty. The original\n[Dandelion++ paper](https://arxiv.org/abs/1805.11060) studies anonymity under stated\nnetwork/adversary models. A relay observation is not a sender identity label.\nThe useful initial targets here are collection completeness and confirmation\ndelay, using measurements from the node we operate.\n\n## Proposed observation record\n\nStore a node/version identifier, network and tip hash, transaction hash,\nobservation UTC and monotonic time, node `receive_time`, first/last observation,\nfee/weight, pool state, poll success/duration, and eventual confirmation\nheight/hash. Add a new observer-session ID after restart. Record clock offsets,\npoll gaps, and late discovery instead of silently backfilling arrival times.\n\nKeep raw observations in durable storage outside `/var/www/xmr`. Publish bounded\naggregates and research cohort coverage. Wallet secrets and peer-IP attribution\nare not inputs to these experiments. RPC configuration should remain private;\nthe [daemon reference](https://docs.getmonero.org/interacting/monerod-reference/)\ndocuments bind, restricted-RPC, synchronization, and pruning controls.\n\n## Prioritized TODOs\n\n### PN1 — Validating-node pilot (P1; infrastructure proposal)\n\n- [ ] **PN1 — Validating-node pilot (P1).** Inputs: an explicit daemon release, full/pruned storage choice, available SSD/RAM, sync progress, RPC latency/errors, and sampled block/output joins. Baseline: the current external RPC collector.\n\nSuccess: after synchronization, sampled tail hashes and origin joins reconcile\nwith independent observations; record blocks/hour, request failure rate, disk\ngrowth, and memory before choosing a permanent configuration. Check every needed\nRPC against the chosen pruning mode. Keep the daemon's data directory separate\nfrom the research SQLite database and size it independently of the current\n100 GB collector allocation.\n\nFailure modes: bootstrap responses masquerading as local validation, disk\nexhaustion, insufficient retained data for an experiment, and assuming node\nagreement proves independence. **Evidence status:** official operational\ncapability; resource needs and benefit for this workload remain unmeasured.\n\n### PN2 — Observation completeness pilot (P1; depends on PN1)\n\n- [ ] **PN2 — Observation completeness pilot (P1).** Inputs: pool snapshots, poll timing, observer sessions, chain confirmations, and a small controlled-transaction cohort. Baseline: confirmed-block timestamps alone.\n\nSuccess: report the fraction of subsequently confirmed transactions observed\nbefore confirmation, latency for controlled submissions, polling-gap rate,\nrestart recovery, duplicate rate, and bytes per observation. Preserve transactions\nstill unconfirmed at the study boundary as censored observations. A proposed\nshort pilot establishes feasibility before continuous retention is enabled.\n\nFailure modes: losing short-lived pool entries between polls, time drift,\nreappearing transactions, or interpreting \"not observed\" as \"not broadcast.\"\n**Evidence status:** prospective design; the current collector stores no pool\nobservations and provides no historical arrival dataset.\n\n### PN3 — Confirmation forecasts (P2; depends on PN2)\n\n- [ ] **PN3 — Confirmation forecasts (P2).** Inputs at prediction time: time since first local observation, fee/weight, pool backlog, recent observed block cadence, and observer coverage. Baselines: next-block prediction, historical median delay, and simple fee/weight bins.\n\nUse chronological training/calibration/test windows. Predict either confirmation\nwithin a stated number of blocks or a delay distribution; do not label a point\nestimate as certainty. Success: compare horizon Brier scores and calibration,\ndelay error on observed confirmations, interval coverage, and retained/censored\nsample counts against the baselines on later windows. Report results separately\nfor continuous observation and outage-affected periods.\nUse complete-follow-up horizon cohorts or an explicit censoring model; an unknown\noutcome at the study boundary is not a failed forecast.\n\nFailure modes: leaking eventual confirmation into features, dropping unconfirmed\ntransactions, fitting only unusually fast controlled transactions, and treating\npool eviction as confirmation. **Evidence status:** a testable forecasting\nhypothesis, with no claimed improvement. A useful display would show the forecast\nrange, observation quality, realized delay, and baseline side by side.\n",
+      "todos": [
+        {
+          "text": "**PN1 — Validating-node pilot (P1).** Inputs: an explicit daemon release, full/pruned storage choice, available SSD/RAM, sync progress, RPC latency/errors, and sampled block/output joins. Baseline: the current external RPC collector.",
+          "done": false
+        },
+        {
+          "text": "**PN2 — Observation completeness pilot (P1).** Inputs: pool snapshots, poll timing, observer sessions, chain confirmations, and a small controlled-transaction cohort. Baseline: confirmed-block timestamps alone.",
+          "done": false
+        },
+        {
+          "text": "**PN3 — Confirmation forecasts (P2).** Inputs at prediction time: time since first local observation, fee/weight, pool backlog, recent observed block cadence, and observer coverage. Baselines: next-block prediction, historical median delay, and simple fee/weight bins.",
+          "done": false
+        }
+      ],
+      "sources": [
+        {
+          "label": "collector",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/collector.py"
+        },
+        {
+          "label": "RPC client",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/monero_rpc.py"
+        },
+        {
+          "label": "cloud service",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/deploy/gcp/collector.service"
+        },
+        {
+          "label": "running a node",
+          "url": "https://docs.getmonero.org/running-node/"
+        },
+        {
+          "label": "pool RPC",
+          "url": "https://docs.getmonero.org/rpc-library/monerod-rpc/#get_transaction_pool"
+        },
+        {
+          "label": "Dandelion++ paper",
+          "url": "https://arxiv.org/abs/1805.11060"
+        },
+        {
+          "label": "daemon reference",
+          "url": "https://docs.getmonero.org/interacting/monerod-reference/"
+        }
+      ],
+      "links": [
+        "brain/research/index.md",
+        "brain/workflows/cloud.md",
+        "brain/research/heuristic-experiments.md",
+        "brain/research/protocol-limits.md"
+      ]
+    },
+    {
+      "id": "brain/research/protocol-limits.md",
+      "path": "brain/research/protocol-limits.md",
+      "title": "Protocol eras and limits",
+      "summary": "Which historical Monero findings apply to a dataset, and which claims need new evidence.",
+      "branch": "research",
+      "status": "maintained",
+      "reviewed": "2026-09-11",
+      "content": "# Protocol eras and limits\n\nParent: [research](index.md). Related: [evaluation](evaluation.md),\n[measurable experiments](heuristic-experiments.md), [groupings](groupings.md).\n\nSources for this repository: [scorer](../../scorer.py),\n[scanner](../../scanner.py), [stored evidence](../../models.py).\nLiterature reviewed on 2026-09-11; this page records external findings and\nproposed checks, not new TraceGrove benchmark results.\n\n## Read historical claims in their original period\n\n| Evidence | What it supports | Limit for TraceGrove |\n| --- | --- | --- |\n| Möser et al., 2017/2018 | Historical chain-reaction elimination and age-distribution weaknesses | Does not establish accuracy on later wallet/protocol populations |\n| RingCT deployment during 2017 | Confidential amounts changed the transaction population | Visible legacy amount buckets cannot be treated as modern transfer amounts |\n| August 2022 upgrade | Ring size increased from 11 to 16 | Verify observed ring sizes and protocol versions for each later dataset |\n| Hammad and Victor, 2024 | Wallet-bug and specialized-output heuristics varied over 2019–2023 | Applicability windows and evaluation-label origins matter |\n| OSPEAD project report, April 2025 | A statistical approach to estimating real-spend age distributions and studying decoy mismatch | The report explicitly described research without formal peer review; its estimates are not local ground truth |\n\nThe first paper reported approximately 62% exposure to chain-reaction analysis\namong historical inputs with decoys, and an approximately 80% newest-member\nguessing estimate in its studied population. These are the paper's historical\nmeasurements, not expected performance for current transactions or this model.\nSee [Möser et al.](https://arxiv.org/abs/1704.04299).\n\nRingCT began in January 2017 and became mandatory in September 2017; the Monero\nproject explains its amount-hiding role in [RingCT](https://web.getmonero.org/resources/moneropedia/ringCT.html).\nThe [2022 upgrade announcement](https://beta.getmonero.org/blog/2022/04/20/network-upgrade-july-2022/)\ndocuments the ring-size change. These dates identify boundaries to test, rather\nthan one timeless model population.\n\nThe [2024 paper](https://arxiv.org/html/2408.05332v1) evaluates specific wallet bugs\nand output patterns over historical windows, using both ground truth and\ncomparisons between heuristics. Agreement between heuristics should be labeled\nseparately from independent validation. The [2025 OSPEAD report](https://web.getmonero.org/2025/04/05/ospead-optimal-ring-signature-research.html)\nmotivates measuring distribution drift; it does not justify assigning a fixed\nmodern success rate to TraceGrove's approximate gamma features.\n\n## Distinguish the object and the claim\n\nOne-time output addresses are distinct from published receiving addresses.\nRecovering or guessing a ring's actual spent output does not itself identify a\nwallet address or person. See the official [stealth-address explanation](https://web.getmonero.org/resources/moneropedia/stealthaddress.html).\n\nKeep four separate evidence labels in reports and visualizations: observed\ntransaction structure; deterministic conclusions under stated assumptions;\npredictions verified against later eligible evidence; and unverified hypotheses.\nControlled-wallet labels form their own evaluation source. An edge labeled\n\"shared candidate\" must not silently become \"same owner.\"\n\nFor a uniform guess in a ring with `n` members, expected top-1 accuracy is `1/n`.\nAverage this over the evaluated rings; `1/16 = 6.25%` applies only to a cohort\nwhose rings all have 16 members. Candidate removal, ranking accuracy, and\nownership clustering require separate metrics and denominators.\n\n## Prioritized TODOs\n\n- [ ] **RL1 — Protocol cohort manifest (P0; unimplemented).** Inputs: block height/hash/version, transaction version/RingCT type, ring size, scan coverage, and label method. Baseline: today's aggregate report. Success: every evaluated ring belongs to a declared cohort, including an explicit unknown category, and cohort counts reconcile with the evaluation denominator. Failure modes: deriving wallet versions from the chain without evidence; treating export date as chain-data date; allowing missing metadata to disappear from totals.\n- [ ] **RL2 — Applicability ledger (P1; research design).** Inputs: original source, heuristic assumptions, applicable heights or wallet versions, independent label source, and frozen run IDs. Baseline: one pooled heuristic/model result. Success: publish both in-window and out-of-window performance with coverage, retaining null or negative findings. Failure modes: using the same heuristic to create labels and claim validation; extending a bug-specific result beyond its documented window.\n- [ ] **RL3 — Claims audit in the display (P1; unimplemented).** Inputs: exported evidence types and cohort manifest. Baseline: current aggregate resolution and prediction counts. Success: every displayed percentage identifies its cohort and denominator, and group edges retain their actual evidence meaning. Failure modes: interpreting uncalibrated scores as probabilities, treating legacy resolutions as universal proof, or presenting output groups as recovered public addresses.\n",
+      "todos": [
+        {
+          "text": "**RL1 — Protocol cohort manifest (P0; unimplemented).** Inputs: block height/hash/version, transaction version/RingCT type, ring size, scan coverage, and label method. Baseline: today's aggregate report. Success: every evaluated ring belongs to a declared cohort, including an explicit unknown category, and cohort counts reconcile with the evaluation denominator. Failure modes: deriving wallet versions from the chain without evidence; treating export date as chain-data date; allowing missing metadata to disappear from totals.",
+          "done": false
+        },
+        {
+          "text": "**RL2 — Applicability ledger (P1; research design).** Inputs: original source, heuristic assumptions, applicable heights or wallet versions, independent label source, and frozen run IDs. Baseline: one pooled heuristic/model result. Success: publish both in-window and out-of-window performance with coverage, retaining null or negative findings. Failure modes: using the same heuristic to create labels and claim validation; extending a bug-specific result beyond its documented window.",
+          "done": false
+        },
+        {
+          "text": "**RL3 — Claims audit in the display (P1; unimplemented).** Inputs: exported evidence types and cohort manifest. Baseline: current aggregate resolution and prediction counts. Success: every displayed percentage identifies its cohort and denominator, and group edges retain their actual evidence meaning. Failure modes: interpreting uncalibrated scores as probabilities, treating legacy resolutions as universal proof, or presenting output groups as recovered public addresses.",
+          "done": false
+        }
+      ],
+      "sources": [
+        {
+          "label": "scorer",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/scorer.py"
+        },
+        {
+          "label": "scanner",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/scanner.py"
+        },
+        {
+          "label": "stored evidence",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/models.py"
+        },
+        {
+          "label": "Möser et al.",
+          "url": "https://arxiv.org/abs/1704.04299"
+        },
+        {
+          "label": "RingCT",
+          "url": "https://web.getmonero.org/resources/moneropedia/ringCT.html"
+        },
+        {
+          "label": "2022 upgrade announcement",
+          "url": "https://beta.getmonero.org/blog/2022/04/20/network-upgrade-july-2022/"
+        },
+        {
+          "label": "2024 paper",
+          "url": "https://arxiv.org/html/2408.05332v1"
+        },
+        {
+          "label": "2025 OSPEAD report",
+          "url": "https://web.getmonero.org/2025/04/05/ospead-optimal-ring-signature-research.html"
+        },
+        {
+          "label": "stealth-address explanation",
+          "url": "https://web.getmonero.org/resources/moneropedia/stealthaddress.html"
+        }
+      ],
+      "links": [
+        "brain/research/index.md",
+        "brain/research/evaluation.md",
+        "brain/research/heuristic-experiments.md",
+        "brain/research/groupings.md"
+      ]
+    },
+    {
+      "id": "brain/tasks/dashboard.md",
+      "path": "brain/tasks/dashboard.md",
+      "title": "Dashboard TODOs",
+      "summary": "Dashboard TODOs with data dependencies and acceptance criteria.",
+      "branch": "tasks",
+      "status": "maintained",
+      "reviewed": "2026-09-11",
+      "content": "# Dashboard TODOs\n\nParent: [TODOs](index.md).\n\nSources: [dashboard](../../docs/index.html), [export handler](../../main.py),\n[analyzer statistics](../../analyzer.py), [evidence API](../../brain.py).\nThe display now includes aggregate counts, ring-size distributions, history,\nverification totals, and a prediction/evidence browser. Unchecked items remain\nproposals; completed items below link to their implementation and validation.\n\n- [x] **D1 — Separate evidence classes (P0).** Display deterministic and hypothesis resolutions separately, then reduced and unchanged unresolved rings. Show conflicts as overlapping diagnostic flags. Include scan range, dataset/run identity, and export time. Done when counts reconcile on empty, deterministic-only, and mixed fixtures and each percentage names its denominator. Implemented by [dashboard_export.py](../../dashboard_export.py) and validated in [export tests](../../tests/test_dashboard_export.py). The compatibility `fully_resolved` field still includes hypotheses; the new categories distinguish them and exclude orphan claims from their denominator.\n\n- [x] **D2 — Prediction browser (P1; depends on P1).** Add a searchable, paginated table of key image, transaction, predicted `(amount, index)`, model score, prediction run/height, and pending/correct/wrong outcome. Filter by score, height, ring size, and outcome. Done when selecting a row opens its evidence and bounded/sharded exports clearly state their coverage. Missing metadata must display as unknown.\n\n- [x] **D3 — Evidence inspector (P1).** Show original candidates, current eliminations, prediction, and recorded dependency ancestry. Distinguish current explanations from historical traces. Expose conflicts, legacy origins, missing history, and truncation. Done when a user can follow a claim to its supporting events and see whether hypotheses contributed. Export bounded `Brain` details; GitHub Pages cannot query local SQLite.\n\n- [ ] **D4 — Validated prediction quality panel (P2; depends on P2–P3).** The [analytics lab](../../docs/research-analytics.js) now implements threshold retention, verified-only outcomes and Wilson intervals, descriptive score bins, ring-size/run/provenance cohorts, candidate gaps, reduction, and aggregate downloads. These describe the bounded exported subset; they do not establish calibration or unbiased accuracy. Remaining: frozen forward cohorts, independent evaluation, validated calibration, and time-period comparisons. Pending cases stay outside outcome denominators. See [analytics tests](../../tests/test_research_analytics.js) and the [workspace guide](../workflows/research-workspace.md).\n\n- [x] **D5 — Local relationship graph (P2).** The selected prediction now opens a bounded graph with distinct transaction-input, candidate-membership, overlap, deterministic-claim, current-hypothesis, and historical-prediction edges. Includes a legend, hypothesis toggle, adjustable candidate limit, exact identity details, keyboard selection, and a table alternative. Implemented in [evidence-graph.js](../../docs/evidence-graph.js) with [tests](../../tests/test_evidence_graph.js). Shared membership is explicitly not established ownership. G1 normalized overlap research and cluster overlays after G3 validation remain separate experiments.\n\n- [x] **D6 — Usability and export robustness (P1).** Add narrow-screen layouts, keyboard-accessible controls, chart table alternatives, loading/error/empty states, and an export schema version. Done when small-screen users can read and filter results and old/partial exports fail gracefully. Implemented responsive layouts, chart tables, safe DOM text rendering, and distinct load failures/retry. Chrome checks passed at 1440px and 390px, including keyboard inspection, filters/paging, legacy data, missing charts, malformed JSON, and HTTP errors.\n\n- [x] **D7 — Visual Markdown brain and research TODO browser (P1).** Main-page navigation opens a colored hierarchy with optional cross-references, searchable notes, branch filters, Open/Completed/All tasks, and a source-linked Markdown reader. The [builder](../../brain_export.py) validates repository links and root reachability; the [viewer](../../docs/brain-view.js) supports keyboard and mobile navigation. [Builder tests](../../tests/test_brain_export.py), [viewer tests](../../tests/test_brain_view.js), and Chrome checks cover extraction, safe rendering, navigation, error/retry, and narrow-screen layout. Update the Markdown and rebuild the export when knowledge changes.\n\nCurrent workspace: overview and scope → analytics lab → prediction browser and\nselected evidence graph → dataset charts → research brain. Main-page links jump\ndirectly to each workspace. Keep holdout and forward verification distinct.\nGroup labels should reflect the evidence; see [grouping research](../research/groupings.md).\nDependencies P1–P3 are defined in [prediction research](../research/predictions.md).\n\nCompleted browser work lives in [dashboard.js](../../docs/dashboard.js) and\n[dashboard.css](../../docs/dashboard.css), with [JS checks](../../tests/test_dashboard.js).\nThe checked items were validated against the exported local dataset and synthetic\nfixtures. Descriptive analytics are implemented; D4's validated evaluation remains\nopen. Follow the [publication checks](../workflows/research-workspace.md) after\nevery webpage update.\n",
+      "todos": [
+        {
+          "text": "**D1 — Separate evidence classes (P0).** Display deterministic and hypothesis resolutions separately, then reduced and unchanged unresolved rings. Show conflicts as overlapping diagnostic flags. Include scan range, dataset/run identity, and export time. Done when counts reconcile on empty, deterministic-only, and mixed fixtures and each percentage names its denominator. Implemented by [dashboard_export.py](../../dashboard_export.py) and validated in [export tests](../../tests/test_dashboard_export.py). The compatibility `fully_resolved` field still includes hypotheses; the new categories distinguish them and exclude orphan claims from their denominator.",
+          "done": true
+        },
+        {
+          "text": "**D2 — Prediction browser (P1; depends on P1).** Add a searchable, paginated table of key image, transaction, predicted `(amount, index)`, model score, prediction run/height, and pending/correct/wrong outcome. Filter by score, height, ring size, and outcome. Done when selecting a row opens its evidence and bounded/sharded exports clearly state their coverage. Missing metadata must display as unknown.",
+          "done": true
+        },
+        {
+          "text": "**D3 — Evidence inspector (P1).** Show original candidates, current eliminations, prediction, and recorded dependency ancestry. Distinguish current explanations from historical traces. Expose conflicts, legacy origins, missing history, and truncation. Done when a user can follow a claim to its supporting events and see whether hypotheses contributed. Export bounded `Brain` details; GitHub Pages cannot query local SQLite.",
+          "done": true
+        },
+        {
+          "text": "**D4 — Validated prediction quality panel (P2; depends on P2–P3).** The [analytics lab](../../docs/research-analytics.js) now implements threshold retention, verified-only outcomes and Wilson intervals, descriptive score bins, ring-size/run/provenance cohorts, candidate gaps, reduction, and aggregate downloads. These describe the bounded exported subset; they do not establish calibration or unbiased accuracy. Remaining: frozen forward cohorts, independent evaluation, validated calibration, and time-period comparisons. Pending cases stay outside outcome denominators. See [analytics tests](../../tests/test_research_analytics.js) and the [workspace guide](../workflows/research-workspace.md).",
+          "done": false
+        },
+        {
+          "text": "**D5 — Local relationship graph (P2).** The selected prediction now opens a bounded graph with distinct transaction-input, candidate-membership, overlap, deterministic-claim, current-hypothesis, and historical-prediction edges. Includes a legend, hypothesis toggle, adjustable candidate limit, exact identity details, keyboard selection, and a table alternative. Implemented in [evidence-graph.js](../../docs/evidence-graph.js) with [tests](../../tests/test_evidence_graph.js). Shared membership is explicitly not established ownership. G1 normalized overlap research and cluster overlays after G3 validation remain separate experiments.",
+          "done": true
+        },
+        {
+          "text": "**D6 — Usability and export robustness (P1).** Add narrow-screen layouts, keyboard-accessible controls, chart table alternatives, loading/error/empty states, and an export schema version. Done when small-screen users can read and filter results and old/partial exports fail gracefully. Implemented responsive layouts, chart tables, safe DOM text rendering, and distinct load failures/retry. Chrome checks passed at 1440px and 390px, including keyboard inspection, filters/paging, legacy data, missing charts, malformed JSON, and HTTP errors.",
+          "done": true
+        },
+        {
+          "text": "**D7 — Visual Markdown brain and research TODO browser (P1).** Main-page navigation opens a colored hierarchy with optional cross-references, searchable notes, branch filters, Open/Completed/All tasks, and a source-linked Markdown reader. The [builder](../../brain_export.py) validates repository links and root reachability; the [viewer](../../docs/brain-view.js) supports keyboard and mobile navigation. [Builder tests](../../tests/test_brain_export.py), [viewer tests](../../tests/test_brain_view.js), and Chrome checks cover extraction, safe rendering, navigation, error/retry, and narrow-screen layout. Update the Markdown and rebuild the export when knowledge changes.",
+          "done": true
+        }
+      ],
+      "sources": [
+        {
+          "label": "dashboard",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/docs/index.html"
+        },
+        {
+          "label": "export handler",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/main.py"
+        },
+        {
+          "label": "analyzer statistics",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/analyzer.py"
+        },
+        {
+          "label": "evidence API",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/brain.py"
+        },
+        {
+          "label": "dashboard_export.py",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/dashboard_export.py"
+        },
+        {
+          "label": "export tests",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/tests/test_dashboard_export.py"
+        },
+        {
+          "label": "analytics lab",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/docs/research-analytics.js"
+        },
+        {
+          "label": "analytics tests",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/tests/test_research_analytics.js"
+        },
+        {
+          "label": "evidence-graph.js",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/docs/evidence-graph.js"
+        },
+        {
+          "label": "tests",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/tests/test_evidence_graph.js"
+        },
+        {
+          "label": "builder",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/brain_export.py"
+        },
+        {
+          "label": "viewer",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/docs/brain-view.js"
+        },
+        {
+          "label": "Builder tests",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/tests/test_brain_export.py"
+        },
+        {
+          "label": "viewer tests",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/tests/test_brain_view.js"
+        },
+        {
+          "label": "dashboard.js",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/docs/dashboard.js"
+        },
+        {
+          "label": "dashboard.css",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/docs/dashboard.css"
+        },
+        {
+          "label": "JS checks",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/tests/test_dashboard.js"
+        }
+      ],
+      "links": [
+        "brain/tasks/index.md",
+        "brain/workflows/research-workspace.md",
+        "brain/research/groupings.md",
+        "brain/research/predictions.md"
+      ]
+    },
+    {
+      "id": "brain/tasks/index.md",
+      "path": "brain/tasks/index.md",
+      "title": "TODOs",
+      "summary": "Prioritized TODOs for dashboard improvements and prediction research.",
+      "branch": "tasks",
+      "status": "maintained",
+      "reviewed": "2026-09-11",
+      "content": "# TODOs\n\nParent: [repository brain](../index.md).\n\nUser-requested backlog. All unchecked items are proposed, not implemented.\nPriority is a suggested order, not an estimate of research success.\n\n| Priority | Work | Completion condition |\n| --- | --- | --- |\n| Done | D1: Separate evidence classes | Counts reconcile with persisted claims |\n| Done | P1: Preserve prediction runs | Re-scoring retains earlier guesses and outcomes |\n| Done | D2–D3: Prediction browser and evidence inspector | Bounded exports with run/provenance metadata |\n| Done | D5/D7: Local evidence graph and visual knowledge brain | Typed edges, searchable notes and TODOs, keyboard/mobile access |\n| P0 | EA1: Audit constant features | Frozen feature matrices with variation and cohort counts |\n| P1 | P2–P3: Forward evaluation and calibration | Frozen data and independent evaluation boundaries |\n| P1 | EA2/HE1: Measured output ages | Versioned origin joins and frozen ablation against current proxies |\n| P2 | D4: Validated quality plots | Descriptive lab implemented; independent evaluation still required |\n| P2 | G1–G2: Overlap and co-spend hypotheses | Relationship meanings tested on controlled data |\n| P3 | G3–G4: Experimental clusters | Labeled evaluation and false-merge analysis |\n\nCanonical checklists: [dashboard](dashboard.md),\n[prediction research](../research/predictions.md),\n[grouping research](../research/groupings.md),\n[heuristic experiments](../research/heuristic-experiments.md),\n[measured output-origin finding](../research/output-origin-audit.md), and\n[private-node observations](../research/private-node-observations.md).\n\nFirst milestone completed: evidence-class counts, immutable prediction runs,\nsearch/filter/pagination, and an evidence inspector. D6 usability improvements\nare also complete. Validation: 45 Python tests, 6 JavaScript tests, real-model\nartifact replay, and desktop/mobile Chrome interaction checks. The refreshed\ndashboard uses a backup of the local dataset; the original database was not\nmigrated by this implementation session.\n\nThe new workspace milestone adds descriptive analytics, a typed local evidence\ngraph, and a navigable Markdown brain with TODO filters; see the\n[workspace guide](../workflows/research-workspace.md). A 40-output audit found\nthree constant legacy gamma features despite widely varying measured ages.\nNext: EA1 feature variation checks, HE1 measured origins, and EA2 frozen ablations,\nalongside P2 forward evaluation and P3 calibration. Clustering remains experimental\nwork requiring validation; no model-accuracy improvement has been established.\n\nWhen taking an item, record status and implementation/result links in its\ncanonical page. Check it off only after its completion criteria are met. Keep\nresearch results tied to the dataset, revision, method, and limitations.\n",
+      "todos": [],
+      "sources": [],
+      "links": [
+        "brain/index.md",
+        "brain/tasks/dashboard.md",
+        "brain/research/predictions.md",
+        "brain/research/groupings.md",
+        "brain/research/heuristic-experiments.md",
+        "brain/research/output-origin-audit.md",
+        "brain/research/private-node-observations.md",
+        "brain/workflows/research-workspace.md"
+      ]
+    },
+    {
+      "id": "brain/workflows/cloud.md",
+      "path": "brain/workflows/cloud.md",
+      "title": "Cloud collection and hosting",
+      "summary": "How to deploy and operate the persistent GCP collector and interactive site.",
+      "branch": "workflows",
+      "status": "maintained",
+      "reviewed": "2026-09-11",
+      "content": "# Cloud collection and hosting\n\nParent: [workflows](index.md).\n\nThe [GCP deployment guide](../../deploy/gcp/README.md) and scripts provision a\ndedicated Compute Engine VM, then deploy a specific committed source archive.\nThe VM runs [collector.py](../../collector.py) through systemd and serves the\ndashboard with nginx. It queries an external Monero RPC endpoint; it does not\nstore or validate a full Monero blockchain locally.\n\n## Deployment record\n\nProvisioned on 2026-09-11. The project has billing enabled, the VM is running,\nand the public application and first complete collection/export cycle have been\nverified. The first export completed at 2026-09-12 00:18:30 UTC.\n\n| Resource | Configuration |\n| --- | --- |\n| Project | `tracegrove-research-20260911` |\n| Instance | `tracegrove` |\n| Zone | `us-central1-a` |\n| Machine | `e2-standard-2` (2 vCPU, 8 GB RAM) |\n| Persistent boot disk | 100 GB `pd-balanced`, retained on VM deletion |\n| VPC and subnet | `tracegrove` |\n| Public endpoint | [http://35.254.148.94/](http://35.254.148.94/) |\n| First deployed source revision | `dde2fa5cdff7b895f12ab17c81440717c15ff0bb` |\n\nUse these actual resource names when following the deployment guide's examples,\nwhich otherwise default to `xmr-research`. Verify source provenance through\n`/release.json` and `/opt/xmr/current/REVISION` after deployment; subsequent releases\nupdate those records. Use the explicit `http://` address until TLS is configured.\nThe intended `tracegrove.io` domain is not yet registered or connected.\n\nThe first cycle advanced the seeded scan from height 58,900 to 59,900 and exported\n664,239 rings. SQLite integrity, contiguous block heights, dataset identity,\ncollector success metadata, source revision, and reconciled evidence counts\npassed validation. The tail block timestamp was 2014-05-28 05:00:27 UTC: recent\npublication does not mean recent chain coverage. The live page passed desktop\nand mobile Chrome interaction checks; private database/source paths returned 404.\nThe initial Linux release passed 67 Python tests and a synthetic real-model\ntraining/artifact-replay smoke check. These tests do not measure real model quality.\n\nThe research-workspace release copies this first verified cloud export into the\nGitHub Pages snapshot: dataset `3929c809-62e6-43ae-929b-92a9d91d4ece`, 200 included\nrecords from 15,328 historical predictions. The local audit's original database\nis a separate, unchanged source at height 58,900. Later collector cycles update\nGCP independently of the committed Pages snapshot.\n\n## State and publication\n\n- SQLite and model artifacts live in `/var/lib/xmr`, outside the web root.\n- The public site lives in `/var/www/xmr` and contains only allowed static assets/JSON.\n- Optional seeding uses SQLite's online backup API and never replaces an existing remote database.\n- Releases live under `/opt/xmr/releases/COMMIT`; the `current` symlink selects deployed code. `REVISION` preserves source provenance without `.git`.\n- The web server serves the previous complete export while collection or analysis is in progress. Failed exports do not replace it.\n\nGitHub Pages serves the committed snapshot from `main`'s `docs/` directory. The\nGCP site updates independently as its collector publishes new results. These are\ndifferent publication paths: the collector does not automatically push data to GitHub.\n\n## Collector cycle\n\nOne process owns an advisory database lock. Each cycle reads the node height,\nchecks the stored tail hash, and scans a bounded batch with a confirmation lag.\nIt analyzes new data, verifies outstanding predictions, optionally trains/scores,\nand publishes an atomic JSON snapshot. Prediction scheduling persists in database\nmetadata. The default batch is 1,000 blocks, followed by a 300-second wait; new\npredictions run every six successful data-update cycles.\n\nThe collector refuses known height gaps, a mismatched tail hash, a node behind\nthe stored scan, insufficient disk space, and the configured ring-count limit.\nBlock ingestion is atomic and rejects incomplete RPC responses. These checks do\nnot establish cryptographic chain validity or repair legacy incomplete records.\nReorganization recovery remains manual.\n\n`collector-status.json` reports progress/error state; `release.json` identifies\ndeployed code. The nginx `/healthz` endpoint establishes only web availability.\nCompare the last scanned block time and observed node lag with the export time;\na recently written dashboard can still contain historical chain data.\n\n## Validation and limits\n\nUse [collector tests](../../tests/test_collector.py) for bounded scans, restart\nrecovery, publication failures, and tail/gap protection; use\n[scanner tests](../../tests/test_scanner.py) for incomplete RPC and transaction\nrollback. Run the existing [development checks](development.md) before release.\n\nThe analyzer loads the ring graph into memory. A small VM needs monitoring and\ncapacity limits as history grows; it is not an unlimited whole-chain service.\nSource releases record installed dependency versions, but requirements ranges\ndo not yet provide a reproducible lockfile. TLS, scheduled backups, and alerts\nare deployment follow-ups; the initial public GCP endpoint serves HTTP.\n",
+      "todos": [],
+      "sources": [
+        {
+          "label": "GCP deployment guide",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/deploy/gcp/README.md"
+        },
+        {
+          "label": "collector.py",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/collector.py"
+        },
+        {
+          "label": "http://35.254.148.94/",
+          "url": "http://35.254.148.94/"
+        },
+        {
+          "label": "collector tests",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/tests/test_collector.py"
+        },
+        {
+          "label": "scanner tests",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/tests/test_scanner.py"
+        }
+      ],
+      "links": [
+        "brain/workflows/index.md",
+        "brain/workflows/development.md"
+      ]
+    },
+    {
+      "id": "brain/workflows/development.md",
+      "path": "brain/workflows/development.md",
+      "title": "Development",
+      "summary": "Setup, command side effects, and focused validation commands.",
+      "branch": "workflows",
+      "status": "maintained",
+      "reviewed": "2026-09-11",
+      "content": "# Development\n\nParent: [workflows](index.md).\n\nSources: [CLI handlers](../../main.py), [dependencies](../../requirements.txt),\n[database initialization](../../models.py). Run commands from the repository root.\n\n## Setup and checks\n\nThe source uses Python 3.10+ syntax. Setup:\n\n```bash\npython3 -m venv venv\nvenv/bin/python -m pip install -r requirements.txt\n```\n\nRun existing synthetic-data tests after changes to analysis, storage, or scoring:\n\n```bash\nvenv/bin/python -m unittest discover -s tests -v\n```\n\nFor focused checks, add `-p 'test_brain.py'`, `-p 'test_lineage.py'`, or\n`-p 'test_prediction_verification.py'` to the discovery command. These suites\ncover graph queries/CLI, dependency provenance, and prediction verification.\nThey do not establish model quality or successful live-node ingestion.\n\nFor dashboard filtering, evidence categories, exact identities, and history\ncohorts, run the dependency-free JavaScript checks:\n\n```bash\nnode --test tests/test_*.js\nnode --check docs/dashboard.js\npython3 brain_export.py --check\n```\n\nPrediction-history tests also cover migration, transaction rollback, artifact\nstorage, and independent historical verification. Export tests cover bounded\nevidence, reconciled counts, and keeping the previous JSON file when export fails.\n\n## Command effects\n\nGlobal options such as `--db` and `--node` go before the subcommand.\n\n| Command | Effects |\n| --- | --- |\n| `brain` | Reads an existing database; no schema creation or analysis |\n| `status` | Reads statistics after regular database initialization, which can create schema |\n| `scan` | Fetches node data and writes blocks, transactions, and memberships |\n| `analyze` | Runs analysis and writes resolutions and history |\n| `predict` | Runs analysis, trains, and saves ML predictions without applying ML guesses to the cascade |\n| `analyze --score` | Also applies ML predictions and soft cascades to stored resolutions |\n| `verify` | Runs analysis and writes prediction verification results |\n| `export`, `diagnose` | Run analysis before exporting or diagnosing |\n| `export-viz` | Runs analysis and writes dashboard JSON; optional training |\n\nDashboard schema v2 includes the newest 200 historical scoring records by default\nand bounded current evidence. Export up to 1,000 records, or use zero for aggregate\ndata only:\n\n```bash\nvenv/bin/python main.py --db forward_test.db export-viz --prediction-limit 200 --evidence-trace-limit 50\nvenv/bin/python -m http.server 8000 --directory docs --bind 127.0.0.1\n```\n\nOpen `http://127.0.0.1:8000` to load the local dashboard. The browser fetches JSON,\nso serve the directory over HTTP. Filters apply only to the exported records;\nglobal counts retain their full-dataset denominators. Ordinary database opening\nperforms the one-time prediction-history migration. No old model/feature metadata\nis invented for imported rows.\n\nInspect existing evidence:\n\n```bash\nvenv/bin/python main.py --db monero_analysis.db brain\nvenv/bin/python main.py --db monero_analysis.db brain --key-image <key_image> --trace-limit 100\n```\n\nForward-test sequence (replace the database path and heights):\n\n```bash\nvenv/bin/python main.py --db forward_test.db --node http://127.0.0.1:18081 scan --end <initial_height>\nvenv/bin/python main.py --db forward_test.db predict --confidence 0.95\n# Later, after additional blocks are available:\nvenv/bin/python main.py --db forward_test.db --node http://127.0.0.1:18081 scan --end <later_height>\nvenv/bin/python main.py --db forward_test.db verify\n```\n\nThe placeholders must be replaced before execution. See\n[evaluation](../research/evaluation.md) for dataset isolation and interpretation.\nThe [README](../../README.md) contains additional usage and dashboard instructions.\n",
+      "todos": [],
+      "sources": [
+        {
+          "label": "CLI handlers",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/main.py"
+        },
+        {
+          "label": "dependencies",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/requirements.txt"
+        },
+        {
+          "label": "database initialization",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/models.py"
+        },
+        {
+          "label": "README",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/README.md"
+        }
+      ],
+      "links": [
+        "brain/workflows/index.md",
+        "brain/research/evaluation.md"
+      ]
+    },
+    {
+      "id": "brain/workflows/index.md",
+      "path": "brain/workflows/index.md",
+      "title": "Workflows",
+      "summary": "Development commands, verification, and rules for maintaining the Markdown hierarchy.",
+      "branch": "workflows",
+      "status": "maintained",
+      "reviewed": "2026-09-11",
+      "content": "# Workflows\n\nParent: [repository brain](../index.md).\n\n| Read next | Contents |\n| --- | --- |\n| [Development](development.md) | Setup, command effects, forward-test sequence, existing tests |\n| [Maintenance](maintenance.md) | Navigation, sourcing, page structure, updates, and conflicts |\n| [Cloud deployment](cloud.md) | Persistent GCP collector, public site, release provenance, and capacity limits |\n| [Visual research workspace](research-workspace.md) | Knowledge graph, TODO browser, analytics tools, and publication checks |\n\nUse explicit database paths for experiments. Several reporting commands run\nanalysis and write results. Keep research measurements tied to their dataset and\nprocedure; see [evaluation](../research/evaluation.md).\n\nSources: [CLI](../../main.py), [README](../../README.md).\n",
+      "todos": [],
+      "sources": [
+        {
+          "label": "CLI",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/main.py"
+        },
+        {
+          "label": "README",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/README.md"
+        }
+      ],
+      "links": [
+        "brain/index.md",
+        "brain/workflows/development.md",
+        "brain/workflows/maintenance.md",
+        "brain/workflows/cloud.md",
+        "brain/workflows/research-workspace.md",
+        "brain/research/evaluation.md"
+      ]
+    },
+    {
+      "id": "brain/workflows/maintenance.md",
+      "path": "brain/workflows/maintenance.md",
+      "title": "Maintaining the brain",
+      "summary": "How agents navigate, add, review, and reconcile durable repository knowledge.",
+      "branch": "workflows",
+      "status": "maintained",
+      "reviewed": "2026-09-11",
+      "content": "# Maintaining the brain\n\nParent: [workflows](index.md).\n\nThis hierarchy is maintained by people and agents editing Markdown. It has no\nautomatic ingestion, retrieval service, or background updater.\n\n## Reading\n\nStart at the [root index](../index.md), select a topic index, and read the relevant\nleaf. Follow cross-links when the task crosses topics. Open the linked code or\ntest before changing behavior; a review date records a past inspection, not a\nguarantee that the page still matches the working tree.\n\n## Writing\n\n1. Update an existing leaf when the knowledge already has a home. Put runtime facts under `architecture/`, measurements and hypotheses under `research/`, and procedures under `workflows/`.\n2. Add a leaf when a subject needs independent explanation. Give it one primary parent, a short summary, and relative links to sources and related topics.\n3. Link every new leaf from its parent index. Update the parent summary when the branch's meaning changes; update the root when adding a branch.\n4. Split pages when unrelated concerns make navigation difficult. Leave summaries and links at the original location instead of duplicating full explanations.\n5. Review affected summaries alongside behavior changes. Update `reviewed` only after checking their claims against the relevant sources.\n\nUse this metadata and opening structure for new pages:\n\n```markdown\n---\nsummary: One sentence explaining when to read this page.\nstatus: maintained\nreviewed: YYYY-MM-DD\n---\n\n# Topic\n\nParent: [topic index](index.md).\n\nSources: [implementation](../../module.py).\n```\n\nUse `draft` for unverified notes and `archived` for superseded knowledge, with\nan explanation and a replacement link when one exists. Relative source paths\ndepend on page depth. Use standard Markdown links so the structure works without\nan Obsidian-specific parser.\n\n## Evidence and conflicts\n\nDescribe implemented behavior from source and intended behavior from tests.\nLabel proposals, hypotheses, and unresolved discrepancies explicitly. If tests,\nsource, and older notes disagree, inspect the discrepancy and record what is\nknown; do not silently promote an assumption into a fact.\n\nKeep one canonical explanation per subject and cross-link it elsewhere. Archive\nsuperseded experiment conclusions with their context. Record measurements with\ndate, revision/local changes, dataset and scan height, exact command, sample\ncounts, evaluation method, and limitations. Do not present undated historical\nnumbers as current performance.\n\nCapture durable knowledge, not conversation transcripts or an invented backlog.\nStore large raw datasets and generated outputs outside the Markdown hierarchy\nand link to them. Preserve uncertainty when compressing notes into summaries.\n\n## Review\n\nCheck that relative links resolve, every leaf is reachable from the root, each\nleaf links to its parent, and source links support behavioral claims. Review\nchanged pages for contradictory or duplicated guidance. Documentation-only\nchanges need link/content checks; runtime changes need the relevant checks from\n[development](development.md).\n\nRebuild the public note graph with `python3 brain_export.py` after editing the\nbrain, and check it with `python3 brain_export.py --check`. Follow the\n[workspace publication checks](research-workspace.md) so the public map and TODO\nbrowser match the Markdown sources. Always test the webpage after updates.\n",
+      "todos": [],
+      "sources": [],
+      "links": [
+        "brain/workflows/index.md",
+        "brain/index.md",
+        "brain/workflows/development.md",
+        "brain/workflows/research-workspace.md"
+      ]
+    },
+    {
+      "id": "brain/workflows/research-workspace.md",
+      "path": "brain/workflows/research-workspace.md",
+      "title": "Visual research workspace",
+      "summary": "How to build, navigate, validate, and publish the visual research workspace.",
+      "branch": "workflows",
+      "status": "maintained",
+      "reviewed": "2026-09-11",
+      "content": "# Visual research workspace\n\nParent: [workflows](index.md). Related: [maintenance](maintenance.md),\n[dashboard TODOs](../tasks/dashboard.md), [cloud deployment](cloud.md).\n\nThe main page links to two different graphs. The research brain visualizes this\nMarkdown hierarchy and cross-references; the evidence graph visualizes the\nbounded neighborhood of a selected prediction. Documentation links are not\ntransaction evidence. Ring overlap is not a common-ownership claim.\n\n## Knowledge map and TODOs\n\n[brain_export.py](../../brain_export.py) reads Markdown under `brain/`, preserves\nits note text, extracts summaries and task checklists, validates local links and\nroot reachability, and writes [docs/brain.json](../../docs/brain.json). Fenced\nexamples do not become tasks or graph links. The export includes a content\nfingerprint and source-file hashes; a source commit is unknown when brain sources\nhave uncommitted changes. No database or private workspace files are ingested.\n\n```bash\npython3 brain_export.py\npython3 brain_export.py --check\n```\n\nThe [knowledge viewer](../../docs/brain-view.js) provides a colored map, a\nsearchable Notes view, and an Open/Completed/All TODO view. Select nodes with a\npointer or keyboard, follow note links in the reader, and inspect cited sources.\nMobile devices start with the Notes view; the Map remains available. Markdown\nis rendered as safe DOM elements, with raw HTML treated as text.\n\n## Analytics and evidence\n\nThe [analytics lab](../../docs/research-analytics.js) explores the included\nhistorical scoring records, not the whole database. It offers:\n\n- Score-threshold retention, saved acceptance decisions, pending counts, and verified-only outcomes.\n- Descriptive score bins and Wilson intervals with explicit sample sizes.\n- Ring-size, scoring-run, and verification-provenance comparisons.\n- Candidate-score gaps only where the stored alternatives are complete.\n- Current candidate reduction, deduplicated by ring, and metadata completeness.\n- Aggregate CSV/JSON downloads that preserve scope and denominator information.\n\nThe exported subset is newest first and may be highly selective. Repeated runs\ncan include the same ring; verification is selective too. The intervals assume\nindependent binomial outcomes and do not correct those biases. Descriptive score\nbins do not establish calibration. Formal evaluation remains in the\n[prediction plan](../research/predictions.md).\n\nThe [local evidence graph](../../docs/evidence-graph.js) distinguishes transaction\ninputs, candidate membership, observed overlap, current deterministic claims,\ncurrent hypotheses, and the selected historical prediction. Hypotheses can be\nhidden. Candidate/neighborhood limits and omitted data remain visible; the table\nalternative and node details preserve exact `(amount, index)` identities.\n\n## Validation and release\n\nRun the [development checks](development.md), including the focused\n[brain export tests](../../tests/test_brain_export.py),\n[knowledge-view tests](../../tests/test_brain_view.js),\n[analytics tests](../../tests/test_research_analytics.js), and\n[evidence-graph tests](../../tests/test_evidence_graph.js).\nServe `docs/` over HTTP and test desktop/mobile navigation, note and TODO filters,\nthreshold changes, downloads, graph selection, and missing/error data states.\nCheck the live page after every publication.\n\nThe initial workspace release passed the Python and JavaScript suites and local\nChrome checks with the chart CDN blocked. Checks covered the 20-note graph,\nsource-linked audit reader, TODO status counts, threshold/cohort controls,\naggregate downloads, typed evidence edges, keyboard focus, and mobile layouts.\nThe refreshed snapshot was the first verified cloud export at height 59,900;\nits evidence classes and ring-size distribution reconcile to 664,239 rings.\nThese checks establish interface/data consistency, not heuristic accuracy.\n\nGitHub Pages serves the committed brain export. The GCP release installer\nrebuilds it from the committed Markdown bundle and installs the static assets,\nwhile preserving the collector's latest `data.json`. A research-note update\ntherefore needs a rebuilt Pages JSON and a GCP release to appear on both sites.\n",
+      "todos": [],
+      "sources": [
+        {
+          "label": "brain_export.py",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/brain_export.py"
+        },
+        {
+          "label": "docs/brain.json",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/docs/brain.json"
+        },
+        {
+          "label": "knowledge viewer",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/docs/brain-view.js"
+        },
+        {
+          "label": "analytics lab",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/docs/research-analytics.js"
+        },
+        {
+          "label": "local evidence graph",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/docs/evidence-graph.js"
+        },
+        {
+          "label": "brain export tests",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/tests/test_brain_export.py"
+        },
+        {
+          "label": "knowledge-view tests",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/tests/test_brain_view.js"
+        },
+        {
+          "label": "analytics tests",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/tests/test_research_analytics.js"
+        },
+        {
+          "label": "evidence-graph tests",
+          "url": "https://github.com/netzo92/deanonymizing_xmr/blob/main/tests/test_evidence_graph.js"
+        }
+      ],
+      "links": [
+        "brain/workflows/index.md",
+        "brain/workflows/maintenance.md",
+        "brain/tasks/dashboard.md",
+        "brain/workflows/cloud.md",
+        "brain/research/predictions.md",
+        "brain/workflows/development.md"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "brain/index.md",
+      "target": "brain/architecture/index.md",
+      "kind": "hierarchy"
+    },
+    {
+      "source": "brain/architecture/index.md",
+      "target": "brain/architecture/pipeline.md",
+      "kind": "hierarchy"
+    },
+    {
+      "source": "brain/architecture/index.md",
+      "target": "brain/architecture/storage-and-evidence.md",
+      "kind": "hierarchy"
+    },
+    {
+      "source": "brain/research/index.md",
+      "target": "brain/research/evaluation.md",
+      "kind": "hierarchy"
+    },
+    {
+      "source": "brain/research/index.md",
+      "target": "brain/research/groupings.md",
+      "kind": "hierarchy"
+    },
+    {
+      "source": "brain/research/index.md",
+      "target": "brain/research/heuristic-experiments.md",
+      "kind": "hierarchy"
+    },
+    {
+      "source": "brain/research/index.md",
+      "target": "brain/research/ideas.md",
+      "kind": "hierarchy"
+    },
+    {
+      "source": "brain/index.md",
+      "target": "brain/research/index.md",
+      "kind": "hierarchy"
+    },
+    {
+      "source": "brain/research/index.md",
+      "target": "brain/research/output-origin-audit.md",
+      "kind": "hierarchy"
+    },
+    {
+      "source": "brain/research/index.md",
+      "target": "brain/research/predictions.md",
+      "kind": "hierarchy"
+    },
+    {
+      "source": "brain/research/index.md",
+      "target": "brain/research/private-node-observations.md",
+      "kind": "hierarchy"
+    },
+    {
+      "source": "brain/research/index.md",
+      "target": "brain/research/protocol-limits.md",
+      "kind": "hierarchy"
+    },
+    {
+      "source": "brain/tasks/index.md",
+      "target": "brain/tasks/dashboard.md",
+      "kind": "hierarchy"
+    },
+    {
+      "source": "brain/index.md",
+      "target": "brain/tasks/index.md",
+      "kind": "hierarchy"
+    },
+    {
+      "source": "brain/workflows/index.md",
+      "target": "brain/workflows/cloud.md",
+      "kind": "hierarchy"
+    },
+    {
+      "source": "brain/workflows/index.md",
+      "target": "brain/workflows/development.md",
+      "kind": "hierarchy"
+    },
+    {
+      "source": "brain/index.md",
+      "target": "brain/workflows/index.md",
+      "kind": "hierarchy"
+    },
+    {
+      "source": "brain/workflows/index.md",
+      "target": "brain/workflows/maintenance.md",
+      "kind": "hierarchy"
+    },
+    {
+      "source": "brain/workflows/index.md",
+      "target": "brain/workflows/research-workspace.md",
+      "kind": "hierarchy"
+    },
+    {
+      "source": "brain/architecture/index.md",
+      "target": "brain/research/evaluation.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/architecture/index.md",
+      "target": "brain/workflows/development.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/architecture/pipeline.md",
+      "target": "brain/research/evaluation.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/architecture/pipeline.md",
+      "target": "brain/workflows/development.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/architecture/storage-and-evidence.md",
+      "target": "brain/workflows/development.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/architecture/storage-and-evidence.md",
+      "target": "brain/research/evaluation.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/index.md",
+      "target": "brain/workflows/cloud.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/index.md",
+      "target": "brain/architecture/pipeline.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/index.md",
+      "target": "brain/architecture/storage-and-evidence.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/index.md",
+      "target": "brain/research/evaluation.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/index.md",
+      "target": "brain/workflows/development.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/index.md",
+      "target": "brain/workflows/maintenance.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/index.md",
+      "target": "brain/research/predictions.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/index.md",
+      "target": "brain/research/groupings.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/index.md",
+      "target": "brain/research/output-origin-audit.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/index.md",
+      "target": "brain/workflows/research-workspace.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/research/evaluation.md",
+      "target": "brain/workflows/development.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/research/evaluation.md",
+      "target": "brain/research/predictions.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/research/evaluation.md",
+      "target": "brain/architecture/storage-and-evidence.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/research/groupings.md",
+      "target": "brain/research/predictions.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/research/groupings.md",
+      "target": "brain/tasks/dashboard.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/research/groupings.md",
+      "target": "brain/architecture/storage-and-evidence.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/research/heuristic-experiments.md",
+      "target": "brain/research/protocol-limits.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/research/heuristic-experiments.md",
+      "target": "brain/research/predictions.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/research/heuristic-experiments.md",
+      "target": "brain/research/groupings.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/research/heuristic-experiments.md",
+      "target": "brain/research/evaluation.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/research/heuristic-experiments.md",
+      "target": "brain/research/private-node-observations.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/research/heuristic-experiments.md",
+      "target": "brain/research/output-origin-audit.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/research/ideas.md",
+      "target": "brain/research/predictions.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/research/ideas.md",
+      "target": "brain/research/groupings.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/research/ideas.md",
+      "target": "brain/tasks/dashboard.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/research/ideas.md",
+      "target": "brain/workflows/cloud.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/research/index.md",
+      "target": "brain/tasks/index.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/research/index.md",
+      "target": "brain/workflows/maintenance.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/research/output-origin-audit.md",
+      "target": "brain/research/heuristic-experiments.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/research/output-origin-audit.md",
+      "target": "brain/research/protocol-limits.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/research/output-origin-audit.md",
+      "target": "brain/research/evaluation.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/research/predictions.md",
+      "target": "brain/tasks/index.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/research/predictions.md",
+      "target": "brain/research/evaluation.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/research/predictions.md",
+      "target": "brain/research/groupings.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/research/private-node-observations.md",
+      "target": "brain/workflows/cloud.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/research/private-node-observations.md",
+      "target": "brain/research/heuristic-experiments.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/research/private-node-observations.md",
+      "target": "brain/research/protocol-limits.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/research/protocol-limits.md",
+      "target": "brain/research/evaluation.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/research/protocol-limits.md",
+      "target": "brain/research/heuristic-experiments.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/research/protocol-limits.md",
+      "target": "brain/research/groupings.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/tasks/dashboard.md",
+      "target": "brain/workflows/research-workspace.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/tasks/dashboard.md",
+      "target": "brain/research/groupings.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/tasks/dashboard.md",
+      "target": "brain/research/predictions.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/tasks/index.md",
+      "target": "brain/research/predictions.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/tasks/index.md",
+      "target": "brain/research/groupings.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/tasks/index.md",
+      "target": "brain/research/heuristic-experiments.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/tasks/index.md",
+      "target": "brain/research/output-origin-audit.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/tasks/index.md",
+      "target": "brain/research/private-node-observations.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/tasks/index.md",
+      "target": "brain/workflows/research-workspace.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/workflows/cloud.md",
+      "target": "brain/workflows/development.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/workflows/development.md",
+      "target": "brain/research/evaluation.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/workflows/index.md",
+      "target": "brain/research/evaluation.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/workflows/maintenance.md",
+      "target": "brain/index.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/workflows/maintenance.md",
+      "target": "brain/workflows/development.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/workflows/maintenance.md",
+      "target": "brain/workflows/research-workspace.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/workflows/research-workspace.md",
+      "target": "brain/workflows/maintenance.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/workflows/research-workspace.md",
+      "target": "brain/tasks/dashboard.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/workflows/research-workspace.md",
+      "target": "brain/workflows/cloud.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/workflows/research-workspace.md",
+      "target": "brain/research/predictions.md",
+      "kind": "reference"
+    },
+    {
+      "source": "brain/workflows/research-workspace.md",
+      "target": "brain/workflows/development.md",
+      "kind": "reference"
+    }
+  ],
+  "content_sha256": "490b7f6c9a64eb063af723881220c17ec692a708775464b723b7e30844f06207",
+  "source_manifest": {
+    "brain/architecture/index.md": "0d7606ba363e2f1e80f29b2e891b87c61ee971cc6b3635f034a1930ac53f4e64",
+    "brain/architecture/pipeline.md": "d5638e42941a1a79497e8856d852376849b00c770c1e8a8b81f00fb8ec3cdf9c",
+    "brain/architecture/storage-and-evidence.md": "d06f259716143fa7a0f5b00680996589e726abf31eafb153f1b517bb974573f3",
+    "brain/index.md": "e4d6d1bb18d7bd8e1c3d00711237d52ae872790581cfbf4f72ee6d3324b55f13",
+    "brain/research/evaluation.md": "988640552ae49139ba23f4fde6b7c856cc805e9ca595110c866b15ed13e56e81",
+    "brain/research/groupings.md": "f00c0b1a70c6f3c5a8621da3c1b2885ab366dc6c3f99e2bdaeb7002ed229cf63",
+    "brain/research/heuristic-experiments.md": "08fc38ac2e1febcc77c0443d5068e0ef2ae10e831448edc498b7274e26fef6ce",
+    "brain/research/ideas.md": "97f59d7a1db9c3b21a8f3447eb0ddb167e2808984bcdae105b41b16ed21003b9",
+    "brain/research/index.md": "e20bb9620b91b35abf3addb88e299102d496c20c96bd9de1c420928f50aa79e5",
+    "brain/research/output-origin-audit.md": "3e68c6a9d771798904ad833b9916b7d8d133ecdcf84fa3e5186a887fa7405b88",
+    "brain/research/predictions.md": "d187da7f594f7ca8408c62c697757a3c95ff50cf292b87051bc4bed461ed1e24",
+    "brain/research/private-node-observations.md": "aa1a4faadbb8b4f7cbb055d0d7b0508996b9869a95a3f776401f8470ed049c8a",
+    "brain/research/protocol-limits.md": "eef079a8b063f9c6bd2c2e73b633682756b305df1dcca8e6a4110116e866e2f5",
+    "brain/tasks/dashboard.md": "7b64831fc65829ec5a55853ffab5453162101cfd6aa1b0596ae295a9be4e2894",
+    "brain/tasks/index.md": "412c4bc0c65c4ca21ac82e0957dc90f5a23fcf340331e71a2d463d83545ab620",
+    "brain/workflows/cloud.md": "bc0a4a8440f4f1066a77c34f2b82d89858d5e170fc38d430f980171d545525f7",
+    "brain/workflows/development.md": "73c44aaf967b9c0fd8e3692bf93702dd63c970d900c4360d423a7cef5ef1ce4a",
+    "brain/workflows/index.md": "ae1bfe39efea3325432d9041cc7e955abda0e608a76c226777e665738c88cee6",
+    "brain/workflows/maintenance.md": "3b654b9339f0bbe15c80a0b2464527ae6318a6f82c8bbba27fb3071fc68bcd64",
+    "brain/workflows/research-workspace.md": "3035b94a0386f1b674d84bd2200a2410d1719b035f880356d1c07e64d2db6e84"
+  }
+}

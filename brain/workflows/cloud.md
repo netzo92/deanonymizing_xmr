@@ -14,6 +14,44 @@ The VM runs [collector.py](../../collector.py) through systemd and serves the
 dashboard with nginx. It queries an external Monero RPC endpoint; it does not
 store or validate a full Monero blockchain locally.
 
+## Deployment record
+
+Provisioned on 2026-09-11. The project has billing enabled, the VM is running,
+and the public application and first complete collection/export cycle have been
+verified. The first export completed at 2026-09-12 00:18:30 UTC.
+
+| Resource | Configuration |
+| --- | --- |
+| Project | `tracegrove-research-20260911` |
+| Instance | `tracegrove` |
+| Zone | `us-central1-a` |
+| Machine | `e2-standard-2` (2 vCPU, 8 GB RAM) |
+| Persistent boot disk | 100 GB `pd-balanced`, retained on VM deletion |
+| VPC and subnet | `tracegrove` |
+| Public endpoint | [http://35.254.148.94/](http://35.254.148.94/) |
+| First deployed source revision | `dde2fa5cdff7b895f12ab17c81440717c15ff0bb` |
+
+Use these actual resource names when following the deployment guide's examples,
+which otherwise default to `xmr-research`. Verify source provenance through
+`/release.json` and `/opt/xmr/current/REVISION` after deployment; subsequent releases
+update those records. Use the explicit `http://` address until TLS is configured.
+The intended `tracegrove.io` domain is not yet registered or connected.
+
+The first cycle advanced the seeded scan from height 58,900 to 59,900 and exported
+664,239 rings. SQLite integrity, contiguous block heights, dataset identity,
+collector success metadata, source revision, and reconciled evidence counts
+passed validation. The tail block timestamp was 2014-05-28 05:00:27 UTC: recent
+publication does not mean recent chain coverage. The live page passed desktop
+and mobile Chrome interaction checks; private database/source paths returned 404.
+The initial Linux release passed 67 Python tests and a synthetic real-model
+training/artifact-replay smoke check. These tests do not measure real model quality.
+
+The research-workspace release copies this first verified cloud export into the
+GitHub Pages snapshot: dataset `3929c809-62e6-43ae-929b-92a9d91d4ece`, 200 included
+records from 15,328 historical predictions. The local audit's original database
+is a separate, unchanged source at height 58,900. Later collector cycles update
+GCP independently of the committed Pages snapshot.
+
 ## State and publication
 
 - SQLite and model artifacts live in `/var/lib/xmr`, outside the web root.

@@ -23,7 +23,7 @@ source links. Loading every page is unnecessary for most tasks.
 
 ## Essential context
 
-- The app is named TraceGrove. Its intended domain, `tracegrove.io`, is pending registration and DNS setup; the live dashboard remains on [GitHub Pages](https://netzo92.github.io/deanonymizing_xmr/). See the [dashboard guide](../README.md#dashboard).
+- The app is named TraceGrove. Its [GCP dashboard](http://35.254.148.94/) receives collector exports; [GitHub Pages](https://netzo92.github.io/deanonymizing_xmr/) serves the committed snapshot. The intended domain, `tracegrove.io`, is pending registration and DNS setup. See the [dashboard guide](../README.md#dashboard) and [cloud workflow](workflows/cloud.md).
 - A ring is keyed by its key image; an output is identified by both amount and index.
 - Stored deterministic classification requires confidence `1.0` and a non-negative pass number. Its validity still depends on the analyzer's assumptions and input data.
 - Predictions and cascades derived from them remain hypotheses.
@@ -38,6 +38,8 @@ source links. Loading every page is unnecessary for most tasks.
 - Commands and tests → [development](workflows/development.md).
 - New knowledge or conflicting notes → [maintenance](workflows/maintenance.md).
 - Future predictions → [prediction experiments](research/predictions.md) and [grouping research](research/groupings.md).
+- Measured improvement opportunity → [output-origin audit](research/output-origin-audit.md) and its follow-up experiments.
+- Visual notes, TODOs, and analytics → [workspace guide](workflows/research-workspace.md).
 
 Sources: [project README](../README.md), [CLI](../main.py),
 [agent entry point](../AGENTS.md). This brain is maintained through file edits;

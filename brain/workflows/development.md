@@ -35,8 +35,9 @@ For dashboard filtering, evidence categories, exact identities, and history
 cohorts, run the dependency-free JavaScript checks:
 
 ```bash
-node --test tests/test_dashboard.js
+node --test tests/test_*.js
 node --check docs/dashboard.js
+python3 brain_export.py --check
 ```
 
 Prediction-history tests also cover migration, transaction rollback, artifact

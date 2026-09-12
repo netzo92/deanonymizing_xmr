@@ -264,6 +264,15 @@ function renderBrowser(app, data) {
     previous.addEventListener('click', () => { page--; refresh(); });
     next.addEventListener('click', () => { page++; refresh(); });
     refresh();
+    return row => {
+        const match = rows.find(item => String(item.prediction_id) === String(row.prediction_id));
+        if (!match) return;
+        selected = match;
+        renderInspector(inspector, match, list(browser.runs));
+        refresh();
+        inspector.focus({ preventScroll: true });
+        inspector.scrollIntoView({ behavior: 'auto', block: 'start' });
+    };
 }
 
 function renderInspector(parent, row, runs) {
@@ -317,6 +326,11 @@ function renderInspector(parent, row, runs) {
         const conflictBox = element('div', 'notice danger');
         append(conflictBox, element('strong', '', 'Current evidence conflicts'), append(element('ul', 'conflict-list'), ...evidence.conflicts.map(item => element('li', '', item))));
         parent.append(conflictBox);
+    }
+    if (typeof window !== 'undefined' && window.TraceGroveEvidence) {
+        const graph = element('section');
+        parent.append(graph);
+        window.TraceGroveEvidence.render(graph, row);
     }
     renderCandidates(parent, row, evidence);
     renderLineage(parent, evidence.lineage);
@@ -543,7 +557,15 @@ function renderDashboard(data) {
     const app = document.getElementById('app');
     app.replaceChildren();
     renderSummary(app, data);
-    renderBrowser(app, data);
+    const analytics = element('section', 'card');
+    analytics.id = 'analytics-lab';
+    analytics.tabIndex = -1;
+    app.append(analytics);
+    const inspect = renderBrowser(app, data);
+    if (window.TraceGroveAnalytics) {
+        try { window.TraceGroveAnalytics.mount(analytics, data, {onInspect: inspect}); }
+        catch (error) { notice(analytics, `Analytics could not be displayed: ${display(error.message)}`); }
+    } else notice(analytics, 'The analytics module is unavailable. The prediction browser and raw export remain available.');
     renderQuality(app, data);
     renderCharts(app, data);
     const footer = element('p', 'timestamp', `Export snapshot: ${display(data.scope?.exported_at || data.generated_at)} · `);
@@ -577,6 +599,16 @@ async function boot() {
 
 if (typeof module !== 'undefined' && module.exports) module.exports = { outcome, acceptance, evidenceCategories, historyCohorts, filterRows, identity, sameOutput, percentage };
 if (typeof document !== 'undefined') {
+    const knowledge = document.getElementById('knowledge-brain');
+    if (knowledge && window.TraceGroveBrain) {
+        Promise.resolve(window.TraceGroveBrain.mount(knowledge, {url: 'brain.json'})).catch(error => {
+            knowledge.replaceChildren(element('p', 'notice', `Research brain could not be loaded: ${display(error.message)}`));
+            knowledge.setAttribute('aria-busy', 'false');
+        });
+    } else if (knowledge) {
+        knowledge.replaceChildren(element('p', 'notice', 'The research brain module is unavailable. Reload the page to try again.'));
+        knowledge.setAttribute('aria-busy', 'false');
+    }
     document.getElementById('chart-library')?.addEventListener('load', () => {
         if (typeof Chart === 'undefined') return;
         for (const { target, config } of pendingCharts.splice(0)) {

@@ -1,0 +1,24 @@
+.evidence-network { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line); }
+.eg-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; margin: 12px 0; font-size: .8rem; }
+.eg-controls label { display: flex; align-items: center; gap: 8px; }
+.eg-controls input { width: 18px; min-height: 18px; accent-color: var(--purple); }
+.eg-controls select { width: auto; }
+.eg-legend { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: .7rem; color: var(--muted); margin: 14px 0; }
+.eg-legend span::before { content: ''; display: inline-block; width: 24px; border-top: 2px solid; margin-right: 7px; vertical-align: middle; }
+.eg-legend-membership { color: #a1aebd; }.eg-legend-membership::before { border-top-style: dashed !important; }
+.eg-legend-overlap { color: #79b8ff; }.eg-legend-overlap::before { border-top-style: dotted !important; }
+.eg-legend-deterministic { color: #69cf89; }.eg-legend-hypothesis { color: #c8a4ff; }
+.eg-legend-prediction { color: #ff8b4c; }.eg-legend-prediction::before { border-top-style: dashed !important; }
+.eg-viewport { overflow: auto; max-height: 650px; border: 1px solid var(--line); border-radius: 12px; background: radial-gradient(ellipse at 45% 40%, #1b2635, #101720 70%); }
+.eg-viewport svg { display: block; width: 100%; min-width: 760px; }
+.eg-edge { fill: none; stroke-width: 1.5; stroke: #a1aebd; opacity: .65; }
+.eg-edge.eg-membership { stroke-dasharray: 5 5; }.eg-edge.eg-overlap { stroke: #79b8ff; stroke-dasharray: 2 6; }
+.eg-edge.eg-deterministic { stroke: #69cf89; stroke-width: 3; opacity: 1; }.eg-edge.eg-hypothesis { stroke: #c8a4ff; stroke-width: 3; opacity: 1; }
+.eg-edge.eg-prediction { stroke: #ff8b4c; stroke-width: 3; stroke-dasharray: 8 5; opacity: 1; }
+.eg-node { cursor: pointer; }.eg-node rect { fill: #172332; stroke: #586777; stroke-width: 1.5; }
+.eg-node text { fill: #e6edf3; font: 12px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; pointer-events: none; }
+.eg-node .eg-node-subtitle { fill: #a1aebd; font-size: 10px; }.eg-node.eg-ring rect { stroke: #ff8b4c; fill: #32251f; }
+.eg-node.eg-related rect { stroke: #79b8ff; }.eg-node.eg-excluded rect { stroke: #69737e; fill: #141a22; stroke-dasharray: 3 3; }
+.eg-node:focus { outline: none; }.eg-node:focus rect,.eg-node[aria-pressed=true] rect { stroke: #ff8b4c; stroke-width: 3; }
+.eg-detail { border-left: 3px solid var(--blue); padding: 10px 14px; margin-top: 12px; overflow-wrap: anywhere; font-size: .82rem; }
+.evidence-network td { overflow-wrap: anywhere; max-width: 340px; }

@@ -1,5 +1,5 @@
 ---
-summary: Evidence standards and pointers to historical experiments.
+summary: Evidence standards, protocol-era limits, measurable experiments, and historical records.
 status: maintained
 reviewed: 2026-09-11
 ---
@@ -15,6 +15,15 @@ they do not by themselves establish a person's identity.
 Read [evaluation](evaluation.md) for training, holdout, forward verification,
 and unresolved measurement questions.
 
+Focused research plans and primary-source context:
+
+- [Protocol eras and limits](protocol-limits.md): historical findings, modern applicability, and claims/cohort audits.
+- [Measurable heuristic experiments](heuristic-experiments.md): accurate output origins, age baselines, graph-aware temporal tests, and grouping false merges.
+- [Private-node observations](private-node-observations.md): validating-node pilot, prospective pool coverage, and confirmation-delay forecasts.
+
+Each plan specifies inputs, baselines, success metrics, failure modes, and evidence
+status. External literature findings remain distinct from local measurements.
+
 Proposed future work:
 
 - [Prediction experiments](predictions.md): historical runs, time-based evaluation, calibration, and abstention.
@@ -26,6 +35,7 @@ These proposals are a user-requested backlog, not implemented findings.
 
 Existing experiment records:
 
+- [Output-origin audit](output-origin-audit.md): a fixed 40-output historical sample resolved through RPC and exposed three constant legacy gamma features; no model-accuracy gain measured.
 - [Autoresearch notes](../../autoresearch_results.md): historical baseline and feature importances.
 - [Iteration table](../../autoresearch-results.tsv): logged models and metrics.
 - [README](../../README.md): example holdout and forward-verification snapshots.

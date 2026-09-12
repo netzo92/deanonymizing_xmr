@@ -13,6 +13,7 @@ Parent: [repository brain](../index.md).
 | [Development](development.md) | Setup, command effects, forward-test sequence, existing tests |
 | [Maintenance](maintenance.md) | Navigation, sourcing, page structure, updates, and conflicts |
 | [Cloud deployment](cloud.md) | Persistent GCP collector, public site, release provenance, and capacity limits |
+| [Visual research workspace](research-workspace.md) | Knowledge graph, TODO browser, analytics tools, and publication checks |
 
 Use explicit database paths for experiments. Several reporting commands run
 analysis and write results. Keep research measurements tied to their dataset and

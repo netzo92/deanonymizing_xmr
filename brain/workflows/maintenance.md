@@ -71,3 +71,8 @@ leaf links to its parent, and source links support behavioral claims. Review
 changed pages for contradictory or duplicated guidance. Documentation-only
 changes need link/content checks; runtime changes need the relevant checks from
 [development](development.md).
+
+Rebuild the public note graph with `python3 brain_export.py` after editing the
+brain, and check it with `python3 brain_export.py --check`. Follow the
+[workspace publication checks](research-workspace.md) so the public map and TODO
+browser match the Markdown sources. Always test the webpage after updates.

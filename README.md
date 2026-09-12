@@ -85,9 +85,11 @@ venv/bin/python main.py export --output results.json
 
 ### Dashboard
 
-The [TraceGrove dashboard](https://netzo92.github.io/deanonymizing_xmr/) is currently
-hosted on GitHub Pages. Its intended domain is `tracegrove.io`; domain registration
-and DNS setup are pending.
+The [TraceGrove dashboard on GCP](http://35.254.148.94/) receives new snapshots
+from the persistent collector. [GitHub Pages](https://netzo92.github.io/deanonymizing_xmr/)
+serves the committed snapshot. The intended domain is `tracegrove.io`; domain
+registration, DNS setup, and HTTPS on the GCP endpoint are pending. See the
+[cloud workflow](brain/workflows/cloud.md) for deployment details and collection status.
 
 Export the GitHub Pages dashboard data:
 
@@ -104,6 +106,19 @@ This writes `docs/data.json`, which is rendered by `docs/index.html`. The curren
 - ML holdout accuracy and feature importances when exported with `--include-ml-training`
 - separate deterministic/hypothesis counts and conflict flags
 - a searchable prediction-history table and current evidence inspector
+- an interactive Markdown knowledge map, note reader, and TODO browser
+- a threshold/cohort analytics lab, uncertainty intervals, and aggregate downloads
+- a typed local evidence graph with optional hypothesis edges
+
+After editing research notes or TODOs, rebuild their public snapshot:
+
+```bash
+python3 brain_export.py
+python3 brain_export.py --check
+```
+
+The [visual workspace guide](brain/workflows/research-workspace.md) explains the
+tools, their evidence limits, and the browser checks required after publication.
 
 Export a bounded selection of historical scores and evidence, then serve locally:
 

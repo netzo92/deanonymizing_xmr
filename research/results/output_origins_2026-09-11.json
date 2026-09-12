@@ -1,0 +1,2407 @@
+{
+  "audit_version": 1,
+  "started_at": "2026-09-12T00:13:22.693046+00:00",
+  "finished_at": "2026-09-12T00:13:49.395101+00:00",
+  "source_revision": "dde2fa5cdff7b895f12ab17c81440717c15ff0bb",
+  "script_sha256": "98d87ab68db67d5f1f6fd8c12c35298fb99a0fce85d3f2d4df6130721ca8c17e",
+  "scorer_sha256": "1505277b4a79879fdcc7d1dc42e37075911716f7fa66ffd8eacd1389b78e998b",
+  "database_file": "monero_analysis.db",
+  "database_sha256_before": "80e3dfd2cc18e4201b863590cbe5e76efa23e3bbc4759b0be0f6083c1b8535d2",
+  "database_sha256_after": "80e3dfd2cc18e4201b863590cbe5e76efa23e3bbc4759b0be0f6083c1b8535d2",
+  "source_file_unchanged": true,
+  "scan": {
+    "start": 0,
+    "end": 58900,
+    "blocks": 58901,
+    "tail_hash": "b075843a91fae3a3a9a27629503a45f9316ef0b3ecdc31f87e8a1a977e61caa9",
+    "tail_timestamp": 1401197380,
+    "amount_zero_membership_rows": 0
+  },
+  "sampling": {
+    "seed": 20260911,
+    "per_stratum": 20,
+    "method": "lowest SHA256(seed:category:amount:index); lexicographically first referencing key image for context",
+    "frame_distinct_outputs": {
+      "deterministic_ring": 561820,
+      "unresolved_ring": 291878
+    },
+    "category_predicates": {
+      "deterministic_ring": "rs.confidence = 1.0 AND rs.resolved_at_pass >= 0",
+      "unresolved_ring": "rs.key_image IS NULL"
+    }
+  },
+  "node": "http://xmr-node.cakewallet.com:18081",
+  "rpc_budget_seconds": 90.0,
+  "rpc_elapsed_seconds": 17.226,
+  "rpc_responses": [
+    {
+      "requested_at": "2026-09-12T00:13:32.000111+00:00",
+      "request": {
+        "get_txid": true,
+        "outputs": [
+          {
+            "amount": 3000000,
+            "index": 9
+          },
+          {
+            "amount": 3000000,
+            "index": 1044
+          },
+          {
+            "amount": 7000000,
+            "index": 6324
+          },
+          {
+            "amount": 10000000,
+            "index": 3807
+          },
+          {
+            "amount": 30000000,
+            "index": 4644
+          },
+          {
+            "amount": 80000000,
+            "index": 6386
+          },
+          {
+            "amount": 90000000,
+            "index": 5581
+          },
+          {
+            "amount": 90000000,
+            "index": 15990
+          },
+          {
+            "amount": 100000000,
+            "index": 2693
+          },
+          {
+            "amount": 200000000,
+            "index": 1932
+          }
+        ]
+      },
+      "response": {
+        "credits": 0,
+        "outs": [
+          {
+            "height": 111,
+            "key": "91819f2873e3efbae65ecd5a736f5e8a26318b591c21e39a03fb536520ac63ba",
+            "mask": "9e7563f03359ea31e291e7f0b87417bcf5b234ee8b7e5b044173bf0046867c57",
+            "txid": "5b37cef76e3ac226ce437509d2da1d7fbf6841b8b31f72ef4bb2101a3b757c05",
+            "unlocked": true
+          },
+          {
+            "height": 10783,
+            "key": "7aff5e6b6402ef47d6ea6a497ce1964b49897a6e0f3cb6ae721e40865087d124",
+            "mask": "9e7563f03359ea31e291e7f0b87417bcf5b234ee8b7e5b044173bf0046867c57",
+            "txid": "20e8ad76e26c4decb36a147491f74ed4637832d8475688f32f60c5825d436e9a",
+            "unlocked": true
+          },
+          {
+            "height": 50649,
+            "key": "907ec3ceddaeba7d1d3b09b0bf8c3e92ad1c14f9f6f41869586e4b65a269fb8a",
+            "mask": "d8092b8d45db54a56d64e8094a0622e26e8a2eecb903b2e1f75a837b3ad8554a",
+            "txid": "197122e67f28e3710389ae77eb7ece123906acc8462296bac62992a9ce458075",
+            "unlocked": true
+          },
+          {
+            "height": 37033,
+            "key": "9edf029a4c42fb980cec3af824720ef5f48ee9064f729acda3fe4bcc003bc403",
+            "mask": "2f99d9744418660949ba433561c605b6f7be8f820a93cb2aeda97c8732925649",
+            "txid": "e575d86ca0f65fc3046f727e0cbde4f9b040c2923a67acdbc6313db30f0f9b77",
+            "unlocked": true
+          },
+          {
+            "height": 44167,
+            "key": "9c47b0395349871c5c5e5fe2dd6efdac540f272e27c55a70988eadd028237a17",
+            "mask": "a1e9ed3ef65a9d526cc26205881201d8a8f2c4409fa364107296b9f96a61b358",
+            "txid": "e2a84b2380d9f54b6acd6c7222f1146acffd46ed66e836a49b3d1e4cce82f9a0",
+            "unlocked": true
+          },
+          {
+            "height": 50577,
+            "key": "280774c7afb5e7c8908187b9e6e1cdb59a02834860b7bab0218894e191e3d3ca",
+            "mask": "f37b946b8b2488ebee1c06c127fbe5fa5efd62369dd5aadaedd888501d3b7e3b",
+            "txid": "cff2bf32e3fd0aea0f75d0907b84e1b871fb2cad5d4e25f46d63c04851d8df92",
+            "unlocked": true
+          },
+          {
+            "height": 47695,
+            "key": "c775b6914e46243f69a56c962697662b062480bf7c190c421c8b77e36c5e65dd",
+            "mask": "46cb7657f61c837cec8074bbb0f52e7fc59a0d94e017009abe25652e4ad2e53d",
+            "txid": "92e2599e79b1c45ff938ab643ae9c7746b58c2a50064aff3b4f15a5697fa1b56",
+            "unlocked": true
+          },
+          {
+            "height": 56174,
+            "key": "13923c899d411ae884b530b0be6055fa187128866f56f04e2244673a7af0e521",
+            "mask": "46cb7657f61c837cec8074bbb0f52e7fc59a0d94e017009abe25652e4ad2e53d",
+            "txid": "066b996d2c9c6e749650884e7e36baa107fb74e879cba6c0e2937ee86f643266",
+            "unlocked": true
+          },
+          {
+            "height": 25736,
+            "key": "149c0dc0cb564227c782813e2d83bdb13c27b882a7ccc68a7e159401b6641032",
+            "mask": "667b8e6f6a4b918976d9735a43367dc7592c87d0a1f815c6e87df11a13509fb2",
+            "txid": "fd4b33553b2515878a0ed215d474f765e208ffa4564cbfe3a76b52b7f0a02c93",
+            "unlocked": true
+          },
+          {
+            "height": 18788,
+            "key": "cd032ccf0fe782a254349ecb3b41fbc5e464080e7624f67cd0159f361f1b7e22",
+            "mask": "3bcb514801641b6255938cc503762d35ce06d75fe950959a1aab214b509b100b",
+            "txid": "d7504661f69612846ebe21545c772e8884bedeffbe2f2b679f355de71c7187ca",
+            "unlocked": true
+          }
+        ],
+        "status": "OK",
+        "top_hash": "",
+        "untrusted": false
+      }
+    },
+    {
+      "requested_at": "2026-09-12T00:13:33.547879+00:00",
+      "request": {
+        "get_txid": true,
+        "outputs": [
+          {
+            "amount": 300000000,
+            "index": 721
+          },
+          {
+            "amount": 400000000,
+            "index": 11260
+          },
+          {
+            "amount": 600000000,
+            "index": 14052
+          },
+          {
+            "amount": 600000000,
+            "index": 18321
+          },
+          {
+            "amount": 800000000,
+            "index": 1614
+          },
+          {
+            "amount": 900000000,
+            "index": 3166
+          },
+          {
+            "amount": 1000000000,
+            "index": 5942
+          },
+          {
+            "amount": 2000000000,
+            "index": 10784
+          },
+          {
+            "amount": 2000000000,
+            "index": 24930
+          },
+          {
+            "amount": 4000000000,
+            "index": 6191
+          }
+        ]
+      },
+      "response": {
+        "credits": 0,
+        "outs": [
+          {
+            "height": 7169,
+            "key": "572cbfaa53092d750723f0407be99212830982af3d1051b35973df00f727d13b",
+            "mask": "a5926f031e6b15eb86235108abb1af90c5b162c3998c8bbb3ffbb0729da9457b",
+            "txid": "21d8e15a6d82e7683fe033aee489caba9a8fc0e4fd35754d0ac34d8a76c032f1",
+            "unlocked": true
+          },
+          {
+            "height": 54235,
+            "key": "53b7f3ffcdc871af1d9d15e436f616e051e6f36a98221b01ba07cd335c10e627",
+            "mask": "fe35b69944410eaf815bdcd0a4d71ef9fc668648ad43743b035aed2c17c1387a",
+            "txid": "895b0678d4f949203dd6f54ea933fd85f454ce276b357efc1a4db55f0428dad1",
+            "unlocked": true
+          },
+          {
+            "height": 55299,
+            "key": "181ca189e8a5623823750e4fc6dc00d7064f684f95c333a1214b57071d1d3507",
+            "mask": "d3238a4a8b71ab46d15304acfa2f40bf5ea63b3d864a79fa8425d2655ae7076f",
+            "txid": "b05ab6848431c27a24b59f429ec3de3865f09453a7aa40e5e857491ceff8b857",
+            "unlocked": true
+          },
+          {
+            "height": 57065,
+            "key": "5331062d0c7fd6d2710f7f4358e8649eaa352c30eec76be6ca09270ac76c838a",
+            "mask": "d3238a4a8b71ab46d15304acfa2f40bf5ea63b3d864a79fa8425d2655ae7076f",
+            "txid": "d840fb667b66b85c6fd88a96208cca897d7fef9083632563fc29c2c0b248fe28",
+            "unlocked": true
+          },
+          {
+            "height": 15831,
+            "key": "b9ced9f9f0c8d720d6424c9f6ad7b9e384b109244f933f5f9e8a89a295c4e149",
+            "mask": "f2daf888c4465701c0e61e12c3fbd4ea79c7ecb4f0c4b154c51a24d1e92128ba",
+            "txid": "d2616175a27be1f8ee653e2d933461dfccea1f4bf1e4aa7922e3073060f05d15",
+            "unlocked": true
+          },
+          {
+            "height": 29892,
+            "key": "16f89a721960e673195a42208d1002ae660f63364d2bffdc06a22e2db5aaa798",
+            "mask": "116ae5d29cec72aac557cb14e2cdd553e588ff8b8178260199c40caea212cb63",
+            "txid": "409216f2b7e7cf7f96bbe3984ad7ad3f70d08bd4cacbbabc86a4a0e765f0b78a",
+            "unlocked": true
+          },
+          {
+            "height": 49275,
+            "key": "85b0bc6bd2bc1aa883f1169e6a7a11a631a4ff01defedc82eb7f7fc50820fe14",
+            "mask": "8ce64833cec900cb6d5ac46fc0237d8f2439c3dfa238baf9cc94166ad2e89887",
+            "txid": "060d78dbe4f470986ff02d417d9358a8deb43a96f9e9dda4b9666ecb2b1d11bd",
+            "unlocked": true
+          },
+          {
+            "height": 53523,
+            "key": "bacc071b5f07fb60241a687f1e98fd10276a46c6a608d25672a22687f80942c4",
+            "mask": "378d3c5dbba4823d3312bb61fc0675a1bb3989f39701eb0d5ce4de5b0d907472",
+            "txid": "93b0dccaee0cee5e29c7c7183488e73e414a0c76537af393fb9a08675be5081d",
+            "unlocked": true
+          },
+          {
+            "height": 57730,
+            "key": "4d808b0973c890a632d0bc184b73f57d8c97afcc9c9e43bacbf1602145f0628e",
+            "mask": "378d3c5dbba4823d3312bb61fc0675a1bb3989f39701eb0d5ce4de5b0d907472",
+            "txid": "7e86a8f126c9fd7c832e040f0a99b2d466a62b2f520a5ee23fda304b6b2a62d1",
+            "unlocked": true
+          },
+          {
+            "height": 50416,
+            "key": "a82433633e889598f9110074f66b3929f327c24d62c39bb0cec2d19f9d2e4a34",
+            "mask": "da3acb00ab2d8dccacec8f775921c40e26b1ffbeca9eb7e657256f5968f2341c",
+            "txid": "f5d7df1ff135fe127492087b5719986e7f6a7212fd551f2250785ad1050ac3b1",
+            "unlocked": true
+          }
+        ],
+        "status": "OK",
+        "top_hash": "",
+        "untrusted": false
+      }
+    },
+    {
+      "requested_at": "2026-09-12T00:13:34.786452+00:00",
+      "request": {
+        "get_txid": true,
+        "outputs": [
+          {
+            "amount": 4000000000,
+            "index": 8218
+          },
+          {
+            "amount": 8000000000,
+            "index": 4029
+          },
+          {
+            "amount": 10000000000,
+            "index": 3188
+          },
+          {
+            "amount": 20000000000,
+            "index": 4539
+          },
+          {
+            "amount": 40000000000,
+            "index": 5910
+          },
+          {
+            "amount": 100000000000,
+            "index": 1059
+          },
+          {
+            "amount": 200000000000,
+            "index": 254
+          },
+          {
+            "amount": 300000000000,
+            "index": 3194
+          },
+          {
+            "amount": 600000000000,
+            "index": 427
+          },
+          {
+            "amount": 600000000000,
+            "index": 4768
+          }
+        ]
+      },
+      "response": {
+        "credits": 0,
+        "outs": [
+          {
+            "height": 52296,
+            "key": "ae67207c80decb9db2fc5760e6b4a84ad755d7412b84446dcd86931f7548fd3c",
+            "mask": "da3acb00ab2d8dccacec8f775921c40e26b1ffbeca9eb7e657256f5968f2341c",
+            "txid": "1577247c42d1767bd181067e2d06a5e46fd087ac774b2caf2f7a7fe838fd1ae3",
+            "unlocked": true
+          },
+          {
+            "height": 38788,
+            "key": "be616d0033559076a745dcf466721bcbde93ee8910e19c0dd4799a03e75aa8b7",
+            "mask": "4a2e2f76e35dcba897a3ae72c4270d9c131714ed191b555c5e01e4757cbae72c",
+            "txid": "745c5d9531d7ac7493a1ae3cc0bcedf57b34888e3cc9676dc25d654b653cbf45",
+            "unlocked": true
+          },
+          {
+            "height": 32695,
+            "key": "f060f27f057fe62f52b5917bf77ea18e6d9d53b920faf61431aed6d09cea74be",
+            "mask": "97c92a29015ecb49f8090545e01ff9786cae40577347611824f4b6599ff5d364",
+            "txid": "3219202b0cf82b216d6b51feb5492cc583c162e645c44bac4fc275c4a212434c",
+            "unlocked": true
+          },
+          {
+            "height": 42250,
+            "key": "9d54bc08a56149e6d766818a6bdc274d884680c707c353ab7810383403bda349",
+            "mask": "09baed9a3c44b22285a0aea4148ca7de9bea963cf69623b683445c0a10a58677",
+            "txid": "438230c3b8a9e8f1dcea811da29bf47d900dbdc871314715b9b9cb77db0221cf",
+            "unlocked": true
+          },
+          {
+            "height": 50573,
+            "key": "3c8e6dd2098b0f609bdbd73443692030139fb52e38b7880d5bb3565e888995e6",
+            "mask": "08b847364224e29ce3366393c2e11efc7555dee1a05f91a72e61117684ddbe29",
+            "txid": "7205441e72758113f87cf6ac70eb61ebe51c72a2a0c1b290f019bd07e744d703",
+            "unlocked": true
+          },
+          {
+            "height": 24739,
+            "key": "ec3b3cbea0f13cfdabf9c972c89f295fa392020a727cdb1cc9d1715603687267",
+            "mask": "0942843d6f69e1cf3d99c99f0c97c0e6e578935af6a8bdb8f81d5b90bde7cc10",
+            "txid": "1b62a710a8c1c3c0ac28fa0d87e2027b0d7d0127d98778dde876487b3a46e504",
+            "unlocked": true
+          },
+          {
+            "height": 17814,
+            "key": "d7fd1409c303afa13e2db1251b775a49b7ef61bae9863b7d14c92afebeab1e32",
+            "mask": "564c64ea50e4bd20db585db587b1f764a262d846a6b0a24b432760d2f9de665b",
+            "txid": "f71ec3cd9dc5e76522aabe499bba91d4a8726536dbe21d0d84848aebc52f9e9c",
+            "unlocked": true
+          },
+          {
+            "height": 14755,
+            "key": "e644ba7c726ac8cb0484cbe5a9d4e327aad3e63eb14f9689b0796f0d891113d2",
+            "mask": "ac6583415bd64c033597f928a4b5d4f4789ea8b287827389a81eb6629ec5b850",
+            "txid": "9278cd5f6b866ecaf5baa7180fa07c2aa6c314226d2189d93a2d11fed67ac487",
+            "unlocked": true
+          },
+          {
+            "height": 47590,
+            "key": "8c03e3eeb39dba133e9a2761df325b368b0fee85ffb2733bbe55330086761181",
+            "mask": "9827ae31e5c2a77839f60b83ab4578e2a01efa4b3b14cc727314ffd7155363bf",
+            "txid": "5966754e98c5c77f79785c07ca0d1e3a0fa2a36b8744175856541fea4c9316b2",
+            "unlocked": true
+          },
+          {
+            "height": 58340,
+            "key": "d1a040f0179052d47143f7e814837e9db06dd756f29dc864f248b98d47a66c2c",
+            "mask": "9827ae31e5c2a77839f60b83ab4578e2a01efa4b3b14cc727314ffd7155363bf",
+            "txid": "df3e20e8ceb96670393a9d80aa0af5016b63e3149cb58b0c5d6387c9d0cb5573",
+            "unlocked": true
+          }
+        ],
+        "status": "OK",
+        "top_hash": "",
+        "untrusted": false
+      }
+    },
+    {
+      "requested_at": "2026-09-12T00:13:48.982401+00:00",
+      "request": {
+        "get_txid": true,
+        "outputs": [
+          {
+            "amount": 800000000000,
+            "index": 1158
+          },
+          {
+            "amount": 900000000000,
+            "index": 4986
+          },
+          {
+            "amount": 6000000000000,
+            "index": 3957
+          },
+          {
+            "amount": 7000000000000,
+            "index": 10237
+          },
+          {
+            "amount": 7000000000000,
+            "index": 19318
+          },
+          {
+            "amount": 10000000000000,
+            "index": 1201
+          },
+          {
+            "amount": 10000000000000,
+            "index": 6286
+          },
+          {
+            "amount": 10000000000000,
+            "index": 10327
+          },
+          {
+            "amount": 10000000000000,
+            "index": 16532
+          },
+          {
+            "amount": 10000000000000,
+            "index": 29559
+          }
+        ]
+      },
+      "response": {
+        "credits": 0,
+        "outs": [
+          {
+            "height": 43325,
+            "key": "0b2b6145210c0415718d81a60bb9802a7beac1d3c0fe098a31de69fe9e5fd02a",
+            "mask": "6676e0040fa4b8229c61690c713222cf3d37b9493b490680bb48d8d51ade95f2",
+            "txid": "bcfb46c226caf891b58ff2969de2fa50dfa1ba3b14b924960a3e9f8718927531",
+            "unlocked": true
+          },
+          {
+            "height": 40832,
+            "key": "92d4d842d62b04c712e804d4b21dfa1bb7537a2058b1c2d4305d98c47baf3b3c",
+            "mask": "4154b3465a4372671ea9e064a7caa66e14b4986a4668918afa579bf1ed2506dd",
+            "txid": "3ec46949f358bcf1bbfe3b0d35a1e88d707b27e9fa9894d3b84157fca7e63987",
+            "unlocked": true
+          },
+          {
+            "height": 39713,
+            "key": "bd750a1461bdf6a7e9e2cbbfc8a9ada5fcc0b0df49dab01c694e68429e1ee8f8",
+            "mask": "db1c7cf60891f965eba9c6022400630e00479534e6f5b533dcfc831938522c78",
+            "txid": "1377624fd3a75be6b2b88715e4151e80987fabbd27c13e3f878546d51668bdc4",
+            "unlocked": true
+          },
+          {
+            "height": 10201,
+            "key": "57db3308f0ef818913b1a4aecbc0ffd2293838075643ce72643de4aa45d98bc3",
+            "mask": "59a03a3153a994d72327e4d92421d3e3291b1fa1b240de44b92d7f62ec0128f1",
+            "txid": "6eeb3f8f93e66a1cca75e630a5c9bdf022b1deaa1a668ca564def2d67f3c6d9d",
+            "unlocked": true
+          },
+          {
+            "height": 19466,
+            "key": "2d58f3c1ffc7cd4201fea320d79ee4e29cc7328897d7b6dcaddaf4b7a2cec5fa",
+            "mask": "59a03a3153a994d72327e4d92421d3e3291b1fa1b240de44b92d7f62ec0128f1",
+            "txid": "c101d07a9403d7858ef6586a30023dac892e90127d070b317c880eb19f017d53",
+            "unlocked": true
+          },
+          {
+            "height": 1201,
+            "key": "bc3c0ff777e4b1a829a6d13c1773d96edb75fd9a3c33ad19f3dba95c61e15fc3",
+            "mask": "163dd682ec977cdda59531da3ffa72998a6f8837abadc636aaedc8be19b2d7c7",
+            "txid": "df12f97b3063a1d95fe95648571d3cd0446de62a955f834e61832f087889b28c",
+            "unlocked": true
+          },
+          {
+            "height": 6259,
+            "key": "a3ebf7d3090b1e49642fd74bd385b709f0334751f67b8eff433675cbcbca3e90",
+            "mask": "163dd682ec977cdda59531da3ffa72998a6f8837abadc636aaedc8be19b2d7c7",
+            "txid": "22ae3c1bb1facda7abf370a800232c8541160aca1cfeee12f3364a4c6661ea1a",
+            "unlocked": true
+          },
+          {
+            "height": 10284,
+            "key": "5f8904fa9c26e7e5ae53a857c021e58c0cad4ef092f59e29354568b81ac5e381",
+            "mask": "163dd682ec977cdda59531da3ffa72998a6f8837abadc636aaedc8be19b2d7c7",
+            "txid": "5fe5f77765514c23ee4a7d6509f1458960c62a141d5ca8ab1e79b9731b5338dc",
+            "unlocked": true
+          },
+          {
+            "height": 16558,
+            "key": "198059c605b885c6bc8a1792f7398ac101f8741fec818ecf77a9b1d525dfea64",
+            "mask": "163dd682ec977cdda59531da3ffa72998a6f8837abadc636aaedc8be19b2d7c7",
+            "txid": "13e23e28c541723f05fd0383df47713f94824d81f9d5a11c40377436d915e091",
+            "unlocked": true
+          },
+          {
+            "height": 29652,
+            "key": "9e3d0cefb5fff04d3a76bde34048f409cdbf6050306584a56759a2fcb03a8f30",
+            "mask": "163dd682ec977cdda59531da3ffa72998a6f8837abadc636aaedc8be19b2d7c7",
+            "txid": "bcf678dfb0e72de75fa0e7121c1d75e3553f79b8834c22bd66a0fcf206565a03",
+            "unlocked": true
+          }
+        ],
+        "status": "OK",
+        "top_hash": "",
+        "untrusted": false
+      }
+    }
+  ],
+  "errors": [],
+  "summary": {
+    "sampled_contexts": 40,
+    "distinct_requested_outputs": 40,
+    "returned_outputs": 40,
+    "validated_contexts": 40,
+    "origin_after_reference_count": 0,
+    "age_blocks_min": 15,
+    "age_blocks_median": 3857.5,
+    "age_blocks_max": 41150,
+    "actual_age_over_15_blocks": 39,
+    "gamma_recent_window_values": [
+      1.0
+    ],
+    "gamma_log_likelihood_values": [
+      -7.495541943884256
+    ],
+    "gamma_surprisal_values": [
+      0.14991083887768514
+    ]
+  },
+  "sample": [
+    {
+      "category": "deterministic_ring",
+      "amount": "600000000",
+      "index": "18321",
+      "sample_priority_sha256": "000016e97ce8c7635e747148cdac8f0ac4cf7d61d3b81cff38a34b8844bb9ca1",
+      "key_image": "95eaffa9bd274e55a86d1c3f5ba72ea9801ac37e0a83968d7bf0fc9cd2443bc7",
+      "input_tx_hash": "74ff9bcbe5ca62e4280634e861e9f5781f0ee4b8cfaab6f69b9781198941c605",
+      "input_height": 57397,
+      "first_referencing_height_in_database": 57397,
+      "original_ring_size": 1,
+      "ring_members": [
+        {
+          "amount": "600000000",
+          "index": "18321"
+        }
+      ],
+      "legacy_relative_age_proxy": 0.0,
+      "gamma_log_likelihood": -7.495541943884256,
+      "gamma_recent_window": 1.0,
+      "gamma_surprisal": 0.14991083887768514,
+      "origin": {
+        "height": 57065,
+        "key": "5331062d0c7fd6d2710f7f4358e8649eaa352c30eec76be6ca09270ac76c838a",
+        "mask": "d3238a4a8b71ab46d15304acfa2f40bf5ea63b3d864a79fa8425d2655ae7076f",
+        "txid": "d840fb667b66b85c6fd88a96208cca897d7fef9083632563fc29c2c0b248fe28",
+        "unlocked": true
+      },
+      "actual_age_blocks": 332,
+      "origin_after_any_observed_reference": false
+    },
+    {
+      "category": "deterministic_ring",
+      "amount": "10000000",
+      "index": "3807",
+      "sample_priority_sha256": "0000447bfa9b6346dc5ace39b2ea080462b5174e653cda4ec2079c835016ced6",
+      "key_image": "7df144906d769cf571774a6b76880bfc6e5529850eafedaa72e632dfac8c11f7",
+      "input_tx_hash": "4045e126be508ffea15fa61a14d6e45366e20ef3600afc39bccd38c5199a9488",
+      "input_height": 37711,
+      "first_referencing_height_in_database": 37711,
+      "original_ring_size": 1,
+      "ring_members": [
+        {
+          "amount": "10000000",
+          "index": "3807"
+        }
+      ],
+      "legacy_relative_age_proxy": 0.0,
+      "gamma_log_likelihood": -7.495541943884256,
+      "gamma_recent_window": 1.0,
+      "gamma_surprisal": 0.14991083887768514,
+      "origin": {
+        "height": 37033,
+        "key": "9edf029a4c42fb980cec3af824720ef5f48ee9064f729acda3fe4bcc003bc403",
+        "mask": "2f99d9744418660949ba433561c605b6f7be8f820a93cb2aeda97c8732925649",
+        "txid": "e575d86ca0f65fc3046f727e0cbde4f9b040c2923a67acdbc6313db30f0f9b77",
+        "unlocked": true
+      },
+      "actual_age_blocks": 678,
+      "origin_after_any_observed_reference": false
+    },
+    {
+      "category": "deterministic_ring",
+      "amount": "90000000",
+      "index": "15990",
+      "sample_priority_sha256": "000062dd67d01d524f62f921c93b817eb9a0e0bafa0ba7dc9939450c19036df7",
+      "key_image": "551b0d14c50a1432d523098bd2ddc0d6c590310c04bf72501d527b4a858ddf35",
+      "input_tx_hash": "54c332e4958871405dee74fb8f0292bd3551f371328b213225c2b63bcf74fcd7",
+      "input_height": 56360,
+      "first_referencing_height_in_database": 56360,
+      "original_ring_size": 1,
+      "ring_members": [
+        {
+          "amount": "90000000",
+          "index": "15990"
+        }
+      ],
+      "legacy_relative_age_proxy": 0.0,
+      "gamma_log_likelihood": -7.495541943884256,
+      "gamma_recent_window": 1.0,
+      "gamma_surprisal": 0.14991083887768514,
+      "origin": {
+        "height": 56174,
+        "key": "13923c899d411ae884b530b0be6055fa187128866f56f04e2244673a7af0e521",
+        "mask": "46cb7657f61c837cec8074bbb0f52e7fc59a0d94e017009abe25652e4ad2e53d",
+        "txid": "066b996d2c9c6e749650884e7e36baa107fb74e879cba6c0e2937ee86f643266",
+        "unlocked": true
+      },
+      "actual_age_blocks": 186,
+      "origin_after_any_observed_reference": false
+    },
+    {
+      "category": "deterministic_ring",
+      "amount": "4000000000",
+      "index": "8218",
+      "sample_priority_sha256": "00006773b97319a899f0e15dd1ae0f8d808563cb6a21cfa2a598ed8dd9605a15",
+      "key_image": "2960daabdcc1f2c7f79b5918c4978b860e65362cf1649b6a595098bce37ca690",
+      "input_tx_hash": "45eb1f00bc38479e531332c5c144663334f9e7aa45f05ce1aebe92bc18622eab",
+      "input_height": 56049,
+      "first_referencing_height_in_database": 55254,
+      "original_ring_size": 1,
+      "ring_members": [
+        {
+          "amount": "4000000000",
+          "index": "8218"
+        }
+      ],
+      "legacy_relative_age_proxy": 0.0,
+      "gamma_log_likelihood": -7.495541943884256,
+      "gamma_recent_window": 1.0,
+      "gamma_surprisal": 0.14991083887768514,
+      "origin": {
+        "height": 52296,
+        "key": "ae67207c80decb9db2fc5760e6b4a84ad755d7412b84446dcd86931f7548fd3c",
+        "mask": "da3acb00ab2d8dccacec8f775921c40e26b1ffbeca9eb7e657256f5968f2341c",
+        "txid": "1577247c42d1767bd181067e2d06a5e46fd087ac774b2caf2f7a7fe838fd1ae3",
+        "unlocked": true
+      },
+      "actual_age_blocks": 3753,
+      "origin_after_any_observed_reference": false
+    },
+    {
+      "category": "deterministic_ring",
+      "amount": "10000000000000",
+      "index": "16532",
+      "sample_priority_sha256": "000075ebbbedd19534c85bc277ab9872024b810ebe93a2b5f92f5fcff74c10d2",
+      "key_image": "4b38354df9faf06e3297008cce7b8ade3fd19567014cf079c40bbc32bff7e15c",
+      "input_tx_hash": "8761811b21e77e7a1b844f1c702fda8e7c69f8a635de7656dc993df1e9f87247",
+      "input_height": 20520,
+      "first_referencing_height_in_database": 20520,
+      "original_ring_size": 1,
+      "ring_members": [
+        {
+          "amount": "10000000000000",
+          "index": "16532"
+        }
+      ],
+      "legacy_relative_age_proxy": 0.0,
+      "gamma_log_likelihood": -7.495541943884256,
+      "gamma_recent_window": 1.0,
+      "gamma_surprisal": 0.14991083887768514,
+      "origin": {
+        "height": 16558,
+        "key": "198059c605b885c6bc8a1792f7398ac101f8741fec818ecf77a9b1d525dfea64",
+        "mask": "163dd682ec977cdda59531da3ffa72998a6f8837abadc636aaedc8be19b2d7c7",
+        "txid": "13e23e28c541723f05fd0383df47713f94824d81f9d5a11c40377436d915e091",
+        "unlocked": true
+      },
+      "actual_age_blocks": 3962,
+      "origin_after_any_observed_reference": false
+    },
+    {
+      "category": "deterministic_ring",
+      "amount": "600000000000",
+      "index": "4768",
+      "sample_priority_sha256": "0000a6bb93b58b1ae1c2e1483d1860784896e33e75eaad502aaa6d18945ef558",
+      "key_image": "1dac641b76859f9bcc4894cb40b112eb5e31e2adb0dcfbff7e239b3c8fee4ce7",
+      "input_tx_hash": "b32b75646a2ff4df5887f5fd2fe12e4a28d8bbc1b692b2b2e70f751f9409d520",
+      "input_height": 58762,
+      "first_referencing_height_in_database": 58762,
+      "original_ring_size": 1,
+      "ring_members": [
+        {
+          "amount": "600000000000",
+          "index": "4768"
+        }
+      ],
+      "legacy_relative_age_proxy": 0.0,
+      "gamma_log_likelihood": -7.495541943884256,
+      "gamma_recent_window": 1.0,
+      "gamma_surprisal": 0.14991083887768514,
+      "origin": {
+        "height": 58340,
+        "key": "d1a040f0179052d47143f7e814837e9db06dd756f29dc864f248b98d47a66c2c",
+        "mask": "9827ae31e5c2a77839f60b83ab4578e2a01efa4b3b14cc727314ffd7155363bf",
+        "txid": "df3e20e8ceb96670393a9d80aa0af5016b63e3149cb58b0c5d6387c9d0cb5573",
+        "unlocked": true
+      },
+      "actual_age_blocks": 422,
+      "origin_after_any_observed_reference": false
+    },
+    {
+      "category": "deterministic_ring",
+      "amount": "800000000000",
+      "index": "1158",
+      "sample_priority_sha256": "0000e1b91bd73d09da6840f13cbb875f429be91d93c74ecd874f58f80cdc73a5",
+      "key_image": "3dbcadf292b84776200ee4da58812ffee8e285f96e9d6679da12d06563d2226b",
+      "input_tx_hash": "3f2770852d370736ccf9ab94b1ee45e94eb0b9d4e75b2cc69e0a20df356cc349",
+      "input_height": 43949,
+      "first_referencing_height_in_database": 43949,
+      "original_ring_size": 1,
+      "ring_members": [
+        {
+          "amount": "800000000000",
+          "index": "1158"
+        }
+      ],
+      "legacy_relative_age_proxy": 0.0,
+      "gamma_log_likelihood": -7.495541943884256,
+      "gamma_recent_window": 1.0,
+      "gamma_surprisal": 0.14991083887768514,
+      "origin": {
+        "height": 43325,
+        "key": "0b2b6145210c0415718d81a60bb9802a7beac1d3c0fe098a31de69fe9e5fd02a",
+        "mask": "6676e0040fa4b8229c61690c713222cf3d37b9493b490680bb48d8d51ade95f2",
+        "txid": "bcfb46c226caf891b58ff2969de2fa50dfa1ba3b14b924960a3e9f8718927531",
+        "unlocked": true
+      },
+      "actual_age_blocks": 624,
+      "origin_after_any_observed_reference": false
+    },
+    {
+      "category": "deterministic_ring",
+      "amount": "100000000",
+      "index": "2693",
+      "sample_priority_sha256": "0000e52a43d2387bdeef3a882133becb69309c0d995339f5317252c917114941",
+      "key_image": "1005a222f790c283244a98d5e3fba54265072cd32a3a70afc8ffdebbfac1ad3c",
+      "input_tx_hash": "f3e16777e0433b558796836f3f05518233bafa46a9cccb1d991b11586214337e",
+      "input_height": 46874,
+      "first_referencing_height_in_database": 46515,
+      "original_ring_size": 1,
+      "ring_members": [
+        {
+          "amount": "100000000",
+          "index": "2693"
+        }
+      ],
+      "legacy_relative_age_proxy": 0.0,
+      "gamma_log_likelihood": -7.495541943884256,
+      "gamma_recent_window": 1.0,
+      "gamma_surprisal": 0.14991083887768514,
+      "origin": {
+        "height": 25736,
+        "key": "149c0dc0cb564227c782813e2d83bdb13c27b882a7ccc68a7e159401b6641032",
+        "mask": "667b8e6f6a4b918976d9735a43367dc7592c87d0a1f815c6e87df11a13509fb2",
+        "txid": "fd4b33553b2515878a0ed215d474f765e208ffa4564cbfe3a76b52b7f0a02c93",
+        "unlocked": true
+      },
+      "actual_age_blocks": 21138,
+      "origin_after_any_observed_reference": false
+    },
+    {
+      "category": "deterministic_ring",
+      "amount": "10000000000",
+      "index": "3188",
+      "sample_priority_sha256": "00010b49b8e8edf5a74ceffb3c6fe38dba5484a74ef5197c77764ef4216b696f",
+      "key_image": "2e4841b78cb1d065ddc227a224be7dfd0899bac256e8b375daec188cd48a9661",
+      "input_tx_hash": "12933fce746cc7c21b666ada2f451b83465b5a9c473d11ba9ac205f4f8b84a12",
+      "input_height": 32727,
+      "first_referencing_height_in_database": 32727,
+      "original_ring_size": 1,
+      "ring_members": [
+        {
+          "amount": "10000000000",
+          "index": "3188"
+        }
+      ],
+      "legacy_relative_age_proxy": 0.0,
+      "gamma_log_likelihood": -7.495541943884256,
+      "gamma_recent_window": 1.0,
+      "gamma_surprisal": 0.14991083887768514,
+      "origin": {
+        "height": 32695,
+        "key": "f060f27f057fe62f52b5917bf77ea18e6d9d53b920faf61431aed6d09cea74be",
+        "mask": "97c92a29015ecb49f8090545e01ff9786cae40577347611824f4b6599ff5d364",
+        "txid": "3219202b0cf82b216d6b51feb5492cc583c162e645c44bac4fc275c4a212434c",
+        "unlocked": true
+      },
+      "actual_age_blocks": 32,
+      "origin_after_any_observed_reference": false
+    },
+    {
+      "category": "deterministic_ring",
+      "amount": "1000000000",
+      "index": "5942",
+      "sample_priority_sha256": "000134de47a01a5761b0a8f61e76b5f4329f9aa30c7ef0f09d4393976f587ba5",
+      "key_image": "3b76020545bb03523cf3837b645083bae9a5813e28be0abcbef59f0e0ece53be",
+      "input_tx_hash": "c180eb1915312c6a06da45ad6f6f6679a4a50f1ce5c34f62f69c3e152c7bb73c",
+      "input_height": 58192,
+      "first_referencing_height_in_database": 58192,
+      "original_ring_size": 1,
+      "ring_members": [
+        {
+          "amount": "1000000000",
+          "index": "5942"
+        }
+      ],
+      "legacy_relative_age_proxy": 0.0,
+      "gamma_log_likelihood": -7.495541943884256,
+      "gamma_recent_window": 1.0,
+      "gamma_surprisal": 0.14991083887768514,
+      "origin": {
+        "height": 49275,
+        "key": "85b0bc6bd2bc1aa883f1169e6a7a11a631a4ff01defedc82eb7f7fc50820fe14",
+        "mask": "8ce64833cec900cb6d5ac46fc0237d8f2439c3dfa238baf9cc94166ad2e89887",
+        "txid": "060d78dbe4f470986ff02d417d9358a8deb43a96f9e9dda4b9666ecb2b1d11bd",
+        "unlocked": true
+      },
+      "actual_age_blocks": 8917,
+      "origin_after_any_observed_reference": false
+    },
+    {
+      "category": "deterministic_ring",
+      "amount": "6000000000000",
+      "index": "3957",
+      "sample_priority_sha256": "00013bef35ef1b45e74adedc765fa5842a46300208043693e45eb786d89af5be",
+      "key_image": "40766d9b5d22e0f29371baa77b1809b132396cbb0646523f252d66099bf5aa72",
+      "input_tx_hash": "dc37b455076074a2338bcfff692287a766ca477fa04db50a87840589481dcbcb",
+      "input_height": 41240,
+      "first_referencing_height_in_database": 41240,
+      "original_ring_size": 1,
+      "ring_members": [
+        {
+          "amount": "6000000000000",
+          "index": "3957"
+        }
+      ],
+      "legacy_relative_age_proxy": 0.0,
+      "gamma_log_likelihood": -7.495541943884256,
+      "gamma_recent_window": 1.0,
+      "gamma_surprisal": 0.14991083887768514,
+      "origin": {
+        "height": 39713,
+        "key": "bd750a1461bdf6a7e9e2cbbfc8a9ada5fcc0b0df49dab01c694e68429e1ee8f8",
+        "mask": "db1c7cf60891f965eba9c6022400630e00479534e6f5b533dcfc831938522c78",
+        "txid": "1377624fd3a75be6b2b88715e4151e80987fabbd27c13e3f878546d51668bdc4",
+        "unlocked": true
+      },
+      "actual_age_blocks": 1527,
+      "origin_after_any_observed_reference": false
+    },
+    {
+      "category": "deterministic_ring",
+      "amount": "900000000000",
+      "index": "4986",
+      "sample_priority_sha256": "00014285f949f51001b7235211e2fa57fac1bd73ffb75c164bab93672c19af5e",
+      "key_image": "9902edd36d1d0f1918d0e602876f0d0ffcec8012daed9f4e1324cd3514ecb6e0",
+      "input_tx_hash": "c69bd26199eb3eb6a1b385619c6dbb96fa5679695d5fb70584ba5b71d9792991",
+      "input_height": 41809,
+      "first_referencing_height_in_database": 41809,
+      "original_ring_size": 1,
+      "ring_members": [
+        {
+          "amount": "900000000000",
+          "index": "4986"
+        }
+      ],
+      "legacy_relative_age_proxy": 0.0,
+      "gamma_log_likelihood": -7.495541943884256,
+      "gamma_recent_window": 1.0,
+      "gamma_surprisal": 0.14991083887768514,
+      "origin": {
+        "height": 40832,
+        "key": "92d4d842d62b04c712e804d4b21dfa1bb7537a2058b1c2d4305d98c47baf3b3c",
+        "mask": "4154b3465a4372671ea9e064a7caa66e14b4986a4668918afa579bf1ed2506dd",
+        "txid": "3ec46949f358bcf1bbfe3b0d35a1e88d707b27e9fa9894d3b84157fca7e63987",
+        "unlocked": true
+      },
+      "actual_age_blocks": 977,
+      "origin_after_any_observed_reference": false
+    },
+    {
+      "category": "deterministic_ring",
+      "amount": "40000000000",
+      "index": "5910",
+      "sample_priority_sha256": "000143b79f899bb696920aa4da112587bdeed9351749a40fc9415a655508cf2c",
+      "key_image": "7b4878ddb0db5656bf239b41a765c38653c97f4947cf9926fe1d8bbc0f18a8e9",
+      "input_tx_hash": "7eca2dad2e010523ff75705bb191827943d6979ed1bf88af309c88aa0836e0b2",
+      "input_height": 53030,
+      "first_referencing_height_in_database": 53030,
+      "original_ring_size": 1,
+      "ring_members": [
+        {
+          "amount": "40000000000",
+          "index": "5910"
+        }
+      ],
+      "legacy_relative_age_proxy": 0.0,
+      "gamma_log_likelihood": -7.495541943884256,
+      "gamma_recent_window": 1.0,
+      "gamma_surprisal": 0.14991083887768514,
+      "origin": {
+        "height": 50573,
+        "key": "3c8e6dd2098b0f609bdbd73443692030139fb52e38b7880d5bb3565e888995e6",
+        "mask": "08b847364224e29ce3366393c2e11efc7555dee1a05f91a72e61117684ddbe29",
+        "txid": "7205441e72758113f87cf6ac70eb61ebe51c72a2a0c1b290f019bd07e744d703",
+        "unlocked": true
+      },
+      "actual_age_blocks": 2457,
+      "origin_after_any_observed_reference": false
+    },
+    {
+      "category": "deterministic_ring",
+      "amount": "2000000000",
+      "index": "24930",
+      "sample_priority_sha256": "00017d58c6dca380de5ac65f16f5f3d3b8ed973b535642c43550cad637189f53",
+      "key_image": "409bac481087b622ac8b2506971a0984b36504b1e2ea8db320768b80d95483a1",
+      "input_tx_hash": "19fee496b387cb28408f73bb3875d4b3d7ec33355966ac98fc9eba858a53b291",
+      "input_height": 57819,
+      "first_referencing_height_in_database": 57819,
+      "original_ring_size": 1,
+      "ring_members": [
+        {
+          "amount": "2000000000",
+          "index": "24930"
+        }
+      ],
+      "legacy_relative_age_proxy": 0.0,
+      "gamma_log_likelihood": -7.495541943884256,
+      "gamma_recent_window": 1.0,
+      "gamma_surprisal": 0.14991083887768514,
+      "origin": {
+        "height": 57730,
+        "key": "4d808b0973c890a632d0bc184b73f57d8c97afcc9c9e43bacbf1602145f0628e",
+        "mask": "378d3c5dbba4823d3312bb61fc0675a1bb3989f39701eb0d5ce4de5b0d907472",
+        "txid": "7e86a8f126c9fd7c832e040f0a99b2d466a62b2f520a5ee23fda304b6b2a62d1",
+        "unlocked": true
+      },
+      "actual_age_blocks": 89,
+      "origin_after_any_observed_reference": false
+    },
+    {
+      "category": "deterministic_ring",
+      "amount": "10000000000000",
+      "index": "10327",
+      "sample_priority_sha256": "000186d58be7937e6a7c5d870c39b97eadf6a948a672b5e6055580f4439eb60b",
+      "key_image": "770237d9c43d734a5021ba062c63ae335239828e591096bf227a1b8a42e30ae8",
+      "input_tx_hash": "d04baa52dec5e479459be08f121fe3fa5a4e24bcfe4d77c0deb4ff6fb30e7828",
+      "input_height": 35597,
+      "first_referencing_height_in_database": 15036,
+      "original_ring_size": 1,
+      "ring_members": [
+        {
+          "amount": "10000000000000",
+          "index": "10327"
+        }
+      ],
+      "legacy_relative_age_proxy": 0.0,
+      "gamma_log_likelihood": -7.495541943884256,
+      "gamma_recent_window": 1.0,
+      "gamma_surprisal": 0.14991083887768514,
+      "origin": {
+        "height": 10284,
+        "key": "5f8904fa9c26e7e5ae53a857c021e58c0cad4ef092f59e29354568b81ac5e381",
+        "mask": "163dd682ec977cdda59531da3ffa72998a6f8837abadc636aaedc8be19b2d7c7",
+        "txid": "5fe5f77765514c23ee4a7d6509f1458960c62a141d5ca8ab1e79b9731b5338dc",
+        "unlocked": true
+      },
+      "actual_age_blocks": 25313,
+      "origin_after_any_observed_reference": false
+    },
+    {
+      "category": "deterministic_ring",
+      "amount": "30000000",
+      "index": "4644",
+      "sample_priority_sha256": "00018bc1098f309fb8e9705d19bfec907341e5e7c7685c8b642c6171f32cbd88",
+      "key_image": "8ce46d3403a18e7c467b82528b10bef4861250be8daf78e0ce6f6227cd929e24",
+      "input_tx_hash": "9adcb2ebe1f92b47660bf8c3e96a63709e4f2e3e8738b6cd9422f6d0839f017d",
+      "input_height": 49819,
+      "first_referencing_height_in_database": 49819,
+      "original_ring_size": 1,
+      "ring_members": [
+        {
+          "amount": "30000000",
+          "index": "4644"
+        }
+      ],
+      "legacy_relative_age_proxy": 0.0,
+      "gamma_log_likelihood": -7.495541943884256,
+      "gamma_recent_window": 1.0,
+      "gamma_surprisal": 0.14991083887768514,
+      "origin": {
+        "height": 44167,
+        "key": "9c47b0395349871c5c5e5fe2dd6efdac540f272e27c55a70988eadd028237a17",
+        "mask": "a1e9ed3ef65a9d526cc26205881201d8a8f2c4409fa364107296b9f96a61b358",
+        "txid": "e2a84b2380d9f54b6acd6c7222f1146acffd46ed66e836a49b3d1e4cce82f9a0",
+        "unlocked": true
+      },
+      "actual_age_blocks": 5652,
+      "origin_after_any_observed_reference": false
+    },
+    {
+      "category": "deterministic_ring",
+      "amount": "80000000",
+      "index": "6386",
+      "sample_priority_sha256": "000194b74af3a882a561b82d3d07216e1fa60bc3dca1f251280177e688aaca7a",
+      "key_image": "72a82b6edc73f3b92defbeacf477ce6f9c2f771bced35133ee183e16f132ab65",
+      "input_tx_hash": "613f51805d956a44ee78c5c21cb66beb8d82f0ade691d22a7fc2fb7b8fde70ae",
+      "input_height": 50592,
+      "first_referencing_height_in_database": 50592,
+      "original_ring_size": 1,
+      "ring_members": [
+        {
+          "amount": "80000000",
+          "index": "6386"
+        }
+      ],
+      "legacy_relative_age_proxy": 0.0,
+      "gamma_log_likelihood": -7.495541943884256,
+      "gamma_recent_window": 1.0,
+      "gamma_surprisal": 0.14991083887768514,
+      "origin": {
+        "height": 50577,
+        "key": "280774c7afb5e7c8908187b9e6e1cdb59a02834860b7bab0218894e191e3d3ca",
+        "mask": "f37b946b8b2488ebee1c06c127fbe5fa5efd62369dd5aadaedd888501d3b7e3b",
+        "txid": "cff2bf32e3fd0aea0f75d0907b84e1b871fb2cad5d4e25f46d63c04851d8df92",
+        "unlocked": true
+      },
+      "actual_age_blocks": 15,
+      "origin_after_any_observed_reference": false
+    },
+    {
+      "category": "deterministic_ring",
+      "amount": "7000000",
+      "index": "6324",
+      "sample_priority_sha256": "00019eb435608b58d5f5c5e696af0893e5a2108ced5ef9bd51d45105f831f029",
+      "key_image": "aab020149b678b3e7b806156be241fff97f3e49db3e755b4a2ae2a01d533848c",
+      "input_tx_hash": "2a53258ccaab0cbf4c415d3e6d49fde2ccdd0839fe2d991a3aa0880069ffb5b7",
+      "input_height": 50712,
+      "first_referencing_height_in_database": 50712,
+      "original_ring_size": 1,
+      "ring_members": [
+        {
+          "amount": "7000000",
+          "index": "6324"
+        }
+      ],
+      "legacy_relative_age_proxy": 0.0,
+      "gamma_log_likelihood": -7.495541943884256,
+      "gamma_recent_window": 1.0,
+      "gamma_surprisal": 0.14991083887768514,
+      "origin": {
+        "height": 50649,
+        "key": "907ec3ceddaeba7d1d3b09b0bf8c3e92ad1c14f9f6f41869586e4b65a269fb8a",
+        "mask": "d8092b8d45db54a56d64e8094a0622e26e8a2eecb903b2e1f75a837b3ad8554a",
+        "txid": "197122e67f28e3710389ae77eb7ece123906acc8462296bac62992a9ce458075",
+        "unlocked": true
+      },
+      "actual_age_blocks": 63,
+      "origin_after_any_observed_reference": false
+    },
+    {
+      "category": "deterministic_ring",
+      "amount": "200000000000",
+      "index": "254",
+      "sample_priority_sha256": "0001c4c9bc28adf05b7116acc9f01873ef429396e2378007160617aa44362254",
+      "key_image": "ddaab9481945baf3638f81e9f51b68c123e2e12ddbf868a817154ddd5fb60d60",
+      "input_tx_hash": "77b473fec3cdbb05bd430f42a06519c3be55cd9674a00f10a8115681d631d98e",
+      "input_height": 48365,
+      "first_referencing_height_in_database": 25112,
+      "original_ring_size": 2,
+      "ring_members": [
+        {
+          "amount": "200000000000",
+          "index": "254"
+        },
+        {
+          "amount": "200000000000",
+          "index": "4066"
+        }
+      ],
+      "legacy_relative_age_proxy": 15.0,
+      "gamma_log_likelihood": -7.495541943884256,
+      "gamma_recent_window": 1.0,
+      "gamma_surprisal": 0.14991083887768514,
+      "origin": {
+        "height": 17814,
+        "key": "d7fd1409c303afa13e2db1251b775a49b7ef61bae9863b7d14c92afebeab1e32",
+        "mask": "564c64ea50e4bd20db585db587b1f764a262d846a6b0a24b432760d2f9de665b",
+        "txid": "f71ec3cd9dc5e76522aabe499bba91d4a8726536dbe21d0d84848aebc52f9e9c",
+        "unlocked": true
+      },
+      "actual_age_blocks": 30551,
+      "origin_after_any_observed_reference": false
+    },
+    {
+      "category": "deterministic_ring",
+      "amount": "20000000000",
+      "index": "4539",
+      "sample_priority_sha256": "0001d5014e7c4278dcf4cf31f96469bef220a24fef116feaa36b12ef8d2f57d8",
+      "key_image": "188d00b561a9cd0ed4046c52ccd493c250d161b5867c94868e5a9e3773ec7e09",
+      "input_tx_hash": "2cebbb6207a50daf5c729d242262d258061571764729c8c295a81c19ba431cf9",
+      "input_height": 42848,
+      "first_referencing_height_in_database": 42848,
+      "original_ring_size": 1,
+      "ring_members": [
+        {
+          "amount": "20000000000",
+          "index": "4539"
+        }
+      ],
+      "legacy_relative_age_proxy": 0.0,
+      "gamma_log_likelihood": -7.495541943884256,
+      "gamma_recent_window": 1.0,
+      "gamma_surprisal": 0.14991083887768514,
+      "origin": {
+        "height": 42250,
+        "key": "9d54bc08a56149e6d766818a6bdc274d884680c707c353ab7810383403bda349",
+        "mask": "09baed9a3c44b22285a0aea4148ca7de9bea963cf69623b683445c0a10a58677",
+        "txid": "438230c3b8a9e8f1dcea811da29bf47d900dbdc871314715b9b9cb77db0221cf",
+        "unlocked": true
+      },
+      "actual_age_blocks": 598,
+      "origin_after_any_observed_reference": false
+    },
+    {
+      "category": "unresolved_ring",
+      "amount": "400000000",
+      "index": "11260",
+      "sample_priority_sha256": "0000a766e66f905f08967cc8e33d4885492bfe6713a434b68b2fb6e68ad30c33",
+      "key_image": "d4032a628a03585e4667d0b20d1a4cbbd0bc06e1294c06b377e5fd00be92df16",
+      "input_tx_hash": "c37107b87bb3a29010d28ef293a89bdb5a36ba425bf3db0a8f0b97a12cd46083",
+      "input_height": 58247,
+      "first_referencing_height_in_database": 56253,
+      "original_ring_size": 11,
+      "ring_members": [
+        {
+          "amount": "400000000",
+          "index": "32"
+        },
+        {
+          "amount": "400000000",
+          "index": "2800"
+        },
+        {
+          "amount": "400000000",
+          "index": "3969"
+        },
+        {
+          "amount": "400000000",
+          "index": "4036"
+        },
+        {
+          "amount": "400000000",
+          "index": "6140"
+        },
+        {
+          "amount": "400000000",
+          "index": "6391"
+        },
+        {
+          "amount": "400000000",
+          "index": "11260"
+        },
+        {
+          "amount": "400000000",
+          "index": "14356"
+        },
+        {
+          "amount": "400000000",
+          "index": "21956"
+        },
+        {
+          "amount": "400000000",
+          "index": "22657"
+        },
+        {
+          "amount": "400000000",
+          "index": "22992"
+        }
+      ],
+      "legacy_relative_age_proxy": 7.664634146341464,
+      "gamma_log_likelihood": -7.495541943884256,
+      "gamma_recent_window": 1.0,
+      "gamma_surprisal": 0.14991083887768514,
+      "origin": {
+        "height": 54235,
+        "key": "53b7f3ffcdc871af1d9d15e436f616e051e6f36a98221b01ba07cd335c10e627",
+        "mask": "fe35b69944410eaf815bdcd0a4d71ef9fc668648ad43743b035aed2c17c1387a",
+        "txid": "895b0678d4f949203dd6f54ea933fd85f454ce276b357efc1a4db55f0428dad1",
+        "unlocked": true
+      },
+      "actual_age_blocks": 4012,
+      "origin_after_any_observed_reference": false
+    },
+    {
+      "category": "unresolved_ring",
+      "amount": "7000000000000",
+      "index": "10237",
+      "sample_priority_sha256": "0000b0ec619e9c50f66b725dc1d6f43121750a95c535c7a00b3e9e7c286a5f01",
+      "key_image": "104ec7282710f2f451e23597b93d2b1d35be343a30c6d28362a5bf2cfe3e0674",
+      "input_tx_hash": "3c75dbd2903cb758d3bf5ae8835ce6b2b4589de4d06d78cddefb0467d86c0772",
+      "input_height": 31723,
+      "first_referencing_height_in_database": 15022,
+      "original_ring_size": 6,
+      "ring_members": [
+        {
+          "amount": "7000000000000",
+          "index": "8018"
+        },
+        {
+          "amount": "7000000000000",
+          "index": "8777"
+        },
+        {
+          "amount": "7000000000000",
+          "index": "10237"
+        },
+        {
+          "amount": "7000000000000",
+          "index": "20590"
+        },
+        {
+          "amount": "7000000000000",
+          "index": "22652"
+        },
+        {
+          "amount": "7000000000000",
+          "index": "27688"
+        }
+      ],
+      "legacy_relative_age_proxy": 13.307829181494663,
+      "gamma_log_likelihood": -7.495541943884256,
+      "gamma_recent_window": 1.0,
+      "gamma_surprisal": 0.14991083887768514,
+      "origin": {
+        "height": 10201,
+        "key": "57db3308f0ef818913b1a4aecbc0ffd2293838075643ce72643de4aa45d98bc3",
+        "mask": "59a03a3153a994d72327e4d92421d3e3291b1fa1b240de44b92d7f62ec0128f1",
+        "txid": "6eeb3f8f93e66a1cca75e630a5c9bdf022b1deaa1a668ca564def2d67f3c6d9d",
+        "unlocked": true
+      },
+      "actual_age_blocks": 21522,
+      "origin_after_any_observed_reference": false
+    },
+    {
+      "category": "unresolved_ring",
+      "amount": "300000000",
+      "index": "721",
+      "sample_priority_sha256": "00014ba961759c07303ac5e32de85c729e6a08c65e94cd7eb7d60024f488d8df",
+      "key_image": "36a885e954c74346241bf8ecb62892c8b12b4d802cea435c5dfb425165869b7d",
+      "input_tx_hash": "20beb64f90d59b9d092c66b10d0285d7d20d2ee037eb112b91112d950f79e79b",
+      "input_height": 15081,
+      "first_referencing_height_in_database": 15081,
+      "original_ring_size": 6,
+      "ring_members": [
+        {
+          "amount": "300000000",
+          "index": "33"
+        },
+        {
+          "amount": "300000000",
+          "index": "69"
+        },
+        {
+          "amount": "300000000",
+          "index": "115"
+        },
+        {
+          "amount": "300000000",
+          "index": "721"
+        },
+        {
+          "amount": "300000000",
+          "index": "749"
+        },
+        {
+          "amount": "300000000",
+          "index": "1208"
+        }
+      ],
+      "legacy_relative_age_proxy": 6.217021276595744,
+      "gamma_log_likelihood": -7.495541943884256,
+      "gamma_recent_window": 1.0,
+      "gamma_surprisal": 0.14991083887768514,
+      "origin": {
+        "height": 7169,
+        "key": "572cbfaa53092d750723f0407be99212830982af3d1051b35973df00f727d13b",
+        "mask": "a5926f031e6b15eb86235108abb1af90c5b162c3998c8bbb3ffbb0729da9457b",
+        "txid": "21d8e15a6d82e7683fe033aee489caba9a8fc0e4fd35754d0ac34d8a76c032f1",
+        "unlocked": true
+      },
+      "actual_age_blocks": 7912,
+      "origin_after_any_observed_reference": false
+    },
+    {
+      "category": "unresolved_ring",
+      "amount": "300000000000",
+      "index": "3194",
+      "sample_priority_sha256": "00015be24be3abb43234047bc557a7fa92cb4f6bd7016ff73913305f52bfeb64",
+      "key_image": "775e55b83767447c1dea4cb9dcc566785588c8d95903df314cb7bf2cc41d9aa3",
+      "input_tx_hash": "77133a637623cf99987d6df4bc73e1d3b0eff1e11ecc6c723e6a29f3bce0acb1",
+      "input_height": 27557,
+      "first_referencing_height_in_database": 14860,
+      "original_ring_size": 4,
+      "ring_members": [
+        {
+          "amount": "300000000000",
+          "index": "1276"
+        },
+        {
+          "amount": "300000000000",
+          "index": "2340"
+        },
+        {
+          "amount": "300000000000",
+          "index": "2494"
+        },
+        {
+          "amount": "300000000000",
+          "index": "3194"
+        }
+      ],
+      "legacy_relative_age_proxy": 0.0,
+      "gamma_log_likelihood": -7.495541943884256,
+      "gamma_recent_window": 1.0,
+      "gamma_surprisal": 0.14991083887768514,
+      "origin": {
+        "height": 14755,
+        "key": "e644ba7c726ac8cb0484cbe5a9d4e327aad3e63eb14f9689b0796f0d891113d2",
+        "mask": "ac6583415bd64c033597f928a4b5d4f4789ea8b287827389a81eb6629ec5b850",
+        "txid": "9278cd5f6b866ecaf5baa7180fa07c2aa6c314226d2189d93a2d11fed67ac487",
+        "unlocked": true
+      },
+      "actual_age_blocks": 12802,
+      "origin_after_any_observed_reference": false
+    },
+    {
+      "category": "unresolved_ring",
+      "amount": "90000000",
+      "index": "5581",
+      "sample_priority_sha256": "0002625065cfc89663de9950d68ab1b351e6e4208b3f5e54758cd8ba9c5d4c3e",
+      "key_image": "e2291ad11f6fd685dd9260c36f382c9d6fb25085b583ecdc3fa9a81c6626e334",
+      "input_tx_hash": "376bef30c31b5054112cac6a4036b63ef8a738155eeac1d068d30d51a0a450d3",
+      "input_height": 54811,
+      "first_referencing_height_in_database": 48092,
+      "original_ring_size": 3,
+      "ring_members": [
+        {
+          "amount": "90000000",
+          "index": "128"
+        },
+        {
+          "amount": "90000000",
+          "index": "5581"
+        },
+        {
+          "amount": "90000000",
+          "index": "12106"
+        }
+      ],
+      "legacy_relative_age_proxy": 8.171230589413925,
+      "gamma_log_likelihood": -7.495541943884256,
+      "gamma_recent_window": 1.0,
+      "gamma_surprisal": 0.14991083887768514,
+      "origin": {
+        "height": 47695,
+        "key": "c775b6914e46243f69a56c962697662b062480bf7c190c421c8b77e36c5e65dd",
+        "mask": "46cb7657f61c837cec8074bbb0f52e7fc59a0d94e017009abe25652e4ad2e53d",
+        "txid": "92e2599e79b1c45ff938ab643ae9c7746b58c2a50064aff3b4f15a5697fa1b56",
+        "unlocked": true
+      },
+      "actual_age_blocks": 7116,
+      "origin_after_any_observed_reference": false
+    },
+    {
+      "category": "unresolved_ring",
+      "amount": "600000000",
+      "index": "14052",
+      "sample_priority_sha256": "0002642ae12d803a8bcf9f62a55c5242f698f7239801f3f93b9cc3d9fbdfea83",
+      "key_image": "8d72b55be23d47a1042c44b7b85ee2bdf414c45fb216b34eb6ff698ed86d1032",
+      "input_tx_hash": "4530360bfbd504162b1eaddd6b8ec36530571d91c5b02a00e11e8eb6ed6d6415",
+      "input_height": 57123,
+      "first_referencing_height_in_database": 57123,
+      "original_ring_size": 16,
+      "ring_members": [
+        {
+          "amount": "600000000",
+          "index": "310"
+        },
+        {
+          "amount": "600000000",
+          "index": "954"
+        },
+        {
+          "amount": "600000000",
+          "index": "3844"
+        },
+        {
+          "amount": "600000000",
+          "index": "3978"
+        },
+        {
+          "amount": "600000000",
+          "index": "4516"
+        },
+        {
+          "amount": "600000000",
+          "index": "4834"
+        },
+        {
+          "amount": "600000000",
+          "index": "5201"
+        },
+        {
+          "amount": "600000000",
+          "index": "5343"
+        },
+        {
+          "amount": "600000000",
+          "index": "6639"
+        },
+        {
+          "amount": "600000000",
+          "index": "9408"
+        },
+        {
+          "amount": "600000000",
+          "index": "13291"
+        },
+        {
+          "amount": "600000000",
+          "index": "13370"
+        },
+        {
+          "amount": "600000000",
+          "index": "14052"
+        },
+        {
+          "amount": "600000000",
+          "index": "15189"
+        },
+        {
+          "amount": "600000000",
+          "index": "17045"
+        },
+        {
+          "amount": "600000000",
+          "index": "18402"
+        }
+      ],
+      "legacy_relative_age_proxy": 3.6065664382047316,
+      "gamma_log_likelihood": -7.495541943884256,
+      "gamma_recent_window": 1.0,
+      "gamma_surprisal": 0.14991083887768514,
+      "origin": {
+        "height": 55299,
+        "key": "181ca189e8a5623823750e4fc6dc00d7064f684f95c333a1214b57071d1d3507",
+        "mask": "d3238a4a8b71ab46d15304acfa2f40bf5ea63b3d864a79fa8425d2655ae7076f",
+        "txid": "b05ab6848431c27a24b59f429ec3de3865f09453a7aa40e5e857491ceff8b857",
+        "unlocked": true
+      },
+      "actual_age_blocks": 1824,
+      "origin_after_any_observed_reference": false
+    },
+    {
+      "category": "unresolved_ring",
+      "amount": "800000000",
+      "index": "1614",
+      "sample_priority_sha256": "0002fbd6b5ce6a872c3fcf75c7cfdb9d3121959975da41da41f36aded7a7089c",
+      "key_image": "adce6570cf0333c813569a9563818e84a4f5e916f220d3cfd5c9c2757de449af",
+      "input_tx_hash": "6aa10fd2ae5972219f9f48fe4c56d54fb2b0a08542a2bed0deeb4b1d701eb02d",
+      "input_height": 34120,
+      "first_referencing_height_in_database": 34120,
+      "original_ring_size": 6,
+      "ring_members": [
+        {
+          "amount": "800000000",
+          "index": "196"
+        },
+        {
+          "amount": "800000000",
+          "index": "763"
+        },
+        {
+          "amount": "800000000",
+          "index": "1614"
+        },
+        {
+          "amount": "800000000",
+          "index": "1719"
+        },
+        {
+          "amount": "800000000",
+          "index": "1905"
+        },
+        {
+          "amount": "800000000",
+          "index": "3448"
+        }
+      ],
+      "legacy_relative_age_proxy": 8.459409594095941,
+      "gamma_log_likelihood": -7.495541943884256,
+      "gamma_recent_window": 1.0,
+      "gamma_surprisal": 0.14991083887768514,
+      "origin": {
+        "height": 15831,
+        "key": "b9ced9f9f0c8d720d6424c9f6ad7b9e384b109244f933f5f9e8a89a295c4e149",
+        "mask": "f2daf888c4465701c0e61e12c3fbd4ea79c7ecb4f0c4b154c51a24d1e92128ba",
+        "txid": "d2616175a27be1f8ee653e2d933461dfccea1f4bf1e4aa7922e3073060f05d15",
+        "unlocked": true
+      },
+      "actual_age_blocks": 18289,
+      "origin_after_any_observed_reference": false
+    },
+    {
+      "category": "unresolved_ring",
+      "amount": "200000000",
+      "index": "1932",
+      "sample_priority_sha256": "00031dd3fb44e2b800c15f9f8069c53a4a8f8adc219fb209307d40649c6a2758",
+      "key_image": "80fbed68929a87f116843b0bf315e5f0e6461cddbbfb4ea168acf26007c3b4a3",
+      "input_tx_hash": "26d0a21dabab80dc5bf4c8f1e5636a4c1671e35f051f7dc61909912ab3bdc764",
+      "input_height": 23758,
+      "first_referencing_height_in_database": 23758,
+      "original_ring_size": 6,
+      "ring_members": [
+        {
+          "amount": "200000000",
+          "index": "138"
+        },
+        {
+          "amount": "200000000",
+          "index": "590"
+        },
+        {
+          "amount": "200000000",
+          "index": "1342"
+        },
+        {
+          "amount": "200000000",
+          "index": "1541"
+        },
+        {
+          "amount": "200000000",
+          "index": "1932"
+        },
+        {
+          "amount": "200000000",
+          "index": "2033"
+        }
+      ],
+      "legacy_relative_age_proxy": 0.7994722955145118,
+      "gamma_log_likelihood": -7.495541943884256,
+      "gamma_recent_window": 1.0,
+      "gamma_surprisal": 0.14991083887768514,
+      "origin": {
+        "height": 18788,
+        "key": "cd032ccf0fe782a254349ecb3b41fbc5e464080e7624f67cd0159f361f1b7e22",
+        "mask": "3bcb514801641b6255938cc503762d35ce06d75fe950959a1aab214b509b100b",
+        "txid": "d7504661f69612846ebe21545c772e8884bedeffbe2f2b679f355de71c7187ca",
+        "unlocked": true
+      },
+      "actual_age_blocks": 4970,
+      "origin_after_any_observed_reference": false
+    },
+    {
+      "category": "unresolved_ring",
+      "amount": "10000000000000",
+      "index": "1201",
+      "sample_priority_sha256": "000379fb15c6f3f47f75a702fb7e69d18966e8d2e0fbd601dbc796ae2b0e43fd",
+      "key_image": "4169fb0176dda981f79ffe04e9b96cf14759e976ab89f89e9f35a5c22e6366f4",
+      "input_tx_hash": "375f4b4b7086f35d0f83e262c3c57d27d397c28e9f29b549aac9865fc848e25a",
+      "input_height": 24743,
+      "first_referencing_height_in_database": 24743,
+      "original_ring_size": 6,
+      "ring_members": [
+        {
+          "amount": "10000000000000",
+          "index": "1201"
+        },
+        {
+          "amount": "10000000000000",
+          "index": "7836"
+        },
+        {
+          "amount": "10000000000000",
+          "index": "8148"
+        },
+        {
+          "amount": "10000000000000",
+          "index": "8474"
+        },
+        {
+          "amount": "10000000000000",
+          "index": "9402"
+        },
+        {
+          "amount": "10000000000000",
+          "index": "14285"
+        }
+      ],
+      "legacy_relative_age_proxy": 15.0,
+      "gamma_log_likelihood": -7.495541943884256,
+      "gamma_recent_window": 1.0,
+      "gamma_surprisal": 0.14991083887768514,
+      "origin": {
+        "height": 1201,
+        "key": "bc3c0ff777e4b1a829a6d13c1773d96edb75fd9a3c33ad19f3dba95c61e15fc3",
+        "mask": "163dd682ec977cdda59531da3ffa72998a6f8837abadc636aaedc8be19b2d7c7",
+        "txid": "df12f97b3063a1d95fe95648571d3cd0446de62a955f834e61832f087889b28c",
+        "unlocked": true
+      },
+      "actual_age_blocks": 23542,
+      "origin_after_any_observed_reference": false
+    },
+    {
+      "category": "unresolved_ring",
+      "amount": "10000000000000",
+      "index": "6286",
+      "sample_priority_sha256": "00038a2fc10d5f0258da34373f1d77c2b4cde1c397b346a007c724efe371067a",
+      "key_image": "3f30c21e0a70224e7e71bff3436786f2f2049bdbae71dc7a03b595f622ba8e6f",
+      "input_tx_hash": "9d2b3487c9921889ad0a1f61ed304f561c169e8ff78267fb2f47312bf8b35f39",
+      "input_height": 23756,
+      "first_referencing_height_in_database": 7005,
+      "original_ring_size": 6,
+      "ring_members": [
+        {
+          "amount": "10000000000000",
+          "index": "535"
+        },
+        {
+          "amount": "10000000000000",
+          "index": "6286"
+        },
+        {
+          "amount": "10000000000000",
+          "index": "10076"
+        },
+        {
+          "amount": "10000000000000",
+          "index": "16096"
+        },
+        {
+          "amount": "10000000000000",
+          "index": "18205"
+        },
+        {
+          "amount": "10000000000000",
+          "index": "20903"
+        }
+      ],
+      "legacy_relative_age_proxy": 10.764679890023567,
+      "gamma_log_likelihood": -7.495541943884256,
+      "gamma_recent_window": 1.0,
+      "gamma_surprisal": 0.14991083887768514,
+      "origin": {
+        "height": 6259,
+        "key": "a3ebf7d3090b1e49642fd74bd385b709f0334751f67b8eff433675cbcbca3e90",
+        "mask": "163dd682ec977cdda59531da3ffa72998a6f8837abadc636aaedc8be19b2d7c7",
+        "txid": "22ae3c1bb1facda7abf370a800232c8541160aca1cfeee12f3364a4c6661ea1a",
+        "unlocked": true
+      },
+      "actual_age_blocks": 17497,
+      "origin_after_any_observed_reference": false
+    },
+    {
+      "category": "unresolved_ring",
+      "amount": "4000000000",
+      "index": "6191",
+      "sample_priority_sha256": "000396508ea241727594048ca932aa7a38947eaaa6145244ba3f320d7638d4a4",
+      "key_image": "fa99f99adb4301c9359d20af0243d08d074f2d5768e9f3016839a40f424cbc93",
+      "input_tx_hash": "f3d69162189dc34f01bb52901fbcb977beb41271cbd8caf2474d3490b54e9ef3",
+      "input_height": 56687,
+      "first_referencing_height_in_database": 50477,
+      "original_ring_size": 21,
+      "ring_members": [
+        {
+          "amount": "4000000000",
+          "index": "1476"
+        },
+        {
+          "amount": "4000000000",
+          "index": "2408"
+        },
+        {
+          "amount": "4000000000",
+          "index": "2531"
+        },
+        {
+          "amount": "4000000000",
+          "index": "4995"
+        },
+        {
+          "amount": "4000000000",
+          "index": "6012"
+        },
+        {
+          "amount": "4000000000",
+          "index": "6191"
+        },
+        {
+          "amount": "4000000000",
+          "index": "7060"
+        },
+        {
+          "amount": "4000000000",
+          "index": "7240"
+        },
+        {
+          "amount": "4000000000",
+          "index": "8789"
+        },
+        {
+          "amount": "4000000000",
+          "index": "9998"
+        },
+        {
+          "amount": "4000000000",
+          "index": "10910"
+        },
+        {
+          "amount": "4000000000",
+          "index": "11619"
+        },
+        {
+          "amount": "4000000000",
+          "index": "11746"
+        },
+        {
+          "amount": "4000000000",
+          "index": "12325"
+        },
+        {
+          "amount": "4000000000",
+          "index": "12912"
+        },
+        {
+          "amount": "4000000000",
+          "index": "12987"
+        },
+        {
+          "amount": "4000000000",
+          "index": "13832"
+        },
+        {
+          "amount": "4000000000",
+          "index": "14925"
+        },
+        {
+          "amount": "4000000000",
+          "index": "15149"
+        },
+        {
+          "amount": "4000000000",
+          "index": "15206"
+        },
+        {
+          "amount": "4000000000",
+          "index": "16352"
+        }
+      ],
+      "legacy_relative_age_proxy": 10.245697768217262,
+      "gamma_log_likelihood": -7.495541943884256,
+      "gamma_recent_window": 1.0,
+      "gamma_surprisal": 0.14991083887768514,
+      "origin": {
+        "height": 50416,
+        "key": "a82433633e889598f9110074f66b3929f327c24d62c39bb0cec2d19f9d2e4a34",
+        "mask": "da3acb00ab2d8dccacec8f775921c40e26b1ffbeca9eb7e657256f5968f2341c",
+        "txid": "f5d7df1ff135fe127492087b5719986e7f6a7212fd551f2250785ad1050ac3b1",
+        "unlocked": true
+      },
+      "actual_age_blocks": 6271,
+      "origin_after_any_observed_reference": false
+    },
+    {
+      "category": "unresolved_ring",
+      "amount": "600000000000",
+      "index": "427",
+      "sample_priority_sha256": "00039a5791110e2eb0ebe3808edcffa123cfbf6e7a5fa0e0608dce1afc41097d",
+      "key_image": "1265dc01c6fd7c564b059903200ad567ab74080eb3c26924388efc75e837667e",
+      "input_tx_hash": "8944109b88e31e7643a9ad40293659363f13673b52491dfafbd05b33a216c397",
+      "input_height": 51071,
+      "first_referencing_height_in_database": 47683,
+      "original_ring_size": 12,
+      "ring_members": [
+        {
+          "amount": "600000000000",
+          "index": "106"
+        },
+        {
+          "amount": "600000000000",
+          "index": "108"
+        },
+        {
+          "amount": "600000000000",
+          "index": "149"
+        },
+        {
+          "amount": "600000000000",
+          "index": "187"
+        },
+        {
+          "amount": "600000000000",
+          "index": "274"
+        },
+        {
+          "amount": "600000000000",
+          "index": "314"
+        },
+        {
+          "amount": "600000000000",
+          "index": "427"
+        },
+        {
+          "amount": "600000000000",
+          "index": "434"
+        },
+        {
+          "amount": "600000000000",
+          "index": "442"
+        },
+        {
+          "amount": "600000000000",
+          "index": "541"
+        },
+        {
+          "amount": "600000000000",
+          "index": "557"
+        },
+        {
+          "amount": "600000000000",
+          "index": "620"
+        }
+      ],
+      "legacy_relative_age_proxy": 5.632295719844358,
+      "gamma_log_likelihood": -7.495541943884256,
+      "gamma_recent_window": 1.0,
+      "gamma_surprisal": 0.14991083887768514,
+      "origin": {
+        "height": 47590,
+        "key": "8c03e3eeb39dba133e9a2761df325b368b0fee85ffb2733bbe55330086761181",
+        "mask": "9827ae31e5c2a77839f60b83ab4578e2a01efa4b3b14cc727314ffd7155363bf",
+        "txid": "5966754e98c5c77f79785c07ca0d1e3a0fa2a36b8744175856541fea4c9316b2",
+        "unlocked": true
+      },
+      "actual_age_blocks": 3481,
+      "origin_after_any_observed_reference": false
+    },
+    {
+      "category": "unresolved_ring",
+      "amount": "900000000",
+      "index": "3166",
+      "sample_priority_sha256": "0003ab1f4363eb5a115c300d25d88f0ef21295c3f5c40cdd6d31c7e5b1eb1c28",
+      "key_image": "7e948d69ad287fb56c8521fbd7cfe09cf8c2208eb8ec0fb5931c90bbdfc307ee",
+      "input_tx_hash": "57654673613bb6549c26f8789219795eafee32589d9d0b51040dd5c6b14b7ae3",
+      "input_height": 30279,
+      "first_referencing_height_in_database": 30279,
+      "original_ring_size": 11,
+      "ring_members": [
+        {
+          "amount": "900000000",
+          "index": "13"
+        },
+        {
+          "amount": "900000000",
+          "index": "107"
+        },
+        {
+          "amount": "900000000",
+          "index": "128"
+        },
+        {
+          "amount": "900000000",
+          "index": "403"
+        },
+        {
+          "amount": "900000000",
+          "index": "413"
+        },
+        {
+          "amount": "900000000",
+          "index": "718"
+        },
+        {
+          "amount": "900000000",
+          "index": "1056"
+        },
+        {
+          "amount": "900000000",
+          "index": "1119"
+        },
+        {
+          "amount": "900000000",
+          "index": "1494"
+        },
+        {
+          "amount": "900000000",
+          "index": "1966"
+        },
+        {
+          "amount": "900000000",
+          "index": "3166"
+        }
+      ],
+      "legacy_relative_age_proxy": 0.0,
+      "gamma_log_likelihood": -7.495541943884256,
+      "gamma_recent_window": 1.0,
+      "gamma_surprisal": 0.14991083887768514,
+      "origin": {
+        "height": 29892,
+        "key": "16f89a721960e673195a42208d1002ae660f63364d2bffdc06a22e2db5aaa798",
+        "mask": "116ae5d29cec72aac557cb14e2cdd553e588ff8b8178260199c40caea212cb63",
+        "txid": "409216f2b7e7cf7f96bbe3984ad7ad3f70d08bd4cacbbabc86a4a0e765f0b78a",
+        "unlocked": true
+      },
+      "actual_age_blocks": 387,
+      "origin_after_any_observed_reference": false
+    },
+    {
+      "category": "unresolved_ring",
+      "amount": "2000000000",
+      "index": "10784",
+      "sample_priority_sha256": "0003f85c972cbb310e7599ab1eeaa6389f6eb77dd96643415fb16f9044af7684",
+      "key_image": "7469bb531c334c6e2ee4356db048f62784de754bf20b3b835618fd1a9c7de025",
+      "input_tx_hash": "15af421f8e1025a0c0bb921610cd5f2f15a9efba7be77be825ab6cbba44e4c33",
+      "input_height": 55254,
+      "first_referencing_height_in_database": 54207,
+      "original_ring_size": 11,
+      "ring_members": [
+        {
+          "amount": "2000000000",
+          "index": "35"
+        },
+        {
+          "amount": "2000000000",
+          "index": "1250"
+        },
+        {
+          "amount": "2000000000",
+          "index": "1695"
+        },
+        {
+          "amount": "2000000000",
+          "index": "2089"
+        },
+        {
+          "amount": "2000000000",
+          "index": "6915"
+        },
+        {
+          "amount": "2000000000",
+          "index": "7250"
+        },
+        {
+          "amount": "2000000000",
+          "index": "7372"
+        },
+        {
+          "amount": "2000000000",
+          "index": "10784"
+        },
+        {
+          "amount": "2000000000",
+          "index": "10917"
+        },
+        {
+          "amount": "2000000000",
+          "index": "12671"
+        },
+        {
+          "amount": "2000000000",
+          "index": "13772"
+        }
+      ],
+      "legacy_relative_age_proxy": 3.2627211181480673,
+      "gamma_log_likelihood": -7.495541943884256,
+      "gamma_recent_window": 1.0,
+      "gamma_surprisal": 0.14991083887768514,
+      "origin": {
+        "height": 53523,
+        "key": "bacc071b5f07fb60241a687f1e98fd10276a46c6a608d25672a22687f80942c4",
+        "mask": "378d3c5dbba4823d3312bb61fc0675a1bb3989f39701eb0d5ce4de5b0d907472",
+        "txid": "93b0dccaee0cee5e29c7c7183488e73e414a0c76537af393fb9a08675be5081d",
+        "unlocked": true
+      },
+      "actual_age_blocks": 1731,
+      "origin_after_any_observed_reference": false
+    },
+    {
+      "category": "unresolved_ring",
+      "amount": "10000000000000",
+      "index": "29559",
+      "sample_priority_sha256": "0004fd6f334e61b5f9970429675ef11f809b341054a1e5383d789cf790d9ca92",
+      "key_image": "a06affab93e806ae243a02a8d482c978f662b0ece3f0506eb81359eeb3cea68d",
+      "input_tx_hash": "14ebf814faa46134097befd8353cf0d8d5853441bab1fdef919fb49d0720639f",
+      "input_height": 30285,
+      "first_referencing_height_in_database": 30285,
+      "original_ring_size": 16,
+      "ring_members": [
+        {
+          "amount": "10000000000000",
+          "index": "3452"
+        },
+        {
+          "amount": "10000000000000",
+          "index": "5483"
+        },
+        {
+          "amount": "10000000000000",
+          "index": "9156"
+        },
+        {
+          "amount": "10000000000000",
+          "index": "9456"
+        },
+        {
+          "amount": "10000000000000",
+          "index": "9974"
+        },
+        {
+          "amount": "10000000000000",
+          "index": "12040"
+        },
+        {
+          "amount": "10000000000000",
+          "index": "14310"
+        },
+        {
+          "amount": "10000000000000",
+          "index": "15338"
+        },
+        {
+          "amount": "10000000000000",
+          "index": "15904"
+        },
+        {
+          "amount": "10000000000000",
+          "index": "20953"
+        },
+        {
+          "amount": "10000000000000",
+          "index": "22124"
+        },
+        {
+          "amount": "10000000000000",
+          "index": "27983"
+        },
+        {
+          "amount": "10000000000000",
+          "index": "29559"
+        },
+        {
+          "amount": "10000000000000",
+          "index": "29762"
+        },
+        {
+          "amount": "10000000000000",
+          "index": "29889"
+        },
+        {
+          "amount": "10000000000000",
+          "index": "30132"
+        }
+      ],
+      "legacy_relative_age_proxy": 0.3221514242878561,
+      "gamma_log_likelihood": -7.495541943884256,
+      "gamma_recent_window": 1.0,
+      "gamma_surprisal": 0.14991083887768514,
+      "origin": {
+        "height": 29652,
+        "key": "9e3d0cefb5fff04d3a76bde34048f409cdbf6050306584a56759a2fcb03a8f30",
+        "mask": "163dd682ec977cdda59531da3ffa72998a6f8837abadc636aaedc8be19b2d7c7",
+        "txid": "bcf678dfb0e72de75fa0e7121c1d75e3553f79b8834c22bd66a0fcf206565a03",
+        "unlocked": true
+      },
+      "actual_age_blocks": 633,
+      "origin_after_any_observed_reference": false
+    },
+    {
+      "category": "unresolved_ring",
+      "amount": "100000000000",
+      "index": "1059",
+      "sample_priority_sha256": "0005013599a7f8b5d7112f6e54edfc006e2ddb939639ce603162fee7bc1fcf28",
+      "key_image": "b88059604bb6ae1eaf56b81191854cfee9da5a889082d539afa34fbc4106dd61",
+      "input_tx_hash": "53552679af3925128f92a50c2f9529eed7840c5fb7dd383402656d755c63291b",
+      "input_height": 24917,
+      "first_referencing_height_in_database": 24917,
+      "original_ring_size": 6,
+      "ring_members": [
+        {
+          "amount": "100000000000",
+          "index": "65"
+        },
+        {
+          "amount": "100000000000",
+          "index": "436"
+        },
+        {
+          "amount": "100000000000",
+          "index": "668"
+        },
+        {
+          "amount": "100000000000",
+          "index": "1023"
+        },
+        {
+          "amount": "100000000000",
+          "index": "1059"
+        },
+        {
+          "amount": "100000000000",
+          "index": "1146"
+        }
+      ],
+      "legacy_relative_age_proxy": 1.2072155411655874,
+      "gamma_log_likelihood": -7.495541943884256,
+      "gamma_recent_window": 1.0,
+      "gamma_surprisal": 0.14991083887768514,
+      "origin": {
+        "height": 24739,
+        "key": "ec3b3cbea0f13cfdabf9c972c89f295fa392020a727cdb1cc9d1715603687267",
+        "mask": "0942843d6f69e1cf3d99c99f0c97c0e6e578935af6a8bdb8f81d5b90bde7cc10",
+        "txid": "1b62a710a8c1c3c0ac28fa0d87e2027b0d7d0127d98778dde876487b3a46e504",
+        "unlocked": true
+      },
+      "actual_age_blocks": 178,
+      "origin_after_any_observed_reference": false
+    },
+    {
+      "category": "unresolved_ring",
+      "amount": "3000000",
+      "index": "9",
+      "sample_priority_sha256": "0005298c8629b3df6b9f5a69e5c484e42c613d784372c348888ed06ae685975d",
+      "key_image": "0de0b6ba8b22a3c3242cf1025ae39e0e7e1f5864de1ca63e61658730b2f9e8c2",
+      "input_tx_hash": "4a9e585d552c15bbab6a45f31e21f1d441dc32056949f25122132638cbb5b2dc",
+      "input_height": 41261,
+      "first_referencing_height_in_database": 27597,
+      "original_ring_size": 11,
+      "ring_members": [
+        {
+          "amount": "3000000",
+          "index": "9"
+        },
+        {
+          "amount": "3000000",
+          "index": "384"
+        },
+        {
+          "amount": "3000000",
+          "index": "749"
+        },
+        {
+          "amount": "3000000",
+          "index": "899"
+        },
+        {
+          "amount": "3000000",
+          "index": "1088"
+        },
+        {
+          "amount": "3000000",
+          "index": "1140"
+        },
+        {
+          "amount": "3000000",
+          "index": "2009"
+        },
+        {
+          "amount": "3000000",
+          "index": "2776"
+        },
+        {
+          "amount": "3000000",
+          "index": "3134"
+        },
+        {
+          "amount": "3000000",
+          "index": "3732"
+        },
+        {
+          "amount": "3000000",
+          "index": "4207"
+        }
+      ],
+      "legacy_relative_age_proxy": 15.0,
+      "gamma_log_likelihood": -7.495541943884256,
+      "gamma_recent_window": 1.0,
+      "gamma_surprisal": 0.14991083887768514,
+      "origin": {
+        "height": 111,
+        "key": "91819f2873e3efbae65ecd5a736f5e8a26318b591c21e39a03fb536520ac63ba",
+        "mask": "9e7563f03359ea31e291e7f0b87417bcf5b234ee8b7e5b044173bf0046867c57",
+        "txid": "5b37cef76e3ac226ce437509d2da1d7fbf6841b8b31f72ef4bb2101a3b757c05",
+        "unlocked": true
+      },
+      "actual_age_blocks": 41150,
+      "origin_after_any_observed_reference": false
+    },
+    {
+      "category": "unresolved_ring",
+      "amount": "7000000000000",
+      "index": "19318",
+      "sample_priority_sha256": "00056c399a513b4091e5882a570a3c2893436070e49f590780b06e31a079c0e1",
+      "key_image": "4698372d699ebe1d1b75f39bdfe1c80f404cf848938a837cc87fd76b863afd5b",
+      "input_tx_hash": "b3d8871ca06c2284043548940245630922ab651d59f97e2730108e9b2ba0cad3",
+      "input_height": 51695,
+      "first_referencing_height_in_database": 35664,
+      "original_ring_size": 11,
+      "ring_members": [
+        {
+          "amount": "7000000000000",
+          "index": "389"
+        },
+        {
+          "amount": "7000000000000",
+          "index": "1722"
+        },
+        {
+          "amount": "7000000000000",
+          "index": "3442"
+        },
+        {
+          "amount": "7000000000000",
+          "index": "3730"
+        },
+        {
+          "amount": "7000000000000",
+          "index": "7159"
+        },
+        {
+          "amount": "7000000000000",
+          "index": "10969"
+        },
+        {
+          "amount": "7000000000000",
+          "index": "11186"
+        },
+        {
+          "amount": "7000000000000",
+          "index": "14536"
+        },
+        {
+          "amount": "7000000000000",
+          "index": "18595"
+        },
+        {
+          "amount": "7000000000000",
+          "index": "19318"
+        },
+        {
+          "amount": "7000000000000",
+          "index": "35685"
+        }
+      ],
+      "legacy_relative_age_proxy": 6.955604034451496,
+      "gamma_log_likelihood": -7.495541943884256,
+      "gamma_recent_window": 1.0,
+      "gamma_surprisal": 0.14991083887768514,
+      "origin": {
+        "height": 19466,
+        "key": "2d58f3c1ffc7cd4201fea320d79ee4e29cc7328897d7b6dcaddaf4b7a2cec5fa",
+        "mask": "59a03a3153a994d72327e4d92421d3e3291b1fa1b240de44b92d7f62ec0128f1",
+        "txid": "c101d07a9403d7858ef6586a30023dac892e90127d070b317c880eb19f017d53",
+        "unlocked": true
+      },
+      "actual_age_blocks": 32229,
+      "origin_after_any_observed_reference": false
+    },
+    {
+      "category": "unresolved_ring",
+      "amount": "3000000",
+      "index": "1044",
+      "sample_priority_sha256": "0005f47cb8128c978c98476c57c45f8e1e99d565b575b6f8ce5c353411981f10",
+      "key_image": "2691149659d0f83081a8a6693da95b3c51699cdc43150479db98cfbf9da9c5e6",
+      "input_tx_hash": "c1e78bf9e14a9ecfad344967ab79ec35016f2ea9f5c16ab840539e6d0e734843",
+      "input_height": 48152,
+      "first_referencing_height_in_database": 15027,
+      "original_ring_size": 2,
+      "ring_members": [
+        {
+          "amount": "3000000",
+          "index": "1044"
+        },
+        {
+          "amount": "3000000",
+          "index": "2001"
+        }
+      ],
+      "legacy_relative_age_proxy": 15.0,
+      "gamma_log_likelihood": -7.495541943884256,
+      "gamma_recent_window": 1.0,
+      "gamma_surprisal": 0.14991083887768514,
+      "origin": {
+        "height": 10783,
+        "key": "7aff5e6b6402ef47d6ea6a497ce1964b49897a6e0f3cb6ae721e40865087d124",
+        "mask": "9e7563f03359ea31e291e7f0b87417bcf5b234ee8b7e5b044173bf0046867c57",
+        "txid": "20e8ad76e26c4decb36a147491f74ed4637832d8475688f32f60c5825d436e9a",
+        "unlocked": true
+      },
+      "actual_age_blocks": 37369,
+      "origin_after_any_observed_reference": false
+    },
+    {
+      "category": "unresolved_ring",
+      "amount": "8000000000",
+      "index": "4029",
+      "sample_priority_sha256": "000618eba343e4ae9253d2b894523f7ea5f2a23185ac892210b11118cf0de5ba",
+      "key_image": "11a11e34f6e96e9224f9bcf0d7332a44df908a62af1e1a95311be8a5a1ac437b",
+      "input_tx_hash": "afc932d9eefe9b5379c84929dcdfb6b983d953afdef648f613afb9e44c97d542",
+      "input_height": 54336,
+      "first_referencing_height_in_database": 42254,
+      "original_ring_size": 7,
+      "ring_members": [
+        {
+          "amount": "8000000000",
+          "index": "3086"
+        },
+        {
+          "amount": "8000000000",
+          "index": "3225"
+        },
+        {
+          "amount": "8000000000",
+          "index": "3831"
+        },
+        {
+          "amount": "8000000000",
+          "index": "4029"
+        },
+        {
+          "amount": "8000000000",
+          "index": "5455"
+        },
+        {
+          "amount": "8000000000",
+          "index": "6346"
+        },
+        {
+          "amount": "8000000000",
+          "index": "8931"
+        }
+      ],
+      "legacy_relative_age_proxy": 12.579982891360137,
+      "gamma_log_likelihood": -7.495541943884256,
+      "gamma_recent_window": 1.0,
+      "gamma_surprisal": 0.14991083887768514,
+      "origin": {
+        "height": 38788,
+        "key": "be616d0033559076a745dcf466721bcbde93ee8910e19c0dd4799a03e75aa8b7",
+        "mask": "4a2e2f76e35dcba897a3ae72c4270d9c131714ed191b555c5e01e4757cbae72c",
+        "txid": "745c5d9531d7ac7493a1ae3cc0bcedf57b34888e3cc9676dc25d654b653cbf45",
+        "unlocked": true
+      },
+      "actual_age_blocks": 15548,
+      "origin_after_any_observed_reference": false
+    }
+  ],
+  "limits": [
+    "A single unauthenticated HTTP node response is not independent chain validation.",
+    "Selected outputs include real candidates and decoys; ring category is not an ownership label.",
+    "Legacy relative proxy units are not measured block age; no MAE is claimed.",
+    "This historical sample does not measure model accuracy or current protocol behavior."
+  ]
+}
