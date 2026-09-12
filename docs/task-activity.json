@@ -1,16 +1,16 @@
 {
   "schema_version": 1,
   "repository_url": "https://github.com/netzo92/deanonymizing_xmr",
-  "source_commit": "b196059253aea07f3dc278e60717a2a00ced70c1",
+  "source_commit": "7e8e319590bf0c82db7f664999b8b2e723dc8175",
   "history": {
-    "head_commit": "b196059253aea07f3dc278e60717a2a00ced70c1",
-    "head_at": "2026-09-12T05:18:05Z",
+    "head_commit": "7e8e319590bf0c82db7f664999b8b2e723dc8175",
+    "head_at": "2026-09-12T05:22:27Z",
     "root_commit": "67d911fb0a836bc53b2cbdf2d99b8113aaaf3306",
-    "commit_count": 52,
+    "commit_count": 54,
     "mode": "first_parent",
     "complete": true
   },
-  "content_sha256": "8ea91d64886578d787cd82d7a156c09773109360da584bfe653e01fe9404d361",
+  "content_sha256": "e0b3c51960d19d91f6826595a560b17a7e79b142c9c81e2399cf339008f22e8a",
   "source_manifest": {
     "brain/architecture/index.md": "0d7606ba363e2f1e80f29b2e891b87c61ee971cc6b3635f034a1930ac53f4e64",
     "brain/architecture/pipeline.md": "fda1e301fdadb62359be0c5ab464390e8eccb82fed5bcaa045ef36ef25994684",
@@ -30,7 +30,7 @@
     "brain/research/protocol-limits.md": "003df48a9f3b0c49e4cffd9d66d6b426820a1de7b09ca00154bb4760ee5c1546",
     "brain/research/security-eras.md": "1ee478e4f8426397b29410078edcb958be69d89ace0112d7914d442cf721cb55",
     "brain/research/upstream-heuristics.md": "f286f35d851bf15f4a47fca3faf57204d7de631ecac99937903e8e586e4b8f52",
-    "brain/tasks/dashboard.md": "a51830a83b5e454a7c921d3f42cf693991ae1233c23a6ceb41da222e87948887",
+    "brain/tasks/dashboard.md": "e466925640e4f2e626fe24fa472718d5238c2e539783c774e13e82b6531a09b7",
     "brain/tasks/index.md": "babd15cf94353706855b643f19e41d9f106b6d7fdad988547184d0ee47331c55",
     "brain/workflows/cloud.md": "25adfae936b95be31ae7d39e339ed11f7618af66238c29c5f1f029702c750f47",
     "brain/workflows/development.md": "73c44aaf967b9c0fd8e3692bf93702dd63c970d900c4360d423a7cef5ef1ce4a",
@@ -2345,7 +2345,7 @@
       "note_id": "brain/tasks/dashboard.md",
       "code": "D14",
       "title": "D14 — Dated TODO activity and hypothesis outcomes.",
-      "text": "**D14 — Dated TODO activity and hypothesis outcomes.** The [activity feed](../../docs/task-activity-view.js) shows first-recorded, closed, reopened, removed and reintroduced task events with Git dates and source links, plus browser-local unread notices. Imported completed tasks retain unknown actual closure dates. The [hypothesis ledger](../../research/hypotheses.json) maps all 68 research checklists to 53 questions/objectives with separate execution status, scientific verdict, theoretical interpretation, measured conclusion, frozen evidence and remaining work. [History tests](../../tests/test_task_activity.py), [ledger checks](../../tests/test_hypotheses.py), [display tests](../../tests/test_task_activity_view.js), and [publication checks](../../tests/test_static_publication.py) passed within 192 Python and 94 JavaScript tests. Public GCP/Pages Chrome checks passed at 320/390/768 pixels, including source reconciliation, status/verdict filters, last-good recovery, focus and disclosures. The feed checks published updates every 60 seconds; new chain data does not close tasks or validate hypotheses. See [task reporting](../workflows/task-reporting.md) for the update workflow.",
+      "text": "**D14 — Dated TODO activity and hypothesis outcomes.** The [activity feed](../../docs/task-activity-view.js) shows first-recorded, closed, reopened, removed and reintroduced task events with Git dates and source links, plus browser-local unread notices. Imported completed tasks retain unknown actual closure dates. The [hypothesis ledger](../../research/hypotheses.json) initially mapped all 68 research checklists to 53 questions/objectives (later scoped results can split an objective) with separate execution status, scientific verdict, theoretical interpretation, measured conclusion, frozen evidence and remaining work. [History tests](../../tests/test_task_activity.py), [ledger checks](../../tests/test_hypotheses.py), [display tests](../../tests/test_task_activity_view.js), and [publication checks](../../tests/test_static_publication.py) passed within 192 Python and 94 JavaScript tests. Public GCP/Pages Chrome checks passed at 320/390/768 pixels, including source reconciliation, status/verdict filters, last-good recovery, focus and disclosures. The feed checks published updates every 60 seconds; new chain data does not close tasks or validate hypotheses. See [task reporting](../workflows/task-reporting.md) for the update workflow.",
       "done": true,
       "status": "completed",
       "first_recorded": {
@@ -2382,9 +2382,9 @@
       "note_id": "brain/tasks/dashboard.md",
       "code": "D15",
       "title": "D15 — Plain-language conclusions, feature help and dated notes.",
-      "text": "**D15 — Plain-language conclusions, feature help and dated notes.** Add a dedicated conclusions page, explanations and accessible question-mark tooltips for all 24 model features, a stored-block/observed-tip percentage, Git-recorded note edits, and an explicitly illustrative inference animation. Verify evidence scope, unknown inputs, desktop/mobile interaction and publication before closing.",
-      "done": false,
-      "status": "open",
+      "text": "**D15 — Plain-language conclusions, feature help and dated notes.** The [conclusions page](../../docs/conclusions.html) now shows can/cannot determine, individual experiment outcomes, future research and a UTC note/task changelog. [Shared help](../../docs/research-guide.js) explains all 24 model features through hover, keyboard focus and tap, including the complete-score-gap definition. The dashboard shows stored blocks / (observed tip + 1), with both observation dates and unknown/mismatch handling. Brain notes show first-recorded and last-committed edit times only for matching hashes. A user-controlled animation illustrates candidate elimination and model ranking with invented candidates; reduced-motion preferences remove transitions. Verified on public GCP and GitHub Pages in Chrome at 390/768/1440 pixels, with no overflow or runtime errors, working filters, mouse/keyboard help and animation controls. The live feature audit had explanatory icons on all feature rows. GCP reported 76,901 / 3,760,629 blocks (2.04%) at the check; Pages explicitly retains its frozen sample. 222 Python and 97 JavaScript checks passed. Publication preserved all three collector PIDs; the six-hour private archive timer remains active. See [task reporting](../workflows/task-reporting.md#note-edits-and-conclusions).",
+      "done": true,
+      "status": "completed",
       "first_recorded": {
         "commit": "5d19b62f78ffe86b6e8afa375070e51e720eddf3",
         "at": "2026-09-12T05:08:57Z",
@@ -2397,14 +2397,21 @@
           "at": "2026-09-12T05:08:57Z",
           "status": "open",
           "title": "D15 — Plain-language conclusions, feature help and dated notes."
+        },
+        {
+          "kind": "closed",
+          "commit": "7e8e319590bf0c82db7f664999b8b2e723dc8175",
+          "at": "2026-09-12T05:22:27Z",
+          "status": "completed",
+          "title": "D15 — Plain-language conclusions, feature help and dated notes."
         }
       ],
       "pending_change": false,
       "last_transition": {
-        "kind": "first_recorded",
-        "commit": "5d19b62f78ffe86b6e8afa375070e51e720eddf3",
-        "at": "2026-09-12T05:08:57Z",
-        "status": "open"
+        "kind": "closed",
+        "commit": "7e8e319590bf0c82db7f664999b8b2e723dc8175",
+        "at": "2026-09-12T05:22:27Z",
+        "status": "completed"
       }
     },
     {
@@ -3595,6 +3602,16 @@
       "task_id": "brain/research/progress-and-conclusions.md#RP1",
       "note_id": "brain/research/progress-and-conclusions.md",
       "code": "RP1"
+    },
+    {
+      "kind": "closed",
+      "commit": "7e8e319590bf0c82db7f664999b8b2e723dc8175",
+      "at": "2026-09-12T05:22:27Z",
+      "status": "completed",
+      "title": "D15 — Plain-language conclusions, feature help and dated notes.",
+      "task_id": "brain/tasks/dashboard.md#D15",
+      "note_id": "brain/tasks/dashboard.md",
+      "code": "D15"
     }
   ],
   "note_events": [
@@ -4185,13 +4202,20 @@
       "note_id": "brain/workflows/task-reporting.md",
       "kind": "note_updated",
       "content_sha256": "d9ce0f5c1c1735343517a133b8aced362fafa5a4fd436992004c789ba1c020af"
+    },
+    {
+      "commit": "7e8e319590bf0c82db7f664999b8b2e723dc8175",
+      "at": "2026-09-12T05:22:27Z",
+      "note_id": "brain/tasks/dashboard.md",
+      "kind": "note_updated",
+      "content_sha256": "e466925640e4f2e626fe24fa472718d5238c2e539783c774e13e82b6531a09b7"
     }
   ],
   "summary": {
-    "open": 61,
-    "completed": 22,
+    "open": 60,
+    "completed": 23,
     "removed": 2,
-    "events": 94,
+    "events": 95,
     "pending": 0
   }
 }
