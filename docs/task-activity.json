@@ -1,0 +1,3499 @@
+{
+  "schema_version": 1,
+  "repository_url": "https://github.com/netzo92/deanonymizing_xmr",
+  "source_commit": "1eeb75dd74b2ca8a74cdb8513c3bf8a0d3a6e4e8",
+  "history": {
+    "head_commit": "1eeb75dd74b2ca8a74cdb8513c3bf8a0d3a6e4e8",
+    "head_at": "2026-09-12T04:36:30Z",
+    "root_commit": "67d911fb0a836bc53b2cbdf2d99b8113aaaf3306",
+    "commit_count": 46,
+    "mode": "first_parent",
+    "complete": true
+  },
+  "content_sha256": "2bf8a8488497ad0105a397ee217f248fa25bff8a5bec12ac17ef78106c0082fb",
+  "source_manifest": {
+    "brain/architecture/index.md": "0d7606ba363e2f1e80f29b2e891b87c61ee971cc6b3635f034a1930ac53f4e64",
+    "brain/architecture/pipeline.md": "fda1e301fdadb62359be0c5ab464390e8eccb82fed5bcaa045ef36ef25994684",
+    "brain/architecture/storage-and-evidence.md": "d06f259716143fa7a0f5b00680996589e726abf31eafb153f1b517bb974573f3",
+    "brain/index.md": "30cd0cb05f4bd0b1de12bc2f3e31f5839d0796eec0abaef075b061f54897a4a8",
+    "brain/research/evaluation.md": "988640552ae49139ba23f4fde6b7c856cc805e9ca595110c866b15ed13e56e81",
+    "brain/research/feature-variation-audit.md": "ec3218096adbdb1aeed9f4d396dd2a6077c637d8b817b26ea3cf2a1593dbce4c",
+    "brain/research/groupings.md": "3aa13da23c2d6c9b9657c5a560879b08b1da3d99e47f3332883a4d17135410ce",
+    "brain/research/heuristic-baselines.md": "9fc52a78fb6f5e72ed9f2f6037c611e246a78017ee6afa9416b811626f23ce58",
+    "brain/research/heuristic-experiments.md": "08fc38ac2e1febcc77c0443d5068e0ef2ae10e831448edc498b7274e26fef6ce",
+    "brain/research/ideas.md": "e39633ea44286989de55bb415f9716a75674d9d2e4c6b7b2be22880f5de165bc",
+    "brain/research/index.md": "bcc133d15257b8b9f578cb52252167f3566c6b52ce3df39bb4f4ecde9655d43e",
+    "brain/research/output-origin-audit.md": "fe5380855d7ae74bed302bc33de4822246ebfce4919719327bbaaa5348bdf444",
+    "brain/research/predictions.md": "d187da7f594f7ca8408c62c697757a3c95ff50cf292b87051bc4bed461ed1e24",
+    "brain/research/private-node-observations.md": "004bd11fb480c6245cd361e26e11643fbdfaab6059d1b4e6173a349a6044a6c4",
+    "brain/research/progress-and-conclusions.md": "98abc6e181952e4908207e223a3f585553bca36155162a434a03f3a75d8b17a0",
+    "brain/research/protocol-limits.md": "003df48a9f3b0c49e4cffd9d66d6b426820a1de7b09ca00154bb4760ee5c1546",
+    "brain/research/security-eras.md": "1ee478e4f8426397b29410078edcb958be69d89ace0112d7914d442cf721cb55",
+    "brain/research/upstream-heuristics.md": "f286f35d851bf15f4a47fca3faf57204d7de631ecac99937903e8e586e4b8f52",
+    "brain/tasks/dashboard.md": "48e40577eb70498f3382a87f836494870868060a90335685ae4eaec81e3e63a1",
+    "brain/tasks/index.md": "babd15cf94353706855b643f19e41d9f106b6d7fdad988547184d0ee47331c55",
+    "brain/workflows/cloud.md": "25adfae936b95be31ae7d39e339ed11f7618af66238c29c5f1f029702c750f47",
+    "brain/workflows/development.md": "73c44aaf967b9c0fd8e3692bf93702dd63c970d900c4360d423a7cef5ef1ce4a",
+    "brain/workflows/index.md": "aa88e20932a3ac0d4541031c12e611cbef6daad826469b81e2486be5fceb70ef",
+    "brain/workflows/maintenance.md": "3b654b9339f0bbe15c80a0b2464527ae6318a6f82c8bbba27fb3071fc68bcd64",
+    "brain/workflows/research-workspace.md": "0ec806ab707a57a48468c616f222de291aa33fce22662d0a9ec2534909a8d3dd",
+    "brain/workflows/task-reporting.md": "c224031e500b8290e8ec4ce1ecaf63b5ee73bcfad3aed8b62d5e2e5f7c637784"
+  },
+  "working_tree_changes": false,
+  "tasks": [
+    {
+      "id": "brain/research/feature-variation-audit.md#FA2",
+      "note_id": "brain/research/feature-variation-audit.md",
+      "code": "FA2",
+      "title": "FA2 — Fixed-split ablation.",
+      "text": "**FA2 — Fixed-split ablation.** Compare current features with constant/duplicate families removed on the same frozen eligible rings and predeclared split. Record time, memory, candidate scores, and outcome differences; do not assume fewer columns improve accuracy.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "e5b4c3b5071546d13c5a66c9524aef069853ac6a",
+        "at": "2026-09-12T02:10:02Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "e5b4c3b5071546d13c5a66c9524aef069853ac6a",
+          "at": "2026-09-12T02:10:02Z",
+          "status": "open",
+          "title": "FA2 — Fixed-split ablation."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "e5b4c3b5071546d13c5a66c9524aef069853ac6a",
+        "at": "2026-09-12T02:10:02Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/feature-variation-audit.md#FA3",
+      "note_id": "brain/research/feature-variation-audit.md",
+      "code": "FA3",
+      "title": "FA3 — Reuse tie treatment.",
+      "text": "**FA3 — Reuse tie treatment.** Compare current index-ordered ranks with equal ranks for tied counts, using the same split and explicit chronological/graph controls. Separate genuine reuse information from the index-order signal introduced by ties.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "e5b4c3b5071546d13c5a66c9524aef069853ac6a",
+        "at": "2026-09-12T02:10:02Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "e5b4c3b5071546d13c5a66c9524aef069853ac6a",
+          "at": "2026-09-12T02:10:02Z",
+          "status": "open",
+          "title": "FA3 — Reuse tie treatment."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "e5b4c3b5071546d13c5a66c9524aef069853ac6a",
+        "at": "2026-09-12T02:10:02Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/feature-variation-audit.md#FA4",
+      "note_id": "brain/research/feature-variation-audit.md",
+      "code": "FA4",
+      "title": "FA4 — Broader feature coverage.",
+      "text": "**FA4 — Broader feature coverage.** Repeat the audit on an independently validated later snapshot with amount-zero cohorts. Keep absent cohorts visible and check both original-training and surviving-scoring contexts before changing deployed scoring.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "e5b4c3b5071546d13c5a66c9524aef069853ac6a",
+        "at": "2026-09-12T02:10:02Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "e5b4c3b5071546d13c5a66c9524aef069853ac6a",
+          "at": "2026-09-12T02:10:02Z",
+          "status": "open",
+          "title": "FA4 — Broader feature coverage."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "e5b4c3b5071546d13c5a66c9524aef069853ac6a",
+        "at": "2026-09-12T02:10:02Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/groupings.md#G1",
+      "note_id": "brain/research/groupings.md",
+      "code": "G1",
+      "title": "G1 — Ring-overlap explorer (P2).",
+      "text": "**G1 — Ring-overlap explorer (P2).** The [progress view](../../docs/progress-view.js) now displays same-transaction groups, exact shared-output groups among exported rings, and bounded reported overlap pairs. These are direct relationships, not transitive ownership clusters. Full size/degree-normalized comparison and controlled validation remain open. Start with `Brain.related_rings()`, preserving amount in output identity. Compare raw overlap with size/degree-normalized similarity and inspect heavily reused candidates. Done when results are labeled ring-overlap communities, graph limits are explicit, and overlap alone never produces ownership claims.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+          "at": "2026-09-11T23:02:20Z",
+          "status": "open",
+          "title": "G1 — Ring-overlap explorer (P2)."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/groupings.md#G2",
+      "note_id": "brain/research/groupings.md",
+      "code": "G2",
+      "title": "G2 — Co-spend hypotheses (P2; depends on P1–P3).",
+      "text": "**G2 — Co-spend hypotheses (P2; depends on P1–P3).** Join input rings by transaction and attach deterministic/predicted candidates with provenance. Test joint candidate-selection accuracy on controlled multi-input transactions. Authorization of actual spent inputs does not by itself prove one controller or beneficial owner. Retain competing candidates and abstentions; multiplying correlated input scores does not establish joint confidence. Done when joint correctness and failure cases are measured separately from per-ring accuracy.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+          "at": "2026-09-11T23:02:20Z",
+          "status": "open",
+          "title": "G2 — Co-spend hypotheses (P2; depends on P1–P3)."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/groupings.md#G3",
+      "note_id": "brain/research/groupings.md",
+      "code": "G3",
+      "title": "G3 — Cluster validation (P3; depends on G2).",
+      "text": "**G3 — Cluster validation (P3; depends on G2).** Use synthetic graphs and locally controlled wallet transactions with known output ownership/spends. Measure pairwise precision/recall, false merges, and stability across thresholds, periods, and added blocks. Include unrelated wallets using similar construction patterns as negative controls. Compare conservative baselines before graph models. Done when labels and confidence have measured meaning on held-out data; disclose limits of generalizing controlled data to the public chain.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+          "at": "2026-09-11T23:02:20Z",
+          "status": "open",
+          "title": "G3 — Cluster validation (P3; depends on G2)."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/groupings.md#G4",
+      "note_id": "brain/research/groupings.md",
+      "code": "G4",
+      "title": "G4 — Reversible cluster records (P3; depends on G3).",
+      "text": "**G4 — Reversible cluster records (P3; depends on G3).** Store run-specific groups, members, typed evidence edges, supporting prediction/event IDs, and superseded links. Preserve versions as evidence changes. A weak bridge must not irreversibly merge groups; connected-component transitivity is not proof of common ownership. Done when each grouping can be explained, split, and compared across runs without changing deterministic labels.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+          "at": "2026-09-11T23:02:20Z",
+          "status": "open",
+          "title": "G4 — Reversible cluster records (P3; depends on G3)."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/groupings.md#G5",
+      "note_id": "brain/research/groupings.md",
+      "code": "G5",
+      "title": "G5 — Output origins and controlled labels (P2).",
+      "text": "**G5 — Output origins and controlled labels (P2).** Assess scanner/RPC changes to map `(amount, index)` to creating transaction, output position, and height, including mining outputs. Verify completeness before drawing transaction-flow edges. Keep controlled wallet output/spend labels separate from model inputs. Done when source-output joins are validated and label-derived features cannot leak answers into training.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+          "at": "2026-09-11T23:02:20Z",
+          "status": "open",
+          "title": "G5 — Output origins and controlled labels (P2)."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/heuristic-baselines.md#HB2",
+      "note_id": "brain/research/heuristic-baselines.md",
+      "code": "HB2",
+      "title": "HB2 — Prediction-time reuse baseline (P1; depends on evidence history).",
+      "text": "**HB2 — Prediction-time reuse baseline (P1; depends on evidence history).** Inputs: immutable snapshots of memberships and labels available at each prediction height. Baseline: minimum reuse with the same fractional tie rule. Success: quantify the difference between full-snapshot and prediction-time reuse under declared graph-aware temporal partitions. Failure modes: using future memberships or later label discoveries; present data cannot establish historical label availability.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "e5b4c3b5071546d13c5a66c9524aef069853ac6a",
+        "at": "2026-09-12T02:10:02Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "e5b4c3b5071546d13c5a66c9524aef069853ac6a",
+          "at": "2026-09-12T02:10:02Z",
+          "status": "open",
+          "title": "HB2 — Prediction-time reuse baseline (P1; depends on evidence history)."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "e5b4c3b5071546d13c5a66c9524aef069853ac6a",
+        "at": "2026-09-12T02:10:02Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/heuristic-experiments.md#HE1",
+      "note_id": "brain/research/heuristic-experiments.md",
+      "code": "HE1",
+      "title": "HE1 — Output-origin joins (P0).",
+      "text": "**HE1 — Output-origin joins (P0).** Inputs: `(amount, index)`, creating transaction/hash, output position, block height/hash, unlock metadata, and RPC provenance, including miner outputs. Validate pair identities within one network/dataset; keep test networks separate.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+        "at": "2026-09-12T00:27:56Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+          "at": "2026-09-12T00:27:56Z",
+          "status": "open",
+          "title": "HE1 — Output-origin joins (P0)."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+        "at": "2026-09-12T00:27:56Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/heuristic-experiments.md#HE2",
+      "note_id": "brain/research/heuristic-experiments.md",
+      "code": "HE2",
+      "title": "HE2 — Age baselines and ablation (P1).",
+      "text": "**HE2 — Age baselines and ablation (P1).** Inputs: origin ages, ring members, protocol cohorts, and labels eligible before each frozen cutoff. Compare uniform random, newest-member, oldest-member, age-only ranking, and the current random forest on the same rings.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+        "at": "2026-09-12T00:27:56Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+          "at": "2026-09-12T00:27:56Z",
+          "status": "open",
+          "title": "HE2 — Age baselines and ablation (P1)."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+        "at": "2026-09-12T00:27:56Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/heuristic-experiments.md#HE3",
+      "note_id": "brain/research/heuristic-experiments.md",
+      "code": "HE3",
+      "title": "HE3 — Temporal and graph separation (P0).",
+      "text": "**HE3 — Temporal and graph separation (P0).** Inputs: immutable prediction runs, training-ring IDs, features frozen at height H, label-eligibility timestamps/heights, and ring-output edges available at H. Baseline: the current random ring holdout.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+        "at": "2026-09-12T00:27:56Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+          "at": "2026-09-12T00:27:56Z",
+          "status": "open",
+          "title": "HE3 — Temporal and graph separation (P0)."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+        "at": "2026-09-12T00:27:56Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/heuristic-experiments.md#HE4",
+      "note_id": "brain/research/heuristic-experiments.md",
+      "code": "HE4",
+      "title": "HE4 — Overlap and co-spend false merges (P2).",
+      "text": "**HE4 — Overlap and co-spend false merges (P2).** Inputs: observed ring-output graph, transactions with multiple input rings, run-specific candidate scores, and separate controlled-wallet spend/ownership labels. Preserve both amounts and indices on every edge.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+        "at": "2026-09-12T00:27:56Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+          "at": "2026-09-12T00:27:56Z",
+          "status": "open",
+          "title": "HE4 — Overlap and co-spend false merges (P2)."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+        "at": "2026-09-12T00:27:56Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/ideas.md#title-0a059309cf79c781",
+      "note_id": "brain/research/ideas.md",
+      "code": null,
+      "title": "Pinned upstream implementation audit.",
+      "text": "**Pinned upstream implementation audit.** The [source audit](upstream-heuristics.md) now links three completed implementation reviews and a frozen real-data reconciliation. UA2–UA6 retain the proposed implementation/validation work. Added the [official Monero source](https://github.com/monero-project/monero) as a separately managed reference pinned to v0.18.5.1 and its exact commit. Mapped wallet decoy selection, output indexing, RPC schemas and protocol-version rules to current feature/scanner assumptions. Age/gamma repairs and differential fixtures remain open experiments; a source checkout does not itself run a validating node or establish the correctness of an ownership hypothesis.",
+      "done": true,
+      "status": "completed",
+      "first_recorded": {
+        "commit": "17fc6bc8ff8b1fc38b55302c828e879648fa2f91",
+        "at": "2026-09-12T02:46:35Z",
+        "status": "completed"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "17fc6bc8ff8b1fc38b55302c828e879648fa2f91",
+          "at": "2026-09-12T02:46:35Z",
+          "status": "completed",
+          "title": "Pinned upstream implementation audit."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "17fc6bc8ff8b1fc38b55302c828e879648fa2f91",
+        "at": "2026-09-12T02:46:35Z",
+        "status": "completed"
+      }
+    },
+    {
+      "id": "brain/research/ideas.md#title-1257d3b9a06a8210",
+      "note_id": "brain/research/ideas.md",
+      "code": null,
+      "title": "Private node and prospective mempool experiments.",
+      "text": "**Private node and prospective mempool experiments.** Evaluate a private `monerod` as the collector's source and record transaction-pool `receive_time`, local observation times, fee/weight, and eventual confirmation height. The [pool RPC](https://docs.getmonero.org/rpc-library/monerod-rpc/#get_transaction_pool) exposes a node receipt timestamp that can change with relay-state transitions; it is not a global arrival timestamp. Hypothesis: these observations improve confirmation-delay forecasts or contextual features in forward evaluation. Measure polling gaps and node restarts; historical blocks cannot reconstruct observations that were never collected. These timings do not establish senders or address ownership. Plan SSD capacity and synchronization for the chosen full/pruned configuration using the [official node setup guidance](https://docs.getmonero.org/running-node/monerod-systemd/). **Partial:** a separate bounded recorder and [pool display](../../docs/pool.html) are implemented; the [canonical PN1–PN3 plan](private-node-observations.md) keeps node deployment, controlled coverage and forecast improvement open.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+        "at": "2026-09-12T00:27:56Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+          "at": "2026-09-12T00:27:56Z",
+          "status": "open",
+          "title": "Private node and prospective mempool experiments."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+        "at": "2026-09-12T00:27:56Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/ideas.md#title-151f3232da12a86e",
+      "note_id": "brain/research/ideas.md",
+      "code": null,
+      "title": "Deployment manifest.",
+      "text": "**Deployment manifest.** UI publication now persists its source revision and HTML/JavaScript/CSS/brain/audit hashes in `ui-release.json`; collector runtime retains `release.json`. Remaining: add independently changing data-export hashes and a release compatibility contract. A successful build should not mask a stale cache or mismatched data and interface versions.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+          "at": "2026-09-11T23:02:20Z",
+          "status": "open",
+          "title": "Deployment manifest."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/ideas.md#title-1b373ae81f109fa3",
+      "note_id": "brain/research/ideas.md",
+      "code": null,
+      "title": "Export coverage and on-demand shards.",
+      "text": "**Export coverage and on-demand shards.** Bounded exports keep the static site usable, but newest-first samples may hide older outcomes. Add an explicit cohort manifest and optional shards by run/outcome/height; retain exact dataset-wide denominators alongside subset filters.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+          "at": "2026-09-11T23:02:20Z",
+          "status": "open",
+          "title": "Export coverage and on-demand shards."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/ideas.md#title-2357ad9c8b30e7b0",
+      "note_id": "brain/research/ideas.md",
+      "code": null,
+      "title": "Prediction changes across runs.",
+      "text": "**Prediction changes across runs.** Show when a ring's chosen output changes, the score margin, and eventual outcomes. Immutable runs make it possible to distinguish stable predictions from repeatedly changing guesses. Test whether instability predicts errors before using it as a confidence feature.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+          "at": "2026-09-11T23:02:20Z",
+          "status": "open",
+          "title": "Prediction changes across runs."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/ideas.md#title-23dffa23c6b0fda7",
+      "note_id": "brain/research/ideas.md",
+      "code": null,
+      "title": "Chain coverage versus export freshness.",
+      "text": "**Chain coverage versus export freshness.** The cloud export and dashboard now show the last scanned block timestamp, export time, and observed node lag separately. The first cloud snapshot ends at block 59,900 (2014-05-28), although exported in 2026. Verified against the stored tail and in Chrome. A fresh export must not imply modern-chain coverage or transfer of historical model results to current transactions; see [cloud validation](../workflows/cloud.md).",
+      "done": true,
+      "status": "completed",
+      "first_recorded": {
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+          "at": "2026-09-11T23:02:20Z",
+          "status": "open",
+          "title": "Chain coverage versus export freshness."
+        },
+        {
+          "kind": "closed",
+          "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+          "at": "2026-09-12T00:27:56Z",
+          "status": "completed",
+          "title": "Chain coverage versus export freshness."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "closed",
+        "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+        "at": "2026-09-12T00:27:56Z",
+        "status": "completed"
+      }
+    },
+    {
+      "id": "brain/research/ideas.md#title-2d9302723764cffa",
+      "note_id": "brain/research/ideas.md",
+      "code": null,
+      "title": "Atomic publication of complete UI sets.",
+      "text": "**Atomic publication of complete UI sets.** The [static publisher](../../deploy/gcp/publish-static.sh) now separates UI changes from collector upgrades, preserves its process and data, and records both revisions. Tests cover checksum guards, failure rollback, and unchanged PID. Remaining: make the whole asset set atomic across requests; current replacements are atomic only per file, with HTML last. Design rollback/versioned asset paths without changing the collector's mutable data directory.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "e5b4c3b5071546d13c5a66c9524aef069853ac6a",
+        "at": "2026-09-12T02:10:02Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "e5b4c3b5071546d13c5a66c9524aef069853ac6a",
+          "at": "2026-09-12T02:10:02Z",
+          "status": "open",
+          "title": "Atomic publication of complete UI sets."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "e5b4c3b5071546d13c5a66c9524aef069853ac6a",
+        "at": "2026-09-12T02:10:02Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/ideas.md#title-31e6695b7076dc1e",
+      "note_id": "brain/research/ideas.md",
+      "code": null,
+      "title": "Progress regression alerts.",
+      "text": "**Progress regression alerts.** Flag negative deterministic snapshot deltas, changed dataset identity, increased conflict counts, and prolonged publication lag. Preserve the triggering snapshots and show whether the change was new data, revised analysis, or missing coverage.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+        "at": "2026-09-12T02:29:58Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+          "at": "2026-09-12T02:29:58Z",
+          "status": "open",
+          "title": "Progress regression alerts."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+        "at": "2026-09-12T02:29:58Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/ideas.md#title-33b9aae3cf94ef80",
+      "note_id": "brain/research/ideas.md",
+      "code": null,
+      "title": "Incremental cloud analysis.",
+      "text": "**Incremental cloud analysis.** Separate continuous ingestion from incremental graph updates and periodic model training so catch-up work does not rebuild the full graph twice per export cycle. Measure memory/latency as the dataset grows before increasing VM limits.",
+      "done": null,
+      "status": "removed",
+      "first_recorded": {
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+          "at": "2026-09-11T23:02:20Z",
+          "status": "open",
+          "title": "Incremental cloud analysis."
+        },
+        {
+          "kind": "removed",
+          "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+          "at": "2026-09-12T00:27:56Z",
+          "status": "removed",
+          "title": "Incremental cloud analysis."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "removed",
+        "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+        "at": "2026-09-12T00:27:56Z",
+        "status": "removed"
+      }
+    },
+    {
+      "id": "brain/research/ideas.md#title-3b0955fe4ae108d7",
+      "note_id": "brain/research/ideas.md",
+      "code": null,
+      "title": "Historical feature provenance.",
+      "text": "**Historical feature provenance.** Preserve training-ring identities and split membership alongside the training-data fingerprint. This would allow an experiment reviewer to reproduce label selection and split decisions, in addition to replaying the saved inference model.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+          "at": "2026-09-11T23:02:20Z",
+          "status": "open",
+          "title": "Historical feature provenance."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/ideas.md#title-41f757e125e71f94",
+      "note_id": "brain/research/ideas.md",
+      "code": null,
+      "title": "Dataset lineage versus snapshot identity.",
+      "text": "**Dataset lineage versus snapshot identity.** Database copies should share a lineage ID, but copies can diverge. Add a reproducible snapshot fingerprint and parent-snapshot relation so two runs at the same maximum block height are not assumed to use identical data.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+          "at": "2026-09-11T23:02:20Z",
+          "status": "open",
+          "title": "Dataset lineage versus snapshot identity."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/ideas.md#title-518ee26eb6e18f7f",
+      "note_id": "brain/research/ideas.md",
+      "code": null,
+      "title": "Resource metrics and ML failure isolation.",
+      "text": "**Resource metrics and ML failure isolation.** Record elapsed time, peak memory, candidate counts, and bytes written separately for scanning, analysis, training, scoring, and export. Budget training size/tree complexity from those measurements. Isolate ML work so a failed or oversized prediction run cannot repeatedly block cycle advancement and publication of newly collected data.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+        "at": "2026-09-12T00:27:56Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+          "at": "2026-09-12T00:27:56Z",
+          "status": "open",
+          "title": "Resource metrics and ML failure isolation."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+        "at": "2026-09-12T00:27:56Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/ideas.md#title-535eb718f634dbd3",
+      "note_id": "brain/research/ideas.md",
+      "code": null,
+      "title": "Unscorable rings as a coverage category.",
+      "text": "**Unscorable rings as a coverage category.** Distinguish accepted, below-threshold, and unable-to-score rings. Missing transaction heights or features should remain visible; they must not disappear from the coverage denominator.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+          "at": "2026-09-11T23:02:20Z",
+          "status": "open",
+          "title": "Unscorable rings as a coverage category."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/ideas.md#title-5dc4016837ad6835",
+      "note_id": "brain/research/ideas.md",
+      "code": null,
+      "title": "Prediction-time label eligibility.",
+      "text": "**Prediction-time label eligibility.** Record which deterministic labels and exclusions existed before a run. Saved model artifacts and candidate features permit score replay, but later verification at a higher height does not prove that its answer was unavailable at prediction time. Add an audit for that distinction to forward evaluation.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+          "at": "2026-09-11T23:02:20Z",
+          "status": "open",
+          "title": "Prediction-time label eligibility."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/ideas.md#title-68a7daecd933b4df",
+      "note_id": "brain/research/ideas.md",
+      "code": null,
+      "title": "Prospective coverage ledger.",
+      "text": "**Prospective coverage ledger.** Reconcile current-block observer gaps, response limits, reorg corrections, and missing transaction details against a second source. Report coverage-weighted activity without treating unobserved ring counts as zero.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+        "at": "2026-09-12T02:29:58Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+          "at": "2026-09-12T02:29:58Z",
+          "status": "open",
+          "title": "Prospective coverage ledger."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+        "at": "2026-09-12T02:29:58Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/ideas.md#title-6cfff76189fd0df6",
+      "note_id": "brain/research/ideas.md",
+      "code": null,
+      "title": "Reorganization recovery.",
+      "text": "**Reorganization recovery.** The collector checks a confirmed tail hash and pauses on mismatch. Design rollback/replay of affected transactions, resolutions, predictions, and lineage without rewriting historical claims as if they never existed.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+          "at": "2026-09-11T23:02:20Z",
+          "status": "open",
+          "title": "Reorganization recovery."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/ideas.md#title-7d53099e97e073a5",
+      "note_id": "brain/research/ideas.md",
+      "code": null,
+      "title": "Web updates without interrupting collection.",
+      "text": "**Web updates without interrupting collection.** A documentation/UI release currently restarts the collector along with the source release. Separate static publication from runtime upgrades, publish asset sets atomically, and expose the UI and collector revisions independently. Test asset rollback and snapshot compatibility while a long scan is running; individual block writes must remain atomic.",
+      "done": null,
+      "status": "removed",
+      "first_recorded": {
+        "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+        "at": "2026-09-12T00:27:56Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+          "at": "2026-09-12T00:27:56Z",
+          "status": "open",
+          "title": "Web updates without interrupting collection."
+        },
+        {
+          "kind": "removed",
+          "commit": "e5b4c3b5071546d13c5a66c9524aef069853ac6a",
+          "at": "2026-09-12T02:10:02Z",
+          "status": "removed",
+          "title": "Web updates without interrupting collection."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "removed",
+        "commit": "e5b4c3b5071546d13c5a66c9524aef069853ac6a",
+        "at": "2026-09-12T02:10:02Z",
+        "status": "removed"
+      }
+    },
+    {
+      "id": "brain/research/ideas.md#title-7f81ffffec6f3d0d",
+      "note_id": "brain/research/ideas.md",
+      "code": null,
+      "title": "Batched scoring and incremental cloud analysis.",
+      "text": "**Batched scoring and incremental cloud analysis.** Batch holdout predictions and unresolved-ring scoring with bounded feature arrays; reuse the existing Analyzer for export instead of rebuilding the graph twice per cycle. Check score equivalence on a fixed snapshot and model. Separate continuous ingestion from incremental graph updates and periodic training as the dataset grows.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+        "at": "2026-09-12T00:27:56Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+          "at": "2026-09-12T00:27:56Z",
+          "status": "open",
+          "title": "Batched scoring and incremental cloud analysis."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+        "at": "2026-09-12T00:27:56Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/ideas.md#title-7fe788d16b4df241",
+      "note_id": "brain/research/ideas.md",
+      "code": null,
+      "title": "Shared-output null model.",
+      "text": "**Shared-output null model.** Compare observed overlap groups against randomized candidate sets matched on amount bucket, ring size, and output reuse. Test whether a grouping exceeds chance overlap before proposing a wallet-related interpretation.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+        "at": "2026-09-12T02:29:58Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+          "at": "2026-09-12T02:29:58Z",
+          "status": "open",
+          "title": "Shared-output null model."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+        "at": "2026-09-12T02:29:58Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/ideas.md#title-98ce5c48e20f9717",
+      "note_id": "brain/research/ideas.md",
+      "code": null,
+      "title": "Verification-label drift.",
+      "text": "**Verification-label drift.** A later stored deterministic claim can differ from the claim that originally verified a prediction. Preserve the old verification event and flag the discrepancy instead of silently rewriting history. Link both source resolution events and evaluate how often this happens.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+          "at": "2026-09-11T23:02:20Z",
+          "status": "open",
+          "title": "Verification-label drift."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/ideas.md#title-9cd2c95217980233",
+      "note_id": "brain/research/ideas.md",
+      "code": null,
+      "title": "Resolution transitions versus snapshot growth.",
+      "text": "**Resolution transitions versus snapshot growth.** Record first deterministic resolution, retraction, and hypothesis-to-deterministic transitions separately from newly imported singleton rings. Current export snapshots measure net totals; their difference cannot establish how many old ambiguous rings were solved. Add per-event and eligible multi-member cohort denominators before reporting a solve rate.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+        "at": "2026-09-12T02:29:58Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+          "at": "2026-09-12T02:29:58Z",
+          "status": "open",
+          "title": "Resolution transitions versus snapshot growth."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+        "at": "2026-09-12T02:29:58Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/ideas.md#title-a037cf7af05a8444",
+      "note_id": "brain/research/ideas.md",
+      "code": null,
+      "title": "Scalable evidence retrieval.",
+      "text": "**Scalable evidence retrieval.** Benchmark indexed output lookups and batched explanations across hundreds of thousands of resolutions. Share repeated evidence between historical records for the same ring to shrink export files without losing run-specific scores.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+          "at": "2026-09-11T23:02:20Z",
+          "status": "open",
+          "title": "Scalable evidence retrieval."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/ideas.md#title-a9d53515744fdebc",
+      "note_id": "brain/research/ideas.md",
+      "code": null,
+      "title": "Confirmation-delay forecasts.",
+      "text": "**Confirmation-delay forecasts.** After prospective pool observations exist, freeze simple age/fee/weight baselines at observation time and score time-to-confirmation with censored pending cases. Confirmed-block sampling alone cannot recover first-seen pool times.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+        "at": "2026-09-12T02:29:58Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+          "at": "2026-09-12T02:29:58Z",
+          "status": "open",
+          "title": "Confirmation-delay forecasts."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+        "at": "2026-09-12T02:29:58Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/ideas.md#title-b2aed4dd2b3f0840",
+      "note_id": "brain/research/ideas.md",
+      "code": null,
+      "title": "Collection completeness watermark.",
+      "text": "**Collection completeness watermark.** Record completion per block and audit old scans for missing transaction bodies. A contiguous range of stored heights alone cannot establish that legacy ingestion captured every transaction.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+          "at": "2026-09-11T23:02:20Z",
+          "status": "open",
+          "title": "Collection completeness watermark."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/ideas.md#title-ba22da368edade27",
+      "note_id": "brain/research/ideas.md",
+      "code": null,
+      "title": "RPC provenance and agreement.",
+      "text": "**RPC provenance and agreement.** Record node identity and independently compare block hashes or sampled transactions across nodes. Structural RPC validation does not replace consensus validation.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+          "at": "2026-09-11T23:02:20Z",
+          "status": "open",
+          "title": "RPC provenance and agreement."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/ideas.md#title-bc9b4c955945dbcf",
+      "note_id": "brain/research/ideas.md",
+      "code": null,
+      "title": "Cluster stability timeline.",
+      "text": "**Cluster stability timeline.** Once grouping is validated, show group merges, splits, and weak bridge edges across runs. Evaluate stability under added blocks and small score-threshold changes before interpreting a persistent group as meaningful.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+          "at": "2026-09-11T23:02:20Z",
+          "status": "open",
+          "title": "Cluster stability timeline."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/ideas.md#title-d3252b892d00f7d4",
+      "note_id": "brain/research/ideas.md",
+      "code": null,
+      "title": "Correlated-error stress tests.",
+      "text": "**Correlated-error stress tests.** Test calibration and grouping on connected ring components and deliberately shared decoy pools. A high per-ring score may not imply that every selected candidate in a transaction is correct.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+          "at": "2026-09-11T23:02:20Z",
+          "status": "open",
+          "title": "Correlated-error stress tests."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/output-origin-audit.md#EA1",
+      "note_id": "brain/research/output-origin-audit.md",
+      "code": "EA1",
+      "title": "EA1 — Constant-feature audit.",
+      "text": "**EA1 — Constant-feature audit.** Completed for the available legacy snapshot: [2,000 rings, 14,280 candidates, all 24 features](feature-variation-audit.md), with a frozen matrix, per-cohort distinct values/missingness/variance, within-ring variation, and exact duplicates. Four complete columns are constant. Modern/amount-zero cohorts are absent, not inferred. Broader coverage and feature-mask ablation remain separate experiments; no gain from dropping columns is assumed.",
+      "done": true,
+      "status": "completed",
+      "first_recorded": {
+        "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+        "at": "2026-09-12T00:27:56Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+          "at": "2026-09-12T00:27:56Z",
+          "status": "open",
+          "title": "EA1 — Constant-feature audit (P0; supported by this finding)."
+        },
+        {
+          "kind": "closed",
+          "commit": "e5b4c3b5071546d13c5a66c9524aef069853ac6a",
+          "at": "2026-09-12T02:10:02Z",
+          "status": "completed",
+          "title": "EA1 — Constant-feature audit."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "closed",
+        "commit": "e5b4c3b5071546d13c5a66c9524aef069853ac6a",
+        "at": "2026-09-12T02:10:02Z",
+        "status": "completed"
+      }
+    },
+    {
+      "id": "brain/research/output-origin-audit.md#EA2",
+      "note_id": "brain/research/output-origin-audit.md",
+      "code": "EA2",
+      "title": "EA2 — Versioned origin-age features and ablation (P1; depends on HE1/HE3).",
+      "text": "**EA2 — Versioned origin-age features and ablation (P1; depends on HE1/HE3).** Inputs: validated creation heights, immutable prediction-time contexts, explicit missing-origin flags, and frozen temporal splits. Baselines: current proxy features and simple actual-age rank. Introduce a new feature version without rewriting old scores/artifacts. Success: compare top-1 accuracy and precision at matched coverage across declared cohorts, with sample counts and uncertainty; retain a negative result. Failure modes: applying modern decoy assumptions to 2014 data, leaking later graph state, or hiding incomplete joins. No gain is assumed from this audit.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+        "at": "2026-09-12T00:27:56Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+          "at": "2026-09-12T00:27:56Z",
+          "status": "open",
+          "title": "EA2 — Versioned origin-age features and ablation (P1; depends on HE1/HE3)."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+        "at": "2026-09-12T00:27:56Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/predictions.md#P1",
+      "note_id": "brain/research/predictions.md",
+      "code": "P1",
+      "title": "P1 — Immutable prediction runs (P0).",
+      "text": "**P1 — Immutable prediction runs (P0).** Record revision/local-change fingerprint, dataset identity, scan cutoff, feature version, model/scaler reference, settings, and creation time. Persist per-run candidate scores and append verification events with verification height. Done when scoring the same ring twice retains both guesses and outcomes; migration marks unavailable historical metadata unknown. Implemented in [models.py](../../models.py) and [scorer.py](../../scorer.py), with [history tests](../../tests/test_prediction_history.py). The latest accepted cache remains compatible; its replacement no longer erases historical records. Failed scoring/verification operations roll back atomically. A real-model smoke check reproduced saved candidate scores from the artifact and frozen features.",
+      "done": true,
+      "status": "completed",
+      "first_recorded": {
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "completed"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+          "at": "2026-09-11T23:02:20Z",
+          "status": "completed",
+          "title": "P1 — Immutable prediction runs (P0)."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "completed"
+      }
+    },
+    {
+      "id": "brain/research/predictions.md#P2",
+      "note_id": "brain/research/predictions.md",
+      "code": "P2",
+      "title": "P2 — Frozen forward evaluation (P1).",
+      "text": "**P2 — Frozen forward evaluation (P1).** Freeze training/features at height H, save predictions, then evaluate against later evidence at H+Δ without rebuilding old features. Repeat across windows and report verified fraction alongside accuracy. Add shared-output/group splits as sensitivity checks for related rings. Done when later blocks cannot alter saved prediction-time features and results record sample counts, time windows, label provenance, and the unverified population.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+          "at": "2026-09-11T23:02:20Z",
+          "status": "open",
+          "title": "P2 — Frozen forward evaluation (P1)."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/predictions.md#P3",
+      "note_id": "brain/research/predictions.md",
+      "code": "P3",
+      "title": "P3 — Calibration and abstention (P1; depends on P1–P2).",
+      "text": "**P3 — Calibration and abstention (P1; depends on P1–P2).** Compare raw scores with held-out calibration and measure precision/coverage across acceptance thresholds. Separate chronological fitting, calibration, threshold-selection, and test data. Current binary candidate scores need not sum to one within a ring; normalization alone does not establish posterior probabilities. Done when frozen test reports include reliability bins, counts, calibration error, and coverage curves. Calibration on the verified subset must be labeled as such.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+          "at": "2026-09-11T23:02:20Z",
+          "status": "open",
+          "title": "P3 — Calibration and abstention (P1; depends on P1–P2)."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/predictions.md#P4",
+      "note_id": "brain/research/predictions.md",
+      "code": "P4",
+      "title": "P4 — Baselines and ablations (P2; depends on P2).",
+      "text": "**P4 — Baselines and ablations (P2; depends on P2).** Compare the random forest with random-member and simple age/reuse baselines on identical eligible rings. Remove feature families individually. Report ring top-1 accuracy at matched coverage, sliced by ring size and historical period. Account for related rings in uncertainty estimates. Done when claimed improvements persist across multiple frozen windows rather than only a random holdout.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+          "at": "2026-09-11T23:02:20Z",
+          "status": "open",
+          "title": "P4 — Baselines and ablations (P2; depends on P2)."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/predictions.md#P5",
+      "note_id": "brain/research/predictions.md",
+      "code": "P5",
+      "title": "P5 — Alternatives and ambiguity (P2; depends on P1–P3).",
+      "text": "**P5 — Alternatives and ambiguity (P2; depends on P1–P3).** Retain candidate rankings, top-score margins, and cases below the current saving threshold. Investigate a ring-level ranking model reflecting one real candidate per ring. Measure top-k recall and top-1 precision at matched coverage. Display entropy as probability uncertainty only with a justified distribution. Done when the UI can show alternatives and explain abstention without treating an unvalidated score as certainty.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+          "at": "2026-09-11T23:02:20Z",
+          "status": "open",
+          "title": "P5 — Alternatives and ambiguity (P2; depends on P1–P3)."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/predictions.md#P6",
+      "note_id": "brain/research/predictions.md",
+      "code": "P6",
+      "title": "P6 — Error review and transfer (P2).",
+      "text": "**P6 — Error review and transfer (P2).** Inspect high-score mistakes, conflicts, legacy lineage, and performance by scan period/ring size. Compare estimated age features with accurate output-origin metadata, which requires ingestion changes. Done when reports distinguish data errors, label assumptions, and model errors and do not extrapolate historical performance to untested periods.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+          "at": "2026-09-11T23:02:20Z",
+          "status": "open",
+          "title": "P6 — Error review and transfer (P2)."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/private-node-observations.md#PN1",
+      "note_id": "brain/research/private-node-observations.md",
+      "code": "PN1",
+      "title": "PN1 — Validating-node pilot (P1).",
+      "text": "**PN1 — Validating-node pilot (P1).** Inputs: an explicit daemon release, full/pruned storage choice, available SSD/RAM, sync progress, RPC latency/errors, and sampled block/output joins. Baseline: the current external RPC collector.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+        "at": "2026-09-12T00:27:56Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+          "at": "2026-09-12T00:27:56Z",
+          "status": "open",
+          "title": "PN1 — Validating-node pilot (P1)."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+        "at": "2026-09-12T00:27:56Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/private-node-observations.md#PN2",
+      "note_id": "brain/research/private-node-observations.md",
+      "code": "PN2",
+      "title": "PN2 — Observation completeness pilot (P1).",
+      "text": "**PN2 — Observation completeness pilot (P1).** Inputs: pool snapshots, poll timing, observer sessions, chain confirmations, and a small controlled-transaction cohort. Baseline: confirmed-block timestamps alone.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+        "at": "2026-09-12T00:27:56Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+          "at": "2026-09-12T00:27:56Z",
+          "status": "open",
+          "title": "PN2 — Observation completeness pilot (P1)."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+        "at": "2026-09-12T00:27:56Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/private-node-observations.md#PN3",
+      "note_id": "brain/research/private-node-observations.md",
+      "code": "PN3",
+      "title": "PN3 — Confirmation forecasts (P2).",
+      "text": "**PN3 — Confirmation forecasts (P2).** Inputs at prediction time: time since first local observation, fee/weight, pool backlog, recent observed block cadence, and observer coverage. Baselines: next-block prediction, historical median delay, and simple fee/weight bins.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+        "at": "2026-09-12T00:27:56Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+          "at": "2026-09-12T00:27:56Z",
+          "status": "open",
+          "title": "PN3 — Confirmation forecasts (P2)."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+        "at": "2026-09-12T00:27:56Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/private-node-observations.md#title-6fab5b49d92911b7",
+      "note_id": "brain/research/private-node-observations.md",
+      "code": null,
+      "title": "Represent time as observation intervals.",
+      "text": "**Represent time as observation intervals.** First appearance lies between successful polls for continuing observation. Compare interval-aware forecasts with point estimates; keep startup inventory and outages separate.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "5faef380378a94a8964dfaa9a057608f4e1d5c6d",
+        "at": "2026-09-12T03:53:00Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "5faef380378a94a8964dfaa9a057608f4e1d5c6d",
+          "at": "2026-09-12T03:53:00Z",
+          "status": "open",
+          "title": "Represent time as observation intervals."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "5faef380378a94a8964dfaa9a057608f4e1d5c6d",
+        "at": "2026-09-12T03:53:00Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/private-node-observations.md#title-a771469bae55530e",
+      "note_id": "brain/research/private-node-observations.md",
+      "code": null,
+      "title": "Ablate node receipt time against local sightings.",
+      "text": "**Ablate node receipt time against local sightings.** After PN2, test whether receipt timestamps add forward forecast value beyond local observation age, fee density and backlog. Preserve zero/redacted values as unknown and record receipt-time changes.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "5faef380378a94a8964dfaa9a057608f4e1d5c6d",
+        "at": "2026-09-12T03:53:00Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "5faef380378a94a8964dfaa9a057608f4e1d5c6d",
+          "at": "2026-09-12T03:53:00Z",
+          "status": "open",
+          "title": "Ablate node receipt time against local sightings."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "5faef380378a94a8964dfaa9a057608f4e1d5c6d",
+        "at": "2026-09-12T03:53:00Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/private-node-observations.md#title-cfe3c122ec96cca8",
+      "note_id": "brain/research/private-node-observations.md",
+      "code": null,
+      "title": "Measure retention and horizon selection bias.",
+      "text": "**Measure retention and horizon selection bias.** Report delayed confirmations and dropped follow-up separately; repeat with longer frozen windows before making claims about network-wide coverage.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "5faef380378a94a8964dfaa9a057608f4e1d5c6d",
+        "at": "2026-09-12T03:53:00Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "5faef380378a94a8964dfaa9a057608f4e1d5c6d",
+          "at": "2026-09-12T03:53:00Z",
+          "status": "open",
+          "title": "Measure retention and horizon selection bias."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "5faef380378a94a8964dfaa9a057608f4e1d5c6d",
+        "at": "2026-09-12T03:53:00Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/private-node-observations.md#title-ef8bcce16c3c2607",
+      "note_id": "brain/research/private-node-observations.md",
+      "code": null,
+      "title": "Freeze complete observation cohorts before longer studies.",
+      "text": "**Freeze complete observation cohorts before longer studies.** Export a versioned private archive before rolling retention expires; include pending/censored records, exact feature-availability times, source visibility, software/configuration and clock/poll diagnostics. Choose retention and storage from measured bytes per poll.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "5faef380378a94a8964dfaa9a057608f4e1d5c6d",
+        "at": "2026-09-12T03:53:00Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "5faef380378a94a8964dfaa9a057608f4e1d5c6d",
+          "at": "2026-09-12T03:53:00Z",
+          "status": "open",
+          "title": "Freeze complete observation cohorts before longer studies."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "5faef380378a94a8964dfaa9a057608f4e1d5c6d",
+        "at": "2026-09-12T03:53:00Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/private-node-observations.md#title-f5d18f45e3663c24",
+      "note_id": "brain/research/private-node-observations.md",
+      "code": null,
+      "title": "Compare public and private visibility simultaneously.",
+      "text": "**Compare public and private visibility simultaneously.** During a bounded overlap, compare anonymous aggregate coverage and later block matches with separate cohorts. Do not combine restricted broadcasted views with unrestricted relay-state views into one population.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "5faef380378a94a8964dfaa9a057608f4e1d5c6d",
+        "at": "2026-09-12T03:53:00Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "5faef380378a94a8964dfaa9a057608f4e1d5c6d",
+          "at": "2026-09-12T03:53:00Z",
+          "status": "open",
+          "title": "Compare public and private visibility simultaneously."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "5faef380378a94a8964dfaa9a057608f4e1d5c6d",
+        "at": "2026-09-12T03:53:00Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/progress-and-conclusions.md#RP1",
+      "note_id": "brain/research/progress-and-conclusions.md",
+      "code": "RP1",
+      "title": "RP1 — Machine-checkable conclusion claims.",
+      "text": "**RP1 — Machine-checkable conclusion claims.** Represent each displayed numerical claim with its artifact path, JSON field, denominator, and file hash. The current page tests reconcile its three frozen summaries; extend this to a small claim manifest so later result updates cannot leave stale conclusions. Completion requires a failing check when a source number, denominator, or hash changes without updating its claim.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+        "at": "2026-09-12T02:29:58Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+          "at": "2026-09-12T02:29:58Z",
+          "status": "open",
+          "title": "RP1 — Machine-checkable conclusion claims."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+        "at": "2026-09-12T02:29:58Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/progress-and-conclusions.md#RP2",
+      "note_id": "brain/research/progress-and-conclusions.md",
+      "code": "RP2",
+      "title": "RP2 — Experiment versus deployment status.",
+      "text": "**RP2 — Experiment versus deployment status.** Track a completed study, an accepted implementation change, and a deployed feature version separately. A successful ablation should not appear as a live-model improvement until the selected change and deployment are recorded. Completion requires independently visible study, implementation, and deployment provenance for one controlled example.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+        "at": "2026-09-12T02:29:58Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+          "at": "2026-09-12T02:29:58Z",
+          "status": "open",
+          "title": "RP2 — Experiment versus deployment status."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+        "at": "2026-09-12T02:29:58Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/protocol-limits.md#RL1",
+      "note_id": "brain/research/protocol-limits.md",
+      "code": "RL1",
+      "title": "RL1 — Protocol cohort manifest (P0; partially implemented).",
+      "text": "**RL1 — Protocol cohort manifest (P0; partially implemented).** The [era exporter](../../protocol_eras.py) assigns each stored ring by its referencing transaction heights to the [pinned mainnet manifest](../../docs/protocol-eras.json), retains missing or ambiguous contexts as unknown, and reconciles categories with the aggregate summary. Remaining inputs: observed block version, transaction version/RingCT type, network identity, ring size, and label method in evaluation cohorts. Success: every evaluated ring belongs to a declared cohort with complete provenance, including explicit unknown metadata. Failure modes: deriving wallet versions from the chain without evidence; treating export date as chain-data date; allowing missing metadata to disappear from totals.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+        "at": "2026-09-12T00:27:56Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+          "at": "2026-09-12T00:27:56Z",
+          "status": "open",
+          "title": "RL1 — Protocol cohort manifest (P0; unimplemented)."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+        "at": "2026-09-12T00:27:56Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/protocol-limits.md#RL2",
+      "note_id": "brain/research/protocol-limits.md",
+      "code": "RL2",
+      "title": "RL2 — Applicability ledger (P1; research design).",
+      "text": "**RL2 — Applicability ledger (P1; research design).** Inputs: original source, heuristic assumptions, applicable heights or wallet versions, independent label source, and frozen run IDs. Baseline: one pooled heuristic/model result. Success: publish both in-window and out-of-window performance with coverage, retaining null or negative findings. Failure modes: using the same heuristic to create labels and claim validation; extending a bug-specific result beyond its documented window.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+        "at": "2026-09-12T00:27:56Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+          "at": "2026-09-12T00:27:56Z",
+          "status": "open",
+          "title": "RL2 — Applicability ledger (P1; research design)."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+        "at": "2026-09-12T00:27:56Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/protocol-limits.md#RL3",
+      "note_id": "brain/research/protocol-limits.md",
+      "code": "RL3",
+      "title": "RL3 — Claims audit in the display (P1; partially implemented).",
+      "text": "**RL3 — Claims audit in the display (P1; partially implemented).** The [era explorer](../../docs/eras.html) separates source-derived implications, analyzed evidence, current activity, and frozen research; the [progress view](../../docs/progress-view.js) separates original singletons from multi-member resolutions and preserves direct edge meanings. Remaining: a complete claims audit across future evaluation cohorts and an applicability ledger tied to independent labels (RL2). Success: every displayed percentage identifies its cohort and denominator, and group edges retain their actual evidence meaning. Failure modes: interpreting uncalibrated scores as probabilities, treating legacy resolutions as universal proof, or presenting output groups as recovered public addresses.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+        "at": "2026-09-12T00:27:56Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+          "at": "2026-09-12T00:27:56Z",
+          "status": "open",
+          "title": "RL3 — Claims audit in the display (P1; unimplemented)."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+        "at": "2026-09-12T00:27:56Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/security-eras.md#ER1",
+      "note_id": "brain/research/security-eras.md",
+      "code": "ER1",
+      "title": "ER1 — Source-pinned era taxonomy.",
+      "text": "**ER1 — Source-pinned era taxonomy.** Ten eras and all sixteen exact fork boundaries are recorded with genesis normalization, source links, transition exceptions, theory/claim separation, and links to experiments. [Manifest tests](../../tests/test_protocol_eras.py) check a pinned activation fixture and reference metadata without requiring the ignored clone in CI; when the clone exists, they also verify source hashes, table entries and line ranges. This completes the taxonomy layer, not full validation of observed transactions or the public-page deployment.",
+      "done": true,
+      "status": "completed",
+      "first_recorded": {
+        "commit": "368ce2215ae3d937a5872d0f09b4b241d691633a",
+        "at": "2026-09-12T03:08:38Z",
+        "status": "completed"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "368ce2215ae3d937a5872d0f09b4b241d691633a",
+          "at": "2026-09-12T03:08:38Z",
+          "status": "completed",
+          "title": "ER1 — Source-pinned era taxonomy."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "368ce2215ae3d937a5872d0f09b4b241d691633a",
+        "at": "2026-09-12T03:08:38Z",
+        "status": "completed"
+      }
+    },
+    {
+      "id": "brain/research/security-eras.md#ER2",
+      "note_id": "brain/research/security-eras.md",
+      "code": "ER2",
+      "title": "ER2 — Populate comparable evidence by era.",
+      "text": "**ER2 — Populate comparable evidence by era.** Collect missing periods and preserve actual block/transaction versions, RingCT types, output origins, and label eligibility. Report coverage and missing metadata first; only then run the existing HE2/HE3 and UA3/UA4 experiments on declared populations. Success includes an honest negative result. No upgrade-specific accuracy gain is assumed.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "368ce2215ae3d937a5872d0f09b4b241d691633a",
+        "at": "2026-09-12T03:08:38Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "368ce2215ae3d937a5872d0f09b4b241d691633a",
+          "at": "2026-09-12T03:08:38Z",
+          "status": "open",
+          "title": "ER2 — Populate comparable evidence by era."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "368ce2215ae3d937a5872d0f09b4b241d691633a",
+        "at": "2026-09-12T03:08:38Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/security-eras.md#ER3",
+      "note_id": "brain/research/security-eras.md",
+      "code": "ER3",
+      "title": "ER3 — Sample matched upgrade windows.",
+      "text": "**ER3 — Sample matched upgrade windows.** A separate bounded collector could sample declared windows before, during and after each fork without waiting for the full historical backfill. Freeze block hashes and compare ring-size distributions, proof formats, output ages and missingness against the pinned rules. Publish window sizes, transition exclusions and source coverage. This can test structural expectations quickly; a discontinuity in these statistics cannot establish an upgrade's causal effect on anonymity or prediction accuracy.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "368ce2215ae3d937a5872d0f09b4b241d691633a",
+        "at": "2026-09-12T03:08:38Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "368ce2215ae3d937a5872d0f09b4b241d691633a",
+          "at": "2026-09-12T03:08:38Z",
+          "status": "open",
+          "title": "ER3 — Sample matched upgrade windows."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "368ce2215ae3d937a5872d0f09b4b241d691633a",
+        "at": "2026-09-12T03:08:38Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/upstream-heuristics.md#UA1",
+      "note_id": "brain/research/upstream-heuristics.md",
+      "code": "UA1",
+      "title": "UA1 — Inspect a pinned Monero implementation.",
+      "text": "**UA1 — Inspect a pinned Monero implementation.** Completed source audits of node metadata/validation, wallet decoy construction and pool timing, with exact upstream links and a reproducible reference checkout. Theoretical conclusion: measured origins, era-specific sampling and prospective timing offer better-grounded inputs. Data conclusion: 39/40 historical sampled ages exceed the proxy's full 15-block range; 395 separately observed modern rings have size 16. This is source/measurement reconciliation, not improved prediction accuracy. Detailed evidence is linked above.",
+      "done": true,
+      "status": "completed",
+      "first_recorded": {
+        "commit": "17fc6bc8ff8b1fc38b55302c828e879648fa2f91",
+        "at": "2026-09-12T02:46:35Z",
+        "status": "completed"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "17fc6bc8ff8b1fc38b55302c828e879648fa2f91",
+          "at": "2026-09-12T02:46:35Z",
+          "status": "completed",
+          "title": "UA1 — Inspect a pinned Monero implementation."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "17fc6bc8ff8b1fc38b55302c828e879648fa2f91",
+        "at": "2026-09-12T02:46:35Z",
+        "status": "completed"
+      }
+    },
+    {
+      "id": "brain/research/upstream-heuristics.md#UA2",
+      "note_id": "brain/research/upstream-heuristics.md",
+      "code": "UA2",
+      "title": "UA2 — Generalize the origin RPC/cache interface (supports HE1/EA2).",
+      "text": "**UA2 — Generalize the origin RPC/cache interface (supports HE1/EA2).** Preserve exact amount/index requests and positional responses, request txid explicitly, reject partial/mismatched batches, and cache by network/source/cutoff. Done when legacy and amount-zero fixtures plus sampled real joins reconcile without inventing missing ages. Follow with the existing measured-age ablation rather than counting the plumbing as an accuracy gain.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "17fc6bc8ff8b1fc38b55302c828e879648fa2f91",
+        "at": "2026-09-12T02:46:35Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "17fc6bc8ff8b1fc38b55302c828e879648fa2f91",
+          "at": "2026-09-12T02:46:35Z",
+          "status": "open",
+          "title": "UA2 — Generalize the origin RPC/cache interface (supports HE1/EA2)."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "17fc6bc8ff8b1fc38b55302c828e879648fa2f91",
+        "at": "2026-09-12T02:46:35Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/upstream-heuristics.md#UA3",
+      "note_id": "brain/research/upstream-heuristics.md",
+      "code": "UA3",
+      "title": "UA3 — Replay a versioned wallet sampler (supports FA2).",
+      "text": "**UA3 — Replay a versioned wallet sampler (supports FA2).** Reconstruct the weighted gamma/recent mixture, correct unlocked-output anchor and density mapping, then add without-replacement and rejection behavior. Keep raw draw likelihood separate from final ring construction. Done when simulations reproduce pinned upstream behavior on fixed distributions and a frozen evaluation reports positive or negative results without changing deterministic labels.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "17fc6bc8ff8b1fc38b55302c828e879648fa2f91",
+        "at": "2026-09-12T02:46:35Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "17fc6bc8ff8b1fc38b55302c828e879648fa2f91",
+          "at": "2026-09-12T02:46:35Z",
+          "status": "open",
+          "title": "UA3 — Replay a versioned wallet sampler (supports FA2)."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "17fc6bc8ff8b1fc38b55302c828e879648fa2f91",
+        "at": "2026-09-12T02:46:35Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/upstream-heuristics.md#UA4",
+      "note_id": "brain/research/upstream-heuristics.md",
+      "code": "UA4",
+      "title": "UA4 — Preserve protocol context and audit eligibility.",
+      "text": "**UA4 — Preserve protocol context and audit eligibility.** Store block/transaction versions, creating transaction unlock metadata and coinbase status. Test historical version boundaries, amount exceptions and incomplete timestamp context. Done when valid fixtures remain valid, invalid/missing cases are diagnostics, and modern constraints are not retroactively applied to 2014 rings.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "17fc6bc8ff8b1fc38b55302c828e879648fa2f91",
+        "at": "2026-09-12T02:46:35Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "17fc6bc8ff8b1fc38b55302c828e879648fa2f91",
+          "at": "2026-09-12T02:46:35Z",
+          "status": "open",
+          "title": "UA4 — Preserve protocol context and audit eligibility."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "17fc6bc8ff8b1fc38b55302c828e879648fa2f91",
+        "at": "2026-09-12T02:46:35Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/upstream-heuristics.md#UA5",
+      "note_id": "brain/research/upstream-heuristics.md",
+      "code": "UA5",
+      "title": "UA5 — Prospective pool forecasting pilot.",
+      "text": "**UA5 — Prospective pool forecasting pilot.** Capture aggregate pool count/weight/fee/age and local poll times first; design own-node per-transaction observation/confirmation joins separately. Preserve polling outages and censored pending transactions. Done when rolling-origin simple baselines, coverage and forecast calibration are reported; sender attribution and real-spend inference are outside this outcome. **Partial:** the [pool recorder and display](private-node-observations.md) now support bounded per-transaction sightings and block joins in a separate private database. The controlled cohort, archived evaluation and forward forecasts remain open.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "17fc6bc8ff8b1fc38b55302c828e879648fa2f91",
+        "at": "2026-09-12T02:46:35Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "17fc6bc8ff8b1fc38b55302c828e879648fa2f91",
+          "at": "2026-09-12T02:46:35Z",
+          "status": "open",
+          "title": "UA5 — Prospective pool forecasting pilot."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "17fc6bc8ff8b1fc38b55302c828e879648fa2f91",
+        "at": "2026-09-12T02:46:35Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/research/upstream-heuristics.md#UA6",
+      "note_id": "brain/research/upstream-heuristics.md",
+      "code": "UA6",
+      "title": "UA6 — Source-aware grouping null model (supports G1/G3/G5).",
+      "text": "**UA6 — Source-aware grouping null model (supports G1/G3/G5).** Add validated origin-transaction edges and simulate ring overlap under versioned candidate selection, amount buckets and output density. Done when chance overlap, shared-origin evaluation dependence and controlled false merges are measured. Keep direct relationships and competing candidate hypotheses reversible.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "17fc6bc8ff8b1fc38b55302c828e879648fa2f91",
+        "at": "2026-09-12T02:46:35Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "17fc6bc8ff8b1fc38b55302c828e879648fa2f91",
+          "at": "2026-09-12T02:46:35Z",
+          "status": "open",
+          "title": "UA6 — Source-aware grouping null model (supports G1/G3/G5)."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "17fc6bc8ff8b1fc38b55302c828e879648fa2f91",
+        "at": "2026-09-12T02:46:35Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/tasks/dashboard.md#D1",
+      "note_id": "brain/tasks/dashboard.md",
+      "code": "D1",
+      "title": "D1 — Separate evidence classes (P0).",
+      "text": "**D1 — Separate evidence classes (P0).** Display deterministic and hypothesis resolutions separately, then reduced and unchanged unresolved rings. Show conflicts as overlapping diagnostic flags. Include scan range, dataset/run identity, and export time. Done when counts reconcile on empty, deterministic-only, and mixed fixtures and each percentage names its denominator. Implemented by [dashboard_export.py](../../dashboard_export.py) and validated in [export tests](../../tests/test_dashboard_export.py). The compatibility `fully_resolved` field still includes hypotheses; the new categories distinguish them and exclude orphan claims from their denominator.",
+      "done": true,
+      "status": "completed",
+      "first_recorded": {
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "completed"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+          "at": "2026-09-11T23:02:20Z",
+          "status": "completed",
+          "title": "D1 — Separate evidence classes (P0)."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "completed"
+      }
+    },
+    {
+      "id": "brain/tasks/dashboard.md#D10",
+      "note_id": "brain/tasks/dashboard.md",
+      "code": "D10",
+      "title": "D10 — Dedicated TODO/results page.",
+      "text": "**D10 — Dedicated TODO/results page.** The [TODO page](../../docs/todos.html) reads canonical Markdown checklists through brain.json and separates completed measurements, theoretical implications, and open experiments. [Progress conclusions](../research/progress-and-conclusions.md) link frozen research artifacts; live counters cannot silently replace their denominators. [Page tests](../../tests/test_todo_results.js) check source-derived findings and task filtering.",
+      "done": true,
+      "status": "completed",
+      "first_recorded": {
+        "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+        "at": "2026-09-12T02:29:58Z",
+        "status": "completed"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+          "at": "2026-09-12T02:29:58Z",
+          "status": "completed",
+          "title": "D10 — Dedicated TODO/results page."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+        "at": "2026-09-12T02:29:58Z",
+        "status": "completed"
+      }
+    },
+    {
+      "id": "brain/tasks/dashboard.md#D11",
+      "note_id": "brain/tasks/dashboard.md",
+      "code": "D11",
+      "title": "D11 — Current-chain observation feed and periodic refresh.",
+      "text": "**D11 — Current-chain observation feed and periodic refresh.** The separate [observer](../../live_observer.py) exports bounded current confirmed-block observations with source/time/coverage metadata, independent of historical analysis. The [browser poller](../../docs/live-feed.js) checks every 60 seconds, preserves the last valid display on failure, and marks stale observations. Main analysis refresh preserves filters/selection within the same dataset and waits while a filter has focus. GitHub Pages is a committed snapshot; the GCP page consumes periodically published observations. Collector interval and page check interval do not promise one new export every interval. See [poller tests](../../tests/test_live_feed.js) and [observer tests](../../tests/test_live_observer.py).",
+      "done": true,
+      "status": "completed",
+      "first_recorded": {
+        "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+        "at": "2026-09-12T02:29:58Z",
+        "status": "completed"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+          "at": "2026-09-12T02:29:58Z",
+          "status": "completed",
+          "title": "D11 — Current-chain observation feed and periodic refresh."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+        "at": "2026-09-12T02:29:58Z",
+        "status": "completed"
+      }
+    },
+    {
+      "id": "brain/tasks/dashboard.md#D12",
+      "note_id": "brain/tasks/dashboard.md",
+      "code": "D12",
+      "title": "D12 — Security-era evidence explorer.",
+      "text": "**D12 — Security-era evidence explorer.** The [era page](../../docs/eras.html) provides a selectable timeline and comparison table for ten periods while preserving all sixteen fork boundaries. Each period separates protocol changes, theoretical implications, analyzed evidence, recent observations, frozen findings and follow-up experiments. The [streaming exporter](../../protocol_eras.py) reconciles exact category counts and retains unknown contexts; older single-era snapshots use an explicit, unprorated fallback. [Display tests](../../tests/test_era_view.js), [export tests](../../tests/test_era_export.py) and [manifest tests](../../tests/test_protocol_eras.py) cover boundaries, evidence scope and malformed data. Chrome checks cover real export counts, keyboard navigation, shared selections, refresh recovery and 320/390/768-pixel layouts. Comparable evaluated populations and recorded protocol metadata remain open under [ER2–ER3](../research/security-eras.md) and [RL1–RL3](../research/protocol-limits.md).",
+      "done": true,
+      "status": "completed",
+      "first_recorded": {
+        "commit": "368ce2215ae3d937a5872d0f09b4b241d691633a",
+        "at": "2026-09-12T03:08:38Z",
+        "status": "completed"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "368ce2215ae3d937a5872d0f09b4b241d691633a",
+          "at": "2026-09-12T03:08:38Z",
+          "status": "completed",
+          "title": "D12 — Security-era evidence explorer."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "368ce2215ae3d937a5872d0f09b4b241d691633a",
+        "at": "2026-09-12T03:08:38Z",
+        "status": "completed"
+      }
+    },
+    {
+      "id": "brain/tasks/dashboard.md#D13",
+      "note_id": "brain/tasks/dashboard.md",
+      "code": "D13",
+      "title": "D13 — Prospective pool observations page.",
+      "text": "**D13 — Prospective pool observations page.** The [pool page](../../docs/pool.html) presents source/synchronization metadata, exact aggregate fees and weights, node receipt-time availability, poll history and gaps, retained outcome states, and a histogram of eligible local detection intervals. It distinguishes pool disappearance from a block match and keeps cold-start/interrupted records visible. [UI tests](../../tests/test_pool_view.js) and Chrome checks cover count reconciliation, unknown/empty/partial states, malformed snapshots, failed refresh and recovery, keyboard focus/disclosures and 320/390/768-pixel layouts. The [recorder tests](../../tests/test_pool_observer.py) cover matching, censoring, retention and source guards. This completes the descriptive display; [PN1–PN3](../research/private-node-observations.md) still require node synchronization, controlled observation coverage and forward forecast evaluation.",
+      "done": true,
+      "status": "completed",
+      "first_recorded": {
+        "commit": "5faef380378a94a8964dfaa9a057608f4e1d5c6d",
+        "at": "2026-09-12T03:53:00Z",
+        "status": "completed"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "5faef380378a94a8964dfaa9a057608f4e1d5c6d",
+          "at": "2026-09-12T03:53:00Z",
+          "status": "completed",
+          "title": "D13 — Prospective pool observations page."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "5faef380378a94a8964dfaa9a057608f4e1d5c6d",
+        "at": "2026-09-12T03:53:00Z",
+        "status": "completed"
+      }
+    },
+    {
+      "id": "brain/tasks/dashboard.md#D14",
+      "note_id": "brain/tasks/dashboard.md",
+      "code": "D14",
+      "title": "D14 — Dated TODO activity and hypothesis outcomes.",
+      "text": "**D14 — Dated TODO activity and hypothesis outcomes.** Show when each task was first recorded, closed, reopened or removed, with Git provenance and an activity feed that highlights new published events. Keep imported completed tasks distinct from observed closures. For every research checklist, expose the associated claim or engineering objective, execution status, scientific verdict, theoretical implication, measured result, evidence scope and remaining work. Done when source/task coverage checks pass, the ledger preserves untested and deferred hypotheses, refresh retains user context, and desktop/mobile/publication checks pass. New chain data must not automatically close checklists or validate hypotheses.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "d4ac59f97ac60bede0f20d585a12828666c39051",
+        "at": "2026-09-12T04:26:09Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "d4ac59f97ac60bede0f20d585a12828666c39051",
+          "at": "2026-09-12T04:26:09Z",
+          "status": "open",
+          "title": "D14 — Dated TODO activity and hypothesis outcomes."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "d4ac59f97ac60bede0f20d585a12828666c39051",
+        "at": "2026-09-12T04:26:09Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/tasks/dashboard.md#D2",
+      "note_id": "brain/tasks/dashboard.md",
+      "code": "D2",
+      "title": "D2 — Prediction browser (P1; depends on P1).",
+      "text": "**D2 — Prediction browser (P1; depends on P1).** Add a searchable, paginated table of key image, transaction, predicted `(amount, index)`, model score, prediction run/height, and pending/correct/wrong outcome. Filter by score, height, ring size, and outcome. Done when selecting a row opens its evidence and bounded/sharded exports clearly state their coverage. Missing metadata must display as unknown.",
+      "done": true,
+      "status": "completed",
+      "first_recorded": {
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "completed"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+          "at": "2026-09-11T23:02:20Z",
+          "status": "completed",
+          "title": "D2 — Prediction browser (P1; depends on P1)."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "completed"
+      }
+    },
+    {
+      "id": "brain/tasks/dashboard.md#D3",
+      "note_id": "brain/tasks/dashboard.md",
+      "code": "D3",
+      "title": "D3 — Evidence inspector (P1).",
+      "text": "**D3 — Evidence inspector (P1).** Show original candidates, current eliminations, prediction, and recorded dependency ancestry. Distinguish current explanations from historical traces. Expose conflicts, legacy origins, missing history, and truncation. Done when a user can follow a claim to its supporting events and see whether hypotheses contributed. Export bounded `Brain` details; GitHub Pages cannot query local SQLite.",
+      "done": true,
+      "status": "completed",
+      "first_recorded": {
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "completed"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+          "at": "2026-09-11T23:02:20Z",
+          "status": "completed",
+          "title": "D3 — Evidence inspector (P1)."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "completed"
+      }
+    },
+    {
+      "id": "brain/tasks/dashboard.md#D4",
+      "note_id": "brain/tasks/dashboard.md",
+      "code": "D4",
+      "title": "D4 — Validated prediction quality panel (P2; depends on P2–P3).",
+      "text": "**D4 — Validated prediction quality panel (P2; depends on P2–P3).** The [analytics lab](../../docs/research-analytics.js) now implements threshold retention, verified-only outcomes and Wilson intervals, descriptive score bins, ring-size/run/provenance cohorts, candidate gaps, reduction, and aggregate downloads. These describe the bounded exported subset; they do not establish calibration or unbiased accuracy. Remaining: frozen forward cohorts, independent evaluation, validated calibration, and time-period comparisons. Pending cases stay outside outcome denominators. See [analytics tests](../../tests/test_research_analytics.js) and the [workspace guide](../workflows/research-workspace.md).",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+          "at": "2026-09-11T23:02:20Z",
+          "status": "open",
+          "title": "D4 — Prediction quality panel (P2; depends on P1–P3)."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      }
+    },
+    {
+      "id": "brain/tasks/dashboard.md#D5",
+      "note_id": "brain/tasks/dashboard.md",
+      "code": "D5",
+      "title": "D5 — Local relationship graph (P2).",
+      "text": "**D5 — Local relationship graph (P2).** The selected prediction now opens a bounded graph with distinct transaction-input, candidate-membership, overlap, deterministic-claim, current-hypothesis, and historical-prediction edges. Includes a legend, hypothesis toggle, adjustable candidate limit, exact identity details, keyboard selection, and a table alternative. Implemented in [evidence-graph.js](../../docs/evidence-graph.js) with [tests](../../tests/test_evidence_graph.js). Shared membership is explicitly not established ownership. G1 normalized overlap research and cluster overlays after G3 validation remain separate experiments.",
+      "done": true,
+      "status": "completed",
+      "first_recorded": {
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+          "at": "2026-09-11T23:02:20Z",
+          "status": "open",
+          "title": "D5 — Local relationship graph (P2; depends on G1)."
+        },
+        {
+          "kind": "closed",
+          "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+          "at": "2026-09-12T00:27:56Z",
+          "status": "completed",
+          "title": "D5 — Local relationship graph (P2)."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "closed",
+        "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+        "at": "2026-09-12T00:27:56Z",
+        "status": "completed"
+      }
+    },
+    {
+      "id": "brain/tasks/dashboard.md#D6",
+      "note_id": "brain/tasks/dashboard.md",
+      "code": "D6",
+      "title": "D6 — Usability and export robustness (P1).",
+      "text": "**D6 — Usability and export robustness (P1).** Add narrow-screen layouts, keyboard-accessible controls, chart table alternatives, loading/error/empty states, and an export schema version. Done when small-screen users can read and filter results and old/partial exports fail gracefully. Implemented responsive layouts, chart tables, safe DOM text rendering, and distinct load failures/retry. Chrome checks passed at 1440px and 390px, including keyboard inspection, filters/paging, legacy data, missing charts, malformed JSON, and HTTP errors.",
+      "done": true,
+      "status": "completed",
+      "first_recorded": {
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "completed"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+          "at": "2026-09-11T23:02:20Z",
+          "status": "completed",
+          "title": "D6 — Usability and export robustness (P1)."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+        "at": "2026-09-11T23:02:20Z",
+        "status": "completed"
+      }
+    },
+    {
+      "id": "brain/tasks/dashboard.md#D7",
+      "note_id": "brain/tasks/dashboard.md",
+      "code": "D7",
+      "title": "D7 — Visual Markdown brain and research TODO browser (P1).",
+      "text": "**D7 — Visual Markdown brain and research TODO browser (P1).** Main-page navigation opens a colored hierarchy with optional cross-references, searchable notes, branch filters, Open/Completed/All tasks, and a source-linked Markdown reader. The [builder](../../brain_export.py) validates repository links and root reachability; the [viewer](../../docs/brain-view.js) supports keyboard and mobile navigation. [Builder tests](../../tests/test_brain_export.py), [viewer tests](../../tests/test_brain_view.js), and Chrome checks cover extraction, safe rendering, navigation, error/retry, and narrow-screen layout. Update the Markdown and rebuild the export when knowledge changes.",
+      "done": true,
+      "status": "completed",
+      "first_recorded": {
+        "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+        "at": "2026-09-12T00:27:56Z",
+        "status": "completed"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+          "at": "2026-09-12T00:27:56Z",
+          "status": "completed",
+          "title": "D7 — Visual Markdown brain and research TODO browser (P1)."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+        "at": "2026-09-12T00:27:56Z",
+        "status": "completed"
+      }
+    },
+    {
+      "id": "brain/tasks/dashboard.md#D8",
+      "note_id": "brain/tasks/dashboard.md",
+      "code": "D8",
+      "title": "D8 — Frozen feature observatory.",
+      "text": "**D8 — Frozen feature observatory.** The [feature viewer](../../docs/feature-audit.js) exposes all 24 measured features, original-versus-surviving candidate cohorts, search/variation filters, exact duplicates, missingness, population variance, within-ring counts, and cohort CSV downloads. The [EA1 matrix and aggregate](../research/feature-variation-audit.md) preserve the snapshot and source hashes independently of live collection. [Six JS tests](../../tests/test_feature_audit.js) and desktop/mobile Chrome checks cover denominators, malformed metadata, failed loads/retry, safe rendering, keyboard focus, and bounded scrolling. The [historical baseline note](../research/heuristic-baselines.md) supplies a separate comparison without implying modern or forward accuracy.",
+      "done": true,
+      "status": "completed",
+      "first_recorded": {
+        "commit": "e5b4c3b5071546d13c5a66c9524aef069853ac6a",
+        "at": "2026-09-12T02:10:02Z",
+        "status": "completed"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "e5b4c3b5071546d13c5a66c9524aef069853ac6a",
+          "at": "2026-09-12T02:10:02Z",
+          "status": "completed",
+          "title": "D8 — Frozen feature observatory."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "e5b4c3b5071546d13c5a66c9524aef069853ac6a",
+        "at": "2026-09-12T02:10:02Z",
+        "status": "completed"
+      }
+    },
+    {
+      "id": "brain/tasks/dashboard.md#D9",
+      "note_id": "brain/tasks/dashboard.md",
+      "code": "D9",
+      "title": "D9 — Resolution snapshot timeline and direct grouping overview.",
+      "text": "**D9 — Resolution snapshot timeline and direct grouping overview.** The [progress view](../../docs/progress-view.js) separates the current dataset's export observations from unknown/other histories, plots deterministic counts with total-ring denominators, and shows signed snapshot changes. Timestamps describe observations of the analysis, not individual resolution events. Direct transaction/shared-output groups retain exact output identity and bounded coverage; no ownership clusters are inferred. Validation: [progress tests](../../tests/test_progress_view.js) and browser checks.",
+      "done": true,
+      "status": "completed",
+      "first_recorded": {
+        "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+        "at": "2026-09-12T02:29:58Z",
+        "status": "completed"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+          "at": "2026-09-12T02:29:58Z",
+          "status": "completed",
+          "title": "D9 — Resolution snapshot timeline and direct grouping overview."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+        "at": "2026-09-12T02:29:58Z",
+        "status": "completed"
+      }
+    }
+  ],
+  "events": [
+    {
+      "kind": "first_recorded",
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "status": "open",
+      "title": "G1 — Ring-overlap explorer (P2).",
+      "task_id": "brain/research/groupings.md#G1",
+      "note_id": "brain/research/groupings.md",
+      "code": "G1"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "status": "open",
+      "title": "G2 — Co-spend hypotheses (P2; depends on P1–P3).",
+      "task_id": "brain/research/groupings.md#G2",
+      "note_id": "brain/research/groupings.md",
+      "code": "G2"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "status": "open",
+      "title": "G3 — Cluster validation (P3; depends on G2).",
+      "task_id": "brain/research/groupings.md#G3",
+      "note_id": "brain/research/groupings.md",
+      "code": "G3"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "status": "open",
+      "title": "G4 — Reversible cluster records (P3; depends on G3).",
+      "task_id": "brain/research/groupings.md#G4",
+      "note_id": "brain/research/groupings.md",
+      "code": "G4"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "status": "open",
+      "title": "G5 — Output origins and controlled labels (P2).",
+      "task_id": "brain/research/groupings.md#G5",
+      "note_id": "brain/research/groupings.md",
+      "code": "G5"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "status": "open",
+      "title": "Deployment manifest.",
+      "task_id": "brain/research/ideas.md#title-151f3232da12a86e",
+      "note_id": "brain/research/ideas.md",
+      "code": null
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "status": "open",
+      "title": "Export coverage and on-demand shards.",
+      "task_id": "brain/research/ideas.md#title-1b373ae81f109fa3",
+      "note_id": "brain/research/ideas.md",
+      "code": null
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "status": "open",
+      "title": "Prediction changes across runs.",
+      "task_id": "brain/research/ideas.md#title-2357ad9c8b30e7b0",
+      "note_id": "brain/research/ideas.md",
+      "code": null
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "status": "open",
+      "title": "Chain coverage versus export freshness.",
+      "task_id": "brain/research/ideas.md#title-23dffa23c6b0fda7",
+      "note_id": "brain/research/ideas.md",
+      "code": null
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "status": "open",
+      "title": "Incremental cloud analysis.",
+      "task_id": "brain/research/ideas.md#title-33b9aae3cf94ef80",
+      "note_id": "brain/research/ideas.md",
+      "code": null
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "status": "open",
+      "title": "Historical feature provenance.",
+      "task_id": "brain/research/ideas.md#title-3b0955fe4ae108d7",
+      "note_id": "brain/research/ideas.md",
+      "code": null
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "status": "open",
+      "title": "Dataset lineage versus snapshot identity.",
+      "task_id": "brain/research/ideas.md#title-41f757e125e71f94",
+      "note_id": "brain/research/ideas.md",
+      "code": null
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "status": "open",
+      "title": "Unscorable rings as a coverage category.",
+      "task_id": "brain/research/ideas.md#title-535eb718f634dbd3",
+      "note_id": "brain/research/ideas.md",
+      "code": null
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "status": "open",
+      "title": "Prediction-time label eligibility.",
+      "task_id": "brain/research/ideas.md#title-5dc4016837ad6835",
+      "note_id": "brain/research/ideas.md",
+      "code": null
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "status": "open",
+      "title": "Reorganization recovery.",
+      "task_id": "brain/research/ideas.md#title-6cfff76189fd0df6",
+      "note_id": "brain/research/ideas.md",
+      "code": null
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "status": "open",
+      "title": "Verification-label drift.",
+      "task_id": "brain/research/ideas.md#title-98ce5c48e20f9717",
+      "note_id": "brain/research/ideas.md",
+      "code": null
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "status": "open",
+      "title": "Scalable evidence retrieval.",
+      "task_id": "brain/research/ideas.md#title-a037cf7af05a8444",
+      "note_id": "brain/research/ideas.md",
+      "code": null
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "status": "open",
+      "title": "Collection completeness watermark.",
+      "task_id": "brain/research/ideas.md#title-b2aed4dd2b3f0840",
+      "note_id": "brain/research/ideas.md",
+      "code": null
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "status": "open",
+      "title": "RPC provenance and agreement.",
+      "task_id": "brain/research/ideas.md#title-ba22da368edade27",
+      "note_id": "brain/research/ideas.md",
+      "code": null
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "status": "open",
+      "title": "Cluster stability timeline.",
+      "task_id": "brain/research/ideas.md#title-bc9b4c955945dbcf",
+      "note_id": "brain/research/ideas.md",
+      "code": null
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "status": "open",
+      "title": "Correlated-error stress tests.",
+      "task_id": "brain/research/ideas.md#title-d3252b892d00f7d4",
+      "note_id": "brain/research/ideas.md",
+      "code": null
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "status": "completed",
+      "title": "P1 — Immutable prediction runs (P0).",
+      "task_id": "brain/research/predictions.md#P1",
+      "note_id": "brain/research/predictions.md",
+      "code": "P1"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "status": "open",
+      "title": "P2 — Frozen forward evaluation (P1).",
+      "task_id": "brain/research/predictions.md#P2",
+      "note_id": "brain/research/predictions.md",
+      "code": "P2"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "status": "open",
+      "title": "P3 — Calibration and abstention (P1; depends on P1–P2).",
+      "task_id": "brain/research/predictions.md#P3",
+      "note_id": "brain/research/predictions.md",
+      "code": "P3"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "status": "open",
+      "title": "P4 — Baselines and ablations (P2; depends on P2).",
+      "task_id": "brain/research/predictions.md#P4",
+      "note_id": "brain/research/predictions.md",
+      "code": "P4"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "status": "open",
+      "title": "P5 — Alternatives and ambiguity (P2; depends on P1–P3).",
+      "task_id": "brain/research/predictions.md#P5",
+      "note_id": "brain/research/predictions.md",
+      "code": "P5"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "status": "open",
+      "title": "P6 — Error review and transfer (P2).",
+      "task_id": "brain/research/predictions.md#P6",
+      "note_id": "brain/research/predictions.md",
+      "code": "P6"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "status": "completed",
+      "title": "D1 — Separate evidence classes (P0).",
+      "task_id": "brain/tasks/dashboard.md#D1",
+      "note_id": "brain/tasks/dashboard.md",
+      "code": "D1"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "status": "completed",
+      "title": "D2 — Prediction browser (P1; depends on P1).",
+      "task_id": "brain/tasks/dashboard.md#D2",
+      "note_id": "brain/tasks/dashboard.md",
+      "code": "D2"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "status": "completed",
+      "title": "D3 — Evidence inspector (P1).",
+      "task_id": "brain/tasks/dashboard.md#D3",
+      "note_id": "brain/tasks/dashboard.md",
+      "code": "D3"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "status": "open",
+      "title": "D4 — Prediction quality panel (P2; depends on P1–P3).",
+      "task_id": "brain/tasks/dashboard.md#D4",
+      "note_id": "brain/tasks/dashboard.md",
+      "code": "D4"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "status": "open",
+      "title": "D5 — Local relationship graph (P2; depends on G1).",
+      "task_id": "brain/tasks/dashboard.md#D5",
+      "note_id": "brain/tasks/dashboard.md",
+      "code": "D5"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "status": "completed",
+      "title": "D6 — Usability and export robustness (P1).",
+      "task_id": "brain/tasks/dashboard.md#D6",
+      "note_id": "brain/tasks/dashboard.md",
+      "code": "D6"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+      "at": "2026-09-12T00:27:56Z",
+      "status": "open",
+      "title": "HE1 — Output-origin joins (P0).",
+      "task_id": "brain/research/heuristic-experiments.md#HE1",
+      "note_id": "brain/research/heuristic-experiments.md",
+      "code": "HE1"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+      "at": "2026-09-12T00:27:56Z",
+      "status": "open",
+      "title": "HE2 — Age baselines and ablation (P1).",
+      "task_id": "brain/research/heuristic-experiments.md#HE2",
+      "note_id": "brain/research/heuristic-experiments.md",
+      "code": "HE2"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+      "at": "2026-09-12T00:27:56Z",
+      "status": "open",
+      "title": "HE3 — Temporal and graph separation (P0).",
+      "task_id": "brain/research/heuristic-experiments.md#HE3",
+      "note_id": "brain/research/heuristic-experiments.md",
+      "code": "HE3"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+      "at": "2026-09-12T00:27:56Z",
+      "status": "open",
+      "title": "HE4 — Overlap and co-spend false merges (P2).",
+      "task_id": "brain/research/heuristic-experiments.md#HE4",
+      "note_id": "brain/research/heuristic-experiments.md",
+      "code": "HE4"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+      "at": "2026-09-12T00:27:56Z",
+      "status": "open",
+      "title": "Private node and prospective mempool experiments.",
+      "task_id": "brain/research/ideas.md#title-1257d3b9a06a8210",
+      "note_id": "brain/research/ideas.md",
+      "code": null
+    },
+    {
+      "kind": "closed",
+      "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+      "at": "2026-09-12T00:27:56Z",
+      "status": "completed",
+      "title": "Chain coverage versus export freshness.",
+      "task_id": "brain/research/ideas.md#title-23dffa23c6b0fda7",
+      "note_id": "brain/research/ideas.md",
+      "code": null
+    },
+    {
+      "kind": "removed",
+      "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+      "at": "2026-09-12T00:27:56Z",
+      "status": "removed",
+      "title": "Incremental cloud analysis.",
+      "task_id": "brain/research/ideas.md#title-33b9aae3cf94ef80",
+      "note_id": "brain/research/ideas.md",
+      "code": null
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+      "at": "2026-09-12T00:27:56Z",
+      "status": "open",
+      "title": "Resource metrics and ML failure isolation.",
+      "task_id": "brain/research/ideas.md#title-518ee26eb6e18f7f",
+      "note_id": "brain/research/ideas.md",
+      "code": null
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+      "at": "2026-09-12T00:27:56Z",
+      "status": "open",
+      "title": "Web updates without interrupting collection.",
+      "task_id": "brain/research/ideas.md#title-7d53099e97e073a5",
+      "note_id": "brain/research/ideas.md",
+      "code": null
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+      "at": "2026-09-12T00:27:56Z",
+      "status": "open",
+      "title": "Batched scoring and incremental cloud analysis.",
+      "task_id": "brain/research/ideas.md#title-7f81ffffec6f3d0d",
+      "note_id": "brain/research/ideas.md",
+      "code": null
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+      "at": "2026-09-12T00:27:56Z",
+      "status": "open",
+      "title": "EA1 — Constant-feature audit (P0; supported by this finding).",
+      "task_id": "brain/research/output-origin-audit.md#EA1",
+      "note_id": "brain/research/output-origin-audit.md",
+      "code": "EA1"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+      "at": "2026-09-12T00:27:56Z",
+      "status": "open",
+      "title": "EA2 — Versioned origin-age features and ablation (P1; depends on HE1/HE3).",
+      "task_id": "brain/research/output-origin-audit.md#EA2",
+      "note_id": "brain/research/output-origin-audit.md",
+      "code": "EA2"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+      "at": "2026-09-12T00:27:56Z",
+      "status": "open",
+      "title": "PN1 — Validating-node pilot (P1).",
+      "task_id": "brain/research/private-node-observations.md#PN1",
+      "note_id": "brain/research/private-node-observations.md",
+      "code": "PN1"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+      "at": "2026-09-12T00:27:56Z",
+      "status": "open",
+      "title": "PN2 — Observation completeness pilot (P1).",
+      "task_id": "brain/research/private-node-observations.md#PN2",
+      "note_id": "brain/research/private-node-observations.md",
+      "code": "PN2"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+      "at": "2026-09-12T00:27:56Z",
+      "status": "open",
+      "title": "PN3 — Confirmation forecasts (P2).",
+      "task_id": "brain/research/private-node-observations.md#PN3",
+      "note_id": "brain/research/private-node-observations.md",
+      "code": "PN3"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+      "at": "2026-09-12T00:27:56Z",
+      "status": "open",
+      "title": "RL1 — Protocol cohort manifest (P0; unimplemented).",
+      "task_id": "brain/research/protocol-limits.md#RL1",
+      "note_id": "brain/research/protocol-limits.md",
+      "code": "RL1"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+      "at": "2026-09-12T00:27:56Z",
+      "status": "open",
+      "title": "RL2 — Applicability ledger (P1; research design).",
+      "task_id": "brain/research/protocol-limits.md#RL2",
+      "note_id": "brain/research/protocol-limits.md",
+      "code": "RL2"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+      "at": "2026-09-12T00:27:56Z",
+      "status": "open",
+      "title": "RL3 — Claims audit in the display (P1; unimplemented).",
+      "task_id": "brain/research/protocol-limits.md#RL3",
+      "note_id": "brain/research/protocol-limits.md",
+      "code": "RL3"
+    },
+    {
+      "kind": "closed",
+      "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+      "at": "2026-09-12T00:27:56Z",
+      "status": "completed",
+      "title": "D5 — Local relationship graph (P2).",
+      "task_id": "brain/tasks/dashboard.md#D5",
+      "note_id": "brain/tasks/dashboard.md",
+      "code": "D5"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+      "at": "2026-09-12T00:27:56Z",
+      "status": "completed",
+      "title": "D7 — Visual Markdown brain and research TODO browser (P1).",
+      "task_id": "brain/tasks/dashboard.md#D7",
+      "note_id": "brain/tasks/dashboard.md",
+      "code": "D7"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "e5b4c3b5071546d13c5a66c9524aef069853ac6a",
+      "at": "2026-09-12T02:10:02Z",
+      "status": "open",
+      "title": "FA2 — Fixed-split ablation.",
+      "task_id": "brain/research/feature-variation-audit.md#FA2",
+      "note_id": "brain/research/feature-variation-audit.md",
+      "code": "FA2"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "e5b4c3b5071546d13c5a66c9524aef069853ac6a",
+      "at": "2026-09-12T02:10:02Z",
+      "status": "open",
+      "title": "FA3 — Reuse tie treatment.",
+      "task_id": "brain/research/feature-variation-audit.md#FA3",
+      "note_id": "brain/research/feature-variation-audit.md",
+      "code": "FA3"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "e5b4c3b5071546d13c5a66c9524aef069853ac6a",
+      "at": "2026-09-12T02:10:02Z",
+      "status": "open",
+      "title": "FA4 — Broader feature coverage.",
+      "task_id": "brain/research/feature-variation-audit.md#FA4",
+      "note_id": "brain/research/feature-variation-audit.md",
+      "code": "FA4"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "e5b4c3b5071546d13c5a66c9524aef069853ac6a",
+      "at": "2026-09-12T02:10:02Z",
+      "status": "open",
+      "title": "HB2 — Prediction-time reuse baseline (P1; depends on evidence history).",
+      "task_id": "brain/research/heuristic-baselines.md#HB2",
+      "note_id": "brain/research/heuristic-baselines.md",
+      "code": "HB2"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "e5b4c3b5071546d13c5a66c9524aef069853ac6a",
+      "at": "2026-09-12T02:10:02Z",
+      "status": "open",
+      "title": "Atomic publication of complete UI sets.",
+      "task_id": "brain/research/ideas.md#title-2d9302723764cffa",
+      "note_id": "brain/research/ideas.md",
+      "code": null
+    },
+    {
+      "kind": "removed",
+      "commit": "e5b4c3b5071546d13c5a66c9524aef069853ac6a",
+      "at": "2026-09-12T02:10:02Z",
+      "status": "removed",
+      "title": "Web updates without interrupting collection.",
+      "task_id": "brain/research/ideas.md#title-7d53099e97e073a5",
+      "note_id": "brain/research/ideas.md",
+      "code": null
+    },
+    {
+      "kind": "closed",
+      "commit": "e5b4c3b5071546d13c5a66c9524aef069853ac6a",
+      "at": "2026-09-12T02:10:02Z",
+      "status": "completed",
+      "title": "EA1 — Constant-feature audit.",
+      "task_id": "brain/research/output-origin-audit.md#EA1",
+      "note_id": "brain/research/output-origin-audit.md",
+      "code": "EA1"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "e5b4c3b5071546d13c5a66c9524aef069853ac6a",
+      "at": "2026-09-12T02:10:02Z",
+      "status": "completed",
+      "title": "D8 — Frozen feature observatory.",
+      "task_id": "brain/tasks/dashboard.md#D8",
+      "note_id": "brain/tasks/dashboard.md",
+      "code": "D8"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+      "at": "2026-09-12T02:29:58Z",
+      "status": "open",
+      "title": "Progress regression alerts.",
+      "task_id": "brain/research/ideas.md#title-31e6695b7076dc1e",
+      "note_id": "brain/research/ideas.md",
+      "code": null
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+      "at": "2026-09-12T02:29:58Z",
+      "status": "open",
+      "title": "Prospective coverage ledger.",
+      "task_id": "brain/research/ideas.md#title-68a7daecd933b4df",
+      "note_id": "brain/research/ideas.md",
+      "code": null
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+      "at": "2026-09-12T02:29:58Z",
+      "status": "open",
+      "title": "Shared-output null model.",
+      "task_id": "brain/research/ideas.md#title-7fe788d16b4df241",
+      "note_id": "brain/research/ideas.md",
+      "code": null
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+      "at": "2026-09-12T02:29:58Z",
+      "status": "open",
+      "title": "Resolution transitions versus snapshot growth.",
+      "task_id": "brain/research/ideas.md#title-9cd2c95217980233",
+      "note_id": "brain/research/ideas.md",
+      "code": null
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+      "at": "2026-09-12T02:29:58Z",
+      "status": "open",
+      "title": "Confirmation-delay forecasts.",
+      "task_id": "brain/research/ideas.md#title-a9d53515744fdebc",
+      "note_id": "brain/research/ideas.md",
+      "code": null
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+      "at": "2026-09-12T02:29:58Z",
+      "status": "open",
+      "title": "RP1 — Machine-checkable conclusion claims.",
+      "task_id": "brain/research/progress-and-conclusions.md#RP1",
+      "note_id": "brain/research/progress-and-conclusions.md",
+      "code": "RP1"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+      "at": "2026-09-12T02:29:58Z",
+      "status": "open",
+      "title": "RP2 — Experiment versus deployment status.",
+      "task_id": "brain/research/progress-and-conclusions.md#RP2",
+      "note_id": "brain/research/progress-and-conclusions.md",
+      "code": "RP2"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+      "at": "2026-09-12T02:29:58Z",
+      "status": "completed",
+      "title": "D10 — Dedicated TODO/results page.",
+      "task_id": "brain/tasks/dashboard.md#D10",
+      "note_id": "brain/tasks/dashboard.md",
+      "code": "D10"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+      "at": "2026-09-12T02:29:58Z",
+      "status": "completed",
+      "title": "D11 — Current-chain observation feed and periodic refresh.",
+      "task_id": "brain/tasks/dashboard.md#D11",
+      "note_id": "brain/tasks/dashboard.md",
+      "code": "D11"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+      "at": "2026-09-12T02:29:58Z",
+      "status": "completed",
+      "title": "D9 — Resolution snapshot timeline and direct grouping overview.",
+      "task_id": "brain/tasks/dashboard.md#D9",
+      "note_id": "brain/tasks/dashboard.md",
+      "code": "D9"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "17fc6bc8ff8b1fc38b55302c828e879648fa2f91",
+      "at": "2026-09-12T02:46:35Z",
+      "status": "completed",
+      "title": "Pinned upstream implementation audit.",
+      "task_id": "brain/research/ideas.md#title-0a059309cf79c781",
+      "note_id": "brain/research/ideas.md",
+      "code": null
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "17fc6bc8ff8b1fc38b55302c828e879648fa2f91",
+      "at": "2026-09-12T02:46:35Z",
+      "status": "completed",
+      "title": "UA1 — Inspect a pinned Monero implementation.",
+      "task_id": "brain/research/upstream-heuristics.md#UA1",
+      "note_id": "brain/research/upstream-heuristics.md",
+      "code": "UA1"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "17fc6bc8ff8b1fc38b55302c828e879648fa2f91",
+      "at": "2026-09-12T02:46:35Z",
+      "status": "open",
+      "title": "UA2 — Generalize the origin RPC/cache interface (supports HE1/EA2).",
+      "task_id": "brain/research/upstream-heuristics.md#UA2",
+      "note_id": "brain/research/upstream-heuristics.md",
+      "code": "UA2"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "17fc6bc8ff8b1fc38b55302c828e879648fa2f91",
+      "at": "2026-09-12T02:46:35Z",
+      "status": "open",
+      "title": "UA3 — Replay a versioned wallet sampler (supports FA2).",
+      "task_id": "brain/research/upstream-heuristics.md#UA3",
+      "note_id": "brain/research/upstream-heuristics.md",
+      "code": "UA3"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "17fc6bc8ff8b1fc38b55302c828e879648fa2f91",
+      "at": "2026-09-12T02:46:35Z",
+      "status": "open",
+      "title": "UA4 — Preserve protocol context and audit eligibility.",
+      "task_id": "brain/research/upstream-heuristics.md#UA4",
+      "note_id": "brain/research/upstream-heuristics.md",
+      "code": "UA4"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "17fc6bc8ff8b1fc38b55302c828e879648fa2f91",
+      "at": "2026-09-12T02:46:35Z",
+      "status": "open",
+      "title": "UA5 — Prospective pool forecasting pilot.",
+      "task_id": "brain/research/upstream-heuristics.md#UA5",
+      "note_id": "brain/research/upstream-heuristics.md",
+      "code": "UA5"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "17fc6bc8ff8b1fc38b55302c828e879648fa2f91",
+      "at": "2026-09-12T02:46:35Z",
+      "status": "open",
+      "title": "UA6 — Source-aware grouping null model (supports G1/G3/G5).",
+      "task_id": "brain/research/upstream-heuristics.md#UA6",
+      "note_id": "brain/research/upstream-heuristics.md",
+      "code": "UA6"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "368ce2215ae3d937a5872d0f09b4b241d691633a",
+      "at": "2026-09-12T03:08:38Z",
+      "status": "completed",
+      "title": "ER1 — Source-pinned era taxonomy.",
+      "task_id": "brain/research/security-eras.md#ER1",
+      "note_id": "brain/research/security-eras.md",
+      "code": "ER1"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "368ce2215ae3d937a5872d0f09b4b241d691633a",
+      "at": "2026-09-12T03:08:38Z",
+      "status": "open",
+      "title": "ER2 — Populate comparable evidence by era.",
+      "task_id": "brain/research/security-eras.md#ER2",
+      "note_id": "brain/research/security-eras.md",
+      "code": "ER2"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "368ce2215ae3d937a5872d0f09b4b241d691633a",
+      "at": "2026-09-12T03:08:38Z",
+      "status": "open",
+      "title": "ER3 — Sample matched upgrade windows.",
+      "task_id": "brain/research/security-eras.md#ER3",
+      "note_id": "brain/research/security-eras.md",
+      "code": "ER3"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "368ce2215ae3d937a5872d0f09b4b241d691633a",
+      "at": "2026-09-12T03:08:38Z",
+      "status": "completed",
+      "title": "D12 — Security-era evidence explorer.",
+      "task_id": "brain/tasks/dashboard.md#D12",
+      "note_id": "brain/tasks/dashboard.md",
+      "code": "D12"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "5faef380378a94a8964dfaa9a057608f4e1d5c6d",
+      "at": "2026-09-12T03:53:00Z",
+      "status": "open",
+      "title": "Represent time as observation intervals.",
+      "task_id": "brain/research/private-node-observations.md#title-6fab5b49d92911b7",
+      "note_id": "brain/research/private-node-observations.md",
+      "code": null
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "5faef380378a94a8964dfaa9a057608f4e1d5c6d",
+      "at": "2026-09-12T03:53:00Z",
+      "status": "open",
+      "title": "Ablate node receipt time against local sightings.",
+      "task_id": "brain/research/private-node-observations.md#title-a771469bae55530e",
+      "note_id": "brain/research/private-node-observations.md",
+      "code": null
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "5faef380378a94a8964dfaa9a057608f4e1d5c6d",
+      "at": "2026-09-12T03:53:00Z",
+      "status": "open",
+      "title": "Measure retention and horizon selection bias.",
+      "task_id": "brain/research/private-node-observations.md#title-cfe3c122ec96cca8",
+      "note_id": "brain/research/private-node-observations.md",
+      "code": null
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "5faef380378a94a8964dfaa9a057608f4e1d5c6d",
+      "at": "2026-09-12T03:53:00Z",
+      "status": "open",
+      "title": "Freeze complete observation cohorts before longer studies.",
+      "task_id": "brain/research/private-node-observations.md#title-ef8bcce16c3c2607",
+      "note_id": "brain/research/private-node-observations.md",
+      "code": null
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "5faef380378a94a8964dfaa9a057608f4e1d5c6d",
+      "at": "2026-09-12T03:53:00Z",
+      "status": "open",
+      "title": "Compare public and private visibility simultaneously.",
+      "task_id": "brain/research/private-node-observations.md#title-f5d18f45e3663c24",
+      "note_id": "brain/research/private-node-observations.md",
+      "code": null
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "5faef380378a94a8964dfaa9a057608f4e1d5c6d",
+      "at": "2026-09-12T03:53:00Z",
+      "status": "completed",
+      "title": "D13 — Prospective pool observations page.",
+      "task_id": "brain/tasks/dashboard.md#D13",
+      "note_id": "brain/tasks/dashboard.md",
+      "code": "D13"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "d4ac59f97ac60bede0f20d585a12828666c39051",
+      "at": "2026-09-12T04:26:09Z",
+      "status": "open",
+      "title": "D14 — Dated TODO activity and hypothesis outcomes.",
+      "task_id": "brain/tasks/dashboard.md#D14",
+      "note_id": "brain/tasks/dashboard.md",
+      "code": "D14"
+    }
+  ],
+  "summary": {
+    "open": 64,
+    "completed": 18,
+    "removed": 2,
+    "events": 89,
+    "pending": 0
+  }
+}
