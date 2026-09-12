@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "kind": "sanitized_public_rpc_aggregate_availability_probe",
+  "audit_local_date": "2026-09-11",
+  "audit_timezone": "America/Los_Angeles",
+  "origin": "http://xmr-node.cakewallet.com:18081",
+  "source_audit_release": "v0.18.5.1",
+  "source_audit_commit": "4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5",
+  "observed_node_software_revision": null,
+  "request_limits": {
+    "total_requests": 2,
+    "per_request_timeout_seconds": 15,
+    "per_response_max_bytes": 1048576,
+    "retries": 0
+  },
+  "requests": [
+    {
+      "method": "get_info",
+      "http_method": "POST",
+      "path": "/json_rpc",
+      "request_body": {"jsonrpc": "2.0", "id": "pool-audit", "method": "get_info", "params": {}},
+      "started_at": "2026-09-12T02:39:20.014500+00:00",
+      "elapsed_seconds": 0.142,
+      "http_status": 200,
+      "response_bytes": 1443,
+      "fields": {
+        "block_weight_limit": 600000,
+        "block_weight_median": 300000,
+        "busy_syncing": false,
+        "height": 3760541,
+        "restricted": true,
+        "status": "OK",
+        "synchronized": true,
+        "target_height": 0,
+        "tx_pool_size": 35,
+        "untrusted": false,
+        "version": ""
+      }
+    },
+    {
+      "method": "get_transaction_pool_stats",
+      "http_method": "POST",
+      "path": "/get_transaction_pool_stats",
+      "request_body": {},
+      "started_at": "2026-09-12T02:39:20.156675+00:00",
+      "elapsed_seconds": 0.301,
+      "http_status": 200,
+      "response_bytes": 892,
+      "fields": {"status": "OK", "untrusted": false},
+      "pool_stats": {
+        "bytes_max": 14608,
+        "bytes_med": 1536,
+        "bytes_min": 1530,
+        "bytes_total": 79120,
+        "fee_total": 9512910000,
+        "histo_98pc": 0,
+        "num_10m": 0,
+        "num_double_spends": 0,
+        "num_failing": 0,
+        "num_not_relayed": 0,
+        "oldest": 1789180568,
+        "txs_total": 35
+      },
+      "histogram_bins": 10
+    }
+  ],
+  "interpretation": [
+    "One sequential two-request snapshot demonstrates aggregate availability at the recorded UTC time; it is not an availability or forecasting benchmark.",
+    "No transaction identities, transaction bodies, pool hashes or peer information were requested or retained.",
+    "Client request duration is not transaction propagation latency. Oldest is a node-reported local pool receipt timestamp, not wallet creation or global arrival time.",
+    "The pinned source populates bytes_* from transaction weight; the actual public node version is unknown because its reported version string was empty.",
+    "Restricted per-transaction timestamp redaction and unsigned time_in_pool arithmetic are source findings only; neither endpoint was tested in this probe.",
+    "Synchronized and untrusted fields are provider reports, not independent chain validation by this observer. The two responses are not an atomic snapshot."
+  ]
+}

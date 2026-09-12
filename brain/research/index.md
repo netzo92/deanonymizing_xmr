@@ -17,6 +17,8 @@ and unresolved measurement questions.
 
 Focused research plans and primary-source context:
 
+- [Heuristics from the Monero source](upstream-heuristics.md): pinned implementation audit, measured origin/proxy mismatch, and concrete node/wallet/pool experiments.
+
 - [Protocol eras and limits](protocol-limits.md): historical findings, modern applicability, and claims/cohort audits.
 - [Measurable heuristic experiments](heuristic-experiments.md): accurate output origins, age baselines, graph-aware temporal tests, and grouping false merges.
 - [Private-node observations](private-node-observations.md): validating-node pilot, prospective pool coverage, and confirmation-delay forecasts.

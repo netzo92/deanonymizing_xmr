@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "state": "caught_up",
-  "generated_at": "2026-09-12T02:44:01.091265+00:00",
-  "last_success_at": "2026-09-12T02:44:01.085525+00:00",
+  "generated_at": "2026-09-12T02:33:54.488786+00:00",
+  "last_success_at": "2026-09-12T02:33:54.482677+00:00",
   "source": {
     "mode": "public_rpc",
     "origin": "http://xmr-node.cakewallet.com:18081",
@@ -10,13 +10,13 @@
     "observer_sha256": "7db5f13a38e94f11d19d06d092e85af69184341690bc9f03b8f54afe4882f6db"
   },
   "chain_tip": {
-    "height": 3760546,
-    "hash": "4d4eac5d163f1b3cada3570e1bab2716e599bb86e3a7590afb9cdbda996e67f4",
-    "chain_timestamp": "2026-09-12T02:42:28+00:00",
-    "observed_at": "2026-09-12T02:44:00.541920+00:00"
+    "height": 3760539,
+    "hash": "5ca2dc9860410afc5131bed138d05d7c7393b77bc5659c76b783a4311543eab2",
+    "chain_timestamp": "2026-09-12T02:29:38+00:00",
+    "observed_at": "2026-09-12T02:33:52.706941+00:00"
   },
-  "confirmed_target_height": 3760536,
-  "last_processed_height": 3760536,
+  "confirmed_target_height": 3760529,
+  "last_processed_height": 3760529,
   "blocks_behind_confirmed": 0,
   "blocks": [
     {
@@ -211,121 +211,16 @@
         "16": 5
       },
       "detail_status": "complete"
-    },
-    {
-      "height": 3760530,
-      "hash": "fcf4e372aae398787d66088958175e2b10bd477a86d590bfeb875cc73fbd109f",
-      "previous_hash": "b864a0d30f3712a63f6ecaef9d961b5edc7dc6ebbd735cc44a0c4526d3b97d6f",
-      "chain_timestamp": "2026-09-12T02:11:22+00:00",
-      "observed_at": "2026-09-12T02:37:57.567773+00:00",
-      "source_origin": "http://xmr-node.cakewallet.com:18081",
-      "transaction_count": 40,
-      "ring_input_count": 65,
-      "ring_member_count": 1040,
-      "ring_size_distribution": {
-        "16": 65
-      },
-      "detail_status": "complete"
-    },
-    {
-      "height": 3760531,
-      "hash": "1edd63c855d1ff9aa17b41ffa5bacd32e5fb1dc62aec191a3b31ad6c4ee97a92",
-      "previous_hash": "fcf4e372aae398787d66088958175e2b10bd477a86d590bfeb875cc73fbd109f",
-      "chain_timestamp": "2026-09-12T02:11:29+00:00",
-      "observed_at": "2026-09-12T02:41:59.697529+00:00",
-      "source_origin": "http://xmr-node.cakewallet.com:18081",
-      "transaction_count": 4,
-      "ring_input_count": 5,
-      "ring_member_count": 80,
-      "ring_size_distribution": {
-        "16": 5
-      },
-      "detail_status": "complete"
-    },
-    {
-      "height": 3760532,
-      "hash": "e3fd2c2208d01859029d93234da0c4f804368e33a788e47b49c001bdcc624380",
-      "previous_hash": "1edd63c855d1ff9aa17b41ffa5bacd32e5fb1dc62aec191a3b31ad6c4ee97a92",
-      "chain_timestamp": "2026-09-12T02:16:20+00:00",
-      "observed_at": "2026-09-12T02:42:00.061895+00:00",
-      "source_origin": "http://xmr-node.cakewallet.com:18081",
-      "transaction_count": 71,
-      "ring_input_count": 124,
-      "ring_member_count": 1984,
-      "ring_size_distribution": {
-        "16": 124
-      },
-      "detail_status": "complete"
-    },
-    {
-      "height": 3760533,
-      "hash": "7442e938f2a9382e02717b76ae2986274d78f3554681118598c183e6439005e6",
-      "previous_hash": "e3fd2c2208d01859029d93234da0c4f804368e33a788e47b49c001bdcc624380",
-      "chain_timestamp": "2026-09-12T02:16:46+00:00",
-      "observed_at": "2026-09-12T02:42:00.217036+00:00",
-      "source_origin": "http://xmr-node.cakewallet.com:18081",
-      "transaction_count": 4,
-      "ring_input_count": 5,
-      "ring_member_count": 80,
-      "ring_size_distribution": {
-        "16": 5
-      },
-      "detail_status": "complete"
-    },
-    {
-      "height": 3760534,
-      "hash": "37052b08bdec76c7a862f3d1b0618f6d8617812181734f41039288d4208ada17",
-      "previous_hash": "7442e938f2a9382e02717b76ae2986274d78f3554681118598c183e6439005e6",
-      "chain_timestamp": "2026-09-12T02:19:15+00:00",
-      "observed_at": "2026-09-12T02:42:00.388161+00:00",
-      "source_origin": "http://xmr-node.cakewallet.com:18081",
-      "transaction_count": 27,
-      "ring_input_count": 36,
-      "ring_member_count": 576,
-      "ring_size_distribution": {
-        "16": 36
-      },
-      "detail_status": "complete"
-    },
-    {
-      "height": 3760535,
-      "hash": "4b5bdc169a502ce9aeff464931d4eb8480b164b7d2e07ab31414ee202bf8cb4b",
-      "previous_hash": "37052b08bdec76c7a862f3d1b0618f6d8617812181734f41039288d4208ada17",
-      "chain_timestamp": "2026-09-12T02:21:10+00:00",
-      "observed_at": "2026-09-12T02:44:00.918164+00:00",
-      "source_origin": "http://xmr-node.cakewallet.com:18081",
-      "transaction_count": 23,
-      "ring_input_count": 63,
-      "ring_member_count": 1008,
-      "ring_size_distribution": {
-        "16": 63
-      },
-      "detail_status": "complete"
-    },
-    {
-      "height": 3760536,
-      "hash": "a8b88136cdc37de61c6e4ad11e9850d97cfeee6810320558b3d032d89310bc78",
-      "previous_hash": "4b5bdc169a502ce9aeff464931d4eb8480b164b7d2e07ab31414ee202bf8cb4b",
-      "chain_timestamp": "2026-09-12T02:22:12+00:00",
-      "observed_at": "2026-09-12T02:44:01.080389+00:00",
-      "source_origin": "http://xmr-node.cakewallet.com:18081",
-      "transaction_count": 10,
-      "ring_input_count": 16,
-      "ring_member_count": 256,
-      "ring_size_distribution": {
-        "16": 16
-      },
-      "detail_status": "complete"
     }
   ],
   "window": {
-    "block_count": 20,
+    "block_count": 13,
     "first_height": 3760517,
-    "last_height": 3760536,
-    "transaction_count": 410,
-    "ring_input_count": 709,
-    "ring_member_count": 11344,
-    "blocks_with_ring_counts": 20,
+    "last_height": 3760529,
+    "transaction_count": 231,
+    "ring_input_count": 395,
+    "ring_member_count": 6320,
+    "blocks_with_ring_counts": 13,
     "height_range_complete": true
   },
   "gaps": [],
@@ -333,7 +228,7 @@
   "retention": {
     "stored_block_limit": 1440,
     "exported_block_limit": 120,
-    "stored_blocks": 20,
+    "stored_blocks": 13,
     "coverage_start_height": 3760517,
     "pruned_before_height": null,
     "gap_record_limit": 200,

@@ -37,6 +37,7 @@ source links. Loading every page is unnecessary for most tasks.
 - Scorer or accuracy question → [evaluation](research/evaluation.md).
 - Commands and tests → [development](workflows/development.md).
 - New knowledge or conflicting notes → [maintenance](workflows/maintenance.md).
+- Monero source assumptions and prospective features → [upstream heuristic audit](research/upstream-heuristics.md).
 - Future predictions → [prediction experiments](research/predictions.md) and [grouping research](research/groupings.md).
 - Measured improvement opportunity → [output-origin audit](research/output-origin-audit.md) and its follow-up experiments.
 - Feature diagnostics and comparison methods → [feature variation](research/feature-variation-audit.md) and [historical baselines](research/heuristic-baselines.md).

@@ -3,139 +3,141 @@
   "scope": {
     "dataset_id": "3929c809-62e6-43ae-929b-92a9d91d4ece",
     "scan_start": 0,
-    "scan_end": 66900,
-    "exported_at": "2026-09-12T01:57:18.310059+00:00",
-    "chain_data_at": "2014-06-02T01:03:07+00:00"
+    "scan_end": 68900,
+    "exported_at": "2026-09-12T02:31:32.589579+00:00",
+    "chain_data_at": "2014-06-03T11:13:15+00:00"
   },
-  "generated_at": "2026-09-12 01:57 UTC",
+  "generated_at": "2026-09-12 02:31 UTC",
   "summary": {
-    "total_rings": 870079,
-    "fully_resolved": 799488,
-    "partially_reduced": 59851,
-    "unreduced": 10740,
+    "total_rings": 918913,
+    "fully_resolved": 847193,
+    "partially_reduced": 60493,
+    "unreduced": 11227,
     "passes": 5,
     "effective_ring_size_distribution": {
-      "1": 799488,
-      "2": 22394,
-      "3": 16080,
-      "4": 11975,
-      "5": 7640,
-      "6": 4731,
-      "7": 2287,
-      "8": 1512,
-      "9": 1085,
-      "10": 880,
-      "11": 611,
-      "12": 402,
-      "13": 280,
-      "14": 183,
-      "15": 148,
-      "16": 85,
-      "17": 69,
+      "1": 847193,
+      "2": 23117,
+      "3": 16538,
+      "4": 11993,
+      "5": 7643,
+      "6": 4742,
+      "7": 2269,
+      "8": 1509,
+      "9": 1081,
+      "10": 867,
+      "11": 604,
+      "12": 400,
+      "13": 269,
+      "14": 184,
+      "15": 139,
+      "16": 88,
+      "17": 60,
       "18": 47,
-      "19": 30,
-      "20": 28,
-      "21": 19,
-      "22": 16,
+      "19": 20,
+      "20": 27,
+      "21": 20,
+      "22": 15,
       "23": 8,
-      "24": 5,
-      "25": 8,
-      "26": 11,
-      "27": 6,
-      "28": 8,
-      "29": 8,
-      "30": 5,
-      "31": 1,
-      "32": 4,
+      "24": 7,
+      "25": 6,
+      "26": 12,
+      "27": 5,
+      "28": 10,
+      "29": 6,
+      "30": 4,
+      "31": 3,
+      "32": 2,
       "33": 3,
       "34": 4,
-      "35": 1,
-      "36": 4,
+      "35": 2,
+      "36": 3,
       "38": 2,
-      "40": 4,
+      "39": 2,
+      "40": 2,
       "41": 1,
       "42": 3,
       "43": 1,
       "45": 1,
-      "166": 1
+      "164": 1
     },
     "partially_reduced_ring_size_distribution": {
-      "2": 16091,
-      "3": 14869,
-      "4": 10652,
-      "5": 7544,
-      "6": 3111,
-      "7": 2272,
-      "8": 1508,
-      "9": 1059,
-      "10": 876,
-      "11": 487,
-      "12": 389,
-      "13": 280,
-      "14": 183,
-      "15": 148,
-      "16": 85,
-      "17": 69,
+      "2": 16749,
+      "3": 14896,
+      "4": 10672,
+      "5": 7549,
+      "6": 3123,
+      "7": 2256,
+      "8": 1505,
+      "9": 1055,
+      "10": 863,
+      "11": 482,
+      "12": 387,
+      "13": 269,
+      "14": 184,
+      "15": 139,
+      "16": 88,
+      "17": 60,
       "18": 47,
-      "19": 30,
-      "20": 27,
-      "21": 19,
-      "22": 16,
+      "19": 20,
+      "20": 26,
+      "21": 20,
+      "22": 15,
       "23": 8,
-      "24": 5,
-      "25": 8,
-      "26": 11,
-      "27": 6,
-      "28": 8,
-      "29": 8,
-      "30": 5,
-      "31": 1,
-      "32": 4,
+      "24": 7,
+      "25": 6,
+      "26": 12,
+      "27": 5,
+      "28": 10,
+      "29": 6,
+      "30": 4,
+      "31": 3,
+      "32": 2,
       "33": 3,
       "34": 4,
-      "35": 1,
-      "36": 4,
+      "35": 2,
+      "36": 3,
       "38": 2,
-      "40": 4,
+      "39": 2,
+      "40": 2,
       "41": 1,
       "42": 3,
       "43": 1,
       "45": 1,
-      "166": 1
+      "164": 1
     },
     "unreduced_ring_size_distribution": {
-      "2": 6303,
-      "3": 1211,
-      "4": 1323,
-      "5": 96,
-      "6": 1620,
-      "7": 15,
+      "2": 6368,
+      "3": 1642,
+      "4": 1321,
+      "5": 94,
+      "6": 1619,
+      "7": 13,
       "8": 4,
       "9": 26,
       "10": 4,
-      "11": 124,
+      "11": 122,
       "12": 13,
       "20": 1
     },
-    "resolution_rate": "91.89%",
-    "deterministic_resolutions": 799488,
+    "resolution_rate": "92.20%",
+    "deterministic_resolutions": 847193,
     "hypothesis_resolutions": 0,
-    "unresolved_reduced": 59851,
-    "unresolved_unchanged": 10740,
+    "unresolved_reduced": 60493,
+    "unresolved_unchanged": 11227,
     "conflict_rings": 0,
     "orphan_resolution_claims": 0,
-    "deterministic_resolution_rate": "91.89%",
-    "blocks_scanned": 66901,
-    "transactions": 18638,
-    "ring_members": 1350263
+    "deterministic_resolution_rate": "92.20%",
+    "blocks_scanned": 68901,
+    "transactions": 20948,
+    "ring_members": 1402252
   },
   "ml_predictions": {
     "total_predictions": 37993,
-    "verified": 872,
-    "correct": 696,
-    "wrong": 176,
-    "unverified": 37121,
-    "accuracy": "79.8%"
+    "verified": 912,
+    "correct": 724,
+    "wrong": 188,
+    "unverified": 37081,
+    "accuracy": "79.4%"
   },
   "ml_training": null,
   "history": [
@@ -414,6 +416,34 @@
       "hypothesis_resolutions": 0,
       "conflict_rings": 0,
       "timestamp": "2026-09-12T01:57:18.309894+00:00"
+    },
+    {
+      "dataset_id": "3929c809-62e6-43ae-929b-92a9d91d4ece",
+      "blocks_scanned": 67901,
+      "total_rings": 890632,
+      "fully_resolved": 819946,
+      "partially_reduced": 59871,
+      "unreduced": 10815,
+      "resolution_rate": "92.06%",
+      "passes": 5,
+      "deterministic_resolutions": 819946,
+      "hypothesis_resolutions": 0,
+      "conflict_rings": 0,
+      "timestamp": "2026-09-12T02:09:14.588530+00:00"
+    },
+    {
+      "dataset_id": "3929c809-62e6-43ae-929b-92a9d91d4ece",
+      "blocks_scanned": 68901,
+      "total_rings": 918913,
+      "fully_resolved": 847193,
+      "partially_reduced": 60493,
+      "unreduced": 11227,
+      "resolution_rate": "92.20%",
+      "passes": 5,
+      "deterministic_resolutions": 847193,
+      "hypothesis_resolutions": 0,
+      "conflict_rings": 0,
+      "timestamp": "2026-09-12T02:31:32.589425+00:00"
     }
   ],
   "prediction_browser": {
@@ -7202,7 +7232,12 @@
           "candidates_truncated": false,
           "inputs_truncated": false,
           "remaining_candidates_truncated": false,
-          "related_rings": [],
+          "related_rings": [
+            {
+              "key_image": "91233b54884bc386094a20050b3acfb908a2edecbd0fe4b562bf34a2ed1efe74",
+              "shared_outputs": 1
+            }
+          ],
           "related_rings_limit": 10,
           "related_rings_truncated": false,
           "lineage": {
@@ -9208,6 +9243,10 @@
               "shared_outputs": 1
             },
             {
+              "key_image": "4a3ef5a3d61c9f3fed0ac038e00c64cd80a9c44dc6d230ad52343eafec3af444",
+              "shared_outputs": 1
+            },
+            {
               "key_image": "78a167f59313445262169eea86f524f397f7e714e6208881d84b4123e3909ad3",
               "shared_outputs": 1
             },
@@ -9221,10 +9260,6 @@
             },
             {
               "key_image": "94d9bfb99d9cb4b99dde72a472989185064616fb8c75af76a113ca0595902398",
-              "shared_outputs": 1
-            },
-            {
-              "key_image": "a8ce9065ed7368c809860365232e73fe266cc104b7c89b37e21b04d4d4a3b9a7",
               "shared_outputs": 1
             }
           ],
@@ -16214,8 +16249,10 @@
                 "amount": "900000000",
                 "index": "2820"
               },
-              "eliminated_by": [],
-              "eliminated_by_count": 0,
+              "eliminated_by": [
+                "3a5f74e852a71f704ba1c86d4de9e6e78ad012215baeee212460c3b80a732f30"
+              ],
+              "eliminated_by_count": 1,
               "eliminated_by_truncated": false
             },
             {
@@ -16273,17 +16310,13 @@
             },
             {
               "amount": "900000000",
-              "index": "2820"
-            },
-            {
-              "amount": "900000000",
               "index": "3262"
             }
           ],
           "conflicts": [],
           "candidate_count": 11,
           "input_count": 1,
-          "remaining_candidate_count": 7,
+          "remaining_candidate_count": 6,
           "candidates_truncated": false,
           "inputs_truncated": false,
           "remaining_candidates_truncated": false,
@@ -16309,6 +16342,10 @@
               "shared_outputs": 1
             },
             {
+              "key_image": "3a5f74e852a71f704ba1c86d4de9e6e78ad012215baeee212460c3b80a732f30",
+              "shared_outputs": 1
+            },
+            {
               "key_image": "429d9daa7fe387863a27f0df84235a4c69370f00e67605ab7183c7658eb8d5f7",
               "shared_outputs": 1
             },
@@ -16322,10 +16359,6 @@
             },
             {
               "key_image": "72c56838d5058aa732cec115399f22b8efc8fe503f7d7e4770f8fe366f2dc12a",
-              "shared_outputs": 1
-            },
-            {
-              "key_image": "737de44d3fdc819a668f0f49c9eee842921dc153d3e1505917542632fdea8e52",
               "shared_outputs": 1
             }
           ],
@@ -20707,15 +20740,15 @@
         "accepted": true,
         "original_ring_size": 4,
         "scan_height": 64900,
-        "verified": false,
-        "correct": null,
-        "verification_height": null,
-        "verification_provenance": null,
-        "verified_at": null,
-        "actual_amount": null,
-        "actual_output_index": null,
-        "resolution_event_id": null,
-        "verification_timing": "unknown",
+        "verified": true,
+        "correct": false,
+        "verification_height": 67900,
+        "verification_provenance": "deterministic_resolution",
+        "verified_at": "2026-09-12 02:07:15",
+        "actual_amount": "1000000000000",
+        "actual_output_index": "1504",
+        "resolution_event_id": 1369650,
+        "verification_timing": "later_scan",
         "candidates": [
           {
             "amount": "1000000000000",
@@ -20758,7 +20791,14 @@
                 "block_height": 53311
               }
             ],
-            "resolution": null,
+            "resolution": {
+              "output": {
+                "amount": "1000000000000",
+                "index": "1504"
+              },
+              "pass_num": 1,
+              "confidence": 1.0
+            },
             "prediction": {
               "output": {
                 "amount": "1000000000000",
@@ -20766,10 +20806,10 @@
               },
               "confidence": 0.9851877317956056,
               "created_at": "2026-09-12 01:18:47",
-              "verified": false,
-              "correct": null
+              "verified": true,
+              "correct": false
             },
-            "resolution_kind": null
+            "resolution_kind": "deterministic"
           },
           "candidates": [
             {
@@ -20799,8 +20839,10 @@
                 "amount": "1000000000000",
                 "index": "1502"
               },
-              "eliminated_by": [],
-              "eliminated_by_count": 0,
+              "eliminated_by": [
+                "f61018872b2c5f571c41864cb68fe331a173be0f38677bfae491cdfb45e0a5ad"
+              ],
+              "eliminated_by_count": 1,
               "eliminated_by_truncated": false
             },
             {
@@ -20816,17 +20858,13 @@
           "remaining_candidates": [
             {
               "amount": "1000000000000",
-              "index": "1502"
-            },
-            {
-              "amount": "1000000000000",
               "index": "1504"
             }
           ],
           "conflicts": [],
           "candidate_count": 4,
           "input_count": 1,
-          "remaining_candidate_count": 2,
+          "remaining_candidate_count": 1,
           "candidates_truncated": false,
           "inputs_truncated": false,
           "remaining_candidates_truncated": false,
@@ -20860,6 +20898,10 @@
               "shared_outputs": 1
             },
             {
+              "key_image": "f61018872b2c5f571c41864cb68fe331a173be0f38677bfae491cdfb45e0a5ad",
+              "shared_outputs": 1
+            },
+            {
               "key_image": "f634f0c59a2098892bd211968ecb6ad218fe999426d3b87d44fe81871e65de26",
               "shared_outputs": 1
             }
@@ -20867,9 +20909,104 @@
           "related_rings_limit": 10,
           "related_rings_truncated": false,
           "lineage": {
-            "root_event_id": null,
-            "events": [],
-            "complete": false,
+            "root_event_id": 1369650,
+            "events": [
+              {
+                "event_id": 1369650,
+                "key_image": "ffacb2d9c309d4e88de647b33b17dc023d813996176047d586f0b85f2b61ce68",
+                "resolution": {
+                  "output": {
+                    "amount": "1000000000000",
+                    "index": "1504"
+                  },
+                  "pass_num": 1,
+                  "confidence": 1.0
+                },
+                "method": "cascade",
+                "scan_height": 67900,
+                "recorded_at": "2026-09-12 02:07:05",
+                "dependencies": [
+                  {
+                    "eliminated_output": {
+                      "amount": "1000000000000",
+                      "index": "577"
+                    },
+                    "source_event_id": 1023921
+                  },
+                  {
+                    "eliminated_output": {
+                      "amount": "1000000000000",
+                      "index": "668"
+                    },
+                    "source_event_id": 584289
+                  },
+                  {
+                    "eliminated_output": {
+                      "amount": "1000000000000",
+                      "index": "1502"
+                    },
+                    "source_event_id": 1368847
+                  }
+                ],
+                "dependency_count": 3,
+                "dependencies_truncated": false
+              },
+              {
+                "event_id": 1023921,
+                "key_image": "c9b973887511f146584b97787da2350444349d918e14746e8128d0bb99ba0963",
+                "resolution": {
+                  "output": {
+                    "amount": "1000000000000",
+                    "index": "577"
+                  },
+                  "pass_num": 0,
+                  "confidence": 1.0
+                },
+                "method": "ring_size_one",
+                "scan_height": 59900,
+                "recorded_at": "2026-09-12 00:17:00",
+                "dependencies": [],
+                "dependency_count": 0,
+                "dependencies_truncated": false
+              },
+              {
+                "event_id": 584289,
+                "key_image": "09c9145fa937047aa4d218a4eb3420f9fb55764034a98adb17fea05372fe369b",
+                "resolution": {
+                  "output": {
+                    "amount": "1000000000000",
+                    "index": "668"
+                  },
+                  "pass_num": 0,
+                  "confidence": 1.0
+                },
+                "method": "ring_size_one",
+                "scan_height": 59900,
+                "recorded_at": "2026-09-12 00:16:18",
+                "dependencies": [],
+                "dependency_count": 0,
+                "dependencies_truncated": false
+              },
+              {
+                "event_id": 1368847,
+                "key_image": "f61018872b2c5f571c41864cb68fe331a173be0f38677bfae491cdfb45e0a5ad",
+                "resolution": {
+                  "output": {
+                    "amount": "1000000000000",
+                    "index": "1502"
+                  },
+                  "pass_num": 0,
+                  "confidence": 1.0
+                },
+                "method": "ring_size_one",
+                "scan_height": 67900,
+                "recorded_at": "2026-09-12 02:06:57",
+                "dependencies": [],
+                "dependency_count": 0,
+                "dependencies_truncated": false
+              }
+            ],
+            "complete": true,
             "truncated": false,
             "missing_event_ids": []
           }
@@ -32717,8 +32854,10 @@
                 "amount": "20000000000",
                 "index": "22726"
               },
-              "eliminated_by": [],
-              "eliminated_by_count": 0,
+              "eliminated_by": [
+                "0e177a93eae10ba660adf488234662de0df1d6d2c04be07a6230a37e89b198f6"
+              ],
+              "eliminated_by_count": 1,
               "eliminated_by_truncated": false
             },
             {
@@ -32750,21 +32889,25 @@
             },
             {
               "amount": "20000000000",
-              "index": "22726"
-            },
-            {
-              "amount": "20000000000",
               "index": "23764"
             }
           ],
           "conflicts": [],
           "candidate_count": 11,
           "input_count": 1,
-          "remaining_candidate_count": 6,
+          "remaining_candidate_count": 5,
           "candidates_truncated": false,
           "inputs_truncated": false,
           "remaining_candidates_truncated": false,
           "related_rings": [
+            {
+              "key_image": "0e177a93eae10ba660adf488234662de0df1d6d2c04be07a6230a37e89b198f6",
+              "shared_outputs": 1
+            },
+            {
+              "key_image": "617f103d28df4f81987b70f0da2107b2f8fa3665e00a3942399829a6de09c7ad",
+              "shared_outputs": 1
+            },
             {
               "key_image": "7b4fdd097b84f881a512987bf1d6b6938b15c09995b9e8072db402718bd3fdd9",
               "shared_outputs": 1
@@ -38821,6 +38964,10 @@
               "shared_outputs": 1
             },
             {
+              "key_image": "1ea4bdb8f2cbaedf822f8d21da5cc60c51eb72ed0b4282bac99351a35abab00c",
+              "shared_outputs": 1
+            },
+            {
               "key_image": "1ead7d7da4f4782ce52999ba3fcc01b9023effbf2e202beab0794c22cd70cfbd",
               "shared_outputs": 1
             },
@@ -38830,10 +38977,6 @@
             },
             {
               "key_image": "67a32250c1fda2336bfe1da7e14e4fabbb66fcdf90300e9b59dc63d2ffa31183",
-              "shared_outputs": 1
-            },
-            {
-              "key_image": "8254792d905d042b44f76f69b01e6c2ef30c68b2c416282f9823de1b1613ffde",
               "shared_outputs": 1
             }
           ],
@@ -48123,10 +48266,10 @@
     }
   },
   "collection": {
-    "chain_tip": 3760518,
+    "chain_tip": 3760530,
     "confirmation_lag": 10,
-    "blocks_behind": 3693618,
+    "blocks_behind": 3691630,
     "mode": "remote_rpc",
-    "published_at": "2026-09-12T01:57:19.113504+00:00"
+    "published_at": "2026-09-12T02:31:33.397125+00:00"
   }
 }

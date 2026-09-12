@@ -1,0 +1,74 @@
+{
+  "audit_version": 1,
+  "generated_at": "2026-09-12T02:40:05.376137+00:00",
+  "audit_kind": "reconciliation_of_existing_observations_not_prediction_evaluation",
+  "upstream": {
+    "tag": "v0.18.5.1",
+    "commit": "4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5",
+    "pin_sha256": "cb960e6f48e0e5135abdc1d6247ff4adc3d9c385f45d8265c4db875062f5073a"
+  },
+  "source_artifacts": {
+    "origins": {
+      "path": "research/results/output_origins_2026-09-11.json",
+      "sha256": "9a9daf738b93a8a957e3ebeafbf4677de0c5c3127f72b3bbbad2a9c5ba4685d5"
+    },
+    "observations": {
+      "path": "research/results/upstream_observations_2026-09-11.json",
+      "sha256": "f132d4dfcd78b679360aa08ca9750c60e672adf73e3d6420d06db09a8761063b"
+    }
+  },
+  "historical_origins": {
+    "sample_count": 40,
+    "all_nonzero_amounts": true,
+    "source_scan": {
+      "start": 0,
+      "end": 58900,
+      "blocks": 58901,
+      "tail_hash": "b075843a91fae3a3a9a27629503a45f9316ef0b3ecdc31f87e8a1a977e61caa9",
+      "tail_timestamp": 1401197380,
+      "amount_zero_membership_rows": 0
+    },
+    "actual_age_blocks": {
+      "min": 15,
+      "median": 3857.5,
+      "max": 41150
+    },
+    "relative_age_proxy": {
+      "min": 0.0,
+      "max": 15.0
+    },
+    "actual_age_over_15_blocks": 39,
+    "distinct_gamma_feature_triples": 1,
+    "rpc_currently_unlocked_true": 40,
+    "interpretation": "Historical output ages reconcile with recorded RPC creation heights. Current unlocked flags are not historical eligibility labels. This is a fixed 40-output sample, not a model-quality test."
+  },
+  "current_observations": {
+    "observed_success_at": "2026-09-12T02:33:54.482677+00:00",
+    "source": {
+      "mode": "public_rpc",
+      "origin": "http://xmr-node.cakewallet.com:18081",
+      "source_revision": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+      "observer_sha256": "7db5f13a38e94f11d19d06d092e85af69184341690bc9f03b8f54afe4882f6db"
+    },
+    "window": {
+      "block_count": 13,
+      "first_height": 3760517,
+      "last_height": 3760529,
+      "transaction_count": 231,
+      "ring_input_count": 395,
+      "ring_member_count": 6320,
+      "blocks_with_ring_counts": 13,
+      "height_range_complete": true
+    },
+    "ring_size_distribution": {
+      "16": 395
+    },
+    "interpretation": "Current confirmed-block activity from one external RPC source. No actual-spend labels; the node software version of that source was not established by this snapshot."
+  },
+  "limitations": [
+    "Historical origins and current blocks are separate populations and observation procedures.",
+    "No model changes, new labels, accuracy gains, ownership claims or forecasts are established.",
+    "The pinned upstream release does not identify which wallet software created a transaction.",
+    "The origin audit v1 preserved the main-file hash but did not independently fingerprint WAL state."
+  ]
+}

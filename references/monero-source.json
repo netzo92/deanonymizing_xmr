@@ -1,0 +1,13 @@
+{
+  "repository": "https://github.com/monero-project/monero.git",
+  "tag": "v0.18.5.1",
+  "tag_object": "fe7ebfe689234a885ab2f478b0303ce930810e3b",
+  "commit": "4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5",
+  "release_url": "https://github.com/monero-project/monero/releases/tag/v0.18.5.1",
+  "release_published_at": "2026-07-08T20:25:48Z",
+  "retrieved_at": "2026-09-12T02:37:46.498099+00:00",
+  "checkout": "references/monero",
+  "depth": 1,
+  "submodules_initialized": false,
+  "purpose": "Read-only implementation reference for versioned heuristic and data-quality audits; no node build or runtime deployment."
+}

@@ -46,7 +46,7 @@ mkdir "$temporary/source" "$temporary/payload"
 git -C "$repo" archive --format=tar.gz --output "$temporary/source.tar.gz" "$revision" -- \
   main.py collector.py live_observer.py analyzer.py models.py scorer.py scanner.py monero_rpc.py brain.py \
   dashboard_export.py brain_export.py requirements.txt README.md AGENTS.md brain tests research \
-  autoresearch_results.md autoresearch-results.tsv \
+  autoresearch_results.md autoresearch-results.tsv references/README.md references/monero-source.json \
   docs/index.html docs/dashboard.js docs/dashboard.css docs/data.json docs/brain.json \
   docs/brain-view.js docs/brain-view.css docs/research-analytics.js docs/research-analytics.css \
   docs/evidence-graph.js docs/evidence-graph.css \

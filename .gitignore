@@ -4,3 +4,6 @@
 __pycache__/
 venv/
 results.json
+
+# Separately pinned upstream source reference; metadata is tracked alongside it.
+/references/monero/

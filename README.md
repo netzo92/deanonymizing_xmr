@@ -41,6 +41,13 @@ The schema lives in `models.py` and includes `blocks`, `transactions`, `ring_mem
 
 ## Usage
 
+### Upstream source reference
+
+A pinned Monero source checkout is available locally in `references/monero`.
+See the [reference guide](references/README.md) and [heuristic audit](brain/research/upstream-heuristics.md)
+for exact source links, findings and proposed experiments. The reference checkout
+is ignored by this repository and excluded from deployment archives.
+
 ### GCP collector and hosting
 
 See the [GCP deployment guide](deploy/gcp/README.md) for a persistent VM that

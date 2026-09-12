@@ -18,6 +18,9 @@ Priority is a suggested order, not an estimate of research success.
 | Done | D2–D3: Prediction browser and evidence inspector | Bounded exports with run/provenance metadata |
 | Done | D5/D7: Local evidence graph and visual knowledge brain | Typed edges, searchable notes and TODOs, keyboard/mobile access |
 | Done | D9–D11: Timeline, direct groupings, TODO/results and current-chain feed | Dataset-scoped progress; source-linked conclusions; independently sampled recent blocks and periodic page checks |
+| Done | UA1: Pinned Monero source audit | Exact source links and measured-context reconciliation; performance experiments remain open |
+| P1 | UA2–UA4: Origin joins, sampler replay and protocol context | Versioned inputs, source-consistent simulations and era-aware integrity checks |
+| P2 | UA5–UA6: Pool forecasts and grouping null models | Prospective evaluation and measured false merges |
 | Done | EA1: Audit constant features | Frozen legacy matrix with 24 features, variation, duplicates, and cohort counts |
 | P1 | FA2–FA3: Feature masks and reuse ties | Paired evaluation with training-only masks and explicit tie rules |
 | P1 | P2–P3: Forward evaluation and calibration | Frozen data and independent evaluation boundaries |
@@ -26,7 +29,8 @@ Priority is a suggested order, not an estimate of research success.
 | P2 | G1–G2: Overlap and co-spend hypotheses | Relationship meanings tested on controlled data |
 | P3 | G3–G4: Experimental clusters | Labeled evaluation and false-merge analysis |
 
-Canonical checklists: [dashboard](dashboard.md),
+Canonical checklists: [upstream source experiments](../research/upstream-heuristics.md),
+[dashboard](dashboard.md),
 [prediction research](../research/predictions.md),
 [grouping research](../research/groupings.md),
 [heuristic experiments](../research/heuristic-experiments.md),
