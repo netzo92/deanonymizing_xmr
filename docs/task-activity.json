@@ -1,43 +1,43 @@
 {
   "schema_version": 1,
   "repository_url": "https://github.com/netzo92/deanonymizing_xmr",
-  "source_commit": "36795ecbd1aefa363acb8dd5f62af9c4a8945ea7",
+  "source_commit": "b196059253aea07f3dc278e60717a2a00ced70c1",
   "history": {
-    "head_commit": "36795ecbd1aefa363acb8dd5f62af9c4a8945ea7",
-    "head_at": "2026-09-12T04:40:45Z",
+    "head_commit": "b196059253aea07f3dc278e60717a2a00ced70c1",
+    "head_at": "2026-09-12T05:18:05Z",
     "root_commit": "67d911fb0a836bc53b2cbdf2d99b8113aaaf3306",
-    "commit_count": 48,
+    "commit_count": 52,
     "mode": "first_parent",
     "complete": true
   },
-  "content_sha256": "2bcd1060b1c6a5fb4ae40ef11abdc1b1b9c0f3cbb29ae5cf47f8eb912580e42c",
+  "content_sha256": "8ea91d64886578d787cd82d7a156c09773109360da584bfe653e01fe9404d361",
   "source_manifest": {
     "brain/architecture/index.md": "0d7606ba363e2f1e80f29b2e891b87c61ee971cc6b3635f034a1930ac53f4e64",
     "brain/architecture/pipeline.md": "fda1e301fdadb62359be0c5ab464390e8eccb82fed5bcaa045ef36ef25994684",
     "brain/architecture/storage-and-evidence.md": "d06f259716143fa7a0f5b00680996589e726abf31eafb153f1b517bb974573f3",
     "brain/index.md": "30cd0cb05f4bd0b1de12bc2f3e31f5839d0796eec0abaef075b061f54897a4a8",
     "brain/research/evaluation.md": "988640552ae49139ba23f4fde6b7c856cc805e9ca595110c866b15ed13e56e81",
-    "brain/research/feature-variation-audit.md": "ec3218096adbdb1aeed9f4d396dd2a6077c637d8b817b26ea3cf2a1593dbce4c",
+    "brain/research/feature-variation-audit.md": "536346ebb6aeaf7024faee2d8bd94457f3adb88c0edee43cbd6a0b35cd527606",
     "brain/research/groupings.md": "3aa13da23c2d6c9b9657c5a560879b08b1da3d99e47f3332883a4d17135410ce",
     "brain/research/heuristic-baselines.md": "9fc52a78fb6f5e72ed9f2f6037c611e246a78017ee6afa9416b811626f23ce58",
     "brain/research/heuristic-experiments.md": "08fc38ac2e1febcc77c0443d5068e0ef2ae10e831448edc498b7274e26fef6ce",
     "brain/research/ideas.md": "e39633ea44286989de55bb415f9716a75674d9d2e4c6b7b2be22880f5de165bc",
-    "brain/research/index.md": "bcc133d15257b8b9f578cb52252167f3566c6b52ce3df39bb4f4ecde9655d43e",
+    "brain/research/index.md": "a349884842779374366cee8159854f092ca9ff77a2b82f1849ff5cf2084c7500",
     "brain/research/output-origin-audit.md": "fe5380855d7ae74bed302bc33de4822246ebfce4919719327bbaaa5348bdf444",
     "brain/research/predictions.md": "d187da7f594f7ca8408c62c697757a3c95ff50cf292b87051bc4bed461ed1e24",
-    "brain/research/private-node-observations.md": "004bd11fb480c6245cd361e26e11643fbdfaab6059d1b4e6173a349a6044a6c4",
-    "brain/research/progress-and-conclusions.md": "98abc6e181952e4908207e223a3f585553bca36155162a434a03f3a75d8b17a0",
+    "brain/research/private-node-observations.md": "152e8037ba615adfda3685ba97b77d9d07f4c26d70017b73e5485eeb25866291",
+    "brain/research/progress-and-conclusions.md": "95ecc0ffc6aaa0ef2b5c74e9532bb67a479a5a8c3b6ca2c08780fe13e9059430",
     "brain/research/protocol-limits.md": "003df48a9f3b0c49e4cffd9d66d6b426820a1de7b09ca00154bb4760ee5c1546",
     "brain/research/security-eras.md": "1ee478e4f8426397b29410078edcb958be69d89ace0112d7914d442cf721cb55",
     "brain/research/upstream-heuristics.md": "f286f35d851bf15f4a47fca3faf57204d7de631ecac99937903e8e586e4b8f52",
-    "brain/tasks/dashboard.md": "c422dadc54cbb5e2a8307256b47ba23e58a19491212416bd236fb179b8827b9c",
+    "brain/tasks/dashboard.md": "a51830a83b5e454a7c921d3f42cf693991ae1233c23a6ceb41da222e87948887",
     "brain/tasks/index.md": "babd15cf94353706855b643f19e41d9f106b6d7fdad988547184d0ee47331c55",
     "brain/workflows/cloud.md": "25adfae936b95be31ae7d39e339ed11f7618af66238c29c5f1f029702c750f47",
     "brain/workflows/development.md": "73c44aaf967b9c0fd8e3692bf93702dd63c970d900c4360d423a7cef5ef1ce4a",
     "brain/workflows/index.md": "aa88e20932a3ac0d4541031c12e611cbef6daad826469b81e2486be5fceb70ef",
     "brain/workflows/maintenance.md": "3b654b9339f0bbe15c80a0b2464527ae6318a6f82c8bbba27fb3071fc68bcd64",
-    "brain/workflows/research-workspace.md": "0ec806ab707a57a48468c616f222de291aa33fce22662d0a9ec2534909a8d3dd",
-    "brain/workflows/task-reporting.md": "c224031e500b8290e8ec4ce1ecaf63b5ee73bcfad3aed8b62d5e2e5f7c637784"
+    "brain/workflows/research-workspace.md": "5772edd6f1f7e0c665d12a07e91543bbbf2132de7807a1678ac0854693ce0709",
+    "brain/workflows/task-reporting.md": "d9ce0f5c1c1735343517a133b8aced362fafa5a4fd436992004c789ba1c020af"
   },
   "working_tree_changes": false,
   "tasks": [
@@ -47,8 +47,8 @@
       "code": "FA2",
       "title": "FA2 — Fixed-split ablation.",
       "text": "**FA2 — Fixed-split ablation.** Compare current features with constant/duplicate families removed on the same frozen eligible rings and predeclared split. Record time, memory, candidate scores, and outcome differences; do not assume fewer columns improve accuracy.",
-      "done": false,
-      "status": "open",
+      "done": true,
+      "status": "completed",
       "first_recorded": {
         "commit": "e5b4c3b5071546d13c5a66c9524aef069853ac6a",
         "at": "2026-09-12T02:10:02Z",
@@ -61,14 +61,21 @@
           "at": "2026-09-12T02:10:02Z",
           "status": "open",
           "title": "FA2 — Fixed-split ablation."
+        },
+        {
+          "kind": "closed",
+          "commit": "b196059253aea07f3dc278e60717a2a00ced70c1",
+          "at": "2026-09-12T05:18:05Z",
+          "status": "completed",
+          "title": "FA2 — Fixed-split ablation."
         }
       ],
       "pending_change": false,
       "last_transition": {
-        "kind": "first_recorded",
-        "commit": "e5b4c3b5071546d13c5a66c9524aef069853ac6a",
-        "at": "2026-09-12T02:10:02Z",
-        "status": "open"
+        "kind": "closed",
+        "commit": "b196059253aea07f3dc278e60717a2a00ced70c1",
+        "at": "2026-09-12T05:18:05Z",
+        "status": "completed"
       }
     },
     {
@@ -1695,8 +1702,8 @@
       "code": null,
       "title": "Freeze complete observation cohorts before longer studies.",
       "text": "**Freeze complete observation cohorts before longer studies.** Export a versioned private archive before rolling retention expires; include pending/censored records, exact feature-availability times, source visibility, software/configuration and clock/poll diagnostics. Choose retention and storage from measured bytes per poll.",
-      "done": false,
-      "status": "open",
+      "done": true,
+      "status": "completed",
       "first_recorded": {
         "commit": "5faef380378a94a8964dfaa9a057608f4e1d5c6d",
         "at": "2026-09-12T03:53:00Z",
@@ -1709,14 +1716,21 @@
           "at": "2026-09-12T03:53:00Z",
           "status": "open",
           "title": "Freeze complete observation cohorts before longer studies."
+        },
+        {
+          "kind": "closed",
+          "commit": "b196059253aea07f3dc278e60717a2a00ced70c1",
+          "at": "2026-09-12T05:18:05Z",
+          "status": "completed",
+          "title": "Freeze complete observation cohorts before longer studies."
         }
       ],
       "pending_change": false,
       "last_transition": {
-        "kind": "first_recorded",
-        "commit": "5faef380378a94a8964dfaa9a057608f4e1d5c6d",
-        "at": "2026-09-12T03:53:00Z",
-        "status": "open"
+        "kind": "closed",
+        "commit": "b196059253aea07f3dc278e60717a2a00ced70c1",
+        "at": "2026-09-12T05:18:05Z",
+        "status": "completed"
       }
     },
     {
@@ -1754,9 +1768,9 @@
       "note_id": "brain/research/progress-and-conclusions.md",
       "code": "RP1",
       "title": "RP1 — Machine-checkable conclusion claims.",
-      "text": "**RP1 — Machine-checkable conclusion claims.** Represent each displayed numerical claim with its artifact path, JSON field, denominator, and file hash. The current page tests reconcile its three frozen summaries; extend this to a small claim manifest so later result updates cannot leave stale conclusions. Completion requires a failing check when a source number, denominator, or hash changes without updating its claim.",
-      "done": false,
-      "status": "open",
+      "text": "**RP1 — Machine-checkable conclusion claims.** Represent each displayed numerical claim with its artifact path, JSON field, denominator, and file hash. The current page tests reconcile its three frozen summaries; extend this to a small claim manifest so later result updates cannot leave stale conclusions. Completed with an [85-claim manifest](../../research/conclusion-claims.json), [offline validator](../../research/check_conclusion_claims.py), eight denominator/rate reconciliations, and [mutation tests](../../tests/test_conclusion_claims.py) that fail on source, hash, denominator, numeric-prose or unmapped-metric drift. Static publication runs the guard. This scope is the three frozen historical cards; the full hypothesis ledger has separate artifact checks.",
+      "done": true,
+      "status": "completed",
       "first_recorded": {
         "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
         "at": "2026-09-12T02:29:58Z",
@@ -1769,14 +1783,21 @@
           "at": "2026-09-12T02:29:58Z",
           "status": "open",
           "title": "RP1 — Machine-checkable conclusion claims."
+        },
+        {
+          "kind": "closed",
+          "commit": "b196059253aea07f3dc278e60717a2a00ced70c1",
+          "at": "2026-09-12T05:18:05Z",
+          "status": "completed",
+          "title": "RP1 — Machine-checkable conclusion claims."
         }
       ],
       "pending_change": false,
       "last_transition": {
-        "kind": "first_recorded",
-        "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
-        "at": "2026-09-12T02:29:58Z",
-        "status": "open"
+        "kind": "closed",
+        "commit": "b196059253aea07f3dc278e60717a2a00ced70c1",
+        "at": "2026-09-12T05:18:05Z",
+        "status": "completed"
       }
     },
     {
@@ -2354,6 +2375,36 @@
         "commit": "36795ecbd1aefa363acb8dd5f62af9c4a8945ea7",
         "at": "2026-09-12T04:40:45Z",
         "status": "completed"
+      }
+    },
+    {
+      "id": "brain/tasks/dashboard.md#D15",
+      "note_id": "brain/tasks/dashboard.md",
+      "code": "D15",
+      "title": "D15 — Plain-language conclusions, feature help and dated notes.",
+      "text": "**D15 — Plain-language conclusions, feature help and dated notes.** Add a dedicated conclusions page, explanations and accessible question-mark tooltips for all 24 model features, a stored-block/observed-tip percentage, Git-recorded note edits, and an explicitly illustrative inference animation. Verify evidence scope, unknown inputs, desktop/mobile interaction and publication before closing.",
+      "done": false,
+      "status": "open",
+      "first_recorded": {
+        "commit": "5d19b62f78ffe86b6e8afa375070e51e720eddf3",
+        "at": "2026-09-12T05:08:57Z",
+        "status": "open"
+      },
+      "events": [
+        {
+          "kind": "first_recorded",
+          "commit": "5d19b62f78ffe86b6e8afa375070e51e720eddf3",
+          "at": "2026-09-12T05:08:57Z",
+          "status": "open",
+          "title": "D15 — Plain-language conclusions, feature help and dated notes."
+        }
+      ],
+      "pending_change": false,
+      "last_transition": {
+        "kind": "first_recorded",
+        "commit": "5d19b62f78ffe86b6e8afa375070e51e720eddf3",
+        "at": "2026-09-12T05:08:57Z",
+        "status": "open"
       }
     },
     {
@@ -3504,13 +3555,643 @@
       "task_id": "brain/tasks/dashboard.md#D14",
       "note_id": "brain/tasks/dashboard.md",
       "code": "D14"
+    },
+    {
+      "kind": "first_recorded",
+      "commit": "5d19b62f78ffe86b6e8afa375070e51e720eddf3",
+      "at": "2026-09-12T05:08:57Z",
+      "status": "open",
+      "title": "D15 — Plain-language conclusions, feature help and dated notes.",
+      "task_id": "brain/tasks/dashboard.md#D15",
+      "note_id": "brain/tasks/dashboard.md",
+      "code": "D15"
+    },
+    {
+      "kind": "closed",
+      "commit": "b196059253aea07f3dc278e60717a2a00ced70c1",
+      "at": "2026-09-12T05:18:05Z",
+      "status": "completed",
+      "title": "FA2 — Fixed-split ablation.",
+      "task_id": "brain/research/feature-variation-audit.md#FA2",
+      "note_id": "brain/research/feature-variation-audit.md",
+      "code": "FA2"
+    },
+    {
+      "kind": "closed",
+      "commit": "b196059253aea07f3dc278e60717a2a00ced70c1",
+      "at": "2026-09-12T05:18:05Z",
+      "status": "completed",
+      "title": "Freeze complete observation cohorts before longer studies.",
+      "task_id": "brain/research/private-node-observations.md#title-ef8bcce16c3c2607",
+      "note_id": "brain/research/private-node-observations.md",
+      "code": null
+    },
+    {
+      "kind": "closed",
+      "commit": "b196059253aea07f3dc278e60717a2a00ced70c1",
+      "at": "2026-09-12T05:18:05Z",
+      "status": "completed",
+      "title": "RP1 — Machine-checkable conclusion claims.",
+      "task_id": "brain/research/progress-and-conclusions.md#RP1",
+      "note_id": "brain/research/progress-and-conclusions.md",
+      "code": "RP1"
+    }
+  ],
+  "note_events": [
+    {
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "note_id": "brain/architecture/index.md",
+      "kind": "note_added",
+      "content_sha256": "0d7606ba363e2f1e80f29b2e891b87c61ee971cc6b3635f034a1930ac53f4e64"
+    },
+    {
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "note_id": "brain/architecture/pipeline.md",
+      "kind": "note_added",
+      "content_sha256": "d5638e42941a1a79497e8856d852376849b00c770c1e8a8b81f00fb8ec3cdf9c"
+    },
+    {
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "note_id": "brain/architecture/storage-and-evidence.md",
+      "kind": "note_added",
+      "content_sha256": "d06f259716143fa7a0f5b00680996589e726abf31eafb153f1b517bb974573f3"
+    },
+    {
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "note_id": "brain/index.md",
+      "kind": "note_added",
+      "content_sha256": "99953db575cef31cd2739598375f8b91427276388b855f37c3614a279f8374dc"
+    },
+    {
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "note_id": "brain/research/evaluation.md",
+      "kind": "note_added",
+      "content_sha256": "988640552ae49139ba23f4fde6b7c856cc805e9ca595110c866b15ed13e56e81"
+    },
+    {
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "note_id": "brain/research/groupings.md",
+      "kind": "note_added",
+      "content_sha256": "f00c0b1a70c6f3c5a8621da3c1b2885ab366dc6c3f99e2bdaeb7002ed229cf63"
+    },
+    {
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "note_id": "brain/research/ideas.md",
+      "kind": "note_added",
+      "content_sha256": "b69b8222c03331c5769764ac004f894f1a946a78dea5cd58c4b4e734c2c35b80"
+    },
+    {
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "note_id": "brain/research/index.md",
+      "kind": "note_added",
+      "content_sha256": "1daf0c326f0f48e1c12d2a2adb4feb620480da0b0d8dbdb43267868ac9be6943"
+    },
+    {
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "note_id": "brain/research/predictions.md",
+      "kind": "note_added",
+      "content_sha256": "d187da7f594f7ca8408c62c697757a3c95ff50cf292b87051bc4bed461ed1e24"
+    },
+    {
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "note_id": "brain/tasks/dashboard.md",
+      "kind": "note_added",
+      "content_sha256": "793f043ed7731e1c6362f450f43980ed05f51e4f2edfa746cc481953db7ed06d"
+    },
+    {
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "note_id": "brain/tasks/index.md",
+      "kind": "note_added",
+      "content_sha256": "4e0e3cd51c88f4650b0c5017ecc14c133e1bd76db66417c9647790a016be872f"
+    },
+    {
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "note_id": "brain/workflows/cloud.md",
+      "kind": "note_added",
+      "content_sha256": "38f243ba36fe2f597c278228877192344b1d7603430c0397930d84996e1338c4"
+    },
+    {
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "note_id": "brain/workflows/development.md",
+      "kind": "note_added",
+      "content_sha256": "76babb2f7111710f2c9427ca085da8005cede81aaec0ea00132b04a4e6e359d7"
+    },
+    {
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "note_id": "brain/workflows/index.md",
+      "kind": "note_added",
+      "content_sha256": "6dfbb6e69842dd82c4bc188452465fd1a070d9020340b802c90b5cf4969ee28a"
+    },
+    {
+      "commit": "356770f9b28915fe81a2c0af73b3432724c9a56a",
+      "at": "2026-09-11T23:02:20Z",
+      "note_id": "brain/workflows/maintenance.md",
+      "kind": "note_added",
+      "content_sha256": "f52967e2b9b09558fca881927f5fdd54caaeffcadf9994518b9c32a7b976cac8"
+    },
+    {
+      "commit": "dde2fa5cdff7b895f12ab17c81440717c15ff0bb",
+      "at": "2026-09-11T23:42:26Z",
+      "note_id": "brain/index.md",
+      "kind": "note_updated",
+      "content_sha256": "5a3c6865e12319e5a34b2fa8048f990cd66997d55839d217d70735559c662e15"
+    },
+    {
+      "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+      "at": "2026-09-12T00:27:56Z",
+      "note_id": "brain/index.md",
+      "kind": "note_updated",
+      "content_sha256": "e4d6d1bb18d7bd8e1c3d00711237d52ae872790581cfbf4f72ee6d3324b55f13"
+    },
+    {
+      "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+      "at": "2026-09-12T00:27:56Z",
+      "note_id": "brain/research/heuristic-experiments.md",
+      "kind": "note_added",
+      "content_sha256": "08fc38ac2e1febcc77c0443d5068e0ef2ae10e831448edc498b7274e26fef6ce"
+    },
+    {
+      "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+      "at": "2026-09-12T00:27:56Z",
+      "note_id": "brain/research/ideas.md",
+      "kind": "note_updated",
+      "content_sha256": "97f59d7a1db9c3b21a8f3447eb0ddb167e2808984bcdae105b41b16ed21003b9"
+    },
+    {
+      "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+      "at": "2026-09-12T00:27:56Z",
+      "note_id": "brain/research/index.md",
+      "kind": "note_updated",
+      "content_sha256": "e20bb9620b91b35abf3addb88e299102d496c20c96bd9de1c420928f50aa79e5"
+    },
+    {
+      "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+      "at": "2026-09-12T00:27:56Z",
+      "note_id": "brain/research/output-origin-audit.md",
+      "kind": "note_added",
+      "content_sha256": "3e68c6a9d771798904ad833b9916b7d8d133ecdcf84fa3e5186a887fa7405b88"
+    },
+    {
+      "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+      "at": "2026-09-12T00:27:56Z",
+      "note_id": "brain/research/private-node-observations.md",
+      "kind": "note_added",
+      "content_sha256": "aa1a4faadbb8b4f7cbb055d0d7b0508996b9869a95a3f776401f8470ed049c8a"
+    },
+    {
+      "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+      "at": "2026-09-12T00:27:56Z",
+      "note_id": "brain/research/protocol-limits.md",
+      "kind": "note_added",
+      "content_sha256": "eef079a8b063f9c6bd2c2e73b633682756b305df1dcca8e6a4110116e866e2f5"
+    },
+    {
+      "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+      "at": "2026-09-12T00:27:56Z",
+      "note_id": "brain/tasks/dashboard.md",
+      "kind": "note_updated",
+      "content_sha256": "7b64831fc65829ec5a55853ffab5453162101cfd6aa1b0596ae295a9be4e2894"
+    },
+    {
+      "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+      "at": "2026-09-12T00:27:56Z",
+      "note_id": "brain/tasks/index.md",
+      "kind": "note_updated",
+      "content_sha256": "412c4bc0c65c4ca21ac82e0957dc90f5a23fcf340331e71a2d463d83545ab620"
+    },
+    {
+      "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+      "at": "2026-09-12T00:27:56Z",
+      "note_id": "brain/workflows/cloud.md",
+      "kind": "note_updated",
+      "content_sha256": "bc0a4a8440f4f1066a77c34f2b82d89858d5e170fc38d430f980171d545525f7"
+    },
+    {
+      "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+      "at": "2026-09-12T00:27:56Z",
+      "note_id": "brain/workflows/development.md",
+      "kind": "note_updated",
+      "content_sha256": "73c44aaf967b9c0fd8e3692bf93702dd63c970d900c4360d423a7cef5ef1ce4a"
+    },
+    {
+      "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+      "at": "2026-09-12T00:27:56Z",
+      "note_id": "brain/workflows/index.md",
+      "kind": "note_updated",
+      "content_sha256": "ae1bfe39efea3325432d9041cc7e955abda0e608a76c226777e665738c88cee6"
+    },
+    {
+      "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+      "at": "2026-09-12T00:27:56Z",
+      "note_id": "brain/workflows/maintenance.md",
+      "kind": "note_updated",
+      "content_sha256": "3b654b9339f0bbe15c80a0b2464527ae6318a6f82c8bbba27fb3071fc68bcd64"
+    },
+    {
+      "commit": "787eb6eba0d39e3aa92e1b43aea9c65501cd469f",
+      "at": "2026-09-12T00:27:56Z",
+      "note_id": "brain/workflows/research-workspace.md",
+      "kind": "note_added",
+      "content_sha256": "3035b94a0386f1b674d84bd2200a2410d1719b035f880356d1c07e64d2db6e84"
+    },
+    {
+      "commit": "e5b4c3b5071546d13c5a66c9524aef069853ac6a",
+      "at": "2026-09-12T02:10:02Z",
+      "note_id": "brain/index.md",
+      "kind": "note_updated",
+      "content_sha256": "c717a8b22de2e98dab3e7f6e412d7b1883f39e1e3bfabeb72d69df7ce7b57254"
+    },
+    {
+      "commit": "e5b4c3b5071546d13c5a66c9524aef069853ac6a",
+      "at": "2026-09-12T02:10:02Z",
+      "note_id": "brain/research/feature-variation-audit.md",
+      "kind": "note_added",
+      "content_sha256": "ec3218096adbdb1aeed9f4d396dd2a6077c637d8b817b26ea3cf2a1593dbce4c"
+    },
+    {
+      "commit": "e5b4c3b5071546d13c5a66c9524aef069853ac6a",
+      "at": "2026-09-12T02:10:02Z",
+      "note_id": "brain/research/heuristic-baselines.md",
+      "kind": "note_added",
+      "content_sha256": "9fc52a78fb6f5e72ed9f2f6037c611e246a78017ee6afa9416b811626f23ce58"
+    },
+    {
+      "commit": "e5b4c3b5071546d13c5a66c9524aef069853ac6a",
+      "at": "2026-09-12T02:10:02Z",
+      "note_id": "brain/research/ideas.md",
+      "kind": "note_updated",
+      "content_sha256": "52302dbc4970ea7b6fc0348c0023d5b7a57013ba512415eb5cdfc0ca3a9ef33a"
+    },
+    {
+      "commit": "e5b4c3b5071546d13c5a66c9524aef069853ac6a",
+      "at": "2026-09-12T02:10:02Z",
+      "note_id": "brain/research/index.md",
+      "kind": "note_updated",
+      "content_sha256": "c81f78a713c84fb1d01f1acc4a66d42ae3addc7cf0c0a9c6d4a61a5c7b986118"
+    },
+    {
+      "commit": "e5b4c3b5071546d13c5a66c9524aef069853ac6a",
+      "at": "2026-09-12T02:10:02Z",
+      "note_id": "brain/research/output-origin-audit.md",
+      "kind": "note_updated",
+      "content_sha256": "fe5380855d7ae74bed302bc33de4822246ebfce4919719327bbaaa5348bdf444"
+    },
+    {
+      "commit": "e5b4c3b5071546d13c5a66c9524aef069853ac6a",
+      "at": "2026-09-12T02:10:02Z",
+      "note_id": "brain/tasks/dashboard.md",
+      "kind": "note_updated",
+      "content_sha256": "c17a6aea744b4f5fdd047cee3a864a9155522f6c21dece049d3f2934743d8496"
+    },
+    {
+      "commit": "e5b4c3b5071546d13c5a66c9524aef069853ac6a",
+      "at": "2026-09-12T02:10:02Z",
+      "note_id": "brain/tasks/index.md",
+      "kind": "note_updated",
+      "content_sha256": "a848b585cdec5d1e1c4f379d88566a5667616fcc9f9a732809943d79ba4f8da0"
+    },
+    {
+      "commit": "e5b4c3b5071546d13c5a66c9524aef069853ac6a",
+      "at": "2026-09-12T02:10:02Z",
+      "note_id": "brain/workflows/cloud.md",
+      "kind": "note_updated",
+      "content_sha256": "136564b763f4dd33b16661c75bc8680d3a1347334d0180e4358c34fb11fb19ae"
+    },
+    {
+      "commit": "e5b4c3b5071546d13c5a66c9524aef069853ac6a",
+      "at": "2026-09-12T02:10:02Z",
+      "note_id": "brain/workflows/research-workspace.md",
+      "kind": "note_updated",
+      "content_sha256": "9a8ccc7904b37c9c9e4792cae4290bbb0ad9038b8755fd5f0894ce4e4ffeb6fc"
+    },
+    {
+      "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+      "at": "2026-09-12T02:29:58Z",
+      "note_id": "brain/index.md",
+      "kind": "note_updated",
+      "content_sha256": "d52a90a81be6a43f0b62d3a30099c9b6b5592ca555d29e97a7cb42c84500299e"
+    },
+    {
+      "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+      "at": "2026-09-12T02:29:58Z",
+      "note_id": "brain/research/groupings.md",
+      "kind": "note_updated",
+      "content_sha256": "3aa13da23c2d6c9b9657c5a560879b08b1da3d99e47f3332883a4d17135410ce"
+    },
+    {
+      "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+      "at": "2026-09-12T02:29:58Z",
+      "note_id": "brain/research/ideas.md",
+      "kind": "note_updated",
+      "content_sha256": "3d1adece85d02b7453a73b5c8bb8b782924d6fab4beb28a2d88c66b3473f2434"
+    },
+    {
+      "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+      "at": "2026-09-12T02:29:58Z",
+      "note_id": "brain/research/index.md",
+      "kind": "note_updated",
+      "content_sha256": "5809173122a9a7ff0541aaf3cb509441d7d214e14a16f5cada05b9f642382c07"
+    },
+    {
+      "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+      "at": "2026-09-12T02:29:58Z",
+      "note_id": "brain/research/progress-and-conclusions.md",
+      "kind": "note_added",
+      "content_sha256": "40074f0a09464ba3968ba1ad3e615b4a44be795f971df3bc130ef62332bb20cc"
+    },
+    {
+      "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+      "at": "2026-09-12T02:29:58Z",
+      "note_id": "brain/tasks/dashboard.md",
+      "kind": "note_updated",
+      "content_sha256": "cfebe443add0d4d5e7f3856c70a8d711a4873cab4d43ab8f5059071c59c72154"
+    },
+    {
+      "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+      "at": "2026-09-12T02:29:58Z",
+      "note_id": "brain/tasks/index.md",
+      "kind": "note_updated",
+      "content_sha256": "e54fb640b8ee53e6fdae21e07c1f87070fa3e33121bf801351d2438860b7ee31"
+    },
+    {
+      "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+      "at": "2026-09-12T02:29:58Z",
+      "note_id": "brain/workflows/cloud.md",
+      "kind": "note_updated",
+      "content_sha256": "f45d6d5dd457fb283e5f845b231b329489c2febbf82ea9d113d10fb5078d2df3"
+    },
+    {
+      "commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38",
+      "at": "2026-09-12T02:29:58Z",
+      "note_id": "brain/workflows/research-workspace.md",
+      "kind": "note_updated",
+      "content_sha256": "7ba6ad8e4bf0c1fe57af20fe78595cc991d0e70c7f81cfef81ccda4cebd179ef"
+    },
+    {
+      "commit": "17fc6bc8ff8b1fc38b55302c828e879648fa2f91",
+      "at": "2026-09-12T02:46:35Z",
+      "note_id": "brain/index.md",
+      "kind": "note_updated",
+      "content_sha256": "9e66582222c67e113b3ee6ee96cc33ac700d435bb9e2a500048514915b0753fe"
+    },
+    {
+      "commit": "17fc6bc8ff8b1fc38b55302c828e879648fa2f91",
+      "at": "2026-09-12T02:46:35Z",
+      "note_id": "brain/research/ideas.md",
+      "kind": "note_updated",
+      "content_sha256": "9265cac9735f5313d8b8cf79fd38d95e7a71030354ccca1162cdba2097523184"
+    },
+    {
+      "commit": "17fc6bc8ff8b1fc38b55302c828e879648fa2f91",
+      "at": "2026-09-12T02:46:35Z",
+      "note_id": "brain/research/index.md",
+      "kind": "note_updated",
+      "content_sha256": "b473e73b78fb70791073ad7f138c140676a10aab093211dacaf0a0a7071d9a93"
+    },
+    {
+      "commit": "17fc6bc8ff8b1fc38b55302c828e879648fa2f91",
+      "at": "2026-09-12T02:46:35Z",
+      "note_id": "brain/research/upstream-heuristics.md",
+      "kind": "note_added",
+      "content_sha256": "046fe9d8aa3a9ff04da9329e25390ef1ef6440f87e5cc300cc1c1b57947a08dd"
+    },
+    {
+      "commit": "17fc6bc8ff8b1fc38b55302c828e879648fa2f91",
+      "at": "2026-09-12T02:46:35Z",
+      "note_id": "brain/tasks/index.md",
+      "kind": "note_updated",
+      "content_sha256": "babd15cf94353706855b643f19e41d9f106b6d7fdad988547184d0ee47331c55"
+    },
+    {
+      "commit": "368ce2215ae3d937a5872d0f09b4b241d691633a",
+      "at": "2026-09-12T03:08:38Z",
+      "note_id": "brain/architecture/pipeline.md",
+      "kind": "note_updated",
+      "content_sha256": "fda1e301fdadb62359be0c5ab464390e8eccb82fed5bcaa045ef36ef25994684"
+    },
+    {
+      "commit": "368ce2215ae3d937a5872d0f09b4b241d691633a",
+      "at": "2026-09-12T03:08:38Z",
+      "note_id": "brain/index.md",
+      "kind": "note_updated",
+      "content_sha256": "58d24ac3e42997ebcf4a403dbf267bf15f3b2f4115dc2bdf7712370840b5c7af"
+    },
+    {
+      "commit": "368ce2215ae3d937a5872d0f09b4b241d691633a",
+      "at": "2026-09-12T03:08:38Z",
+      "note_id": "brain/research/index.md",
+      "kind": "note_updated",
+      "content_sha256": "72d3e48ff53e691928c06bc8dc91abbf4f655abea2b2af84ce1e2f138941b981"
+    },
+    {
+      "commit": "368ce2215ae3d937a5872d0f09b4b241d691633a",
+      "at": "2026-09-12T03:08:38Z",
+      "note_id": "brain/research/protocol-limits.md",
+      "kind": "note_updated",
+      "content_sha256": "003df48a9f3b0c49e4cffd9d66d6b426820a1de7b09ca00154bb4760ee5c1546"
+    },
+    {
+      "commit": "368ce2215ae3d937a5872d0f09b4b241d691633a",
+      "at": "2026-09-12T03:08:38Z",
+      "note_id": "brain/research/security-eras.md",
+      "kind": "note_added",
+      "content_sha256": "1ee478e4f8426397b29410078edcb958be69d89ace0112d7914d442cf721cb55"
+    },
+    {
+      "commit": "368ce2215ae3d937a5872d0f09b4b241d691633a",
+      "at": "2026-09-12T03:08:38Z",
+      "note_id": "brain/tasks/dashboard.md",
+      "kind": "note_updated",
+      "content_sha256": "f53c5b295835c6bdc40895f18dee337e87a67e16341f4b5f6e8e71b36ed30741"
+    },
+    {
+      "commit": "368ce2215ae3d937a5872d0f09b4b241d691633a",
+      "at": "2026-09-12T03:08:38Z",
+      "note_id": "brain/workflows/research-workspace.md",
+      "kind": "note_updated",
+      "content_sha256": "f9c1900d81d59a74f6c46e76ecf896a8699626293b1b2cc02d2ff0fd184fa0ac"
+    },
+    {
+      "commit": "5faef380378a94a8964dfaa9a057608f4e1d5c6d",
+      "at": "2026-09-12T03:53:00Z",
+      "note_id": "brain/index.md",
+      "kind": "note_updated",
+      "content_sha256": "cfefeef1ed93ff844afe3198a8a34e4fb74aba78e27c900498251b21b83a8783"
+    },
+    {
+      "commit": "5faef380378a94a8964dfaa9a057608f4e1d5c6d",
+      "at": "2026-09-12T03:53:00Z",
+      "note_id": "brain/research/ideas.md",
+      "kind": "note_updated",
+      "content_sha256": "e39633ea44286989de55bb415f9716a75674d9d2e4c6b7b2be22880f5de165bc"
+    },
+    {
+      "commit": "5faef380378a94a8964dfaa9a057608f4e1d5c6d",
+      "at": "2026-09-12T03:53:00Z",
+      "note_id": "brain/research/index.md",
+      "kind": "note_updated",
+      "content_sha256": "bcc133d15257b8b9f578cb52252167f3566c6b52ce3df39bb4f4ecde9655d43e"
+    },
+    {
+      "commit": "5faef380378a94a8964dfaa9a057608f4e1d5c6d",
+      "at": "2026-09-12T03:53:00Z",
+      "note_id": "brain/research/private-node-observations.md",
+      "kind": "note_updated",
+      "content_sha256": "12e9e99b488e7814e1bd692aaae71757201a7e0ac5bfefcd6b013b232554fd8e"
+    },
+    {
+      "commit": "5faef380378a94a8964dfaa9a057608f4e1d5c6d",
+      "at": "2026-09-12T03:53:00Z",
+      "note_id": "brain/research/upstream-heuristics.md",
+      "kind": "note_updated",
+      "content_sha256": "f286f35d851bf15f4a47fca3faf57204d7de631ecac99937903e8e586e4b8f52"
+    },
+    {
+      "commit": "5faef380378a94a8964dfaa9a057608f4e1d5c6d",
+      "at": "2026-09-12T03:53:00Z",
+      "note_id": "brain/tasks/dashboard.md",
+      "kind": "note_updated",
+      "content_sha256": "d3c559376fddd70f09d4068e4db816d27f5f5297bf32461cdb3f0ee8a890d96d"
+    },
+    {
+      "commit": "5faef380378a94a8964dfaa9a057608f4e1d5c6d",
+      "at": "2026-09-12T03:53:00Z",
+      "note_id": "brain/workflows/cloud.md",
+      "kind": "note_updated",
+      "content_sha256": "3dcd94a5ec2bdf6873d98f7bfd2a8dc0be6f95da739f4f25685ae8556afb9712"
+    },
+    {
+      "commit": "e32fec949b524913c87ff71075bad28f577f6d11",
+      "at": "2026-09-12T04:11:55Z",
+      "note_id": "brain/research/private-node-observations.md",
+      "kind": "note_updated",
+      "content_sha256": "004bd11fb480c6245cd361e26e11643fbdfaab6059d1b4e6173a349a6044a6c4"
+    },
+    {
+      "commit": "e32fec949b524913c87ff71075bad28f577f6d11",
+      "at": "2026-09-12T04:11:55Z",
+      "note_id": "brain/workflows/cloud.md",
+      "kind": "note_updated",
+      "content_sha256": "25adfae936b95be31ae7d39e339ed11f7618af66238c29c5f1f029702c750f47"
+    },
+    {
+      "commit": "d4ac59f97ac60bede0f20d585a12828666c39051",
+      "at": "2026-09-12T04:26:09Z",
+      "note_id": "brain/tasks/dashboard.md",
+      "kind": "note_updated",
+      "content_sha256": "48e40577eb70498f3382a87f836494870868060a90335685ae4eaec81e3e63a1"
+    },
+    {
+      "commit": "1eeb75dd74b2ca8a74cdb8513c3bf8a0d3a6e4e8",
+      "at": "2026-09-12T04:36:30Z",
+      "note_id": "brain/index.md",
+      "kind": "note_updated",
+      "content_sha256": "30cd0cb05f4bd0b1de12bc2f3e31f5839d0796eec0abaef075b061f54897a4a8"
+    },
+    {
+      "commit": "1eeb75dd74b2ca8a74cdb8513c3bf8a0d3a6e4e8",
+      "at": "2026-09-12T04:36:30Z",
+      "note_id": "brain/research/progress-and-conclusions.md",
+      "kind": "note_updated",
+      "content_sha256": "98abc6e181952e4908207e223a3f585553bca36155162a434a03f3a75d8b17a0"
+    },
+    {
+      "commit": "1eeb75dd74b2ca8a74cdb8513c3bf8a0d3a6e4e8",
+      "at": "2026-09-12T04:36:30Z",
+      "note_id": "brain/workflows/index.md",
+      "kind": "note_updated",
+      "content_sha256": "aa88e20932a3ac0d4541031c12e611cbef6daad826469b81e2486be5fceb70ef"
+    },
+    {
+      "commit": "1eeb75dd74b2ca8a74cdb8513c3bf8a0d3a6e4e8",
+      "at": "2026-09-12T04:36:30Z",
+      "note_id": "brain/workflows/research-workspace.md",
+      "kind": "note_updated",
+      "content_sha256": "0ec806ab707a57a48468c616f222de291aa33fce22662d0a9ec2534909a8d3dd"
+    },
+    {
+      "commit": "1eeb75dd74b2ca8a74cdb8513c3bf8a0d3a6e4e8",
+      "at": "2026-09-12T04:36:30Z",
+      "note_id": "brain/workflows/task-reporting.md",
+      "kind": "note_added",
+      "content_sha256": "c224031e500b8290e8ec4ce1ecaf63b5ee73bcfad3aed8b62d5e2e5f7c637784"
+    },
+    {
+      "commit": "36795ecbd1aefa363acb8dd5f62af9c4a8945ea7",
+      "at": "2026-09-12T04:40:45Z",
+      "note_id": "brain/tasks/dashboard.md",
+      "kind": "note_updated",
+      "content_sha256": "c422dadc54cbb5e2a8307256b47ba23e58a19491212416bd236fb179b8827b9c"
+    },
+    {
+      "commit": "5d19b62f78ffe86b6e8afa375070e51e720eddf3",
+      "at": "2026-09-12T05:08:57Z",
+      "note_id": "brain/tasks/dashboard.md",
+      "kind": "note_updated",
+      "content_sha256": "a51830a83b5e454a7c921d3f42cf693991ae1233c23a6ceb41da222e87948887"
+    },
+    {
+      "commit": "b196059253aea07f3dc278e60717a2a00ced70c1",
+      "at": "2026-09-12T05:18:05Z",
+      "note_id": "brain/research/feature-variation-audit.md",
+      "kind": "note_updated",
+      "content_sha256": "536346ebb6aeaf7024faee2d8bd94457f3adb88c0edee43cbd6a0b35cd527606"
+    },
+    {
+      "commit": "b196059253aea07f3dc278e60717a2a00ced70c1",
+      "at": "2026-09-12T05:18:05Z",
+      "note_id": "brain/research/index.md",
+      "kind": "note_updated",
+      "content_sha256": "a349884842779374366cee8159854f092ca9ff77a2b82f1849ff5cf2084c7500"
+    },
+    {
+      "commit": "b196059253aea07f3dc278e60717a2a00ced70c1",
+      "at": "2026-09-12T05:18:05Z",
+      "note_id": "brain/research/private-node-observations.md",
+      "kind": "note_updated",
+      "content_sha256": "152e8037ba615adfda3685ba97b77d9d07f4c26d70017b73e5485eeb25866291"
+    },
+    {
+      "commit": "b196059253aea07f3dc278e60717a2a00ced70c1",
+      "at": "2026-09-12T05:18:05Z",
+      "note_id": "brain/research/progress-and-conclusions.md",
+      "kind": "note_updated",
+      "content_sha256": "95ecc0ffc6aaa0ef2b5c74e9532bb67a479a5a8c3b6ca2c08780fe13e9059430"
+    },
+    {
+      "commit": "b196059253aea07f3dc278e60717a2a00ced70c1",
+      "at": "2026-09-12T05:18:05Z",
+      "note_id": "brain/workflows/research-workspace.md",
+      "kind": "note_updated",
+      "content_sha256": "5772edd6f1f7e0c665d12a07e91543bbbf2132de7807a1678ac0854693ce0709"
+    },
+    {
+      "commit": "b196059253aea07f3dc278e60717a2a00ced70c1",
+      "at": "2026-09-12T05:18:05Z",
+      "note_id": "brain/workflows/task-reporting.md",
+      "kind": "note_updated",
+      "content_sha256": "d9ce0f5c1c1735343517a133b8aced362fafa5a4fd436992004c789ba1c020af"
     }
   ],
   "summary": {
-    "open": 63,
-    "completed": 19,
+    "open": 61,
+    "completed": 22,
     "removed": 2,
-    "events": 90,
+    "events": 94,
     "pending": 0
   }
 }
