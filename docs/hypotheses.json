@@ -455,7 +455,7 @@
       "measured_conclusion": "FA2 completed at 2026-09-12 05:00:14 UTC on the frozen EA1 legacy matrix. Training used 648 rings; all variants scored the same 162 test rings / 890 candidates. The 24-, 20- and 17-column models each agreed with 142 labels (87.65%); each reduced variant changed one wrong selection and gained zero correct rings. No agreement improvement was observed. Single-run timings and small RSS differences do not establish a repeatable efficiency gain.",
       "remaining": [
         "Run prediction-time and graph-separated evaluation with independent eligible labels (HE3).",
-        "Repeat resource measurements and evaluate tied-reuse ranks (FA3) and validated later-era cohorts (FA4).",
+        "Repeat resource measurements and evaluate validated later-era cohorts (FA4). The completed FA3 tie comparison was inconclusive: see its separate ledger entry.",
         "The deployed scorer remains unchanged; no modern, forward or calibrated benefit was established."
       ],
       "sources": [
@@ -505,12 +505,14 @@
           "title": "FA3 \u2014 Reuse tie treatment."
         }
       ],
-      "execution_status": "not_started",
-      "outcome": "untested",
-      "theoretical_conclusion": "The existing tie order combines reuse and index information. A controlled comparison is needed to separate them.",
-      "measured_conclusion": "EA1 observed 1,398 of 2,000 rings with some tied counts and 169 with all equal counts; reuse_rank_in_ring still varied within every sampled ring. No alternate tie model was tested.",
+      "execution_status": "completed",
+      "outcome": "inconclusive",
+      "theoretical_conclusion": "Equal midranks remove the index-order distinction within tied reuse counts in one column. Other reuse and index features remain. A small gain in one reused random split without selection gains in either later-block comparison does not establish a general benefit; full-snapshot features and selective label eligibility remain.",
+      "measured_conclusion": "FA3 completed at 2026-09-12 05:40:55 UTC. Equal ranks changed agreement from 142 to 144 of 162 random-test rings (+2; 3 changed selections, all among 116 reuse-tied rings). Both variants matched 159 of 165 later-block labels and 158 of the same 165 after removing 169 of 645 connected training rings, leaving 476. Neither later-block comparison changed any selected output. The FA2 random baseline reproduced exactly. The broader improvement hypothesis is inconclusive; the deployed scorer retains index-ordered ranks.",
       "remaining": [
-        "Use the same frozen chronological/graph split for equal-rank and current-order variants."
+        "Freeze features and label availability at each cutoff before forward evaluation (HE3); full-snapshot retrospective controls do not satisfy it.",
+        "Evaluate predeclared new windows, independent labels and validated later-era populations (FA4); do not generalize the one-seed legacy result.",
+        "Potential diagnostic: label-blind shuffling within tied reuse groups preserves rank range while breaking index ordering; declare seeds and a fresh evaluation window before fitting."
       ],
       "sources": [
         {
@@ -520,6 +522,14 @@
         {
           "label": "scorer.py",
           "path": "scorer.py"
+        },
+        {
+          "label": "FA3 registered protocol",
+          "path": "research/reuse_tie_protocol.json"
+        },
+        {
+          "label": "FA3 runner",
+          "path": "research/reuse_tie_experiment.py"
         }
       ],
       "evidence": [
@@ -538,6 +548,42 @@
           },
           "run_id": "EA1",
           "source_commit": "acc8ed15c1a406d33ad7b45e50a771892c6599e6"
+        },
+        {
+          "path": "research/results/reuse_ties_2026-09-12/summary.json",
+          "sha256": "1919fcce151ecfae8f6aea04582bc7b5843eaae2740cfe91e2ecfe24a761b2b6",
+          "observed_at": "2026-09-12T05:40:55.944268+00:00",
+          "scope": "Three paired retrospective splits on the frozen selective EA1 legacy matrix. Graph components only use sampled pre-cutoff original memberships, while features still use the full snapshot; no historical label-eligibility reconstruction, independent spend truth, modern or forward measurement.",
+          "denominators": {
+            "random_train_rings": 648,
+            "random_train_candidates": 3643,
+            "random_test_rings": 162,
+            "random_test_candidates": 890,
+            "chronological_train_rings": 645,
+            "chronological_train_candidates": 3998,
+            "chronological_test_rings": 165,
+            "chronological_test_candidates": 535,
+            "chronological_purged_train_rings": 476,
+            "chronological_purged_train_candidates": 2470,
+            "chronological_purged_test_rings": 165,
+            "chronological_purged_test_candidates": 535
+          },
+          "denominator_fields": {
+            "random_train_rings": "/cohorts/random/manifest/train/rings",
+            "random_train_candidates": "/cohorts/random/manifest/train/candidates",
+            "random_test_rings": "/cohorts/random/manifest/test/rings",
+            "random_test_candidates": "/cohorts/random/manifest/test/candidates",
+            "chronological_train_rings": "/cohorts/chronological/manifest/train/rings",
+            "chronological_train_candidates": "/cohorts/chronological/manifest/train/candidates",
+            "chronological_test_rings": "/cohorts/chronological/manifest/test/rings",
+            "chronological_test_candidates": "/cohorts/chronological/manifest/test/candidates",
+            "chronological_purged_train_rings": "/cohorts/chronological_purged/manifest/train/rings",
+            "chronological_purged_train_candidates": "/cohorts/chronological_purged/manifest/train/candidates",
+            "chronological_purged_test_rings": "/cohorts/chronological_purged/manifest/test/rings",
+            "chronological_purged_test_candidates": "/cohorts/chronological_purged/manifest/test/candidates"
+          },
+          "run_id": "FA3-287922b",
+          "source_commit": "287922b75c91645a3b6a352ad26efa0f22ba3bea"
         }
       ]
     },
@@ -620,10 +666,10 @@
           "title": "Historical feature provenance."
         }
       ],
-      "execution_status": "not_started",
+      "execution_status": "in_progress",
       "outcome": "untested",
       "theoretical_conclusion": "Keeping candidates of a ring together prevents one leakage route, while related rings and snapshot features can still cross evaluation boundaries. Strict separation may reveal a performance drop.",
-      "measured_conclusion": "Immutable prediction artifacts exist, but no complete multi-window protocol with prediction-time label eligibility and graph separation has been published. Saved inference replay does not reconstruct historical training eligibility.",
+      "measured_conclusion": "FA3 added strict later-block tests and a sampled pre-cutoff component filter, removing 169 of 645 training rings. Features still use the full source snapshot and historical label eligibility is unknown. No complete multi-window protocol with prediction-time features, eligible labels and graph separation has been published; the forward-generalization hypothesis remains untested.",
       "remaining": [
         "Record training rings, split membership and label-eligibility times.",
         "Freeze train/calibration/test windows, graph groups and feature contexts; report verified and unverified populations.",
