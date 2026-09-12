@@ -35,6 +35,7 @@ source links. Loading every page is unnecessary for most tasks.
 - CLI or scan change → [pipeline](architecture/pipeline.md).
 - Schema, graph, or lineage change → [storage and evidence](architecture/storage-and-evidence.md).
 - Scorer or accuracy question → [evaluation](research/evaluation.md).
+- Upgrade history and era-specific conclusions → [security eras](research/security-eras.md) and the public [era explorer](../docs/eras.html).
 - Commands and tests → [development](workflows/development.md).
 - New knowledge or conflicting notes → [maintenance](workflows/maintenance.md).
 - Monero source assumptions and prospective features → [upstream heuristic audit](research/upstream-heuristics.md).

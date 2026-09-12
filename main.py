@@ -18,6 +18,7 @@ from scanner import Scanner
 from analyzer import Analyzer
 from scorer import RingScorer
 from dashboard_export import evidence_summary, prediction_browser
+from protocol_eras import ProtocolEraAccumulator
 
 
 def setup_logging(verbose):
@@ -176,7 +177,8 @@ def cmd_export_viz(args):
         analyzer = Analyzer(db)
         stats = analyzer.run(max_passes=args.max_passes)
         db_stats = db.get_stats()
-        stats = {**stats, **evidence_summary(db, analyzer)}
+        era_counts = ProtocolEraAccumulator(db.conn)
+        stats = {**stats, **evidence_summary(db, analyzer, era_accumulator=era_counts)}
         ml_stats = db.get_prediction_stats()
         ml_training = None
 
@@ -219,6 +221,8 @@ def cmd_export_viz(args):
                               if key != "timestamp"):
             history.append(snapshot)
 
+        summary = {**stats, "blocks_scanned": db_stats["blocks_scanned"],
+                   "transactions": db_stats["transactions"], "ring_members": db_stats["ring_members"]}
         output = {
             "schema_version": 2,
             "scope": {
@@ -228,12 +232,8 @@ def cmd_export_viz(args):
                 "exported_at": datetime.now(timezone.utc).isoformat(),
             },
             "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
-            "summary": {
-                **stats,
-                "blocks_scanned": db_stats["blocks_scanned"],
-                "transactions": db_stats["transactions"],
-                "ring_members": db_stats["ring_members"],
-            },
+            "summary": summary,
+            "protocol_eras": era_counts.report(summary, dataset_id=db.get_dataset_id()),
             "ml_predictions": ml_stats,
             "ml_training": ml_training,
             "history": history,

@@ -12,7 +12,7 @@ INPUT_LIMIT = 32
 ELIMINATOR_LIMIT = 20
 
 
-def evidence_summary(db, analyzer):
+def evidence_summary(db, analyzer, *, era_accumulator=None):
     """Count existing rings, keeping hypothesis claims and conflict flags separate.
 
     Reduction counts describe the analyzer state (which may use hypotheses).
@@ -45,23 +45,33 @@ def evidence_summary(db, analyzer):
                   deterministic_singleton_resolutions=0, deterministic_multimember_resolutions=0)
     observed_claims = 0
     rows = db.conn.execute(
+        "SELECT rm.key_image, rm.amount, rm.global_output_index, rm.tx_hash, rm.input_index, t.block_height "
+        "FROM ring_members rm LEFT JOIN transactions t ON t.tx_hash = rm.tx_hash ORDER BY rm.key_image"
+        if era_accumulator is not None else
         "SELECT key_image, amount, global_output_index FROM ring_members ORDER BY key_image"
     )
     for ki, members in groupby(rows, key=lambda row: row[0]):
-        original = {(row[1], row[2]) for row in members}
+        original, contexts = set(), set()
+        membership_count = 0
+        for member in members:
+            membership_count += 1
+            original.add((member[1], member[2]))
+            if era_accumulator is not None:
+                contexts.add(tuple(member[3:6]))
         counts["total_rings"] += 1
         cohort = "singleton" if len(original) == 1 else "multimember"
         counts[f"original_{cohort}_rings"] += 1
         claim = claims.get(ki)
         if claim is not None:
             observed_claims += 1
-            counts["deterministic_resolutions" if claim[1] else "hypothesis_resolutions"] += 1
+            category = "deterministic_resolutions" if claim[1] else "hypothesis_resolutions"
+            counts[category] += 1
             if claim[1]:
                 counts[f"deterministic_{cohort}_resolutions"] += 1
         else:
             remaining = analyzer.rings.get(ki, original)
-            counts["unresolved_reduced" if len(remaining) < len(original)
-                   else "unresolved_unchanged"] += 1
+            category = "unresolved_reduced" if len(remaining) < len(original) else "unresolved_unchanged"
+            counts[category] += 1
         supported = {output for output in original if not (valid_owners.get(output, set()) - {ki})}
         conflict = bool(claim and claim[0] not in original)
         if claim and claim[1] and claim[0] in original:
@@ -69,6 +79,8 @@ def evidence_summary(db, analyzer):
         if not supported or (ki in predictions and predictions[ki] not in original):
             conflict = True
         counts["conflict_rings"] += int(conflict)
+        if era_accumulator is not None:
+            era_accumulator.add_ring(contexts, len(original), category, conflict, membership_count)
     counts["orphan_resolution_claims"] = len(claims) - observed_claims
     counts["fully_resolved"] = counts["deterministic_resolutions"] + counts["hypothesis_resolutions"]
     counts["partially_reduced"] = counts["unresolved_reduced"]

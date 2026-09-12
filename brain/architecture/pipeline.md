@@ -18,6 +18,7 @@ Parent: [architecture](index.md).
 | [scorer.py](../../scorer.py) | Feature extraction, training, scoring, verification, soft cascade |
 | [brain.py](../../brain.py) | Read-through evidence graph and resolution ancestry |
 | [dashboard_export.py](../../dashboard_export.py) | Evidence-class counts and bounded prediction/inspector records |
+| [protocol_eras.py](../../protocol_eras.py) | Read-only, height-derived mainnet era counts with unknown contexts and reconciled evidence totals |
 | [docs/index.html](../../docs/index.html) | Dashboard consuming [exported data](../../docs/data.json) |
 
 ## Execution

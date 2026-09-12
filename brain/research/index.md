@@ -17,6 +17,7 @@ and unresolved measurement questions.
 
 Focused research plans and primary-source context:
 
+- [Security-era explorer](security-eras.md): pinned upgrade boundaries, separate theory and measured evidence, coverage gaps, and era-specific experiments.
 - [Heuristics from the Monero source](upstream-heuristics.md): pinned implementation audit, measured origin/proxy mismatch, and concrete node/wallet/pool experiments.
 
 - [Protocol eras and limits](protocol-limits.md): historical findings, modern applicability, and claims/cohort audits.

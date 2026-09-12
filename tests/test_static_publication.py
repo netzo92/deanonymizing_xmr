@@ -174,7 +174,7 @@ class StaticPreparationTests(unittest.TestCase):
         self.root = Path(self.temporary.name)
         self.repo = self.root / 'repo'
         self.repo.mkdir()
-        for file in ['main.py', 'collector.py', 'live_observer.py', 'analyzer.py', 'models.py', 'scorer.py', 'scanner.py', 'monero_rpc.py', 'brain.py', 'dashboard_export.py', 'requirements.txt', 'README.md', 'AGENTS.md', 'autoresearch_results.md', 'autoresearch-results.tsv', 'tests/example.py', 'research/example.py', 'references/README.md', 'references/monero-source.json']:
+        for file in ['main.py', 'collector.py', 'live_observer.py', 'analyzer.py', 'models.py', 'scorer.py', 'scanner.py', 'monero_rpc.py', 'brain.py', 'dashboard_export.py', 'protocol_eras.py', 'requirements.txt', 'README.md', 'AGENTS.md', 'autoresearch_results.md', 'autoresearch-results.tsv', 'tests/example.py', 'research/example.py', 'references/README.md', 'references/monero-source.json']:
             path = self.repo / file
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text('committed source\n')

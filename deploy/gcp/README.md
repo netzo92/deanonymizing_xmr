@@ -132,7 +132,7 @@ bash deploy/gcp/publish-static.sh --project YOUR_PROJECT \
 
 Preparation archives the committed source allowlist and rebuilds `brain.json`
 with that revision, validating its repository links before any cloud command.
-Uncommitted changes are excluded. Only the 21 public UI/knowledge/audit assets,
+Uncommitted changes are excluded. Only the 25 public UI/knowledge/audit assets,
 their checksum manifest, and the committed nginx template are transferred with
 the pinned static installer. The source context used for link validation remains
 local; `data.json` and private collector state are not in the upload payload.

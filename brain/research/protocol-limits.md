@@ -9,6 +9,11 @@ reviewed: 2026-09-11
 Parent: [research](index.md). Related: [evaluation](evaluation.md),
 [measurable experiments](heuristic-experiments.md), [groupings](groupings.md).
 
+The [security-era explorer](security-eras.md) connects a pinned upgrade manifest
+to exact exported evidence counts, recent observations, and frozen studies.
+Height-derived mainnet cohorts are implemented; recorded consensus and wallet
+metadata and independently validated per-era prediction quality remain open.
+
 Sources for this repository: [scorer](../../scorer.py),
 [scanner](../../scanner.py), [stored evidence](../../models.py).
 Literature reviewed on 2026-09-11; this page records external findings and
@@ -62,6 +67,6 @@ ownership clustering require separate metrics and denominators.
 
 ## Prioritized TODOs
 
-- [ ] **RL1 — Protocol cohort manifest (P0; unimplemented).** Inputs: block height/hash/version, transaction version/RingCT type, ring size, scan coverage, and label method. Baseline: today's aggregate report. Success: every evaluated ring belongs to a declared cohort, including an explicit unknown category, and cohort counts reconcile with the evaluation denominator. Failure modes: deriving wallet versions from the chain without evidence; treating export date as chain-data date; allowing missing metadata to disappear from totals.
+- [ ] **RL1 — Protocol cohort manifest (P0; partially implemented).** The [era exporter](../../protocol_eras.py) assigns each stored ring by its referencing transaction heights to the [pinned mainnet manifest](../../docs/protocol-eras.json), retains missing or ambiguous contexts as unknown, and reconciles categories with the aggregate summary. Remaining inputs: observed block version, transaction version/RingCT type, network identity, ring size, and label method in evaluation cohorts. Success: every evaluated ring belongs to a declared cohort with complete provenance, including explicit unknown metadata. Failure modes: deriving wallet versions from the chain without evidence; treating export date as chain-data date; allowing missing metadata to disappear from totals.
 - [ ] **RL2 — Applicability ledger (P1; research design).** Inputs: original source, heuristic assumptions, applicable heights or wallet versions, independent label source, and frozen run IDs. Baseline: one pooled heuristic/model result. Success: publish both in-window and out-of-window performance with coverage, retaining null or negative findings. Failure modes: using the same heuristic to create labels and claim validation; extending a bug-specific result beyond its documented window.
-- [ ] **RL3 — Claims audit in the display (P1; unimplemented).** Inputs: exported evidence types and cohort manifest. Baseline: current aggregate resolution and prediction counts. Success: every displayed percentage identifies its cohort and denominator, and group edges retain their actual evidence meaning. Failure modes: interpreting uncalibrated scores as probabilities, treating legacy resolutions as universal proof, or presenting output groups as recovered public addresses.
+- [ ] **RL3 — Claims audit in the display (P1; partially implemented).** The [era explorer](../../docs/eras.html) separates source-derived implications, analyzed evidence, current activity, and frozen research; the [progress view](../../docs/progress-view.js) separates original singletons from multi-member resolutions and preserves direct edge meanings. Remaining: a complete claims audit across future evaluation cohorts and an applicability ledger tied to independent labels (RL2). Success: every displayed percentage identifies its cohort and denominator, and group edges retain their actual evidence meaning. Failure modes: interpreting uncalibrated scores as probabilities, treating legacy resolutions as universal proof, or presenting output groups as recovered public addresses.

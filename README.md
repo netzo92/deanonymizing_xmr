@@ -117,6 +117,7 @@ This writes `docs/data.json`, which is rendered by `docs/index.html`. The curren
 - a dataset-scoped resolution timeline, with singleton/multi-member breakdowns in new exports
 - direct transaction/shared-output groupings with explicit ownership limits
 - a current-chain observation feed and automatic 60-second page checks
+- a [security-era explorer](https://netzo92.github.io/deanonymizing_xmr/eras.html) comparing protocol changes, measured evidence, and gaps across ten mainnet eras
 - a dedicated [TODO/results page](https://netzo92.github.io/deanonymizing_xmr/todos.html) with theoretical implications and real frozen measurements
 - historical scan snapshots
 - ML prediction verification counts

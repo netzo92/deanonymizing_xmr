@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+    <title>Security eras — TraceGrove</title>
+    <meta name="description" content="Explore Monero's protocol changes alongside the historical research, current block observations, and evidence gaps in TraceGrove.">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="era-view.css">
+    <script defer src="live-feed.js"></script>
+    <script defer src="era-view.js"></script>
+</head>
+<body class="era-page">
+    <a class="skip-link" href="#era-selection">Skip to era explorer</a>
+    <header class="era-header">
+        <a class="era-brand" href="index.html">TraceGrove <span>/ Security eras</span></a>
+        <nav aria-label="Main navigation"><a href="index.html">Dashboard</a><a href="todos.html">Research &amp; TODOs</a></nav>
+    </header>
+    <main>
+        <section class="era-hero" aria-labelledby="era-title">
+            <div><p class="era-kicker">Protocol history meets research evidence</p><h1 id="era-title">What changed.<br><span>What we can conclude.</span></h1><p class="era-lead">Explore Monero's security upgrades and see exactly which eras our research covers. A protocol improvement and a measured research result answer different questions.</p></div>
+            <aside class="era-hero-note"><span class="era-orbit" aria-hidden="true"><i></i><i></i><i></i></span><p class="era-kicker">Keep the evidence in its era</p><p>Early-chain analysis, recent block activity, and frozen experiments each have their own scope.</p><strong>Missing coverage stays visible.</strong></aside>
+        </section>
+        <div id="era-root" aria-busy="true"><p class="era-loading" role="status">Loading protocol milestones and research coverage…</p></div>
+    </main>
+    <footer class="era-footer"><p>Output relationships and ring statistics do not identify wallets, addresses, or people.</p><a href="index.html">Back to dashboard ↑</a></footer>
+    <noscript><p class="notice">This explorer needs JavaScript. Read the <a href="protocol-eras.json">protocol manifest</a>, <a href="data.json">historical export</a>, <a href="live-observations.json">current observations</a>, or <a href="research-progress.json">frozen research findings</a>.</p></noscript>
+</body>
+</html>

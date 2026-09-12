@@ -1,0 +1,917 @@
+{
+  "schema_version": 1,
+  "network": "mainnet",
+  "generated_at": "2026-09-12T02:57:12.534832+00:00",
+  "source_pin": {
+    "repository": "https://github.com/monero-project/monero.git",
+    "tag": "v0.18.5.1",
+    "commit": "4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5",
+    "hardfork_path": "src/hardforks/hardforks.cpp",
+    "hardfork_sha256": "30d512b3f38d9117abfdd26e8188fce9dc51cc8d90e9fb00eb46397c74fa7289"
+  },
+  "classification_basis": "mainnet_height_inferred",
+  "height_semantics": "start_height and end_height are inclusive. A null end is open only within the pinned-source taxonomy. Genesis height 0 is normalized to HF1 although its upstream activation entry is 1.",
+  "period_semantics": "Human-readable approximate periods from official project history and upgrade descriptions. They are not computed from hardfork timestamp fields, which can record announcement or scheduling metadata.",
+  "claim_limits": [
+    "This is a taxonomy of selected privacy, format and integrity changes, not an exhaustive security history or a numerical security rating.",
+    "Height classification assumes mainnet. Missing network/height or unavailable manifest remains unknown; no wallet version is inferred.",
+    "Historical analyzed rings, recent observed activity, and unmeasured eras require separate evidence and denominators.",
+    "Consensus validation constrains all ring candidates. It does not identify a real spender or wallet owner."
+  ],
+  "forks": [
+    {
+      "version": 1,
+      "start_height": 0,
+      "source_activation_height": 1,
+      "end_height": 1009826,
+      "era_id": "legacy_v1",
+      "transition_notes": [
+        "Upstream activation entry is height 1; this manifest assigns genesis height 0 to HF1."
+      ],
+      "sources": [
+        {
+          "label": "Pinned mainnet fork heights",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/hardforks/hardforks.cpp#L34-L78"
+        },
+        {
+          "label": "Ring-size rules and legacy exceptions",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/cryptonote_core/blockchain.cpp#L3261-L3354"
+        }
+      ]
+    },
+    {
+      "version": 2,
+      "start_height": 1009827,
+      "source_activation_height": 1009827,
+      "end_height": 1141316,
+      "era_id": "minimum_mixins",
+      "transition_notes": [
+        "Ordinary minimum ring size three begins; unmixable legacy exceptions remain."
+      ],
+      "sources": [
+        {
+          "label": "Pinned mainnet fork heights",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/hardforks/hardforks.cpp#L34-L78"
+        },
+        {
+          "label": "Ring-size rules and legacy exceptions",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/cryptonote_core/blockchain.cpp#L3261-L3354"
+        }
+      ]
+    },
+    {
+      "version": 3,
+      "start_height": 1141317,
+      "source_activation_height": 1141317,
+      "end_height": 1220515,
+      "era_id": "minimum_mixins",
+      "transition_notes": [
+        "Preserved as a distinct consensus boundary before RingCT; no additional minimum-ring-size step."
+      ],
+      "sources": [
+        {
+          "label": "Pinned mainnet fork heights",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/hardforks/hardforks.cpp#L34-L78"
+        },
+        {
+          "label": "Ring-size rules and legacy exceptions",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/cryptonote_core/blockchain.cpp#L3261-L3354"
+        }
+      ]
+    },
+    {
+      "version": 4,
+      "start_height": 1220516,
+      "source_activation_height": 1220516,
+      "end_height": 1288615,
+      "era_id": "ringct_transition",
+      "transition_notes": [
+        "RingCT becomes available; transaction version remains necessary to identify actual format."
+      ],
+      "sources": [
+        {
+          "label": "Pinned mainnet fork heights",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/hardforks/hardforks.cpp#L34-L78"
+        },
+        {
+          "label": "Ring-size rules and legacy exceptions",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/cryptonote_core/blockchain.cpp#L3261-L3354"
+        },
+        {
+          "label": "Moneropedia: RingCT",
+          "url": "https://web.getmonero.org/resources/moneropedia/ringCT.html"
+        }
+      ]
+    },
+    {
+      "version": 5,
+      "start_height": 1288616,
+      "source_activation_height": 1288616,
+      "end_height": 1399999,
+      "era_id": "ringct_transition",
+      "transition_notes": [
+        "Preserved as a distinct consensus boundary within the RingCT introduction period."
+      ],
+      "sources": [
+        {
+          "label": "Pinned mainnet fork heights",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/hardforks/hardforks.cpp#L34-L78"
+        },
+        {
+          "label": "Monero project roadmap",
+          "url": "https://www.getmonero.org/resources/roadmap/"
+        }
+      ]
+    },
+    {
+      "version": 6,
+      "start_height": 1400000,
+      "source_activation_height": 1400000,
+      "end_height": 1545999,
+      "era_id": "ringct_required",
+      "transition_notes": [
+        "Ordinary RingCT enforcement and minimum ring size five; legacy unmixable exceptions remain."
+      ],
+      "sources": [
+        {
+          "label": "Pinned mainnet fork heights",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/hardforks/hardforks.cpp#L34-L78"
+        },
+        {
+          "label": "Ring-size rules and legacy exceptions",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/cryptonote_core/blockchain.cpp#L3261-L3354"
+        }
+      ]
+    },
+    {
+      "version": 7,
+      "start_height": 1546000,
+      "source_activation_height": 1546000,
+      "end_height": 1685554,
+      "era_id": "ring7",
+      "transition_notes": [
+        "Ordinary minimum ring size seven; key-image input ordering enforced."
+      ],
+      "sources": [
+        {
+          "label": "Pinned mainnet fork heights",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/hardforks/hardforks.cpp#L34-L78"
+        },
+        {
+          "label": "Ring-size rules and legacy exceptions",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/cryptonote_core/blockchain.cpp#L3261-L3354"
+        }
+      ]
+    },
+    {
+      "version": 8,
+      "start_height": 1685555,
+      "source_activation_height": 1685555,
+      "end_height": 1686274,
+      "era_id": "bulletproofs",
+      "transition_notes": [
+        "Bulletproofs allowed; ordinary ring size eleven; prior Borromean proofs still allowed in this transition."
+      ],
+      "sources": [
+        {
+          "label": "Pinned mainnet fork heights",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/hardforks/hardforks.cpp#L34-L78"
+        },
+        {
+          "label": "Bulletproof and compact-encoding transitions",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/cryptonote_core/blockchain.cpp#L3010-L3057"
+        },
+        {
+          "label": "Ring-size rules and legacy exceptions",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/cryptonote_core/blockchain.cpp#L3261-L3354"
+        }
+      ]
+    },
+    {
+      "version": 9,
+      "start_height": 1686275,
+      "source_activation_height": 1686275,
+      "end_height": 1787999,
+      "era_id": "bulletproofs",
+      "transition_notes": [
+        "Borromean range proofs rejected for RingCT transactions."
+      ],
+      "sources": [
+        {
+          "label": "Pinned mainnet fork heights",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/hardforks/hardforks.cpp#L34-L78"
+        },
+        {
+          "label": "Bulletproof and compact-encoding transitions",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/cryptonote_core/blockchain.cpp#L3010-L3057"
+        }
+      ]
+    },
+    {
+      "version": 10,
+      "start_height": 1788000,
+      "source_activation_height": 1788000,
+      "end_height": 1788719,
+      "era_id": "compact_bulletproofs",
+      "transition_notes": [
+        "Compact RCTTypeBulletproof2 encoding allowed; original Bulletproof type still allowed in this transition."
+      ],
+      "sources": [
+        {
+          "label": "Pinned mainnet fork heights",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/hardforks/hardforks.cpp#L34-L78"
+        },
+        {
+          "label": "Bulletproof and compact-encoding transitions",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/cryptonote_core/blockchain.cpp#L3010-L3057"
+        }
+      ]
+    },
+    {
+      "version": 11,
+      "start_height": 1788720,
+      "source_activation_height": 1788720,
+      "end_height": 1978432,
+      "era_id": "compact_bulletproofs",
+      "transition_notes": [
+        "Original RCTTypeBulletproof type rejected."
+      ],
+      "sources": [
+        {
+          "label": "Pinned mainnet fork heights",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/hardforks/hardforks.cpp#L34-L78"
+        },
+        {
+          "label": "Bulletproof and compact-encoding transitions",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/cryptonote_core/blockchain.cpp#L3010-L3057"
+        }
+      ]
+    },
+    {
+      "version": 12,
+      "start_height": 1978433,
+      "source_activation_height": 1978433,
+      "end_height": 2209999,
+      "era_id": "uniformity_min_age",
+      "transition_notes": [
+        "Equal ring sizes within a transaction, minimum two outputs for non-miner v2 transactions, and ten-block minimum referenced-output age."
+      ],
+      "sources": [
+        {
+          "label": "Pinned mainnet fork heights",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/hardforks/hardforks.cpp#L34-L78"
+        },
+        {
+          "label": "Ring-size rules and legacy exceptions",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/cryptonote_core/blockchain.cpp#L3261-L3354"
+        }
+      ]
+    },
+    {
+      "version": 13,
+      "start_height": 2210000,
+      "source_activation_height": 2210000,
+      "end_height": 2210719,
+      "era_id": "clsag",
+      "transition_notes": [
+        "CLSAG allowed; deterministic timestamp-unlock evaluation begins."
+      ],
+      "sources": [
+        {
+          "label": "Pinned mainnet fork heights",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/hardforks/hardforks.cpp#L34-L78"
+        },
+        {
+          "label": "CLSAG transition and two grandfathered transactions",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/cryptonote_core/blockchain.cpp#L3060-L3092"
+        }
+      ]
+    },
+    {
+      "version": 14,
+      "start_height": 2210720,
+      "source_activation_height": 2210720,
+      "end_height": 2688887,
+      "era_id": "clsag",
+      "transition_notes": [
+        "Older MLSAG-based RingCT types rejected, except two explicit grandfathered transactions."
+      ],
+      "sources": [
+        {
+          "label": "Pinned mainnet fork heights",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/hardforks/hardforks.cpp#L34-L78"
+        },
+        {
+          "label": "CLSAG transition and two grandfathered transactions",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/cryptonote_core/blockchain.cpp#L3060-L3092"
+        }
+      ]
+    },
+    {
+      "version": 15,
+      "start_height": 2688888,
+      "source_activation_height": 2688888,
+      "end_height": 2689607,
+      "era_id": "ring16_bpplus",
+      "transition_notes": [
+        "Grace period permits ordinary ring sizes eleven or sixteen, both proof families, and either output type consistently within a transaction."
+      ],
+      "sources": [
+        {
+          "label": "Pinned mainnet fork heights",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/hardforks/hardforks.cpp#L34-L78"
+        },
+        {
+          "label": "Ring-size rules and legacy exceptions",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/cryptonote_core/blockchain.cpp#L3261-L3354"
+        },
+        {
+          "label": "Bulletproofs+ transition",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/cryptonote_core/blockchain.cpp#L3096-L3120"
+        },
+        {
+          "label": "View-tag transition conditions",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/cryptonote_basic/cryptonote_format_utils.cpp#L978-L1007"
+        }
+      ]
+    },
+    {
+      "version": 16,
+      "start_height": 2689608,
+      "source_activation_height": 2689608,
+      "end_height": null,
+      "era_id": "ring16_bpplus",
+      "transition_notes": [
+        "Ordinary rings of sixteen; old Bulletproof range proofs rejected; output view tags required."
+      ],
+      "sources": [
+        {
+          "label": "Pinned mainnet fork heights",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/hardforks/hardforks.cpp#L34-L78"
+        },
+        {
+          "label": "Ring-size rules and legacy exceptions",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/cryptonote_core/blockchain.cpp#L3261-L3354"
+        },
+        {
+          "label": "Bulletproofs+ transition",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/cryptonote_core/blockchain.cpp#L3096-L3120"
+        },
+        {
+          "label": "View-tag transition conditions",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/cryptonote_basic/cryptonote_format_utils.cpp#L978-L1007"
+        }
+      ]
+    }
+  ],
+  "eras": [
+    {
+      "id": "legacy_v1",
+      "label": "Visible amounts and optional decoys",
+      "start_height": 0,
+      "end_height": 1009826,
+      "versions": [
+        1
+      ],
+      "period_label": "2014–March 2016",
+      "changes": [
+        "Pre-RingCT transactions use visible amount buckets.",
+        "Protocol v1 precedes the HF2 minimum-ring-size rule; singleton rings can occur."
+      ],
+      "theoretical_implications": [
+        "A singleton input exposes its only candidate within the ring model; linked exclusions can propagate under the analyzer assumptions.",
+        "Amount buckets and historical ring structure define a different evaluation population from modern confidential transactions."
+      ],
+      "claim_limits": [
+        "Most local deterministic labels are historical singleton evidence, not model predictions.",
+        "Historical elimination or ranking results do not establish current-chain accuracy or address ownership."
+      ],
+      "sources": [
+        {
+          "label": "Pinned mainnet fork heights",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/hardforks/hardforks.cpp#L34-L78"
+        },
+        {
+          "label": "Ring-size rules and legacy exceptions",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/cryptonote_core/blockchain.cpp#L3261-L3354"
+        },
+        {
+          "label": "Moneropedia: RingCT",
+          "url": "https://web.getmonero.org/resources/moneropedia/ringCT.html"
+        },
+        {
+          "label": "Monero project roadmap",
+          "url": "https://www.getmonero.org/resources/roadmap/"
+        }
+      ],
+      "suggested_experiments": [
+        {
+          "id": "HE2",
+          "label": "Compare historical age baselines",
+          "href": "todos.html?status=all&task=HE2#tasks"
+        },
+        {
+          "id": "HE3",
+          "label": "Freeze temporal and graph splits",
+          "href": "todos.html?status=all&task=HE3#tasks"
+        }
+      ]
+    },
+    {
+      "id": "minimum_mixins",
+      "label": "Minimum mixing and amount structure",
+      "start_height": 1009827,
+      "end_height": 1220515,
+      "versions": [
+        2,
+        3
+      ],
+      "period_label": "March 2016–January 2017",
+      "changes": [
+        "HF2 raises the ordinary mixable-input minimum to three ring members and restricts v1 output amount forms.",
+        "HF3 remains a separate boundary; this grouped era still precedes RingCT activation."
+      ],
+      "theoretical_implications": [
+        "Requiring decoys removes the ordinary zero-decoy path for mixable inputs.",
+        "Unmixable amount exceptions require transaction-level context before applying a ring-size rule."
+      ],
+      "claim_limits": [
+        "Do not label every small ring invalid: pinned consensus retains legacy unmixable-amount exceptions.",
+        "A height cohort does not identify the creating wallet or its decoy-selection algorithm."
+      ],
+      "sources": [
+        {
+          "label": "Pinned mainnet fork heights",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/hardforks/hardforks.cpp#L34-L78"
+        },
+        {
+          "label": "Ring-size rules and legacy exceptions",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/cryptonote_core/blockchain.cpp#L3261-L3354"
+        },
+        {
+          "label": "V1 output-amount form checks",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/cryptonote_core/blockchain.cpp#L2985-L3007"
+        },
+        {
+          "label": "Monero project roadmap",
+          "url": "https://www.getmonero.org/resources/roadmap/"
+        }
+      ],
+      "suggested_experiments": [
+        {
+          "id": "UA4",
+          "label": "Audit protocol and legacy exceptions",
+          "href": "todos.html?status=all&task=UA4#tasks"
+        },
+        {
+          "id": "UA2",
+          "label": "Join actual output origins",
+          "href": "todos.html?status=all&task=UA2#tasks"
+        }
+      ]
+    },
+    {
+      "id": "ringct_transition",
+      "label": "RingCT introduction",
+      "start_height": 1220516,
+      "end_height": 1399999,
+      "versions": [
+        4,
+        5
+      ],
+      "period_label": "January–September 2017",
+      "changes": [
+        "HF4 enables RingCT, hiding transfer amounts through commitments and range proofs.",
+        "The transition contains both older transaction forms and RingCT; HF5 is retained as a separate consensus boundary."
+      ],
+      "theoretical_implications": [
+        "Confidential amounts change which observable amount-based comparisons are available.",
+        "Separate amount-zero references and visible legacy denominations instead of treating them as a single population."
+      ],
+      "claim_limits": [
+        "Height alone does not establish that a particular transition transaction used RingCT.",
+        "Hiding amounts does not supply an observed real-spend label or a measured reduction in tracing accuracy here."
+      ],
+      "sources": [
+        {
+          "label": "Pinned mainnet fork heights",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/hardforks/hardforks.cpp#L34-L78"
+        },
+        {
+          "label": "Moneropedia: RingCT",
+          "url": "https://web.getmonero.org/resources/moneropedia/ringCT.html"
+        },
+        {
+          "label": "Ring-size rules and legacy exceptions",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/cryptonote_core/blockchain.cpp#L3261-L3354"
+        },
+        {
+          "label": "Monero project roadmap",
+          "url": "https://www.getmonero.org/resources/roadmap/"
+        }
+      ],
+      "suggested_experiments": [
+        {
+          "id": "UA4",
+          "label": "Record transaction and protocol versions",
+          "href": "todos.html?status=all&task=UA4#tasks"
+        },
+        {
+          "id": "UA2",
+          "label": "Cache origins across amount branches",
+          "href": "todos.html?status=all&task=UA2#tasks"
+        }
+      ]
+    },
+    {
+      "id": "ringct_required",
+      "label": "RingCT and five-member rings",
+      "start_height": 1400000,
+      "end_height": 1545999,
+      "versions": [
+        6
+      ],
+      "period_label": "September 2017–April 2018",
+      "changes": [
+        "HF6 enforces RingCT for ordinary mixable spending, with explicit legacy unmixable-input exceptions.",
+        "The ordinary minimum ring size increases to five."
+      ],
+      "theoretical_implications": [
+        "Confidential amounts become the ordinary spending format.",
+        "Larger required rings increase the candidate count, but effective ambiguity also depends on selection and external evidence."
+      ],
+      "claim_limits": [
+        "The shorthand RingCT required has legacy exceptions in the pinned input-validation code.",
+        "No accuracy estimate follows from ring size alone; report actual original and surviving candidate counts."
+      ],
+      "sources": [
+        {
+          "label": "Pinned mainnet fork heights",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/hardforks/hardforks.cpp#L34-L78"
+        },
+        {
+          "label": "Moneropedia: RingCT",
+          "url": "https://web.getmonero.org/resources/moneropedia/ringCT.html"
+        },
+        {
+          "label": "Ring-size rules and legacy exceptions",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/cryptonote_core/blockchain.cpp#L3261-L3354"
+        },
+        {
+          "label": "Monero project roadmap",
+          "url": "https://www.getmonero.org/resources/roadmap/"
+        }
+      ],
+      "suggested_experiments": [
+        {
+          "id": "UA3",
+          "label": "Replay an era-appropriate sampler",
+          "href": "todos.html?status=all&task=UA3#tasks"
+        },
+        {
+          "id": "HE3",
+          "label": "Evaluate frozen temporal cohorts",
+          "href": "todos.html?status=all&task=HE3#tasks"
+        }
+      ]
+    },
+    {
+      "id": "ring7",
+      "label": "Seven-member minimum",
+      "start_height": 1546000,
+      "end_height": 1685554,
+      "versions": [
+        7
+      ],
+      "period_label": "April–October 2018",
+      "changes": [
+        "HF7 increases the ordinary minimum ring size to seven.",
+        "Input ordering by key image becomes a consensus requirement."
+      ],
+      "theoretical_implications": [
+        "The minimum candidate set grows for ordinary mixable inputs.",
+        "Consensus ordering limits the meaning of transaction input position as a behavioral feature."
+      ],
+      "claim_limits": [
+        "An input-order pattern is not evidence of wallet ownership or real-member order.",
+        "Legacy amount exceptions and wallet-selection differences still require explicit handling."
+      ],
+      "sources": [
+        {
+          "label": "Pinned mainnet fork heights",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/hardforks/hardforks.cpp#L34-L78"
+        },
+        {
+          "label": "Ring-size rules and legacy exceptions",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/cryptonote_core/blockchain.cpp#L3261-L3354"
+        },
+        {
+          "label": "Sorted key-image input rule",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/cryptonote_core/blockchain.cpp#L3357-L3374"
+        },
+        {
+          "label": "Monero project roadmap",
+          "url": "https://www.getmonero.org/resources/roadmap/"
+        }
+      ],
+      "suggested_experiments": [
+        {
+          "id": "UA4",
+          "label": "Check ring size and input ordering",
+          "href": "todos.html?status=all&task=UA4#tasks"
+        },
+        {
+          "id": "UA3",
+          "label": "Compare versioned selection models",
+          "href": "todos.html?status=all&task=UA3#tasks"
+        }
+      ]
+    },
+    {
+      "id": "bulletproofs",
+      "label": "Bulletproofs and eleven-member rings",
+      "start_height": 1685555,
+      "end_height": 1787999,
+      "versions": [
+        8,
+        9
+      ],
+      "period_label": "October 2018–March 2019",
+      "changes": [
+        "HF8 allows Bulletproof range proofs and ordinary rings of eleven; HF9 rejects old Borromean range proofs.",
+        "The format transition and ring-size change are distinct changes with distinct implications."
+      ],
+      "theoretical_implications": [
+        "Bulletproofs reduce range-proof overhead while preserving confidential-amount functionality.",
+        "A common ordinary ring size reduces variation in that visible structural field."
+      ],
+      "claim_limits": [
+        "Smaller proof size is an efficiency improvement, not a measured anonymity score.",
+        "The HF8 transition cannot be treated as if every transaction already used the HF9-required proof format."
+      ],
+      "sources": [
+        {
+          "label": "Pinned mainnet fork heights",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/hardforks/hardforks.cpp#L34-L78"
+        },
+        {
+          "label": "Bulletproof and compact-encoding transitions",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/cryptonote_core/blockchain.cpp#L3010-L3057"
+        },
+        {
+          "label": "Ring-size rules and legacy exceptions",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/cryptonote_core/blockchain.cpp#L3261-L3354"
+        },
+        {
+          "label": "October 2018 release overview",
+          "url": "https://web.getmonero.org/2018/10/11/monero-0.13.0-released.html"
+        }
+      ],
+      "suggested_experiments": [
+        {
+          "id": "UA4",
+          "label": "Audit proof types across fork boundaries",
+          "href": "todos.html?status=all&task=UA4#tasks"
+        },
+        {
+          "id": "HE3",
+          "label": "Separate transition and steady-state cohorts",
+          "href": "todos.html?status=all&task=HE3#tasks"
+        }
+      ]
+    },
+    {
+      "id": "compact_bulletproofs",
+      "label": "Compact RingCT encoding",
+      "start_height": 1788000,
+      "end_height": 1978432,
+      "versions": [
+        10,
+        11
+      ],
+      "period_label": "March–November 2019",
+      "changes": [
+        "HF10 allows the compact RCTTypeBulletproof2 encoding; HF11 rejects the original Bulletproof transaction type.",
+        "These are the earlier Bulletproof-family format changes, distinct from Bulletproofs+ in 2022."
+      ],
+      "theoretical_implications": [
+        "Encoding changes affect transaction size and data parsing requirements.",
+        "A transition-aware classifier can separate format effects from changes in observed user behavior."
+      ],
+      "claim_limits": [
+        "The type name Bulletproof2 does not mean Bulletproofs+.",
+        "A protocol-format boundary alone does not prove a new deanonymization opportunity or an accuracy improvement."
+      ],
+      "sources": [
+        {
+          "label": "Pinned mainnet fork heights",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/hardforks/hardforks.cpp#L34-L78"
+        },
+        {
+          "label": "Bulletproof and compact-encoding transitions",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/cryptonote_core/blockchain.cpp#L3010-L3057"
+        },
+        {
+          "label": "Zero to Monero, second edition: compact amount encoding",
+          "url": "https://web.getmonero.org/library/Zero-to-Monero-2-0-0.pdf"
+        },
+        {
+          "label": "Monero project roadmap",
+          "url": "https://www.getmonero.org/resources/roadmap/"
+        }
+      ],
+      "suggested_experiments": [
+        {
+          "id": "UA4",
+          "label": "Preserve transaction and RingCT types",
+          "href": "todos.html?status=all&task=UA4#tasks"
+        },
+        {
+          "id": "HE3",
+          "label": "Test for temporal and graph leakage",
+          "href": "todos.html?status=all&task=HE3#tasks"
+        }
+      ]
+    },
+    {
+      "id": "uniformity_min_age",
+      "label": "Uniformity and minimum output age",
+      "start_height": 1978433,
+      "end_height": 2209999,
+      "versions": [
+        12
+      ],
+      "period_label": "November 2019–October 2020",
+      "changes": [
+        "HF12 enforces equal ring sizes among inputs of a transaction and at least two outputs for non-miner v2 transactions.",
+        "A separate consensus rule requires the newest referenced output to satisfy the ten-block minimum age."
+      ],
+      "theoretical_implications": [
+        "Output-count and ring-size constraints remove some structural variation.",
+        "Eligibility applies to all ring candidates and is useful for integrity checks."
+      ],
+      "claim_limits": [
+        "An unlocked RPC flag alone omits the separate minimum-age condition.",
+        "Consensus eligibility is not a real-spend label, and this rule must not be imposed retroactively on 2014 rings."
+      ],
+      "sources": [
+        {
+          "label": "Pinned mainnet fork heights",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/hardforks/hardforks.cpp#L34-L78"
+        },
+        {
+          "label": "Ring-size rules and legacy exceptions",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/cryptonote_core/blockchain.cpp#L3261-L3354"
+        },
+        {
+          "label": "Minimum output count",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/cryptonote_core/blockchain.cpp#L3248-L3258"
+        },
+        {
+          "label": "Minimum age enforcement",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/cryptonote_core/blockchain.cpp#L3455-L3459"
+        },
+        {
+          "label": "Hardfork feature constants",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/cryptonote_config.h#L183-L191"
+        },
+        {
+          "label": "Monero project roadmap",
+          "url": "https://www.getmonero.org/resources/roadmap/"
+        }
+      ],
+      "suggested_experiments": [
+        {
+          "id": "UA4",
+          "label": "Replay historical eligibility checks",
+          "href": "todos.html?status=all&task=UA4#tasks"
+        },
+        {
+          "id": "UA2",
+          "label": "Measure source-output creation ages",
+          "href": "todos.html?status=all&task=UA2#tasks"
+        }
+      ]
+    },
+    {
+      "id": "clsag",
+      "label": "CLSAG signatures",
+      "start_height": 2210000,
+      "end_height": 2688887,
+      "versions": [
+        13,
+        14
+      ],
+      "period_label": "October 2020–August 2022",
+      "changes": [
+        "HF13 allows CLSAG signatures; HF14 rejects older MLSAG-based RingCT types with two explicit grandfathered historical transactions.",
+        "HF13 also introduces deterministic timestamp-unlock evaluation."
+      ],
+      "theoretical_implications": [
+        "CLSAG replaces MLSAG with smaller signatures and faster verification while retaining signer ambiguity.",
+        "A versioned validation context makes timestamp-unlock audits more reproducible."
+      ],
+      "claim_limits": [
+        "Cryptographic design improvements do not establish a locally measured tracing-success rate.",
+        "The two grandfathered transaction IDs are validation exceptions, not real-spend or ownership labels."
+      ],
+      "sources": [
+        {
+          "label": "Pinned mainnet fork heights",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/hardforks/hardforks.cpp#L34-L78"
+        },
+        {
+          "label": "CLSAG transition and two grandfathered transactions",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/cryptonote_core/blockchain.cpp#L3060-L3092"
+        },
+        {
+          "label": "CLSAG design and audit explanation",
+          "url": "https://web.getmonero.org/2020/07/31/clsag-audit.html"
+        },
+        {
+          "label": "Timestamp-unlock evaluation",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/cryptonote_core/blockchain.cpp#L3840-L3863"
+        },
+        {
+          "label": "Deterministic unlock activation constant",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/cryptonote_config.h#L185-L191"
+        }
+      ],
+      "suggested_experiments": [
+        {
+          "id": "UA4",
+          "label": "Test the CLSAG transition and exceptions",
+          "href": "todos.html?status=all&task=UA4#tasks"
+        },
+        {
+          "id": "UA3",
+          "label": "Audit actual wallet selection separately",
+          "href": "todos.html?status=all&task=UA3#tasks"
+        }
+      ]
+    },
+    {
+      "id": "ring16_bpplus",
+      "label": "Sixteen-member rings, Bulletproofs+ and view tags",
+      "start_height": 2688888,
+      "end_height": null,
+      "versions": [
+        15,
+        16
+      ],
+      "period_label": "August 2022 onward in the pinned source",
+      "changes": [
+        "HF15 begins a transition allowing ordinary rings of eleven or sixteen, old Bulletproofs or Bulletproofs+, and tagged or untagged outputs of one consistent type per transaction.",
+        "HF16 completes ordinary sixteen-member ring enforcement, rejects old Bulletproof range proofs, and requires tagged outputs."
+      ],
+      "theoretical_implications": [
+        "The ordinary candidate set grows from eleven to sixteen; Bulletproofs+ reduces proof overhead.",
+        "View tags accelerate wallet output scanning. They are not public ownership tags."
+      ],
+      "claim_limits": [
+        "Recent observed ring-size counts show activity and structure, not modern resolved-spend labels.",
+        "The transition is not identical to steady HF16 behavior; legacy unmixable-amount exceptions still need context.",
+        "The open-ended range describes the latest fork in this pinned release and is not a forecast of future protocol rules."
+      ],
+      "sources": [
+        {
+          "label": "Pinned mainnet fork heights",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/hardforks/hardforks.cpp#L34-L78"
+        },
+        {
+          "label": "Ring-size rules and legacy exceptions",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/cryptonote_core/blockchain.cpp#L3261-L3354"
+        },
+        {
+          "label": "Bulletproofs+ transition",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/cryptonote_core/blockchain.cpp#L3096-L3120"
+        },
+        {
+          "label": "View-tag transition conditions",
+          "url": "https://github.com/monero-project/monero/blob/4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5/src/cryptonote_basic/cryptonote_format_utils.cpp#L978-L1007"
+        },
+        {
+          "label": "August 2022 upgrade release overview",
+          "url": "https://www.getmonero.org/2022/07/19/monero-0.18.0.0-released.html"
+        }
+      ],
+      "suggested_experiments": [
+        {
+          "id": "UA4",
+          "label": "Audit transition and steady-state formats",
+          "href": "todos.html?status=all&task=UA4#tasks"
+        },
+        {
+          "id": "UA3",
+          "label": "Measure a versioned modern sampler",
+          "href": "todos.html?status=all&task=UA3#tasks"
+        },
+        {
+          "id": "PN2",
+          "label": "Collect a prospective coverage-aware cohort",
+          "href": "todos.html?status=all&task=PN2#tasks"
+        }
+      ]
+    }
+  ]
+}

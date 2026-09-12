@@ -125,3 +125,28 @@ check the main and TODO pages on desktop and mobile. Verify automatic refresh
 with changed/unchanged data, paused filters, and failed loads. The live observer
 JSON is mutable runtime data and is excluded from static UI installation; a
 committed copy is only a GitHub Pages snapshot.
+
+## Security-era explorer
+
+The [era page](../../docs/eras.html) compares ten periods from the
+[pinned mainnet manifest](../../docs/protocol-eras.json), retaining all sixteen
+individual fork boundaries and transition notes. Its timeline, selector and
+comparison table separate source-derived implications, analyzed evidence,
+recent observed activity, and frozen studies. Read [security eras](../research/security-eras.md)
+for the taxonomy and research limits. Selection is shareable through the URL.
+
+New analysis exports contain exact `protocol_eras` counts from the existing
+ring-membership scan. Missing or cross-era referencing contexts remain unknown;
+the exporter records reconciled evidence totals and the manifest mapping hash.
+An older export can be attributed only when its entire explicit scan range fits
+one era. Cross-era aggregate counts are never divided into estimated era shares.
+Era labels assume mainnet heights; they do not establish recorded block versions,
+wallet versions or consensus validity. Absent coverage cannot measure an upgrade's
+effect on prediction quality.
+
+The page checks its sources every 60 seconds and retains the last valid source
+on failure. Validate it with [era display tests](../../tests/test_era_view.js),
+[era export tests](../../tests/test_era_export.py), [manifest tests](../../tests/test_protocol_eras.py),
+and desktop/mobile browser checks after publication. Both full and static
+deployment allowlists include the page, script, stylesheet and manifest; runtime
+upgrades also include [protocol_eras.py](../../protocol_eras.py).

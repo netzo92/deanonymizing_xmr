@@ -20,7 +20,7 @@ staging=$(mktemp -d /opt/xmr/releases/.staging.XXXXXXXX)
 trap 'rm -rf "$staging"' EXIT
 tar --extract --gzip --file "$archive" --directory "$staging" --no-same-owner
 printf '%s\n' "$revision" > "$staging/REVISION"
-for required in live_observer.py deploy/gcp/live-observer.service collector.py brain_export.py requirements.txt brain/index.md docs/index.html docs/dashboard.js docs/dashboard.css docs/brain-view.js docs/brain-view.css docs/research-analytics.js docs/research-analytics.css docs/evidence-graph.js docs/evidence-graph.css docs/feature-audit.js docs/feature-audit.css docs/feature-audit.json docs/progress-view.js docs/progress-view.css docs/live-feed.js docs/live-feed.css docs/todos.html docs/todo-results.js docs/todo-results.css docs/research-progress.json deploy/gcp/collector.service deploy/gcp/nginx.conf; do
+for required in protocol_eras.py live_observer.py deploy/gcp/live-observer.service collector.py brain_export.py requirements.txt brain/index.md docs/index.html docs/dashboard.js docs/dashboard.css docs/brain-view.js docs/brain-view.css docs/research-analytics.js docs/research-analytics.css docs/evidence-graph.js docs/evidence-graph.css docs/feature-audit.js docs/feature-audit.css docs/feature-audit.json docs/progress-view.js docs/progress-view.css docs/live-feed.js docs/live-feed.css docs/todos.html docs/todo-results.js docs/todo-results.css docs/research-progress.json docs/eras.html docs/era-view.js docs/era-view.css docs/protocol-eras.json deploy/gcp/collector.service deploy/gcp/nginx.conf; do
   [[ -f $staging/$required ]] || { echo "Release is missing $required" >&2; exit 1; }
 done
 python3 "$staging/brain_export.py" --root "$staging" --output "$staging/docs/brain.json"
@@ -107,7 +107,7 @@ ln -sfn "$release" /opt/xmr/current.next
 mv -Tf /opt/xmr/current.next /opt/xmr/current
 ln -sfn "$release" /opt/xmr/observer-current.next
 mv -Tf /opt/xmr/observer-current.next /opt/xmr/observer-current
-for asset in index.html dashboard.js dashboard.css brain.json brain-view.js brain-view.css research-analytics.js research-analytics.css evidence-graph.js evidence-graph.css feature-audit.js feature-audit.css feature-audit.json progress-view.js progress-view.css live-feed.js live-feed.css todos.html todo-results.js todo-results.css research-progress.json; do
+for asset in index.html dashboard.js dashboard.css brain.json brain-view.js brain-view.css research-analytics.js research-analytics.css evidence-graph.js evidence-graph.css feature-audit.js feature-audit.css feature-audit.json progress-view.js progress-view.css live-feed.js live-feed.css todos.html todo-results.js todo-results.css research-progress.json eras.html era-view.js era-view.css protocol-eras.json; do
   install -o xmr -g xmr -m 0644 "$release/docs/$asset" "/var/www/xmr/$asset.next"
   mv -f "/var/www/xmr/$asset.next" "/var/www/xmr/$asset"
 done
@@ -135,7 +135,8 @@ web = pathlib.Path('/var/www/xmr')
 assets = ('index.html', 'dashboard.js', 'dashboard.css', 'brain.json',
           'brain-view.js', 'brain-view.css', 'research-analytics.js', 'research-analytics.css',
           'evidence-graph.js', 'evidence-graph.css', 'feature-audit.js', 'feature-audit.css', 'feature-audit.json',
-          'progress-view.js', 'progress-view.css', 'live-feed.js', 'live-feed.css', 'todos.html', 'todo-results.js', 'todo-results.css', 'research-progress.json')
+          'progress-view.js', 'progress-view.css', 'live-feed.js', 'live-feed.css', 'todos.html', 'todo-results.js', 'todo-results.css', 'research-progress.json',
+          'eras.html', 'era-view.js', 'era-view.css', 'protocol-eras.json')
 manifest = {
     'schema_version': 1, 'source_commit': sys.argv[1], 'runtime_source_commit': sys.argv[1],
     'published_at': datetime.datetime.now(datetime.timezone.utc).isoformat(),

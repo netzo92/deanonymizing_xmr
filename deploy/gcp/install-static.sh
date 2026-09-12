@@ -23,6 +23,7 @@ ASSETS = (
     'evidence-graph.js', 'evidence-graph.css',
     'feature-audit.js', 'feature-audit.css', 'feature-audit.json',
     'progress-view.js', 'progress-view.css', 'live-feed.js', 'live-feed.css', 'todos.html', 'todo-results.js', 'todo-results.css', 'research-progress.json',
+    'eras.html', 'era-view.js', 'era-view.css', 'protocol-eras.json',
 )
 
 
