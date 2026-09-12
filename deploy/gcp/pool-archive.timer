@@ -1,0 +1,11 @@
+[Unit]
+Description=Freeze retained pool records every six hours within a fixed storage budget
+
+[Timer]
+OnBootSec=10min
+OnUnitActiveSec=6h
+AccuracySec=1min
+Unit=xmr-pool-archive.service
+
+[Install]
+WantedBy=timers.target

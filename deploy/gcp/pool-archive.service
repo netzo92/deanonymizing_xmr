@@ -1,0 +1,31 @@
+[Unit]
+Description=TraceGrove private retained pool snapshot archive
+After=xmr-pool-observer.service
+ConditionPathExists=/var/lib/xmr-pool/pool_observations.db
+
+[Service]
+Type=oneshot
+User=xmr
+Group=xmr
+Environment=PYTHONDONTWRITEBYTECODE=1
+ExecStart=/usr/bin/python3 /opt/xmr/pool-archive-current/research/run_pool_archive.py --db /var/lib/xmr-pool/pool_observations.db --archive-root /var/lib/xmr-pool-archives --runtime-dir /opt/xmr/pool-current --env-file /etc/xmr/pool-observer.env --status /var/www/xmr/pool-archive-status.json
+TimeoutStartSec=60
+MemoryMax=192M
+CPUQuota=25%
+Nice=15
+IOSchedulingClass=idle
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateNetwork=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+CapabilityBoundingSet=
+RestrictAddressFamilies=AF_UNIX
+ReadWritePaths=/var/lib/xmr-pool-archives /var/www/xmr
+
