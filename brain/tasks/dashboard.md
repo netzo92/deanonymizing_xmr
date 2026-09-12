@@ -29,7 +29,7 @@ proposals; completed items below link to their implementation and validation.
 - [x] **D7 — Visual Markdown brain and research TODO browser (P1).** Main-page navigation opens a colored hierarchy with optional cross-references, searchable notes, branch filters, Open/Completed/All tasks, and a source-linked Markdown reader. The [builder](../../brain_export.py) validates repository links and root reachability; the [viewer](../../docs/brain-view.js) supports keyboard and mobile navigation. [Builder tests](../../tests/test_brain_export.py), [viewer tests](../../tests/test_brain_view.js), and Chrome checks cover extraction, safe rendering, navigation, error/retry, and narrow-screen layout. Update the Markdown and rebuild the export when knowledge changes.
 
 Current workspace: overview and scope → analytics lab → prediction browser and
-selected evidence graph → dataset charts → research brain. Main-page links jump
+selected evidence graph → dataset charts → feature observatory → research brain. Main-page links jump
 directly to each workspace. Keep holdout and forward verification distinct.
 Group labels should reflect the evidence; see [grouping research](../research/groupings.md).
 Dependencies P1–P3 are defined in [prediction research](../research/predictions.md).
@@ -40,3 +40,5 @@ The checked items were validated against the exported local dataset and syntheti
 fixtures. Descriptive analytics are implemented; D4's validated evaluation remains
 open. Follow the [publication checks](../workflows/research-workspace.md) after
 every webpage update.
+
+- [x] **D8 — Frozen feature observatory.** The [feature viewer](../../docs/feature-audit.js) exposes all 24 measured features, original-versus-surviving candidate cohorts, search/variation filters, exact duplicates, missingness, population variance, within-ring counts, and cohort CSV downloads. The [EA1 matrix and aggregate](../research/feature-variation-audit.md) preserve the snapshot and source hashes independently of live collection. [Six JS tests](../../tests/test_feature_audit.js) and desktop/mobile Chrome checks cover denominators, malformed metadata, failed loads/retry, safe rendering, keyboard focus, and bounded scrolling. The [historical baseline note](../research/heuristic-baselines.md) supplies a separate comparison without implying modern or forward accuracy.

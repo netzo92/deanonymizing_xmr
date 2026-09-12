@@ -8,7 +8,8 @@ process can need more memory and disk as the scanned dataset grows.
 
 Source: [collector](../../collector.py), [service](collector.service),
 [nginx configuration](nginx.conf), [provisioner](provision.sh),
-[release deployment](deploy.sh), [release installer](install-release.sh).
+[release deployment](deploy.sh), [release installer](install-release.sh),
+[static publication](publish-static.sh), [static installer](install-static.sh).
 
 ## First deployment
 
@@ -101,6 +102,8 @@ gcloud compute ssh xmr-research --project YOUR_PROJECT --zone us-central1-a \
 - `/collector-status.json` reports collector progress and errors.
 - `/data.json` contains the dashboard's exported evidence and timestamps.
 - `/release.json` records the exact deployed commit and deployment UTC time.
+- `/ui-release.json` records the separately published UI commit, asset hashes,
+  knowledge hash, publication time, and observed runtime revision/PID.
 
 For an update, commit and push the new code, then run `deploy.sh` with the new
 commit and the same environment file. Omit `--seed-db`. Releasing code stops the
@@ -112,6 +115,57 @@ when running without a `.git` directory.
 Python dependencies follow the repository's version ranges, so a source commit
 alone does not pin an identical dependency environment. Both code and dependency
 changes should be validated before deployment.
+
+### Publish dashboard and research notes while collection continues
+
+Use the static publisher for committed UI, knowledge, and aggregate feature-audit
+updates that do not require changing collector behavior:
+
+```bash
+# Optional: inspect the exact payload and SHA-256 manifest locally first.
+bash deploy/gcp/publish-static.sh --commit FULL_GIT_COMMIT \
+  --prepare-only /tmp/tracegrove-static-review
+
+bash deploy/gcp/publish-static.sh --project YOUR_PROJECT \
+  --name xmr-research --zone us-central1-a --commit FULL_GIT_COMMIT
+```
+
+Preparation archives the committed source allowlist and rebuilds `brain.json`
+with that revision, validating its repository links before any cloud command.
+Uncommitted changes are excluded. Only the 13 public UI/knowledge/audit assets,
+their checksum manifest, and the committed nginx template are transferred with
+the pinned static installer. The source context used for link validation remains
+local; `data.json` and private collector state are not in the upload payload.
+
+The installer shares the full-deployment lock, checks runtime provenance, and
+records the collector PID before and after publication. It preserves
+`/opt/xmr/current`, runtime `REVISION`, `release.json`, dependencies, SQLite,
+`data.json`, `collector-status.json`, and the environment file. It issues no
+collector stop/start/restart commands. The PID observation is a publication
+check, not a guarantee against later systemd restarts.
+
+When new public assets require routes, the installer tests and reloads the
+committed nginx configuration without restarting collection. It refuses to
+overwrite unrecognized nginx changes, such as an operator's uncommitted TLS or
+hostname configuration; incorporate those settings into the reviewed committed
+configuration first. An existing managed nginx site and runtime deployment are
+required, so use `deploy.sh` for initial provisioning or collector changes.
+
+Files are replaced atomically one at a time, with `index.html` last and
+`ui-release.json` published after checks pass. This is **not an atomic update of
+the whole asset set**: requests can briefly observe mixed UI versions during
+publication. Detected failures restore replaced assets and nginx configuration;
+host crashes or forced termination can still require rerunning publication.
+Runtime provenance remains in `/release.json`; use `/ui-release.json` for UI
+provenance after static updates. The collector continues publishing its own
+data and status snapshots independently.
+
+Local guard, rollback, payload, and committed-source tests:
+
+```bash
+venv/bin/python -m unittest discover -s tests -p 'test_static_publication.py' -v
+bash -n deploy/gcp/publish-static.sh deploy/gcp/install-static.sh
+```
 
 To inspect or pause collection, use IAP SSH and `sudo systemctl stop
 xmr-collector.service`; `sudo systemctl start xmr-collector.service` resumes it.

@@ -58,6 +58,23 @@ current hypotheses, and the selected historical prediction. Hypotheses can be
 hidden. Candidate/neighborhood limits and omitted data remain visible; the table
 alternative and node details preserve exact `(amount, index)` identities.
 
+## Feature observatory
+
+The [feature observatory](../../docs/feature-audit.js) reads a separate
+[frozen aggregate](../../docs/feature-audit.json) from the
+[EA1 experiment](../research/feature-variation-audit.md). Its source snapshot
+does not change when the live collector exports new blocks. Cohort selection,
+feature search, and variation filters expose per-column distinct values,
+population variance, missingness, and eligible-ring variation counts. Selected
+features show cohort comparisons and exact duplicate columns; CSV exports keep
+the cohort and denominator fields.
+
+Whole-audit totals remain separate from selected-cohort counts. Original training
+memberships and surviving scoring memberships have different semantics. Constant
+columns in this sample do not prove that a feature is globally useless, and
+variance is not predictive accuracy. Read the experiment for exact sampling,
+source hashes, the compressed matrix, and follow-up ablations.
+
 ## Validation and release
 
 Run the [development checks](development.md), including the focused
@@ -77,7 +94,11 @@ The refreshed snapshot was the first verified cloud export at height 59,900;
 its evidence classes and ring-size distribution reconcile to 664,239 rings.
 These checks establish interface/data consistency, not heuristic accuracy.
 
-GitHub Pages serves the committed brain export. The GCP release installer
-rebuilds it from the committed Markdown bundle and installs the static assets,
-while preserving the collector's latest `data.json`. A research-note update
-therefore needs a rebuilt Pages JSON and a GCP release to appear on both sites.
+GitHub Pages serves the committed brain and feature-audit exports. Copy the
+measured EA1 aggregate to `docs/feature-audit.json` without changing its fields.
+The [GCP static publisher](../../deploy/gcp/publish-static.sh) rebuilds the brain
+from committed Markdown and installs the static assets while preserving the
+running collector and its latest `data.json`. Use `/ui-release.json` to verify
+UI source and asset hashes; `/release.json` continues identifying runtime code.
+A research-note update needs a rebuilt Pages JSON and static publication to
+appear on both sites. Full runtime upgrades still use the release installer.

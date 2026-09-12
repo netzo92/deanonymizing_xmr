@@ -599,6 +599,12 @@ async function boot() {
 
 if (typeof module !== 'undefined' && module.exports) module.exports = { outcome, acceptance, evidenceCategories, historyCohorts, filterRows, identity, sameOutput, percentage };
 if (typeof document !== 'undefined') {
+    const featureAudit = document.getElementById('feature-observatory');
+    if (featureAudit && window.TraceGroveFeatureAudit) window.TraceGroveFeatureAudit.mount(featureAudit);
+    else if (featureAudit) {
+        featureAudit.replaceChildren(element('p', 'notice', 'The feature audit module is unavailable. Reload the page to try again.'));
+        featureAudit.setAttribute('aria-busy', 'false');
+    }
     const knowledge = document.getElementById('knowledge-brain');
     if (knowledge && window.TraceGroveBrain) {
         Promise.resolve(window.TraceGroveBrain.mount(knowledge, {url: 'brain.json'})).catch(error => {

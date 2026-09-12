@@ -109,6 +109,7 @@ This writes `docs/data.json`, which is rendered by `docs/index.html`. The curren
 - an interactive Markdown knowledge map, note reader, and TODO browser
 - a threshold/cohort analytics lab, uncertainty intervals, and aggregate downloads
 - a typed local evidence graph with optional hypothesis edges
+- a feature observatory with frozen cohort diagnostics, duplicate columns, and CSV downloads
 
 After editing research notes or TODOs, rebuild their public snapshot:
 

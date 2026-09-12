@@ -17,7 +17,8 @@ Priority is a suggested order, not an estimate of research success.
 | Done | P1: Preserve prediction runs | Re-scoring retains earlier guesses and outcomes |
 | Done | D2–D3: Prediction browser and evidence inspector | Bounded exports with run/provenance metadata |
 | Done | D5/D7: Local evidence graph and visual knowledge brain | Typed edges, searchable notes and TODOs, keyboard/mobile access |
-| P0 | EA1: Audit constant features | Frozen feature matrices with variation and cohort counts |
+| Done | EA1: Audit constant features | Frozen legacy matrix with 24 features, variation, duplicates, and cohort counts |
+| P1 | FA2–FA3: Feature masks and reuse ties | Paired evaluation with training-only masks and explicit tie rules |
 | P1 | P2–P3: Forward evaluation and calibration | Frozen data and independent evaluation boundaries |
 | P1 | EA2/HE1: Measured output ages | Versioned origin joins and frozen ablation against current proxies |
 | P2 | D4: Validated quality plots | Descriptive lab implemented; independent evaluation still required |
@@ -42,9 +43,13 @@ The new workspace milestone adds descriptive analytics, a typed local evidence
 graph, and a navigable Markdown brain with TODO filters; see the
 [workspace guide](../workflows/research-workspace.md). A 40-output audit found
 three constant legacy gamma features despite widely varying measured ages.
-Next: EA1 feature variation checks, HE1 measured origins, and EA2 frozen ablations,
-alongside P2 forward evaluation and P3 calibration. Clustering remains experimental
-work requiring validation; no model-accuracy improvement has been established.
+EA1 is now complete for the available historical snapshot; see the
+[feature audit](../research/feature-variation-audit.md) and
+[retrospective baseline results](../research/heuristic-baselines.md).
+Next: FA2 feature-mask ablation, FA3 reuse tie treatment, HE1 measured origins,
+and EA2 origin-age ablation, alongside P2 forward evaluation and P3 calibration.
+Clustering remains experimental work requiring validation; no model-accuracy
+improvement has been established.
 
 When taking an item, record status and implementation/result links in its
 canonical page. Check it off only after its completion criteria are met. Keep

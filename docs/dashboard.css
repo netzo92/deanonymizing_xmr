@@ -32,7 +32,7 @@ pre { white-space: pre-wrap; overflow-wrap: anywhere; max-height: 350px; overflo
 .workspace-nav { display: flex; gap: 8px; overflow-x: auto; padding: 10px; margin: 0 0 20px; border: 1px solid var(--line); border-radius: 12px; background: #111a25; position: sticky; top: 8px; z-index: 5; }
 .workspace-nav a { flex-shrink: 0; text-decoration: none; padding: 7px 12px; border-radius: 7px; font-size: .8rem; color: var(--text); }
 .workspace-nav a:hover { background: var(--panel-hover); color: var(--orange); }
-.workspace-portals { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-bottom: 24px; }
+.workspace-portals { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-bottom: 24px; }
 .workspace-portals a { display: grid; gap: 6px; padding: 20px 24px; border: 1px solid #405466; border-radius: 12px; color: var(--text); text-decoration: none; background: radial-gradient(ellipse at top right, #29423d, #15212c 70%); }
 .workspace-portals a + a { background: radial-gradient(ellipse at top right, #393352, #15212c 70%); }
 .workspace-portals strong { font-size: 1.1rem; }.workspace-portals span { color: var(--muted); font-size: .8rem; }.workspace-portals .portal-kicker { color: #8de7bd; text-transform: uppercase; letter-spacing: .1em; font-size: .65rem; font-weight: 700; }

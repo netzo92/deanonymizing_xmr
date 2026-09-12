@@ -48,7 +48,8 @@ git -C "$repo" archive --format=tar.gz --output "$archive" "$revision" -- \
   autoresearch_results.md autoresearch-results.tsv \
   docs/index.html docs/dashboard.js docs/dashboard.css docs/data.json docs/brain.json \
   docs/brain-view.js docs/brain-view.css docs/research-analytics.js docs/research-analytics.css \
-  docs/evidence-graph.js docs/evidence-graph.css deploy/gcp
+  docs/evidence-graph.js docs/evidence-graph.css docs/feature-audit.js docs/feature-audit.css \
+  docs/feature-audit.json deploy/gcp
 git -C "$repo" show "$revision:deploy/gcp/install-release.sh" > "$temporary/install-release.sh"
 cp "$env_file" "$temporary/collector.env"
 chmod 0600 "$temporary/collector.env"

@@ -33,8 +33,9 @@ verified. The first export completed at 2026-09-12 00:18:30 UTC.
 
 Use these actual resource names when following the deployment guide's examples,
 which otherwise default to `xmr-research`. Verify source provenance through
-`/release.json` and `/opt/xmr/current/REVISION` after deployment; subsequent releases
-update those records. Use the explicit `http://` address until TLS is configured.
+`/release.json` and `/opt/xmr/current/REVISION` for collector runtime, and
+`/ui-release.json` for separately published dashboard/brain revisions and hashes.
+Use the explicit `http://` address until TLS is configured.
 The intended `tracegrove.io` domain is not yet registered or connected.
 
 The first cycle advanced the seeded scan from height 58,900 to 59,900 and exported
@@ -64,6 +65,16 @@ GitHub Pages serves the committed snapshot from `main`'s `docs/` directory. The
 GCP site updates independently as its collector publishes new results. These are
 different publication paths: the collector does not automatically push data to GitHub.
 
+For note/UI changes, [publish-static.sh](../../deploy/gcp/publish-static.sh)
+rebuilds the committed brain and publishes an explicit static allowlist, leaving
+the collector process, runtime release, database, and live data/status exports
+untouched. It checks the collector PID before and after and can reload managed
+nginx routes. [Eleven local tests](../../tests/test_static_publication.py) cover
+the committed payload, provenance, guards, and rollback. The UI manifest records
+asset and brain hashes separately from `/release.json`. Replacements are atomic
+per file; the complete set is not one atomic transaction. See the
+[deployment guide](../../deploy/gcp/README.md) for preparation and publication.
+
 ## Collector cycle
 
 One process owns an advisory database lock. Each cycle reads the node height,
@@ -80,7 +91,8 @@ not establish cryptographic chain validity or repair legacy incomplete records.
 Reorganization recovery remains manual.
 
 `collector-status.json` reports progress/error state; `release.json` identifies
-deployed code. The nginx `/healthz` endpoint establishes only web availability.
+collector code and `ui-release.json` identifies UI code. The nginx `/healthz`
+endpoint establishes only web availability.
 Compare the last scanned block time and observed node lag with the export time;
 a recently written dashboard can still contain historical chain data.
 

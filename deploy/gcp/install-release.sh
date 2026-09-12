@@ -20,7 +20,7 @@ staging=$(mktemp -d /opt/xmr/releases/.staging.XXXXXXXX)
 trap 'rm -rf "$staging"' EXIT
 tar --extract --gzip --file "$archive" --directory "$staging" --no-same-owner
 printf '%s\n' "$revision" > "$staging/REVISION"
-for required in collector.py brain_export.py requirements.txt brain/index.md docs/index.html docs/dashboard.js docs/dashboard.css docs/brain-view.js docs/brain-view.css docs/research-analytics.js docs/research-analytics.css docs/evidence-graph.js docs/evidence-graph.css deploy/gcp/collector.service deploy/gcp/nginx.conf; do
+for required in collector.py brain_export.py requirements.txt brain/index.md docs/index.html docs/dashboard.js docs/dashboard.css docs/brain-view.js docs/brain-view.css docs/research-analytics.js docs/research-analytics.css docs/evidence-graph.js docs/evidence-graph.css docs/feature-audit.js docs/feature-audit.css docs/feature-audit.json deploy/gcp/collector.service deploy/gcp/nginx.conf; do
   [[ -f $staging/$required ]] || { echo "Release is missing $required" >&2; exit 1; }
 done
 python3 "$staging/brain_export.py" --root "$staging" --output "$staging/docs/brain.json"
@@ -94,7 +94,7 @@ fi
 install -o root -g xmr -m 0640 "$env_file" /etc/xmr/collector.env
 ln -sfn "$release" /opt/xmr/current.next
 mv -Tf /opt/xmr/current.next /opt/xmr/current
-for asset in index.html dashboard.js dashboard.css brain.json brain-view.js brain-view.css research-analytics.js research-analytics.css evidence-graph.js evidence-graph.css; do
+for asset in index.html dashboard.js dashboard.css brain.json brain-view.js brain-view.css research-analytics.js research-analytics.css evidence-graph.js evidence-graph.css feature-audit.js feature-audit.css feature-audit.json; do
   install -o xmr -g xmr -m 0644 "$release/docs/$asset" "/var/www/xmr/$asset.next"
   mv -f "/var/www/xmr/$asset.next" "/var/www/xmr/$asset"
 done
@@ -115,6 +115,26 @@ install -m 0644 "$release/deploy/gcp/nginx.conf" /etc/nginx/sites-available/xmr
 ln -sfn /etc/nginx/sites-available/xmr /etc/nginx/sites-enabled/xmr
 rm -f /etc/nginx/sites-enabled/default
 nginx -t
+python3 - "$revision" <<'PY'
+import datetime, hashlib, json, os, pathlib, sys
+web = pathlib.Path('/var/www/xmr')
+assets = ('index.html', 'dashboard.js', 'dashboard.css', 'brain.json',
+          'brain-view.js', 'brain-view.css', 'research-analytics.js', 'research-analytics.css',
+          'evidence-graph.js', 'evidence-graph.css', 'feature-audit.js', 'feature-audit.css', 'feature-audit.json')
+manifest = {
+    'schema_version': 1, 'source_commit': sys.argv[1], 'runtime_source_commit': sys.argv[1],
+    'published_at': datetime.datetime.now(datetime.timezone.utc).isoformat(),
+    'assets': {name: hashlib.sha256((web / name).read_bytes()).hexdigest() for name in assets},
+    'brain_content_sha256': json.loads((web / 'brain.json').read_text())['content_sha256'],
+    'nginx_config_sha256': hashlib.sha256(pathlib.Path('/etc/nginx/sites-available/xmr').read_bytes()).hexdigest(),
+    'publication': 'full_release_atomic_per_file',
+}
+target = web / 'ui-release.json'
+temporary = target.with_suffix('.json.next')
+temporary.write_text(json.dumps(manifest, indent=2) + '\n')
+temporary.chmod(0o644)
+os.replace(temporary, target)
+PY
 systemctl daemon-reload
 systemctl enable --now nginx xmr-collector.service
 systemctl reload nginx

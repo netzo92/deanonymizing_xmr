@@ -1,0 +1,1386 @@
+{
+  "experiment_version": 1,
+  "experiment": "retrospective_original_ring_baselines",
+  "started_at": "2026-09-12T01:59:45.619579+00:00",
+  "finished_at": "2026-09-12T01:59:48.860844+00:00",
+  "source_revision": "acc8ed15c1a406d33ad7b45e50a771892c6599e6",
+  "script_sha256": "d065232a0a8c56acdec586b696b8a918acf80204ddacdafede422352b2cdc668",
+  "provenance_helper_sha256": "43aaa2f321913f458508deadefe134682fe1e3646e9e7e28e677f5814401f1a3",
+  "database_file": "monero_analysis.db",
+  "source_fingerprint_before": {
+    "main_sha256": "80e3dfd2cc18e4201b863590cbe5e76efa23e3bbc4759b0be0f6083c1b8535d2",
+    "wal_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "wal_bytes": 0
+  },
+  "source_fingerprint_after": {
+    "main_sha256": "80e3dfd2cc18e4201b863590cbe5e76efa23e3bbc4759b0be0f6083c1b8535d2",
+    "wal_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "wal_bytes": 0
+  },
+  "persistent_source_files_unchanged": true,
+  "cohort_and_reuse_sha256": "88e205552360821dcf91168c38beb055ee6643cff8f2f2dbd67b45023a75b846",
+  "scan": {
+    "start": 0,
+    "end": 58900,
+    "blocks": 58901,
+    "tail_hash": "b075843a91fae3a3a9a27629503a45f9316ef0b3ecdc31f87e8a1a977e61caa9",
+    "tail_timestamp": 1401197380,
+    "amount_zero_membership_rows": 0
+  },
+  "eligibility": {
+    "deterministic_claims": 561820,
+    "included_rings": 12076,
+    "exclusions": {
+      "missing_members": 0,
+      "invalid_identity": 0,
+      "mixed_amount_buckets": 0,
+      "missing_context": 0,
+      "conflicting_context": 0,
+      "invalid_label": 0,
+      "conflicting_label": 0,
+      "singleton": 549744
+    },
+    "exclusion_policy": "First matching reason in the displayed exclusion order; counts are disjoint."
+  },
+  "reuse_distinct_output_lookups": 39617,
+  "summary": {
+    "rings": 12076,
+    "candidate_rows": 43511,
+    "input_height_min": 3995,
+    "input_height_max": 58899,
+    "baselines": {
+      "uniform": {
+        "rings": 12076,
+        "expected_correct": 4168.551551226551,
+        "expected_correct_exact": {
+          "numerator": "115552249",
+          "denominator": "27720"
+        },
+        "expected_accuracy": 0.34519307313899894,
+        "top_choice_contains_label": 12076,
+        "unique_top_choice_rings": 0,
+        "unique_top_choice_correct": 0,
+        "unique_top_choice_fraction": 0.0,
+        "tie_rings": 12076,
+        "tie_fraction": 1.0,
+        "top_choice_count_histogram": {
+          "2": 4873,
+          "3": 2152,
+          "4": 2346,
+          "5": 187,
+          "6": 2117,
+          "7": 24,
+          "8": 5,
+          "9": 2,
+          "10": 8,
+          "11": 362
+        }
+      },
+      "newest": {
+        "rings": 12076,
+        "expected_correct": 9474.0,
+        "expected_correct_exact": {
+          "numerator": "9474",
+          "denominator": "1"
+        },
+        "expected_accuracy": 0.7845313017555482,
+        "top_choice_contains_label": 9474,
+        "unique_top_choice_rings": 12076,
+        "unique_top_choice_correct": 9474,
+        "unique_top_choice_fraction": 1.0,
+        "tie_rings": 0,
+        "tie_fraction": 0.0,
+        "top_choice_count_histogram": {
+          "1": 12076
+        }
+      },
+      "oldest": {
+        "rings": 12076,
+        "expected_correct": 1316.0,
+        "expected_correct_exact": {
+          "numerator": "1316",
+          "denominator": "1"
+        },
+        "expected_accuracy": 0.10897648227890029,
+        "top_choice_contains_label": 1316,
+        "unique_top_choice_rings": 12076,
+        "unique_top_choice_correct": 1316,
+        "unique_top_choice_fraction": 1.0,
+        "tie_rings": 0,
+        "tie_fraction": 0.0,
+        "top_choice_count_histogram": {
+          "1": 12076
+        }
+      },
+      "minimum_reuse": {
+        "rings": 12076,
+        "expected_correct": 9940.159126984126,
+        "expected_correct_exact": {
+          "numerator": "25049201",
+          "denominator": "2520"
+        },
+        "expected_accuracy": 0.8231334156164398,
+        "top_choice_contains_label": 11032,
+        "unique_top_choice_rings": 9903,
+        "unique_top_choice_correct": 9160,
+        "unique_top_choice_fraction": 0.8200563100364359,
+        "tie_rings": 2173,
+        "tie_fraction": 0.1799436899635641,
+        "top_choice_count_histogram": {
+          "1": 9903,
+          "2": 1329,
+          "3": 502,
+          "4": 202,
+          "5": 83,
+          "6": 38,
+          "7": 12,
+          "8": 4,
+          "9": 2,
+          "10": 1
+        }
+      }
+    }
+  },
+  "by_original_ring_size": [
+    {
+      "original_ring_size": 2,
+      "rings": 4873,
+      "candidate_rows": 9746,
+      "input_height_min": 3995,
+      "input_height_max": 58840,
+      "baselines": {
+        "uniform": {
+          "rings": 4873,
+          "expected_correct": 2436.5,
+          "expected_correct_exact": {
+            "numerator": "4873",
+            "denominator": "2"
+          },
+          "expected_accuracy": 0.5,
+          "top_choice_contains_label": 4873,
+          "unique_top_choice_rings": 0,
+          "unique_top_choice_correct": 0,
+          "unique_top_choice_fraction": 0.0,
+          "tie_rings": 4873,
+          "tie_fraction": 1.0,
+          "top_choice_count_histogram": {
+            "2": 4873
+          }
+        },
+        "newest": {
+          "rings": 4873,
+          "expected_correct": 3822.0,
+          "expected_correct_exact": {
+            "numerator": "3822",
+            "denominator": "1"
+          },
+          "expected_accuracy": 0.7843217730350913,
+          "top_choice_contains_label": 3822,
+          "unique_top_choice_rings": 4873,
+          "unique_top_choice_correct": 3822,
+          "unique_top_choice_fraction": 1.0,
+          "tie_rings": 0,
+          "tie_fraction": 0.0,
+          "top_choice_count_histogram": {
+            "1": 4873
+          }
+        },
+        "oldest": {
+          "rings": 4873,
+          "expected_correct": 1051.0,
+          "expected_correct_exact": {
+            "numerator": "1051",
+            "denominator": "1"
+          },
+          "expected_accuracy": 0.21567822696490868,
+          "top_choice_contains_label": 1051,
+          "unique_top_choice_rings": 4873,
+          "unique_top_choice_correct": 1051,
+          "unique_top_choice_fraction": 1.0,
+          "tie_rings": 0,
+          "tie_fraction": 0.0,
+          "top_choice_count_histogram": {
+            "1": 4873
+          }
+        },
+        "minimum_reuse": {
+          "rings": 4873,
+          "expected_correct": 4162.0,
+          "expected_correct_exact": {
+            "numerator": "4162",
+            "denominator": "1"
+          },
+          "expected_accuracy": 0.8540939872768315,
+          "top_choice_contains_label": 4436,
+          "unique_top_choice_rings": 4325,
+          "unique_top_choice_correct": 3888,
+          "unique_top_choice_fraction": 0.887543607633901,
+          "tie_rings": 548,
+          "tie_fraction": 0.11245639236609892,
+          "top_choice_count_histogram": {
+            "1": 4325,
+            "2": 548
+          }
+        }
+      }
+    },
+    {
+      "original_ring_size": 3,
+      "rings": 2152,
+      "candidate_rows": 6456,
+      "input_height_min": 11954,
+      "input_height_max": 58846,
+      "baselines": {
+        "uniform": {
+          "rings": 2152,
+          "expected_correct": 717.3333333333334,
+          "expected_correct_exact": {
+            "numerator": "2152",
+            "denominator": "3"
+          },
+          "expected_accuracy": 0.3333333333333333,
+          "top_choice_contains_label": 2152,
+          "unique_top_choice_rings": 0,
+          "unique_top_choice_correct": 0,
+          "unique_top_choice_fraction": 0.0,
+          "tie_rings": 2152,
+          "tie_fraction": 1.0,
+          "top_choice_count_histogram": {
+            "3": 2152
+          }
+        },
+        "newest": {
+          "rings": 2152,
+          "expected_correct": 2068.0,
+          "expected_correct_exact": {
+            "numerator": "2068",
+            "denominator": "1"
+          },
+          "expected_accuracy": 0.9609665427509294,
+          "top_choice_contains_label": 2068,
+          "unique_top_choice_rings": 2152,
+          "unique_top_choice_correct": 2068,
+          "unique_top_choice_fraction": 1.0,
+          "tie_rings": 0,
+          "tie_fraction": 0.0,
+          "top_choice_count_histogram": {
+            "1": 2152
+          }
+        },
+        "oldest": {
+          "rings": 2152,
+          "expected_correct": 15.0,
+          "expected_correct_exact": {
+            "numerator": "15",
+            "denominator": "1"
+          },
+          "expected_accuracy": 0.006970260223048327,
+          "top_choice_contains_label": 15,
+          "unique_top_choice_rings": 2152,
+          "unique_top_choice_correct": 15,
+          "unique_top_choice_fraction": 1.0,
+          "tie_rings": 0,
+          "tie_fraction": 0.0,
+          "top_choice_count_histogram": {
+            "1": 2152
+          }
+        },
+        "minimum_reuse": {
+          "rings": 2152,
+          "expected_correct": 2003.5,
+          "expected_correct_exact": {
+            "numerator": "4007",
+            "denominator": "2"
+          },
+          "expected_accuracy": 0.9309944237918215,
+          "top_choice_contains_label": 2123,
+          "unique_top_choice_rings": 1928,
+          "unique_top_choice_correct": 1908,
+          "unique_top_choice_fraction": 0.895910780669145,
+          "tie_rings": 224,
+          "tie_fraction": 0.10408921933085502,
+          "top_choice_count_histogram": {
+            "1": 1928,
+            "2": 152,
+            "3": 72
+          }
+        }
+      }
+    },
+    {
+      "original_ring_size": 4,
+      "rings": 2346,
+      "candidate_rows": 9384,
+      "input_height_min": 16934,
+      "input_height_max": 58899,
+      "baselines": {
+        "uniform": {
+          "rings": 2346,
+          "expected_correct": 586.5,
+          "expected_correct_exact": {
+            "numerator": "1173",
+            "denominator": "2"
+          },
+          "expected_accuracy": 0.25,
+          "top_choice_contains_label": 2346,
+          "unique_top_choice_rings": 0,
+          "unique_top_choice_correct": 0,
+          "unique_top_choice_fraction": 0.0,
+          "tie_rings": 2346,
+          "tie_fraction": 1.0,
+          "top_choice_count_histogram": {
+            "4": 2346
+          }
+        },
+        "newest": {
+          "rings": 2346,
+          "expected_correct": 1511.0,
+          "expected_correct_exact": {
+            "numerator": "1511",
+            "denominator": "1"
+          },
+          "expected_accuracy": 0.644075021312873,
+          "top_choice_contains_label": 1511,
+          "unique_top_choice_rings": 2346,
+          "unique_top_choice_correct": 1511,
+          "unique_top_choice_fraction": 1.0,
+          "tie_rings": 0,
+          "tie_fraction": 0.0,
+          "top_choice_count_histogram": {
+            "1": 2346
+          }
+        },
+        "oldest": {
+          "rings": 2346,
+          "expected_correct": 148.0,
+          "expected_correct_exact": {
+            "numerator": "148",
+            "denominator": "1"
+          },
+          "expected_accuracy": 0.06308610400682012,
+          "top_choice_contains_label": 148,
+          "unique_top_choice_rings": 2346,
+          "unique_top_choice_correct": 148,
+          "unique_top_choice_fraction": 1.0,
+          "tie_rings": 0,
+          "tie_fraction": 0.0,
+          "top_choice_count_histogram": {
+            "1": 2346
+          }
+        },
+        "minimum_reuse": {
+          "rings": 2346,
+          "expected_correct": 1766.3333333333333,
+          "expected_correct_exact": {
+            "numerator": "5299",
+            "denominator": "3"
+          },
+          "expected_accuracy": 0.7529127593066212,
+          "top_choice_contains_label": 2075,
+          "unique_top_choice_rings": 1726,
+          "unique_top_choice_correct": 1551,
+          "unique_top_choice_fraction": 0.7357203751065644,
+          "tie_rings": 620,
+          "tie_fraction": 0.26427962489343565,
+          "top_choice_count_histogram": {
+            "1": 1726,
+            "2": 353,
+            "3": 203,
+            "4": 64
+          }
+        }
+      }
+    },
+    {
+      "original_ring_size": 5,
+      "rings": 187,
+      "candidate_rows": 935,
+      "input_height_min": 14964,
+      "input_height_max": 58894,
+      "baselines": {
+        "uniform": {
+          "rings": 187,
+          "expected_correct": 37.4,
+          "expected_correct_exact": {
+            "numerator": "187",
+            "denominator": "5"
+          },
+          "expected_accuracy": 0.2,
+          "top_choice_contains_label": 187,
+          "unique_top_choice_rings": 0,
+          "unique_top_choice_correct": 0,
+          "unique_top_choice_fraction": 0.0,
+          "tie_rings": 187,
+          "tie_fraction": 1.0,
+          "top_choice_count_histogram": {
+            "5": 187
+          }
+        },
+        "newest": {
+          "rings": 187,
+          "expected_correct": 183.0,
+          "expected_correct_exact": {
+            "numerator": "183",
+            "denominator": "1"
+          },
+          "expected_accuracy": 0.9786096256684492,
+          "top_choice_contains_label": 183,
+          "unique_top_choice_rings": 187,
+          "unique_top_choice_correct": 183,
+          "unique_top_choice_fraction": 1.0,
+          "tie_rings": 0,
+          "tie_fraction": 0.0,
+          "top_choice_count_histogram": {
+            "1": 187
+          }
+        },
+        "oldest": {
+          "rings": 187,
+          "expected_correct": 0.0,
+          "expected_correct_exact": {
+            "numerator": "0",
+            "denominator": "1"
+          },
+          "expected_accuracy": 0.0,
+          "top_choice_contains_label": 0,
+          "unique_top_choice_rings": 187,
+          "unique_top_choice_correct": 0,
+          "unique_top_choice_fraction": 1.0,
+          "tie_rings": 0,
+          "tie_fraction": 0.0,
+          "top_choice_count_histogram": {
+            "1": 187
+          }
+        },
+        "minimum_reuse": {
+          "rings": 187,
+          "expected_correct": 164.9,
+          "expected_correct_exact": {
+            "numerator": "1649",
+            "denominator": "10"
+          },
+          "expected_accuracy": 0.8818181818181818,
+          "top_choice_contains_label": 183,
+          "unique_top_choice_rings": 157,
+          "unique_top_choice_correct": 155,
+          "unique_top_choice_fraction": 0.839572192513369,
+          "tie_rings": 30,
+          "tie_fraction": 0.16042780748663102,
+          "top_choice_count_histogram": {
+            "1": 157,
+            "2": 9,
+            "3": 11,
+            "4": 8,
+            "5": 2
+          }
+        }
+      }
+    },
+    {
+      "original_ring_size": 6,
+      "rings": 2117,
+      "candidate_rows": 12702,
+      "input_height_min": 9946,
+      "input_height_max": 58891,
+      "baselines": {
+        "uniform": {
+          "rings": 2117,
+          "expected_correct": 352.8333333333333,
+          "expected_correct_exact": {
+            "numerator": "2117",
+            "denominator": "6"
+          },
+          "expected_accuracy": 0.16666666666666666,
+          "top_choice_contains_label": 2117,
+          "unique_top_choice_rings": 0,
+          "unique_top_choice_correct": 0,
+          "unique_top_choice_fraction": 0.0,
+          "tie_rings": 2117,
+          "tie_fraction": 1.0,
+          "top_choice_count_histogram": {
+            "6": 2117
+          }
+        },
+        "newest": {
+          "rings": 2117,
+          "expected_correct": 1638.0,
+          "expected_correct_exact": {
+            "numerator": "1638",
+            "denominator": "1"
+          },
+          "expected_accuracy": 0.7737364194615022,
+          "top_choice_contains_label": 1638,
+          "unique_top_choice_rings": 2117,
+          "unique_top_choice_correct": 1638,
+          "unique_top_choice_fraction": 1.0,
+          "tie_rings": 0,
+          "tie_fraction": 0.0,
+          "top_choice_count_histogram": {
+            "1": 2117
+          }
+        },
+        "oldest": {
+          "rings": 2117,
+          "expected_correct": 83.0,
+          "expected_correct_exact": {
+            "numerator": "83",
+            "denominator": "1"
+          },
+          "expected_accuracy": 0.03920642418516769,
+          "top_choice_contains_label": 83,
+          "unique_top_choice_rings": 2117,
+          "unique_top_choice_correct": 83,
+          "unique_top_choice_fraction": 1.0,
+          "tie_rings": 0,
+          "tie_fraction": 0.0,
+          "top_choice_count_histogram": {
+            "1": 2117
+          }
+        },
+        "minimum_reuse": {
+          "rings": 2117,
+          "expected_correct": 1578.8166666666666,
+          "expected_correct_exact": {
+            "numerator": "94729",
+            "denominator": "60"
+          },
+          "expected_accuracy": 0.745780192095733,
+          "top_choice_contains_label": 1869,
+          "unique_top_choice_rings": 1520,
+          "unique_top_choice_correct": 1417,
+          "unique_top_choice_fraction": 0.7179971658006613,
+          "tie_rings": 597,
+          "tie_fraction": 0.2820028341993387,
+          "top_choice_count_histogram": {
+            "1": 1520,
+            "2": 250,
+            "3": 195,
+            "4": 94,
+            "5": 50,
+            "6": 8
+          }
+        }
+      }
+    },
+    {
+      "original_ring_size": 7,
+      "rings": 24,
+      "candidate_rows": 168,
+      "input_height_min": 44483,
+      "input_height_max": 58840,
+      "baselines": {
+        "uniform": {
+          "rings": 24,
+          "expected_correct": 3.4285714285714284,
+          "expected_correct_exact": {
+            "numerator": "24",
+            "denominator": "7"
+          },
+          "expected_accuracy": 0.14285714285714285,
+          "top_choice_contains_label": 24,
+          "unique_top_choice_rings": 0,
+          "unique_top_choice_correct": 0,
+          "unique_top_choice_fraction": 0.0,
+          "tie_rings": 24,
+          "tie_fraction": 1.0,
+          "top_choice_count_histogram": {
+            "7": 24
+          }
+        },
+        "newest": {
+          "rings": 24,
+          "expected_correct": 23.0,
+          "expected_correct_exact": {
+            "numerator": "23",
+            "denominator": "1"
+          },
+          "expected_accuracy": 0.9583333333333334,
+          "top_choice_contains_label": 23,
+          "unique_top_choice_rings": 24,
+          "unique_top_choice_correct": 23,
+          "unique_top_choice_fraction": 1.0,
+          "tie_rings": 0,
+          "tie_fraction": 0.0,
+          "top_choice_count_histogram": {
+            "1": 24
+          }
+        },
+        "oldest": {
+          "rings": 24,
+          "expected_correct": 0.0,
+          "expected_correct_exact": {
+            "numerator": "0",
+            "denominator": "1"
+          },
+          "expected_accuracy": 0.0,
+          "top_choice_contains_label": 0,
+          "unique_top_choice_rings": 24,
+          "unique_top_choice_correct": 0,
+          "unique_top_choice_fraction": 1.0,
+          "tie_rings": 0,
+          "tie_fraction": 0.0,
+          "top_choice_count_histogram": {
+            "1": 24
+          }
+        },
+        "minimum_reuse": {
+          "rings": 24,
+          "expected_correct": 19.9,
+          "expected_correct_exact": {
+            "numerator": "199",
+            "denominator": "10"
+          },
+          "expected_accuracy": 0.8291666666666667,
+          "top_choice_contains_label": 24,
+          "unique_top_choice_rings": 18,
+          "unique_top_choice_correct": 18,
+          "unique_top_choice_fraction": 0.75,
+          "tie_rings": 6,
+          "tie_fraction": 0.25,
+          "top_choice_count_histogram": {
+            "1": 18,
+            "2": 2,
+            "4": 2,
+            "5": 2
+          }
+        }
+      }
+    },
+    {
+      "original_ring_size": 8,
+      "rings": 5,
+      "candidate_rows": 40,
+      "input_height_min": 54338,
+      "input_height_max": 54346,
+      "baselines": {
+        "uniform": {
+          "rings": 5,
+          "expected_correct": 0.625,
+          "expected_correct_exact": {
+            "numerator": "5",
+            "denominator": "8"
+          },
+          "expected_accuracy": 0.125,
+          "top_choice_contains_label": 5,
+          "unique_top_choice_rings": 0,
+          "unique_top_choice_correct": 0,
+          "unique_top_choice_fraction": 0.0,
+          "tie_rings": 5,
+          "tie_fraction": 1.0,
+          "top_choice_count_histogram": {
+            "8": 5
+          }
+        },
+        "newest": {
+          "rings": 5,
+          "expected_correct": 5.0,
+          "expected_correct_exact": {
+            "numerator": "5",
+            "denominator": "1"
+          },
+          "expected_accuracy": 1.0,
+          "top_choice_contains_label": 5,
+          "unique_top_choice_rings": 5,
+          "unique_top_choice_correct": 5,
+          "unique_top_choice_fraction": 1.0,
+          "tie_rings": 0,
+          "tie_fraction": 0.0,
+          "top_choice_count_histogram": {
+            "1": 5
+          }
+        },
+        "oldest": {
+          "rings": 5,
+          "expected_correct": 0.0,
+          "expected_correct_exact": {
+            "numerator": "0",
+            "denominator": "1"
+          },
+          "expected_accuracy": 0.0,
+          "top_choice_contains_label": 0,
+          "unique_top_choice_rings": 5,
+          "unique_top_choice_correct": 0,
+          "unique_top_choice_fraction": 1.0,
+          "tie_rings": 0,
+          "tie_fraction": 0.0,
+          "top_choice_count_histogram": {
+            "1": 5
+          }
+        },
+        "minimum_reuse": {
+          "rings": 5,
+          "expected_correct": 5.0,
+          "expected_correct_exact": {
+            "numerator": "5",
+            "denominator": "1"
+          },
+          "expected_accuracy": 1.0,
+          "top_choice_contains_label": 5,
+          "unique_top_choice_rings": 5,
+          "unique_top_choice_correct": 5,
+          "unique_top_choice_fraction": 1.0,
+          "tie_rings": 0,
+          "tie_fraction": 0.0,
+          "top_choice_count_histogram": {
+            "1": 5
+          }
+        }
+      }
+    },
+    {
+      "original_ring_size": 9,
+      "rings": 2,
+      "candidate_rows": 18,
+      "input_height_min": 51683,
+      "input_height_max": 51683,
+      "baselines": {
+        "uniform": {
+          "rings": 2,
+          "expected_correct": 0.2222222222222222,
+          "expected_correct_exact": {
+            "numerator": "2",
+            "denominator": "9"
+          },
+          "expected_accuracy": 0.1111111111111111,
+          "top_choice_contains_label": 2,
+          "unique_top_choice_rings": 0,
+          "unique_top_choice_correct": 0,
+          "unique_top_choice_fraction": 0.0,
+          "tie_rings": 2,
+          "tie_fraction": 1.0,
+          "top_choice_count_histogram": {
+            "9": 2
+          }
+        },
+        "newest": {
+          "rings": 2,
+          "expected_correct": 2.0,
+          "expected_correct_exact": {
+            "numerator": "2",
+            "denominator": "1"
+          },
+          "expected_accuracy": 1.0,
+          "top_choice_contains_label": 2,
+          "unique_top_choice_rings": 2,
+          "unique_top_choice_correct": 2,
+          "unique_top_choice_fraction": 1.0,
+          "tie_rings": 0,
+          "tie_fraction": 0.0,
+          "top_choice_count_histogram": {
+            "1": 2
+          }
+        },
+        "oldest": {
+          "rings": 2,
+          "expected_correct": 0.0,
+          "expected_correct_exact": {
+            "numerator": "0",
+            "denominator": "1"
+          },
+          "expected_accuracy": 0.0,
+          "top_choice_contains_label": 0,
+          "unique_top_choice_rings": 2,
+          "unique_top_choice_correct": 0,
+          "unique_top_choice_fraction": 1.0,
+          "tie_rings": 0,
+          "tie_fraction": 0.0,
+          "top_choice_count_histogram": {
+            "1": 2
+          }
+        },
+        "minimum_reuse": {
+          "rings": 2,
+          "expected_correct": 2.0,
+          "expected_correct_exact": {
+            "numerator": "2",
+            "denominator": "1"
+          },
+          "expected_accuracy": 1.0,
+          "top_choice_contains_label": 2,
+          "unique_top_choice_rings": 2,
+          "unique_top_choice_correct": 2,
+          "unique_top_choice_fraction": 1.0,
+          "tie_rings": 0,
+          "tie_fraction": 0.0,
+          "top_choice_count_histogram": {
+            "1": 2
+          }
+        }
+      }
+    },
+    {
+      "original_ring_size": 10,
+      "rings": 8,
+      "candidate_rows": 80,
+      "input_height_min": 46747,
+      "input_height_max": 46749,
+      "baselines": {
+        "uniform": {
+          "rings": 8,
+          "expected_correct": 0.8,
+          "expected_correct_exact": {
+            "numerator": "4",
+            "denominator": "5"
+          },
+          "expected_accuracy": 0.1,
+          "top_choice_contains_label": 8,
+          "unique_top_choice_rings": 0,
+          "unique_top_choice_correct": 0,
+          "unique_top_choice_fraction": 0.0,
+          "tie_rings": 8,
+          "tie_fraction": 1.0,
+          "top_choice_count_histogram": {
+            "10": 8
+          }
+        },
+        "newest": {
+          "rings": 8,
+          "expected_correct": 0.0,
+          "expected_correct_exact": {
+            "numerator": "0",
+            "denominator": "1"
+          },
+          "expected_accuracy": 0.0,
+          "top_choice_contains_label": 0,
+          "unique_top_choice_rings": 8,
+          "unique_top_choice_correct": 0,
+          "unique_top_choice_fraction": 1.0,
+          "tie_rings": 0,
+          "tie_fraction": 0.0,
+          "top_choice_count_histogram": {
+            "1": 8
+          }
+        },
+        "oldest": {
+          "rings": 8,
+          "expected_correct": 4.0,
+          "expected_correct_exact": {
+            "numerator": "4",
+            "denominator": "1"
+          },
+          "expected_accuracy": 0.5,
+          "top_choice_contains_label": 4,
+          "unique_top_choice_rings": 8,
+          "unique_top_choice_correct": 4,
+          "unique_top_choice_fraction": 1.0,
+          "tie_rings": 0,
+          "tie_fraction": 0.0,
+          "top_choice_count_histogram": {
+            "1": 8
+          }
+        },
+        "minimum_reuse": {
+          "rings": 8,
+          "expected_correct": 3.566666666666667,
+          "expected_correct_exact": {
+            "numerator": "107",
+            "denominator": "30"
+          },
+          "expected_accuracy": 0.44583333333333336,
+          "top_choice_contains_label": 6,
+          "unique_top_choice_rings": 3,
+          "unique_top_choice_correct": 3,
+          "unique_top_choice_fraction": 0.375,
+          "tie_rings": 5,
+          "tie_fraction": 0.625,
+          "top_choice_count_histogram": {
+            "1": 3,
+            "4": 1,
+            "5": 3,
+            "6": 1
+          }
+        }
+      }
+    },
+    {
+      "original_ring_size": 11,
+      "rings": 362,
+      "candidate_rows": 3982,
+      "input_height_min": 15051,
+      "input_height_max": 58247,
+      "baselines": {
+        "uniform": {
+          "rings": 362,
+          "expected_correct": 32.90909090909091,
+          "expected_correct_exact": {
+            "numerator": "362",
+            "denominator": "11"
+          },
+          "expected_accuracy": 0.09090909090909091,
+          "top_choice_contains_label": 362,
+          "unique_top_choice_rings": 0,
+          "unique_top_choice_correct": 0,
+          "unique_top_choice_fraction": 0.0,
+          "tie_rings": 362,
+          "tie_fraction": 1.0,
+          "top_choice_count_histogram": {
+            "11": 362
+          }
+        },
+        "newest": {
+          "rings": 362,
+          "expected_correct": 222.0,
+          "expected_correct_exact": {
+            "numerator": "222",
+            "denominator": "1"
+          },
+          "expected_accuracy": 0.6132596685082873,
+          "top_choice_contains_label": 222,
+          "unique_top_choice_rings": 362,
+          "unique_top_choice_correct": 222,
+          "unique_top_choice_fraction": 1.0,
+          "tie_rings": 0,
+          "tie_fraction": 0.0,
+          "top_choice_count_histogram": {
+            "1": 362
+          }
+        },
+        "oldest": {
+          "rings": 362,
+          "expected_correct": 15.0,
+          "expected_correct_exact": {
+            "numerator": "15",
+            "denominator": "1"
+          },
+          "expected_accuracy": 0.04143646408839779,
+          "top_choice_contains_label": 15,
+          "unique_top_choice_rings": 362,
+          "unique_top_choice_correct": 15,
+          "unique_top_choice_fraction": 1.0,
+          "tie_rings": 0,
+          "tie_fraction": 0.0,
+          "top_choice_count_histogram": {
+            "1": 362
+          }
+        },
+        "minimum_reuse": {
+          "rings": 362,
+          "expected_correct": 234.14246031746032,
+          "expected_correct_exact": {
+            "numerator": "590039",
+            "denominator": "2520"
+          },
+          "expected_accuracy": 0.6468023765675699,
+          "top_choice_contains_label": 309,
+          "unique_top_choice_rings": 219,
+          "unique_top_choice_correct": 213,
+          "unique_top_choice_fraction": 0.6049723756906077,
+          "tie_rings": 143,
+          "tie_fraction": 0.39502762430939226,
+          "top_choice_count_histogram": {
+            "1": 219,
+            "2": 15,
+            "3": 21,
+            "4": 33,
+            "5": 26,
+            "6": 29,
+            "7": 12,
+            "8": 4,
+            "9": 2,
+            "10": 1
+          }
+        }
+      }
+    }
+  ],
+  "chronological_quartiles": [
+    {
+      "quartile": 1,
+      "rings": 3019,
+      "candidate_rows": 10597,
+      "input_height_min": 3995,
+      "input_height_max": 29345,
+      "baselines": {
+        "uniform": {
+          "rings": 3019,
+          "expected_correct": 1008.8469696969697,
+          "expected_correct_exact": {
+            "numerator": "665839",
+            "denominator": "660"
+          },
+          "expected_accuracy": 0.3341659389522921,
+          "top_choice_contains_label": 3019,
+          "unique_top_choice_rings": 0,
+          "unique_top_choice_correct": 0,
+          "unique_top_choice_fraction": 0.0,
+          "tie_rings": 3019,
+          "tie_fraction": 1.0,
+          "top_choice_count_histogram": {
+            "2": 1148,
+            "3": 15,
+            "4": 1449,
+            "5": 2,
+            "6": 401,
+            "11": 4
+          }
+        },
+        "newest": {
+          "rings": 3019,
+          "expected_correct": 2002.0,
+          "expected_correct_exact": {
+            "numerator": "2002",
+            "denominator": "1"
+          },
+          "expected_accuracy": 0.6631334879099039,
+          "top_choice_contains_label": 2002,
+          "unique_top_choice_rings": 3019,
+          "unique_top_choice_correct": 2002,
+          "unique_top_choice_fraction": 1.0,
+          "tie_rings": 0,
+          "tie_fraction": 0.0,
+          "top_choice_count_histogram": {
+            "1": 3019
+          }
+        },
+        "oldest": {
+          "rings": 3019,
+          "expected_correct": 316.0,
+          "expected_correct_exact": {
+            "numerator": "316",
+            "denominator": "1"
+          },
+          "expected_accuracy": 0.10467042066909572,
+          "top_choice_contains_label": 316,
+          "unique_top_choice_rings": 3019,
+          "unique_top_choice_correct": 316,
+          "unique_top_choice_fraction": 1.0,
+          "tie_rings": 0,
+          "tie_fraction": 0.0,
+          "top_choice_count_histogram": {
+            "1": 3019
+          }
+        },
+        "minimum_reuse": {
+          "rings": 3019,
+          "expected_correct": 2118.15,
+          "expected_correct_exact": {
+            "numerator": "42363",
+            "denominator": "20"
+          },
+          "expected_accuracy": 0.7016064922159656,
+          "top_choice_contains_label": 2511,
+          "unique_top_choice_rings": 2175,
+          "unique_top_choice_correct": 1821,
+          "unique_top_choice_fraction": 0.7204372308711494,
+          "tie_rings": 844,
+          "tie_fraction": 0.2795627691288506,
+          "top_choice_count_histogram": {
+            "1": 2175,
+            "2": 556,
+            "3": 214,
+            "4": 59,
+            "5": 12,
+            "6": 3
+          }
+        }
+      }
+    },
+    {
+      "quartile": 2,
+      "rings": 3019,
+      "candidate_rows": 14423,
+      "input_height_min": 29345,
+      "input_height_max": 48365,
+      "baselines": {
+        "uniform": {
+          "rings": 3019,
+          "expected_correct": 885.084632034632,
+          "expected_correct_exact": {
+            "numerator": "4089091",
+            "denominator": "4620"
+          },
+          "expected_accuracy": 0.29317145811017953,
+          "top_choice_contains_label": 3019,
+          "unique_top_choice_rings": 0,
+          "unique_top_choice_correct": 0,
+          "unique_top_choice_fraction": 0.0,
+          "tie_rings": 3019,
+          "tie_fraction": 1.0,
+          "top_choice_count_histogram": {
+            "2": 1123,
+            "3": 78,
+            "4": 191,
+            "5": 15,
+            "6": 1316,
+            "7": 10,
+            "10": 8,
+            "11": 278
+          }
+        },
+        "newest": {
+          "rings": 3019,
+          "expected_correct": 2064.0,
+          "expected_correct_exact": {
+            "numerator": "2064",
+            "denominator": "1"
+          },
+          "expected_accuracy": 0.6836700894335873,
+          "top_choice_contains_label": 2064,
+          "unique_top_choice_rings": 3019,
+          "unique_top_choice_correct": 2064,
+          "unique_top_choice_fraction": 1.0,
+          "tie_rings": 0,
+          "tie_fraction": 0.0,
+          "top_choice_count_histogram": {
+            "1": 3019
+          }
+        },
+        "oldest": {
+          "rings": 3019,
+          "expected_correct": 640.0,
+          "expected_correct_exact": {
+            "numerator": "640",
+            "denominator": "1"
+          },
+          "expected_accuracy": 0.2119907254057635,
+          "top_choice_contains_label": 640,
+          "unique_top_choice_rings": 3019,
+          "unique_top_choice_correct": 640,
+          "unique_top_choice_fraction": 1.0,
+          "tie_rings": 0,
+          "tie_fraction": 0.0,
+          "top_choice_count_histogram": {
+            "1": 3019
+          }
+        },
+        "minimum_reuse": {
+          "rings": 3019,
+          "expected_correct": 2234.3194444444443,
+          "expected_correct_exact": {
+            "numerator": "160871",
+            "denominator": "72"
+          },
+          "expected_accuracy": 0.7400859372124692,
+          "top_choice_contains_label": 2631,
+          "unique_top_choice_rings": 2239,
+          "unique_top_choice_correct": 1970,
+          "unique_top_choice_fraction": 0.7416363034117257,
+          "tie_rings": 780,
+          "tie_fraction": 0.25836369658827424,
+          "top_choice_count_histogram": {
+            "1": 2239,
+            "2": 438,
+            "3": 152,
+            "4": 100,
+            "5": 56,
+            "6": 24,
+            "7": 8,
+            "8": 1,
+            "9": 1
+          }
+        }
+      }
+    },
+    {
+      "quartile": 3,
+      "rings": 3019,
+      "candidate_rows": 10828,
+      "input_height_min": 48365,
+      "input_height_max": 55251,
+      "baselines": {
+        "uniform": {
+          "rings": 3019,
+          "expected_correct": 985.263455988456,
+          "expected_correct_exact": {
+            "numerator": "27311503",
+            "denominator": "27720"
+          },
+          "expected_accuracy": 0.32635424179809736,
+          "top_choice_contains_label": 3019,
+          "unique_top_choice_rings": 0,
+          "unique_top_choice_correct": 0,
+          "unique_top_choice_fraction": 0.0,
+          "tie_rings": 3019,
+          "tie_fraction": 1.0,
+          "top_choice_count_histogram": {
+            "2": 769,
+            "3": 1021,
+            "4": 667,
+            "5": 167,
+            "6": 310,
+            "7": 13,
+            "8": 5,
+            "9": 2,
+            "11": 65
+          }
+        },
+        "newest": {
+          "rings": 3019,
+          "expected_correct": 2463.0,
+          "expected_correct_exact": {
+            "numerator": "2463",
+            "denominator": "1"
+          },
+          "expected_accuracy": 0.815833057303743,
+          "top_choice_contains_label": 2463,
+          "unique_top_choice_rings": 3019,
+          "unique_top_choice_correct": 2463,
+          "unique_top_choice_fraction": 1.0,
+          "tie_rings": 0,
+          "tie_fraction": 0.0,
+          "top_choice_count_histogram": {
+            "1": 3019
+          }
+        },
+        "oldest": {
+          "rings": 3019,
+          "expected_correct": 333.0,
+          "expected_correct_exact": {
+            "numerator": "333",
+            "denominator": "1"
+          },
+          "expected_accuracy": 0.11030142431268632,
+          "top_choice_contains_label": 333,
+          "unique_top_choice_rings": 3019,
+          "unique_top_choice_correct": 333,
+          "unique_top_choice_fraction": 1.0,
+          "tie_rings": 0,
+          "tie_fraction": 0.0,
+          "top_choice_count_histogram": {
+            "1": 3019
+          }
+        },
+        "minimum_reuse": {
+          "rings": 3019,
+          "expected_correct": 2633.1694444444443,
+          "expected_correct_exact": {
+            "numerator": "947941",
+            "denominator": "360"
+          },
+          "expected_accuracy": 0.8721992197563578,
+          "top_choice_contains_label": 2879,
+          "unique_top_choice_rings": 2572,
+          "unique_top_choice_correct": 2457,
+          "unique_top_choice_fraction": 0.851937727724412,
+          "tie_rings": 447,
+          "tie_fraction": 0.14806227227558794,
+          "top_choice_count_histogram": {
+            "1": 2572,
+            "2": 267,
+            "3": 113,
+            "4": 43,
+            "5": 14,
+            "6": 7,
+            "7": 1,
+            "8": 1,
+            "9": 1
+          }
+        }
+      }
+    },
+    {
+      "quartile": 4,
+      "rings": 3019,
+      "candidate_rows": 7663,
+      "input_height_min": 55251,
+      "input_height_max": 58899,
+      "baselines": {
+        "uniform": {
+          "rings": 3019,
+          "expected_correct": 1289.3564935064935,
+          "expected_correct_exact": {
+            "numerator": "1985609",
+            "denominator": "1540"
+          },
+          "expected_accuracy": 0.4270806536954268,
+          "top_choice_contains_label": 3019,
+          "unique_top_choice_rings": 0,
+          "unique_top_choice_correct": 0,
+          "unique_top_choice_fraction": 0.0,
+          "tie_rings": 3019,
+          "tie_fraction": 1.0,
+          "top_choice_count_histogram": {
+            "2": 1833,
+            "3": 1038,
+            "4": 39,
+            "5": 3,
+            "6": 90,
+            "7": 1,
+            "11": 15
+          }
+        },
+        "newest": {
+          "rings": 3019,
+          "expected_correct": 2945.0,
+          "expected_correct_exact": {
+            "numerator": "2945",
+            "denominator": "1"
+          },
+          "expected_accuracy": 0.9754885723749586,
+          "top_choice_contains_label": 2945,
+          "unique_top_choice_rings": 3019,
+          "unique_top_choice_correct": 2945,
+          "unique_top_choice_fraction": 1.0,
+          "tie_rings": 0,
+          "tie_fraction": 0.0,
+          "top_choice_count_histogram": {
+            "1": 3019
+          }
+        },
+        "oldest": {
+          "rings": 3019,
+          "expected_correct": 27.0,
+          "expected_correct_exact": {
+            "numerator": "27",
+            "denominator": "1"
+          },
+          "expected_accuracy": 0.008943358728055647,
+          "top_choice_contains_label": 27,
+          "unique_top_choice_rings": 3019,
+          "unique_top_choice_correct": 27,
+          "unique_top_choice_fraction": 1.0,
+          "tie_rings": 0,
+          "tie_fraction": 0.0,
+          "top_choice_count_histogram": {
+            "1": 3019
+          }
+        },
+        "minimum_reuse": {
+          "rings": 3019,
+          "expected_correct": 2954.5202380952383,
+          "expected_correct_exact": {
+            "numerator": "2481797",
+            "denominator": "840"
+          },
+          "expected_accuracy": 0.9786420132809666,
+          "top_choice_contains_label": 3011,
+          "unique_top_choice_rings": 2917,
+          "unique_top_choice_correct": 2912,
+          "unique_top_choice_fraction": 0.9662139781384564,
+          "tie_rings": 102,
+          "tie_fraction": 0.03378602186154356,
+          "top_choice_count_histogram": {
+            "1": 2917,
+            "2": 68,
+            "3": 23,
+            "5": 1,
+            "6": 4,
+            "7": 3,
+            "8": 2,
+            "10": 1
+          }
+        }
+      }
+    }
+  ],
+  "timing_seconds": {
+    "load_rings": 2.753,
+    "reuse_counts": 0.175,
+    "total": 3.382
+  },
+  "methods": {
+    "tie_credit": "1/k expected correct if the current label is among k equally preferred candidates; zero otherwise; no index tiebreak.",
+    "uniform": "Uniform choice among all n original members; expected accuracy 1/n for each valid ring.",
+    "newest": "Highest output index within the ring's single amount bucket; not measured creation time.",
+    "oldest": "Lowest output index within the ring's single amount bucket; not measured creation time.",
+    "minimum_reuse": "Fewest distinct original input rings referencing (amount,index) in the whole snapshot, including self.",
+    "quartiles": "Sort eligible rings by (input height, transaction hash, key image); assign floor(4*rank/N)+1. A boundary may split a block/transaction."
+  },
+  "limitations": [
+    "Retrospective agreement with current stored deterministic labels, not independent ground truth or forward accuracy.",
+    "All features and labels use the supplied full snapshot; historical label availability is unknown.",
+    "Only deterministically resolved original multi-member rings are included; results do not estimate performance on unresolved rings.",
+    "Chronological quartiles are descriptive cohorts, not training/test splits; related rings are not independent samples.",
+    "No retraining, calibration, confidence intervals, RPC, wallet attribution, or source database mutations are performed."
+  ]
+}

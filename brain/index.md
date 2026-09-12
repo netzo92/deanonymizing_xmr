@@ -39,6 +39,7 @@ source links. Loading every page is unnecessary for most tasks.
 - New knowledge or conflicting notes → [maintenance](workflows/maintenance.md).
 - Future predictions → [prediction experiments](research/predictions.md) and [grouping research](research/groupings.md).
 - Measured improvement opportunity → [output-origin audit](research/output-origin-audit.md) and its follow-up experiments.
+- Feature diagnostics and comparison methods → [feature variation](research/feature-variation-audit.md) and [historical baselines](research/heuristic-baselines.md).
 - Visual notes, TODOs, and analytics → [workspace guide](workflows/research-workspace.md).
 
 Sources: [project README](../README.md), [CLI](../main.py),

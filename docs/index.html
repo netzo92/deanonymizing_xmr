@@ -10,10 +10,12 @@
     <link rel="stylesheet" href="brain-view.css">
     <link rel="stylesheet" href="research-analytics.css">
     <link rel="stylesheet" href="evidence-graph.css">
+    <link rel="stylesheet" href="feature-audit.css">
     <script async id="chart-library" src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script defer src="brain-view.js"></script>
     <script defer src="research-analytics.js"></script>
     <script defer src="evidence-graph.js"></script>
+    <script defer src="feature-audit.js"></script>
     <script defer src="dashboard.js"></script>
 </head>
 <body>
@@ -30,6 +32,7 @@
         <a href="#app">Overview</a>
         <a href="#knowledge-brain">Research brain</a>
         <a href="#analytics-lab">Analytics lab</a>
+        <a href="#feature-observatory">Feature audit</a>
         <a href="#predictions">Predictions</a>
         <a href="#evidence-inspector">Evidence graph</a>
     </nav>
@@ -37,10 +40,14 @@
         <div class="workspace-portals">
             <a href="#knowledge-brain"><span class="portal-kicker">Connected knowledge</span><strong>Explore the research brain ↗</strong><span>Methods, evidence, TODOs, and the next experiments.</span></a>
             <a href="#analytics-lab"><span class="portal-kicker">Ask better questions</span><strong>Open the analytics lab ↗</strong><span>Compare thresholds, cohorts, ambiguity, and what is still unknown.</span></a>
+            <a href="#feature-observatory"><span class="portal-kicker">Measured experiments</span><strong>Inspect the feature audit ↗</strong><span>See constant features, duplicate signals, and differences between cohorts.</span></a>
         </div>
         <div id="app" tabindex="-1" aria-busy="true">
             <div class="empty-state" role="status">Loading analysis export…</div>
         </div>
+        <section id="feature-observatory" tabindex="-1" aria-label="Feature observatory" aria-busy="true">
+            <p class="empty-state">Loading the frozen feature audit…</p>
+        </section>
         <section id="knowledge-brain" tabindex="-1" aria-label="Research brain" aria-busy="true">
             <p class="empty-state">Loading the research brain…</p>
         </section>
