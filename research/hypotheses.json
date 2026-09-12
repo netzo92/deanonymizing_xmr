@@ -1,0 +1,2629 @@
+{
+  "schema_version": 1,
+  "reviewed_at": "2026-09-12",
+  "scope": "Curated review of all canonical brain/research checklist tasks, their explicit experimental ideas, the completed frozen measurements, and historical model-search records. Related tasks may map to the same claim; engineering work is kept distinct from falsifiable research.",
+  "policy": [
+    "Execution status describes work; outcome describes evidence for the question. A closed engineering task never counts as a supported research hypothesis.",
+    "Supported/refuted applies only to the stated frozen scope. Untested means no qualifying test; inconclusive means available observations do not settle the stated question. Deferred records a work decision, not a negative finding.",
+    "Historical conditional labels, current structural observations and controlled/independent validation are separate evidence sources. No modern real-spend accuracy, address recovery or common ownership has been validated by these studies.",
+    "Reviewed date is this ledger review, not a fabricated task-creation, closure or experiment date. Study timestamps are taken only from saved artifacts.",
+    "Questions summarize the existing notes and recorded studies; their wording does not imply a preregistered hypothesis or experimental protocol."
+  ],
+  "execution_statuses": [
+    "not_started",
+    "in_progress",
+    "completed",
+    "deferred"
+  ],
+  "outcomes": [
+    "untested",
+    "supported",
+    "refuted",
+    "inconclusive",
+    "not_applicable"
+  ],
+  "entries": [
+    {
+      "id": "origin-rpc-feasibility",
+      "kind": "measurement",
+      "question": "Did exact historical output references return usable origin metadata in the frozen sample?",
+      "task_refs": [
+        {
+          "id": "brain/research/heuristic-experiments.md#HE1",
+          "note_id": "brain/research/heuristic-experiments.md",
+          "code": "HE1",
+          "title": "HE1 — Output-origin joins (P0)."
+        },
+        {
+          "id": "brain/research/groupings.md#G5",
+          "note_id": "brain/research/groupings.md",
+          "code": "G5",
+          "title": "G5 — Output origins and controlled labels (P2)."
+        },
+        {
+          "id": "brain/research/upstream-heuristics.md#UA2",
+          "note_id": "brain/research/upstream-heuristics.md",
+          "code": "UA2",
+          "title": "UA2 — Generalize the origin RPC/cache interface (supports HE1/EA2)."
+        }
+      ],
+      "execution_status": "completed",
+      "outcome": "supported",
+      "theoretical_conclusion": "Exact (amount, index) origins can provide creation-height features; a returned origin does not identify the real ring member or an owner.",
+      "measured_conclusion": "All 40 requests returned creation heights and transaction IDs; no returned height exceeded its earliest stored reference. Ages were 15–41,150 blocks (median 3,857.5). One RPC and v1 WAL limitations prevent a completeness or independent-validation claim.",
+      "remaining": [
+        "Complete the production origin join/cache and independent consistency checks under HE1/UA2."
+      ],
+      "sources": [
+        {
+          "label": "heuristic-experiments.md",
+          "path": "brain/research/heuristic-experiments.md"
+        },
+        {
+          "label": "groupings.md",
+          "path": "brain/research/groupings.md"
+        },
+        {
+          "label": "upstream-heuristics.md",
+          "path": "brain/research/upstream-heuristics.md"
+        },
+        {
+          "label": "output-origin-audit.md",
+          "path": "brain/research/output-origin-audit.md"
+        },
+        {
+          "label": "output_origin_audit_v1.py",
+          "path": "research/output_origin_audit_v1.py"
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/results/output_origins_2026-09-11.json",
+          "sha256": "9a9daf738b93a8a957e3ebeafbf4677de0c5c3127f72b3bbbad2a9c5ba4685d5",
+          "observed_at": "2026-09-12T00:13:49.395101+00:00",
+          "scope": "Fixed stratified sample of nonzero-amount output references from heights 0–58,900; one external RPC; v1 did not fingerprint WAL state.",
+          "denominators": {
+            "sampled_output_contexts": 40,
+            "returned_outputs": 40
+          },
+          "denominator_fields": {
+            "sampled_output_contexts": "/summary/sampled_contexts",
+            "returned_outputs": "/summary/returned_outputs"
+          },
+          "run_id": "output-origin-audit-v1",
+          "source_commit": "dde2fa5cdff7b895f12ab17c81440717c15ff0bb"
+        }
+      ]
+    },
+    {
+      "id": "legacy-gamma-variation",
+      "kind": "hypothesis",
+      "question": "Do the current legacy gamma features distinguish measured output ages in the audited contexts?",
+      "task_refs": [
+        {
+          "id": "brain/research/output-origin-audit.md#EA1",
+          "note_id": "brain/research/output-origin-audit.md",
+          "code": "EA1",
+          "title": "EA1 — Constant-feature audit."
+        }
+      ],
+      "execution_status": "completed",
+      "outcome": "refuted",
+      "theoretical_conclusion": "The nonzero-amount branch maps relative index position into a 0–15-block recent window, which always returns constants. This refutes age discrimination by those three features in this branch; it does not refute every age feature.",
+      "measured_conclusion": "All 40 origin contexts produced one identical gamma-feature triple although 39 measured ages exceeded 15 blocks. EA1 independently found the three gamma columns constant over 14,280 legacy candidate rows. No repair or accuracy gain was tested.",
+      "remaining": [
+        "Measure any replacement with a new feature version and frozen ablation (EA2)."
+      ],
+      "sources": [
+        {
+          "label": "output-origin-audit.md",
+          "path": "brain/research/output-origin-audit.md"
+        },
+        {
+          "label": "scorer.py",
+          "path": "scorer.py"
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/results/output_origins_2026-09-11.json",
+          "sha256": "9a9daf738b93a8a957e3ebeafbf4677de0c5c3127f72b3bbbad2a9c5ba4685d5",
+          "observed_at": "2026-09-12T00:13:49.395101+00:00",
+          "scope": "Fixed stratified sample of nonzero-amount output references from heights 0–58,900; one external RPC; v1 did not fingerprint WAL state.",
+          "denominators": {
+            "sampled_output_contexts": 40,
+            "returned_outputs": 40
+          },
+          "denominator_fields": {
+            "sampled_output_contexts": "/summary/sampled_contexts",
+            "returned_outputs": "/summary/returned_outputs"
+          },
+          "run_id": "output-origin-audit-v1",
+          "source_commit": "dde2fa5cdff7b895f12ab17c81440717c15ff0bb"
+        },
+        {
+          "path": "research/results/feature_variation_2026-09-11.json",
+          "sha256": "b450be6b96aa91d0744f36cd54a2401e3158e97e8ab3b4220aa032eed44db7bc",
+          "observed_at": "2026-09-12T01:58:30.608117+00:00",
+          "scope": "Balanced legacy sample; 810 original training rings and 1,190 surviving-candidate scoring rings; whole-snapshot features; no modern/amount-zero cohort.",
+          "denominators": {
+            "rings": 2000,
+            "candidate_rows": 14280
+          },
+          "denominator_fields": {
+            "rings": "/sampling/sampled_rings",
+            "candidate_rows": "/sampling/sampled_candidates"
+          },
+          "run_id": "EA1",
+          "source_commit": "acc8ed15c1a406d33ad7b45e50a771892c6599e6"
+        }
+      ]
+    },
+    {
+      "id": "feature-variation",
+      "kind": "measurement",
+      "question": "Which feature columns vary, duplicate one another, or encode tied reuse order in the legacy sample?",
+      "task_refs": [
+        {
+          "id": "brain/research/output-origin-audit.md#EA1",
+          "note_id": "brain/research/output-origin-audit.md",
+          "code": "EA1",
+          "title": "EA1 — Constant-feature audit."
+        }
+      ],
+      "execution_status": "completed",
+      "outcome": "supported",
+      "theoretical_conclusion": "Constant and duplicate columns motivate a paired ablation; constant-within-ring context can still have predictive interactions. Index-ordered reuse ties can introduce an age-order signal.",
+      "measured_conclusion": "The 2,000-ring / 14,280-candidate sample had 24 finite feature columns, four constant columns and four exact duplicate pairs. Reuse ties occurred in 1,398 rings, including 169 all-tied rings. This is a stratified description, not a population-weighted estimate or performance test.",
+      "remaining": [
+        "Test masks and alternative ties separately through FA2 and FA3."
+      ],
+      "sources": [
+        {
+          "label": "output-origin-audit.md",
+          "path": "brain/research/output-origin-audit.md"
+        },
+        {
+          "label": "feature-variation-audit.md",
+          "path": "brain/research/feature-variation-audit.md"
+        },
+        {
+          "label": "feature_variation_audit.py",
+          "path": "research/feature_variation_audit.py"
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/results/feature_variation_2026-09-11.json",
+          "sha256": "b450be6b96aa91d0744f36cd54a2401e3158e97e8ab3b4220aa032eed44db7bc",
+          "observed_at": "2026-09-12T01:58:30.608117+00:00",
+          "scope": "Balanced legacy sample; 810 original training rings and 1,190 surviving-candidate scoring rings; whole-snapshot features; no modern/amount-zero cohort.",
+          "denominators": {
+            "rings": 2000,
+            "candidate_rows": 14280
+          },
+          "denominator_fields": {
+            "rings": "/sampling/sampled_rings",
+            "candidate_rows": "/sampling/sampled_candidates"
+          },
+          "run_id": "EA1",
+          "source_commit": "acc8ed15c1a406d33ad7b45e50a771892c6599e6"
+        }
+      ]
+    },
+    {
+      "id": "retrospective-simple-baselines",
+      "kind": "measurement",
+      "question": "How do simple selection rules agree with existing labels on the same historical resolved rings?",
+      "task_refs": [
+        {
+          "id": "brain/research/predictions.md#P4",
+          "note_id": "brain/research/predictions.md",
+          "code": "P4",
+          "title": "P4 — Baselines and ablations (P2; depends on P2)."
+        },
+        {
+          "id": "brain/research/heuristic-experiments.md#HE2",
+          "note_id": "brain/research/heuristic-experiments.md",
+          "code": "HE2",
+          "title": "HE2 — Age baselines and ablation (P1)."
+        },
+        {
+          "id": "brain/research/heuristic-baselines.md#HB2",
+          "note_id": "brain/research/heuristic-baselines.md",
+          "code": "HB2",
+          "title": "HB2 — Prediction-time reuse baseline (P1; depends on evidence history)."
+        }
+      ],
+      "execution_status": "completed",
+      "outcome": "supported",
+      "theoretical_conclusion": "Matched rules make a retrospective comparison possible. Selective labels, related rings and future reuse prevent interpreting agreement as unbiased forward accuracy.",
+      "measured_conclusion": "Across 12,076 already-resolved multi-member rings, expected agreement was uniform 34.5193%, highest index 78.4531%, lowest index 10.8976%, and minimum reuse 82.3133%. All used original candidates; tied choices receive fractional 1/k credit. No model was trained.",
+      "remaining": [
+        "Repeat using prediction-time memberships/labels and predeclared graph-aware temporal tests."
+      ],
+      "sources": [
+        {
+          "label": "predictions.md",
+          "path": "brain/research/predictions.md"
+        },
+        {
+          "label": "heuristic-experiments.md",
+          "path": "brain/research/heuristic-experiments.md"
+        },
+        {
+          "label": "heuristic-baselines.md",
+          "path": "brain/research/heuristic-baselines.md"
+        },
+        {
+          "label": "heuristic_baselines.py",
+          "path": "research/heuristic_baselines.py"
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/results/heuristic_baselines_2026-09-11.json",
+          "sha256": "3be0719803e66620a80e3c7f0ecadd1e8d0deae62041a6074cb04765ebef59bd",
+          "observed_at": "2026-09-12T01:59:48.860844+00:00",
+          "scope": "All eligible already-resolved multi-member rings in legacy heights 0–58,900. Conditional stored labels and whole-snapshot reuse, with fractional tie credit; no forward split.",
+          "denominators": {
+            "rings": 12076,
+            "candidate_rows": 43511
+          },
+          "denominator_fields": {
+            "rings": "/summary/rings",
+            "candidate_rows": "/summary/candidate_rows"
+          },
+          "run_id": "retrospective_original_ring_baselines",
+          "source_commit": "acc8ed15c1a406d33ad7b45e50a771892c6599e6"
+        }
+      ]
+    },
+    {
+      "id": "origin-pipeline",
+      "kind": "engineering",
+      "question": "Are complete, versioned origin joins and controlled labels available for evaluation?",
+      "task_refs": [
+        {
+          "id": "brain/research/heuristic-experiments.md#HE1",
+          "note_id": "brain/research/heuristic-experiments.md",
+          "code": "HE1",
+          "title": "HE1 — Output-origin joins (P0)."
+        },
+        {
+          "id": "brain/research/groupings.md#G5",
+          "note_id": "brain/research/groupings.md",
+          "code": "G5",
+          "title": "G5 — Output origins and controlled labels (P2)."
+        },
+        {
+          "id": "brain/research/upstream-heuristics.md#UA2",
+          "note_id": "brain/research/upstream-heuristics.md",
+          "code": "UA2",
+          "title": "UA2 — Generalize the origin RPC/cache interface (supports HE1/EA2)."
+        }
+      ],
+      "execution_status": "in_progress",
+      "outcome": "not_applicable",
+      "theoretical_conclusion": "Keep network-scoped exact output identities, positional RPC responses, creation context and controlled labels separate from features. Infrastructure completion would not validate an age or ownership hypothesis.",
+      "measured_conclusion": "The bounded 40-output audit establishes a feasible request pattern. The generic get_outs helper still hardcodes amount zero; production ingestion/cache completeness and independently validated controlled labels remain absent.",
+      "remaining": [
+        "Implement missing/conflicting joins and immutable source/cutoff provenance.",
+        "Reconcile legacy, amount-zero and miner-output fixtures plus independent sampled origins."
+      ],
+      "sources": [
+        {
+          "label": "heuristic-experiments.md",
+          "path": "brain/research/heuristic-experiments.md"
+        },
+        {
+          "label": "groupings.md",
+          "path": "brain/research/groupings.md"
+        },
+        {
+          "label": "upstream-heuristics.md",
+          "path": "brain/research/upstream-heuristics.md"
+        },
+        {
+          "label": "monero_rpc.py",
+          "path": "monero_rpc.py"
+        },
+        {
+          "label": "scanner.py",
+          "path": "scanner.py"
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/results/output_origins_2026-09-11.json",
+          "sha256": "9a9daf738b93a8a957e3ebeafbf4677de0c5c3127f72b3bbbad2a9c5ba4685d5",
+          "observed_at": "2026-09-12T00:13:49.395101+00:00",
+          "scope": "Fixed stratified sample of nonzero-amount output references from heights 0–58,900; one external RPC; v1 did not fingerprint WAL state.",
+          "denominators": {
+            "sampled_output_contexts": 40,
+            "returned_outputs": 40
+          },
+          "denominator_fields": {
+            "sampled_output_contexts": "/summary/sampled_contexts",
+            "returned_outputs": "/summary/returned_outputs"
+          },
+          "run_id": "output-origin-audit-v1",
+          "source_commit": "dde2fa5cdff7b895f12ab17c81440717c15ff0bb"
+        }
+      ]
+    },
+    {
+      "id": "actual-age-improvement",
+      "kind": "hypothesis",
+      "question": "Do validated creation-age features improve ranking over proxies and simple age baselines?",
+      "task_refs": [
+        {
+          "id": "brain/research/output-origin-audit.md#EA2",
+          "note_id": "brain/research/output-origin-audit.md",
+          "code": "EA2",
+          "title": "EA2 — Versioned origin-age features and ablation (P1; depends on HE1/HE3)."
+        },
+        {
+          "id": "brain/research/heuristic-experiments.md#HE2",
+          "note_id": "brain/research/heuristic-experiments.md",
+          "code": "HE2",
+          "title": "HE2 — Age baselines and ablation (P1)."
+        },
+        {
+          "id": "brain/research/predictions.md#P6",
+          "note_id": "brain/research/predictions.md",
+          "code": "P6",
+          "title": "P6 — Error review and transfer (P2)."
+        }
+      ],
+      "execution_status": "not_started",
+      "outcome": "untested",
+      "theoretical_conclusion": "Measured origins remove a known proxy limitation; that alone does not imply a predictive advantage or justify modern wallet assumptions on old rings.",
+      "measured_conclusion": "The origin and feature audits measure metadata feasibility and variation only. No versioned actual-age model or matched forward ablation has been evaluated.",
+      "remaining": [
+        "Finish HE1/UA2 and frozen evaluation.",
+        "Compare proxy, true-age ranking and model variants at matched coverage with cohort counts and uncertainty."
+      ],
+      "sources": [
+        {
+          "label": "output-origin-audit.md",
+          "path": "brain/research/output-origin-audit.md"
+        },
+        {
+          "label": "heuristic-experiments.md",
+          "path": "brain/research/heuristic-experiments.md"
+        },
+        {
+          "label": "predictions.md",
+          "path": "brain/research/predictions.md"
+        },
+        {
+          "label": "scorer.py",
+          "path": "scorer.py"
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/results/output_origins_2026-09-11.json",
+          "sha256": "9a9daf738b93a8a957e3ebeafbf4677de0c5c3127f72b3bbbad2a9c5ba4685d5",
+          "observed_at": "2026-09-12T00:13:49.395101+00:00",
+          "scope": "Fixed stratified sample of nonzero-amount output references from heights 0–58,900; one external RPC; v1 did not fingerprint WAL state.",
+          "denominators": {
+            "sampled_output_contexts": 40,
+            "returned_outputs": 40
+          },
+          "denominator_fields": {
+            "sampled_output_contexts": "/summary/sampled_contexts",
+            "returned_outputs": "/summary/returned_outputs"
+          },
+          "run_id": "output-origin-audit-v1",
+          "source_commit": "dde2fa5cdff7b895f12ab17c81440717c15ff0bb"
+        },
+        {
+          "path": "research/results/feature_variation_2026-09-11.json",
+          "sha256": "b450be6b96aa91d0744f36cd54a2401e3158e97e8ab3b4220aa032eed44db7bc",
+          "observed_at": "2026-09-12T01:58:30.608117+00:00",
+          "scope": "Balanced legacy sample; 810 original training rings and 1,190 surviving-candidate scoring rings; whole-snapshot features; no modern/amount-zero cohort.",
+          "denominators": {
+            "rings": 2000,
+            "candidate_rows": 14280
+          },
+          "denominator_fields": {
+            "rings": "/sampling/sampled_rings",
+            "candidate_rows": "/sampling/sampled_candidates"
+          },
+          "run_id": "EA1",
+          "source_commit": "acc8ed15c1a406d33ad7b45e50a771892c6599e6"
+        }
+      ]
+    },
+    {
+      "id": "constant-duplicate-ablation",
+      "kind": "hypothesis",
+      "question": "Does removing constant or duplicate feature families improve efficiency or predictive quality?",
+      "task_refs": [
+        {
+          "id": "brain/research/feature-variation-audit.md#FA2",
+          "note_id": "brain/research/feature-variation-audit.md",
+          "code": "FA2",
+          "title": "FA2 — Fixed-split ablation."
+        }
+      ],
+      "execution_status": "not_started",
+      "outcome": "untested",
+      "theoretical_conclusion": "Redundant columns may waste work or alter model fitting; neither accuracy improvement nor score equivalence follows automatically.",
+      "measured_conclusion": "EA1 found four constants and four exact duplicate pairs. No paired feature-mask experiment has been run; its 810 labeled training rings cannot silently stand in for all 12,076 baseline rings.",
+      "remaining": [
+        "Freeze identical eligible rings and grouped splits.",
+        "Choose masks using training folds only and report paired scores, accuracy, runtime and memory, including negative results."
+      ],
+      "sources": [
+        {
+          "label": "feature-variation-audit.md",
+          "path": "brain/research/feature-variation-audit.md"
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/results/feature_variation_2026-09-11.json",
+          "sha256": "b450be6b96aa91d0744f36cd54a2401e3158e97e8ab3b4220aa032eed44db7bc",
+          "observed_at": "2026-09-12T01:58:30.608117+00:00",
+          "scope": "Balanced legacy sample; 810 original training rings and 1,190 surviving-candidate scoring rings; whole-snapshot features; no modern/amount-zero cohort.",
+          "denominators": {
+            "rings": 2000,
+            "candidate_rows": 14280
+          },
+          "denominator_fields": {
+            "rings": "/sampling/sampled_rings",
+            "candidate_rows": "/sampling/sampled_candidates"
+          },
+          "run_id": "EA1",
+          "source_commit": "acc8ed15c1a406d33ad7b45e50a771892c6599e6"
+        }
+      ]
+    },
+    {
+      "id": "reuse-tie-treatment",
+      "kind": "hypothesis",
+      "question": "Does equal ranking of tied reuse counts improve results compared with the current index-order tie rule?",
+      "task_refs": [
+        {
+          "id": "brain/research/feature-variation-audit.md#FA3",
+          "note_id": "brain/research/feature-variation-audit.md",
+          "code": "FA3",
+          "title": "FA3 — Reuse tie treatment."
+        }
+      ],
+      "execution_status": "not_started",
+      "outcome": "untested",
+      "theoretical_conclusion": "The existing tie order combines reuse and index information. A controlled comparison is needed to separate them.",
+      "measured_conclusion": "EA1 observed 1,398 of 2,000 rings with some tied counts and 169 with all equal counts; reuse_rank_in_ring still varied within every sampled ring. No alternate tie model was tested.",
+      "remaining": [
+        "Use the same frozen chronological/graph split for equal-rank and current-order variants."
+      ],
+      "sources": [
+        {
+          "label": "feature-variation-audit.md",
+          "path": "brain/research/feature-variation-audit.md"
+        },
+        {
+          "label": "scorer.py",
+          "path": "scorer.py"
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/results/feature_variation_2026-09-11.json",
+          "sha256": "b450be6b96aa91d0744f36cd54a2401e3158e97e8ab3b4220aa032eed44db7bc",
+          "observed_at": "2026-09-12T01:58:30.608117+00:00",
+          "scope": "Balanced legacy sample; 810 original training rings and 1,190 surviving-candidate scoring rings; whole-snapshot features; no modern/amount-zero cohort.",
+          "denominators": {
+            "rings": 2000,
+            "candidate_rows": 14280
+          },
+          "denominator_fields": {
+            "rings": "/sampling/sampled_rings",
+            "candidate_rows": "/sampling/sampled_candidates"
+          },
+          "run_id": "EA1",
+          "source_commit": "acc8ed15c1a406d33ad7b45e50a771892c6599e6"
+        }
+      ]
+    },
+    {
+      "id": "prediction-time-reuse",
+      "kind": "hypothesis",
+      "question": "Does minimum reuse retain its historical advantage when restricted to information available at prediction time?",
+      "task_refs": [
+        {
+          "id": "brain/research/heuristic-baselines.md#HB2",
+          "note_id": "brain/research/heuristic-baselines.md",
+          "code": "HB2",
+          "title": "HB2 — Prediction-time reuse baseline (P1; depends on evidence history)."
+        }
+      ],
+      "execution_status": "not_started",
+      "outcome": "untested",
+      "theoretical_conclusion": "Whole-snapshot reuse may include future memberships and correlate with how labels were selected. Only a cutoff-aware comparison can quantify that effect.",
+      "measured_conclusion": "The 82.3133% retrospective agreement used full-snapshot reuse. Historical label availability is unknown, so the current artifact cannot establish the prediction-time result.",
+      "remaining": [
+        "Freeze memberships and eligible labels at each cutoff.",
+        "Compare full-snapshot leakage control and prediction-time reuse on identical temporal/graph cohorts."
+      ],
+      "sources": [
+        {
+          "label": "heuristic-baselines.md",
+          "path": "brain/research/heuristic-baselines.md"
+        },
+        {
+          "label": "heuristic_baselines.py",
+          "path": "research/heuristic_baselines.py"
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/results/heuristic_baselines_2026-09-11.json",
+          "sha256": "3be0719803e66620a80e3c7f0ecadd1e8d0deae62041a6074cb04765ebef59bd",
+          "observed_at": "2026-09-12T01:59:48.860844+00:00",
+          "scope": "All eligible already-resolved multi-member rings in legacy heights 0–58,900. Conditional stored labels and whole-snapshot reuse, with fractional tie credit; no forward split.",
+          "denominators": {
+            "rings": 12076,
+            "candidate_rows": 43511
+          },
+          "denominator_fields": {
+            "rings": "/summary/rings",
+            "candidate_rows": "/summary/candidate_rows"
+          },
+          "run_id": "retrospective_original_ring_baselines",
+          "source_commit": "acc8ed15c1a406d33ad7b45e50a771892c6599e6"
+        }
+      ]
+    },
+    {
+      "id": "forward-generalization",
+      "kind": "hypothesis",
+      "question": "Does random-ring holdout performance survive frozen future windows and shared-output separation?",
+      "task_refs": [
+        {
+          "id": "brain/research/predictions.md#P2",
+          "note_id": "brain/research/predictions.md",
+          "code": "P2",
+          "title": "P2 — Frozen forward evaluation (P1)."
+        },
+        {
+          "id": "brain/research/heuristic-experiments.md#HE3",
+          "note_id": "brain/research/heuristic-experiments.md",
+          "code": "HE3",
+          "title": "HE3 — Temporal and graph separation (P0)."
+        },
+        {
+          "id": "brain/research/ideas.md#title-5dc4016837ad6835",
+          "note_id": "brain/research/ideas.md",
+          "code": null,
+          "title": "Prediction-time label eligibility."
+        },
+        {
+          "id": "brain/research/ideas.md#title-3b0955fe4ae108d7",
+          "note_id": "brain/research/ideas.md",
+          "code": null,
+          "title": "Historical feature provenance."
+        }
+      ],
+      "execution_status": "not_started",
+      "outcome": "untested",
+      "theoretical_conclusion": "Keeping candidates of a ring together prevents one leakage route, while related rings and snapshot features can still cross evaluation boundaries. Strict separation may reveal a performance drop.",
+      "measured_conclusion": "Immutable prediction artifacts exist, but no complete multi-window protocol with prediction-time label eligibility and graph separation has been published. Saved inference replay does not reconstruct historical training eligibility.",
+      "remaining": [
+        "Record training rings, split membership and label-eligibility times.",
+        "Freeze train/calibration/test windows, graph groups and feature contexts; report verified and unverified populations.",
+        "Run randomized-label, shuffled-candidate and explicit future-data leakage controls."
+      ],
+      "sources": [
+        {
+          "label": "predictions.md",
+          "path": "brain/research/predictions.md"
+        },
+        {
+          "label": "heuristic-experiments.md",
+          "path": "brain/research/heuristic-experiments.md"
+        },
+        {
+          "label": "ideas.md",
+          "path": "brain/research/ideas.md"
+        },
+        {
+          "label": "evaluation.md",
+          "path": "brain/research/evaluation.md"
+        },
+        {
+          "label": "scorer.py",
+          "path": "scorer.py"
+        },
+        {
+          "label": "test_prediction_history.py",
+          "path": "tests/test_prediction_history.py"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "calibration-abstention",
+      "kind": "hypothesis",
+      "question": "Can chronological calibration and abstention produce reliable precision at useful coverage?",
+      "task_refs": [
+        {
+          "id": "brain/research/predictions.md#P3",
+          "note_id": "brain/research/predictions.md",
+          "code": "P3",
+          "title": "P3 — Calibration and abstention (P1; depends on P1–P2)."
+        }
+      ],
+      "execution_status": "not_started",
+      "outcome": "untested",
+      "theoretical_conclusion": "Candidate scores need not form a ring probability distribution. Thresholds or score normalization alone do not establish calibration.",
+      "measured_conclusion": "No frozen reliability bins, Brier/calibration errors or precision/coverage test curves have been measured under P3.",
+      "remaining": [
+        "Separate chronological fitting, calibration, threshold selection and testing.",
+        "Retain unverified and unscorable cases and label any verified-subset-only calibration."
+      ],
+      "sources": [
+        {
+          "label": "predictions.md",
+          "path": "brain/research/predictions.md"
+        },
+        {
+          "label": "evaluation.md",
+          "path": "brain/research/evaluation.md"
+        },
+        {
+          "label": "scorer.py",
+          "path": "scorer.py"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "model-over-baselines",
+      "kind": "hypothesis",
+      "question": "Does the current model outperform simple rules across frozen future windows at matched coverage?",
+      "task_refs": [
+        {
+          "id": "brain/research/predictions.md#P4",
+          "note_id": "brain/research/predictions.md",
+          "code": "P4",
+          "title": "P4 — Baselines and ablations (P2; depends on P2)."
+        }
+      ],
+      "execution_status": "not_started",
+      "outcome": "untested",
+      "theoretical_conclusion": "A model must beat identical-cohort baselines with related-ring uncertainty before a feature family is credited with improvement.",
+      "measured_conclusion": "The retrospective baseline study compared four rules with stored labels; it did not compare a newly trained model on frozen forward windows.",
+      "remaining": [
+        "Run model and random, age and reuse baselines on identical eligible rings.",
+        "Repeat feature-family ablations across multiple windows, ring sizes and eras."
+      ],
+      "sources": [
+        {
+          "label": "predictions.md",
+          "path": "brain/research/predictions.md"
+        },
+        {
+          "label": "evaluation.md",
+          "path": "brain/research/evaluation.md"
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/results/heuristic_baselines_2026-09-11.json",
+          "sha256": "3be0719803e66620a80e3c7f0ecadd1e8d0deae62041a6074cb04765ebef59bd",
+          "observed_at": "2026-09-12T01:59:48.860844+00:00",
+          "scope": "All eligible already-resolved multi-member rings in legacy heights 0–58,900. Conditional stored labels and whole-snapshot reuse, with fractional tie credit; no forward split.",
+          "denominators": {
+            "rings": 12076,
+            "candidate_rows": 43511
+          },
+          "denominator_fields": {
+            "rings": "/summary/rings",
+            "candidate_rows": "/summary/candidate_rows"
+          },
+          "run_id": "retrospective_original_ring_baselines",
+          "source_commit": "acc8ed15c1a406d33ad7b45e50a771892c6599e6"
+        }
+      ]
+    },
+    {
+      "id": "ranking-alternatives",
+      "kind": "hypothesis",
+      "question": "Does ring-level ranking or retaining alternatives improve top-k recall and top-1 precision at matched coverage?",
+      "task_refs": [
+        {
+          "id": "brain/research/predictions.md#P5",
+          "note_id": "brain/research/predictions.md",
+          "code": "P5",
+          "title": "P5 — Alternatives and ambiguity (P2; depends on P1–P3)."
+        }
+      ],
+      "execution_status": "not_started",
+      "outcome": "untested",
+      "theoretical_conclusion": "One real candidate per input motivates a ranking model, but displayed alternatives or margins are not validated probabilities.",
+      "measured_conclusion": "Candidate score artifacts are retained by P1; no controlled ring-ranking, top-k, entropy or abstention comparison is published.",
+      "remaining": [
+        "Retain below-threshold cases and compare ranking models with the current scorer on frozen data.",
+        "Justify the distribution before interpreting entropy as uncertainty."
+      ],
+      "sources": [
+        {
+          "label": "predictions.md",
+          "path": "brain/research/predictions.md"
+        },
+        {
+          "label": "models.py",
+          "path": "models.py"
+        },
+        {
+          "label": "scorer.py",
+          "path": "scorer.py"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "era-transfer-and-errors",
+      "kind": "hypothesis",
+      "question": "Do feature behavior and prediction quality transfer from legacy data to later protocol populations?",
+      "task_refs": [
+        {
+          "id": "brain/research/predictions.md#P6",
+          "note_id": "brain/research/predictions.md",
+          "code": "P6",
+          "title": "P6 — Error review and transfer (P2)."
+        },
+        {
+          "id": "brain/research/feature-variation-audit.md#FA4",
+          "note_id": "brain/research/feature-variation-audit.md",
+          "code": "FA4",
+          "title": "FA4 — Broader feature coverage."
+        },
+        {
+          "id": "brain/research/security-eras.md#ER2",
+          "note_id": "brain/research/security-eras.md",
+          "code": "ER2",
+          "title": "ER2 — Populate comparable evidence by era."
+        }
+      ],
+      "execution_status": "not_started",
+      "outcome": "untested",
+      "theoretical_conclusion": "Missing eras and different wallet/consensus rules preclude one pooled accuracy claim. Data, label assumptions and model errors need separate review.",
+      "measured_conclusion": "The completed audits have no amount-zero population. A separate modern feed observed ring structure, but provides no actual-spend labels and no modern prediction accuracy.",
+      "remaining": [
+        "Collect independently checked later cohorts with origins, versions and label eligibility.",
+        "Publish missingness first; then error review and matched per-era evaluation with null findings retained."
+      ],
+      "sources": [
+        {
+          "label": "predictions.md",
+          "path": "brain/research/predictions.md"
+        },
+        {
+          "label": "feature-variation-audit.md",
+          "path": "brain/research/feature-variation-audit.md"
+        },
+        {
+          "label": "security-eras.md",
+          "path": "brain/research/security-eras.md"
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/results/feature_variation_2026-09-11.json",
+          "sha256": "b450be6b96aa91d0744f36cd54a2401e3158e97e8ab3b4220aa032eed44db7bc",
+          "observed_at": "2026-09-12T01:58:30.608117+00:00",
+          "scope": "Balanced legacy sample; 810 original training rings and 1,190 surviving-candidate scoring rings; whole-snapshot features; no modern/amount-zero cohort.",
+          "denominators": {
+            "rings": 2000,
+            "candidate_rows": 14280
+          },
+          "denominator_fields": {
+            "rings": "/sampling/sampled_rings",
+            "candidate_rows": "/sampling/sampled_candidates"
+          },
+          "run_id": "EA1",
+          "source_commit": "acc8ed15c1a406d33ad7b45e50a771892c6599e6"
+        },
+        {
+          "path": "research/results/upstream_context_2026-09-11.json",
+          "sha256": "bf9f67a11dee77b89a319d8834178bbb9e812a72a5af7363a93a065b96fcf229",
+          "observed_at": "2026-09-12T02:40:05.376137+00:00",
+          "scope": "Reconciliation of two frozen populations, not new ingestion, model training or independent node validation.",
+          "denominators": {
+            "origin_contexts": 40,
+            "observed_blocks": 13,
+            "observed_transactions": 231,
+            "observed_rings": 395
+          },
+          "denominator_fields": {
+            "origin_contexts": "/historical_origins/sample_count",
+            "observed_blocks": "/current_observations/window/block_count",
+            "observed_transactions": "/current_observations/window/transaction_count",
+            "observed_rings": "/current_observations/window/ring_input_count"
+          },
+          "run_id": "upstream-context-audit-v1",
+          "source_commit": null
+        }
+      ]
+    },
+    {
+      "id": "overlap-null-model",
+      "kind": "hypothesis",
+      "question": "Do observed ring overlaps exceed chance after matching amount, size, reuse and wallet sampling context?",
+      "task_refs": [
+        {
+          "id": "brain/research/groupings.md#G1",
+          "note_id": "brain/research/groupings.md",
+          "code": "G1",
+          "title": "G1 — Ring-overlap explorer (P2)."
+        },
+        {
+          "id": "brain/research/upstream-heuristics.md#UA6",
+          "note_id": "brain/research/upstream-heuristics.md",
+          "code": "UA6",
+          "title": "UA6 — Source-aware grouping null model (supports G1/G3/G5)."
+        },
+        {
+          "id": "brain/research/ideas.md#title-7fe788d16b4df241",
+          "note_id": "brain/research/ideas.md",
+          "code": null,
+          "title": "Shared-output null model."
+        }
+      ],
+      "execution_status": "not_started",
+      "outcome": "untested",
+      "theoretical_conclusion": "Popular decoys and degree structure can generate apparent communities. Chance-exceeding overlap would still require separate ownership validation.",
+      "measured_conclusion": "The display shows direct shared-candidate and same-transaction relationships. No normalized/source-aware null model or measured excess-overlap test has been completed.",
+      "remaining": [
+        "Validate origin edges and simulate matched candidate selection.",
+        "Compare raw and normalized overlaps with degree/amount/ring-size controls, keeping competing hypotheses reversible."
+      ],
+      "sources": [
+        {
+          "label": "groupings.md",
+          "path": "brain/research/groupings.md"
+        },
+        {
+          "label": "upstream-heuristics.md",
+          "path": "brain/research/upstream-heuristics.md"
+        },
+        {
+          "label": "ideas.md",
+          "path": "brain/research/ideas.md"
+        },
+        {
+          "label": "brain.py",
+          "path": "brain.py"
+        },
+        {
+          "label": "progress-view.js",
+          "path": "docs/progress-view.js"
+        },
+        {
+          "label": "upstream-decoy-audit.md",
+          "path": "research/upstream-decoy-audit.md"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "joint-co-spend-selection",
+      "kind": "hypothesis",
+      "question": "Can multiple actual input candidates be selected jointly with measured correctness?",
+      "task_refs": [
+        {
+          "id": "brain/research/groupings.md#G2",
+          "note_id": "brain/research/groupings.md",
+          "code": "G2",
+          "title": "G2 — Co-spend hypotheses (P2; depends on P1–P3)."
+        },
+        {
+          "id": "brain/research/heuristic-experiments.md#HE4",
+          "note_id": "brain/research/heuristic-experiments.md",
+          "code": "HE4",
+          "title": "HE4 — Overlap and co-spend false merges (P2)."
+        },
+        {
+          "id": "brain/research/ideas.md#title-d3252b892d00f7d4",
+          "note_id": "brain/research/ideas.md",
+          "code": null,
+          "title": "Correlated-error stress tests."
+        }
+      ],
+      "execution_status": "not_started",
+      "outcome": "untested",
+      "theoretical_conclusion": "Per-ring scores may share errors; multiplying marginal scores is not validated joint confidence. Correct spends alone do not establish one beneficial owner.",
+      "measured_conclusion": "Same-transaction input groups are observable, but no controlled multi-input selection evaluation or correlated-decoy stress test has been performed.",
+      "remaining": [
+        "Create separately labeled controlled transactions and withheld tests.",
+        "Compare joint correctness, competing candidates and abstention under shared-decoy stress."
+      ],
+      "sources": [
+        {
+          "label": "groupings.md",
+          "path": "brain/research/groupings.md"
+        },
+        {
+          "label": "heuristic-experiments.md",
+          "path": "brain/research/heuristic-experiments.md"
+        },
+        {
+          "label": "ideas.md",
+          "path": "brain/research/ideas.md"
+        },
+        {
+          "label": "progress-view.js",
+          "path": "docs/progress-view.js"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "ownership-false-merges",
+      "kind": "hypothesis",
+      "question": "Can candidate group proposals achieve useful held-out ownership precision without large false merged components?",
+      "task_refs": [
+        {
+          "id": "brain/research/groupings.md#G3",
+          "note_id": "brain/research/groupings.md",
+          "code": "G3",
+          "title": "G3 — Cluster validation (P3; depends on G2)."
+        },
+        {
+          "id": "brain/research/heuristic-experiments.md#HE4",
+          "note_id": "brain/research/heuristic-experiments.md",
+          "code": "HE4",
+          "title": "HE4 — Overlap and co-spend false merges (P2)."
+        }
+      ],
+      "execution_status": "not_started",
+      "outcome": "untested",
+      "theoretical_conclusion": "A single weak edge can falsely join many outputs. Ownership requires controlled labels distinct from selection or pattern similarity.",
+      "measured_conclusion": "No controlled-wallet ownership evaluation, pairwise precision/recall or false-merge rate exists. No receiving address, wallet owner or person has been recovered by these studies.",
+      "remaining": [
+        "Compare no-ownership-edge and conservative overlap baselines on withheld controlled wallets.",
+        "Report false merges per 1,000 links, largest false component and stability under thresholds/added blocks."
+      ],
+      "sources": [
+        {
+          "label": "groupings.md",
+          "path": "brain/research/groupings.md"
+        },
+        {
+          "label": "heuristic-experiments.md",
+          "path": "brain/research/heuristic-experiments.md"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "reversible-group-records",
+      "kind": "engineering",
+      "question": "Can inferred groups be explained, split and compared across runs as evidence changes?",
+      "task_refs": [
+        {
+          "id": "brain/research/groupings.md#G4",
+          "note_id": "brain/research/groupings.md",
+          "code": "G4",
+          "title": "G4 — Reversible cluster records (P3; depends on G3)."
+        },
+        {
+          "id": "brain/research/ideas.md#title-bc9b4c955945dbcf",
+          "note_id": "brain/research/ideas.md",
+          "code": null,
+          "title": "Cluster stability timeline."
+        }
+      ],
+      "execution_status": "not_started",
+      "outcome": "not_applicable",
+      "theoretical_conclusion": "Typed, versioned edges and superseded links prevent one weak bridge becoming an irreversible ownership assertion. Stability needs measurement before semantic interpretation.",
+      "measured_conclusion": "Observed relationship displays exist; run-specific inferred cluster records, a validated merge/split history and threshold-stability evaluation remain open.",
+      "remaining": [
+        "Implement versioned group memberships with evidence and prediction IDs.",
+        "After G3, test merge/split reversibility and stability on controlled runs."
+      ],
+      "sources": [
+        {
+          "label": "groupings.md",
+          "path": "brain/research/groupings.md"
+        },
+        {
+          "label": "ideas.md",
+          "path": "brain/research/ideas.md"
+        },
+        {
+          "label": "models.py",
+          "path": "models.py"
+        },
+        {
+          "label": "progress-view.js",
+          "path": "docs/progress-view.js"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "versioned-wallet-sampler",
+      "kind": "hypothesis",
+      "question": "Does a faithful versioned wallet sampler improve decoy-context features or ranking against current approximations?",
+      "task_refs": [
+        {
+          "id": "brain/research/upstream-heuristics.md#UA3",
+          "note_id": "brain/research/upstream-heuristics.md",
+          "code": "UA3",
+          "title": "UA3 — Replay a versioned wallet sampler (supports FA2)."
+        }
+      ],
+      "execution_status": "not_started",
+      "outcome": "untested",
+      "theoretical_conclusion": "Raw gamma draw likelihood differs from final ring construction after mixtures, density mapping, rejection and sampling without replacement. Neither is automatically real-spend probability.",
+      "measured_conclusion": "The pinned source audit documents omitted behavior in the current approximation. No differential sampler replay or predictive ablation is completed.",
+      "remaining": [
+        "Reproduce pinned behavior on fixed output distributions and unlock contexts.",
+        "Freeze a new feature version and compare positive or negative results under P2/HE3."
+      ],
+      "sources": [
+        {
+          "label": "upstream-heuristics.md",
+          "path": "brain/research/upstream-heuristics.md"
+        },
+        {
+          "label": "upstream-decoy-audit.md",
+          "path": "research/upstream-decoy-audit.md"
+        },
+        {
+          "label": "scorer.py",
+          "path": "scorer.py"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "protocol-context",
+      "kind": "engineering",
+      "question": "Do evaluated rings carry enough observed protocol and origin metadata for era-correct eligibility checks?",
+      "task_refs": [
+        {
+          "id": "brain/research/protocol-limits.md#RL1",
+          "note_id": "brain/research/protocol-limits.md",
+          "code": "RL1",
+          "title": "RL1 — Protocol cohort manifest (P0; partially implemented)."
+        },
+        {
+          "id": "brain/research/upstream-heuristics.md#UA4",
+          "note_id": "brain/research/upstream-heuristics.md",
+          "code": "UA4",
+          "title": "UA4 — Preserve protocol context and audit eligibility."
+        }
+      ],
+      "execution_status": "in_progress",
+      "outcome": "not_applicable",
+      "theoretical_conclusion": "Height-derived cohorts organize evidence but cannot substitute for observed versions, RingCT types, creation/unlock context and explicit unknowns. Eligibility does not identify the spender.",
+      "measured_conclusion": "The exporter assigns mainnet-height eras and reconciles unknown contexts. The scanner does not preserve the full block/transaction version and origin metadata required by the remaining plan.",
+      "remaining": [
+        "Store missing version, network, RingCT, miner/unlock and label-method fields.",
+        "Test historical exceptions and incomplete contexts without retroactively applying modern rules."
+      ],
+      "sources": [
+        {
+          "label": "protocol-limits.md",
+          "path": "brain/research/protocol-limits.md"
+        },
+        {
+          "label": "upstream-heuristics.md",
+          "path": "brain/research/upstream-heuristics.md"
+        },
+        {
+          "label": "protocol_eras.py",
+          "path": "protocol_eras.py"
+        },
+        {
+          "label": "scanner.py",
+          "path": "scanner.py"
+        },
+        {
+          "label": "protocol-eras.json",
+          "path": "docs/protocol-eras.json"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "heuristic-applicability",
+      "kind": "hypothesis",
+      "question": "Do source-specific heuristics perform differently inside and outside their documented wallet or protocol windows?",
+      "task_refs": [
+        {
+          "id": "brain/research/protocol-limits.md#RL2",
+          "note_id": "brain/research/protocol-limits.md",
+          "code": "RL2",
+          "title": "RL2 — Applicability ledger (P1; research design)."
+        }
+      ],
+      "execution_status": "not_started",
+      "outcome": "untested",
+      "theoretical_conclusion": "Bug-specific and selection-specific findings need source assumptions and independent labels; agreement with the label-generating heuristic is not independent validation. Wallet windows can cross consensus forks.",
+      "measured_conclusion": "Original literature and the pinned era taxonomy are documented. No local in-window/out-of-window comparison or wallet-vulnerability performance ledger is complete.",
+      "remaining": [
+        "Record original sources, applicable heights/wallet versions and eligible independent labels.",
+        "Evaluate matched windows and preserve negative results before adding success rates."
+      ],
+      "sources": [
+        {
+          "label": "protocol-limits.md",
+          "path": "brain/research/protocol-limits.md"
+        },
+        {
+          "label": "security-eras.md",
+          "path": "brain/research/security-eras.md"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "display-claims-audit",
+      "kind": "engineering",
+      "question": "Does every research display retain its cohort, denominator and actual evidence meaning?",
+      "task_refs": [
+        {
+          "id": "brain/research/protocol-limits.md#RL3",
+          "note_id": "brain/research/protocol-limits.md",
+          "code": "RL3",
+          "title": "RL3 — Claims audit in the display (P1; partially implemented)."
+        }
+      ],
+      "execution_status": "in_progress",
+      "outcome": "not_applicable",
+      "theoretical_conclusion": "Display clarity and exact denominators are reporting requirements; they do not independently validate underlying labels or methods.",
+      "measured_conclusion": "Era and progress pages separate theory, frozen studies, recent activity, original singletons and ambiguous-ring claims. Full future-cohort applicability and independent-label audits remain open.",
+      "remaining": [
+        "Audit new evaluation claims against RL2 and their exact sources.",
+        "Keep uncalibrated scores and public-address/ownership interpretations explicitly separate."
+      ],
+      "sources": [
+        {
+          "label": "protocol-limits.md",
+          "path": "brain/research/protocol-limits.md"
+        },
+        {
+          "label": "era-view.js",
+          "path": "docs/era-view.js"
+        },
+        {
+          "label": "progress-view.js",
+          "path": "docs/progress-view.js"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "era-taxonomy",
+      "kind": "engineering",
+      "question": "Is the era taxonomy pinned to explicit mainnet activation rules?",
+      "task_refs": [
+        {
+          "id": "brain/research/security-eras.md#ER1",
+          "note_id": "brain/research/security-eras.md",
+          "code": "ER1",
+          "title": "ER1 — Source-pinned era taxonomy."
+        }
+      ],
+      "execution_status": "completed",
+      "outcome": "not_applicable",
+      "theoretical_conclusion": "A reproducible taxonomy records transitions and exceptions without assigning a security score or tracing success rate.",
+      "measured_conclusion": "Ten eras and sixteen fork boundaries, including genesis normalization, are recorded and fixture-tested against the pinned reference. This completes taxonomy only.",
+      "remaining": [
+        "Review source rules and fixtures intentionally when the Monero pin changes."
+      ],
+      "sources": [
+        {
+          "label": "security-eras.md",
+          "path": "brain/research/security-eras.md"
+        },
+        {
+          "label": "protocol-eras.json",
+          "path": "docs/protocol-eras.json"
+        },
+        {
+          "label": "test_protocol_eras.py",
+          "path": "tests/test_protocol_eras.py"
+        },
+        {
+          "label": "monero-source.json",
+          "path": "references/monero-source.json"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "matched-upgrade-windows",
+      "kind": "hypothesis",
+      "question": "Do matched observations around upgrades exhibit the structural transitions predicted by the pinned rules?",
+      "task_refs": [
+        {
+          "id": "brain/research/security-eras.md#ER3",
+          "note_id": "brain/research/security-eras.md",
+          "code": "ER3",
+          "title": "ER3 — Sample matched upgrade windows."
+        }
+      ],
+      "execution_status": "not_started",
+      "outcome": "untested",
+      "theoretical_conclusion": "Ring-size/proof-format discontinuities test structural expectations, not an upgrade’s causal anonymity effect or prediction accuracy.",
+      "measured_conclusion": "No declared before/during/after upgrade-window collection has been completed. Current activity and legacy scans leave the intermediate comparative windows missing.",
+      "remaining": [
+        "Freeze bounded block windows, hashes, source coverage and transition exclusions.",
+        "Compare observed sizes, formats, origins and missingness against pinned rules."
+      ],
+      "sources": [
+        {
+          "label": "security-eras.md",
+          "path": "brain/research/security-eras.md"
+        },
+        {
+          "label": "protocol-eras.json",
+          "path": "docs/protocol-eras.json"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "current-ring-structure",
+      "kind": "measurement",
+      "question": "Did the frozen current-block sample contain sixteen-member input rings?",
+      "task_refs": [
+        {
+          "id": "brain/research/upstream-heuristics.md#UA1",
+          "note_id": "brain/research/upstream-heuristics.md",
+          "code": "UA1",
+          "title": "UA1 — Inspect a pinned Monero implementation."
+        },
+        {
+          "id": "brain/research/security-eras.md#ER2",
+          "note_id": "brain/research/security-eras.md",
+          "code": "ER2",
+          "title": "ER2 — Populate comparable evidence by era."
+        }
+      ],
+      "execution_status": "completed",
+      "outcome": "supported",
+      "theoretical_conclusion": "Observed ring sizes can be reconciled with current structural expectations, separately from real-spend prediction or ownership.",
+      "measured_conclusion": "The separate 13-block snapshot contained 231 transactions, 395 input rings and 6,320 memberships; all 395 observed rings had size 16. The external node’s software version and actual spends were not established.",
+      "remaining": [
+        "Collect missing eras and eligible evaluation labels for comparative claims; this sample cannot fill those gaps."
+      ],
+      "sources": [
+        {
+          "label": "upstream-heuristics.md",
+          "path": "brain/research/upstream-heuristics.md"
+        },
+        {
+          "label": "security-eras.md",
+          "path": "brain/research/security-eras.md"
+        },
+        {
+          "label": "upstream_context_audit.py",
+          "path": "research/upstream_context_audit.py"
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/results/upstream_context_2026-09-11.json",
+          "sha256": "bf9f67a11dee77b89a319d8834178bbb9e812a72a5af7363a93a065b96fcf229",
+          "observed_at": "2026-09-12T02:40:05.376137+00:00",
+          "scope": "Reconciliation of two frozen populations, not new ingestion, model training or independent node validation.",
+          "denominators": {
+            "origin_contexts": 40,
+            "observed_blocks": 13,
+            "observed_transactions": 231,
+            "observed_rings": 395
+          },
+          "denominator_fields": {
+            "origin_contexts": "/historical_origins/sample_count",
+            "observed_blocks": "/current_observations/window/block_count",
+            "observed_transactions": "/current_observations/window/transaction_count",
+            "observed_rings": "/current_observations/window/ring_input_count"
+          },
+          "run_id": "upstream-context-audit-v1",
+          "source_commit": null
+        },
+        {
+          "path": "research/results/upstream_observations_2026-09-11.json",
+          "sha256": "f132d4dfcd78b679360aa08ca9750c60e672adf73e3d6420d06db09a8761063b",
+          "observed_at": "2026-09-12T02:33:54.488786+00:00",
+          "scope": "Separate current confirmed-block observation window from one public RPC; no real-spend or owner labels.",
+          "denominators": {},
+          "denominator_fields": {},
+          "run_id": "current-block-snapshot-2026-09-12T02:33:54Z",
+          "source_commit": "772c69a6d331ccefb6b8db23c4128f4b29c64d38"
+        }
+      ]
+    },
+    {
+      "id": "source-audit",
+      "kind": "engineering",
+      "question": "Have relevant node, wallet-sampler and pool interfaces been inspected at a reproducible source pin?",
+      "task_refs": [
+        {
+          "id": "brain/research/upstream-heuristics.md#UA1",
+          "note_id": "brain/research/upstream-heuristics.md",
+          "code": "UA1",
+          "title": "UA1 — Inspect a pinned Monero implementation."
+        },
+        {
+          "id": "brain/research/ideas.md#title-0a059309cf79c781",
+          "note_id": "brain/research/ideas.md",
+          "code": null,
+          "title": "Pinned upstream implementation audit."
+        }
+      ],
+      "execution_status": "completed",
+      "outcome": "not_applicable",
+      "theoretical_conclusion": "Source inspection supplies testable implementation assumptions, not evidence that new heuristics improve accuracy or recover ownership.",
+      "measured_conclusion": "Three linked source audits use Monero v0.18.5.1 / 4f92268d7c16741cfb41e5bbe2aa46cc260a9ea5. Frozen origin/current observations reconcile with the stated limits; no validating node was synchronized.",
+      "remaining": [
+        "Implement and evaluate UA2–UA6 separately."
+      ],
+      "sources": [
+        {
+          "label": "upstream-heuristics.md",
+          "path": "brain/research/upstream-heuristics.md"
+        },
+        {
+          "label": "ideas.md",
+          "path": "brain/research/ideas.md"
+        },
+        {
+          "label": "upstream-node-audit.md",
+          "path": "research/upstream-node-audit.md"
+        },
+        {
+          "label": "upstream-decoy-audit.md",
+          "path": "research/upstream-decoy-audit.md"
+        },
+        {
+          "label": "upstream-pool-audit.md",
+          "path": "research/upstream-pool-audit.md"
+        },
+        {
+          "label": "monero-source.json",
+          "path": "references/monero-source.json"
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/results/upstream_context_2026-09-11.json",
+          "sha256": "bf9f67a11dee77b89a319d8834178bbb9e812a72a5af7363a93a065b96fcf229",
+          "observed_at": "2026-09-12T02:40:05.376137+00:00",
+          "scope": "Reconciliation of two frozen populations, not new ingestion, model training or independent node validation.",
+          "denominators": {
+            "origin_contexts": 40,
+            "observed_blocks": 13,
+            "observed_transactions": 231,
+            "observed_rings": 395
+          },
+          "denominator_fields": {
+            "origin_contexts": "/historical_origins/sample_count",
+            "observed_blocks": "/current_observations/window/block_count",
+            "observed_transactions": "/current_observations/window/transaction_count",
+            "observed_rings": "/current_observations/window/ring_input_count"
+          },
+          "run_id": "upstream-context-audit-v1",
+          "source_commit": null
+        }
+      ]
+    },
+    {
+      "id": "private-node-pilot",
+      "kind": "hypothesis",
+      "question": "Would a synchronized private node improve data-source control and measured reliability enough to justify its resources?",
+      "task_refs": [
+        {
+          "id": "brain/research/private-node-observations.md#PN1",
+          "note_id": "brain/research/private-node-observations.md",
+          "code": "PN1",
+          "title": "PN1 — Validating-node pilot (P1)."
+        }
+      ],
+      "execution_status": "deferred",
+      "outcome": "untested",
+      "theoretical_conclusion": "A private node can validate its chain and provide controlled RPC semantics; it still does not supply real-spend or owner labels, and node agreement alone does not prove independence.",
+      "measured_conclusion": "A separate pruned-node package and verified release are prepared. The user chose to keep only the public-RPC pilot; no new node was provisioned or synchronized and no private/public runtime comparison exists.",
+      "remaining": [
+        "Deferred at the user’s request because of the added recurring cost.",
+        "If resumed, measure sync, RPC/pruning compatibility, resource growth and independently sampled origin/tail agreement before any collector cutover."
+      ],
+      "sources": [
+        {
+          "label": "private-node-observations.md",
+          "path": "brain/research/private-node-observations.md"
+        },
+        {
+          "label": "README.md",
+          "path": "deploy/gcp/private-node/README.md"
+        },
+        {
+          "label": "upstream-node-audit.md",
+          "path": "research/upstream-node-audit.md"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "pool-collection-feasibility",
+      "kind": "measurement",
+      "question": "Can the existing public RPC support prospective pool sightings joined to later observed blocks?",
+      "task_refs": [
+        {
+          "id": "brain/research/private-node-observations.md#PN2",
+          "note_id": "brain/research/private-node-observations.md",
+          "code": "PN2",
+          "title": "PN2 — Observation completeness pilot (P1)."
+        },
+        {
+          "id": "brain/research/upstream-heuristics.md#UA5",
+          "note_id": "brain/research/upstream-heuristics.md",
+          "code": "UA5",
+          "title": "UA5 — Prospective pool forecasting pilot."
+        },
+        {
+          "id": "brain/research/ideas.md#title-1257d3b9a06a8210",
+          "note_id": "brain/research/ideas.md",
+          "code": null,
+          "title": "Private node and prospective mempool experiments."
+        }
+      ],
+      "execution_status": "completed",
+      "outcome": "supported",
+      "theoretical_conclusion": "Local observations and later block matches can be collected without an owned node. Pool disappearance is not confirmation; redacted receipt times remain unknown.",
+      "measured_conclusion": "The frozen 04:10:04 UTC pilot had 17/17 successful rounds and 161 retained transactions: 119 confirmed, 11 pending, 31 absent and 0 censored. Of 119 confirmations, 118 supplied eligible local detection intervals; median 186.8 seconds and p90 487.1 seconds include polling and two-block follow-up lag. All 11 current receipt times were unknown.",
+      "remaining": [
+        "Continue PN2 controlled coverage and archival evaluation; collection feasibility does not close it or validate PN3 forecasts."
+      ],
+      "sources": [
+        {
+          "label": "private-node-observations.md",
+          "path": "brain/research/private-node-observations.md"
+        },
+        {
+          "label": "upstream-heuristics.md",
+          "path": "brain/research/upstream-heuristics.md"
+        },
+        {
+          "label": "ideas.md",
+          "path": "brain/research/ideas.md"
+        },
+        {
+          "label": "pool_observer.py",
+          "path": "pool_observer.py"
+        },
+        {
+          "label": "check_pool_pilot.py",
+          "path": "research/check_pool_pilot.py"
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/results/pool_pilot_2026-09-12.json",
+          "sha256": "d4e4aa93dfdca8b29ae1e8a8972ad534421d81edd41b8a583605f091e7766963",
+          "observed_at": "2026-09-12T04:10:04.792337+00:00",
+          "scope": "Frozen first public-RPC pilot at 04:10:04 UTC: rolling retention, startup truncation and two-block follow-up lag. Confirmed cases are selected observations; absent does not mean confirmed or failed.",
+          "denominators": {
+            "tracked_transactions": 161,
+            "confirmed_transactions": 119,
+            "eligible_delay_intervals": 118,
+            "attempted_polls": 17,
+            "followed_block_transactions": 341
+          },
+          "denominator_fields": {
+            "tracked_transactions": "/snapshot/outcomes/tracked_transactions",
+            "confirmed_transactions": "/snapshot/outcomes/confirmed",
+            "eligible_delay_intervals": "/snapshot/outcomes/confirmation_delay/sample_count",
+            "attempted_polls": "/snapshot/coverage/polls_total",
+            "followed_block_transactions": "/snapshot/outcomes/confirmed_block_transactions"
+          },
+          "run_id": "0abc1138f5004c62bc5d4f5d7c8aed75",
+          "source_commit": "5faef380378a94a8964dfaa9a057608f4e1d5c6d"
+        }
+      ]
+    },
+    {
+      "id": "pool-observation-completeness",
+      "kind": "measurement",
+      "question": "What fraction of eligible broadcasts/confirmations does the observation process capture, including outages and censoring?",
+      "task_refs": [
+        {
+          "id": "brain/research/private-node-observations.md#PN2",
+          "note_id": "brain/research/private-node-observations.md",
+          "code": "PN2",
+          "title": "PN2 — Observation completeness pilot (P1)."
+        },
+        {
+          "id": "brain/research/ideas.md#title-68a7daecd933b4df",
+          "note_id": "brain/research/ideas.md",
+          "code": null,
+          "title": "Prospective coverage ledger."
+        },
+        {
+          "id": "brain/research/private-node-observations.md#title-ef8bcce16c3c2607",
+          "note_id": "brain/research/private-node-observations.md",
+          "code": null,
+          "title": "Freeze complete observation cohorts before longer studies."
+        }
+      ],
+      "execution_status": "in_progress",
+      "outcome": "inconclusive",
+      "theoretical_conclusion": "One complete RPC response describes returned entries, not every broadcast between polls. Startup inventory, endpoint visibility, missing periods and delayed outcomes affect coverage.",
+      "measured_conclusion": "The first 17 rounds demonstrate working collection and block joins. The 119 tracked confirmations and 341 transactions in 18 followed blocks use different truncated populations; their ratio is not validated network coverage. No controlled submission cohort, independent second-source coverage or restart experiment has been completed.",
+      "remaining": [
+        "Freeze private cohorts before 24-hour retention expires, preserving pending/censored cases and feature times.",
+        "Evaluate controlled submissions, gaps/restarts, duplicate rates, bytes per observation and second-source agreement."
+      ],
+      "sources": [
+        {
+          "label": "private-node-observations.md",
+          "path": "brain/research/private-node-observations.md"
+        },
+        {
+          "label": "ideas.md",
+          "path": "brain/research/ideas.md"
+        },
+        {
+          "label": "pool_observer.py",
+          "path": "pool_observer.py"
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/results/pool_pilot_2026-09-12.json",
+          "sha256": "d4e4aa93dfdca8b29ae1e8a8972ad534421d81edd41b8a583605f091e7766963",
+          "observed_at": "2026-09-12T04:10:04.792337+00:00",
+          "scope": "Frozen first public-RPC pilot at 04:10:04 UTC: rolling retention, startup truncation and two-block follow-up lag. Confirmed cases are selected observations; absent does not mean confirmed or failed.",
+          "denominators": {
+            "tracked_transactions": 161,
+            "confirmed_transactions": 119,
+            "eligible_delay_intervals": 118,
+            "attempted_polls": 17,
+            "followed_block_transactions": 341
+          },
+          "denominator_fields": {
+            "tracked_transactions": "/snapshot/outcomes/tracked_transactions",
+            "confirmed_transactions": "/snapshot/outcomes/confirmed",
+            "eligible_delay_intervals": "/snapshot/outcomes/confirmation_delay/sample_count",
+            "attempted_polls": "/snapshot/coverage/polls_total",
+            "followed_block_transactions": "/snapshot/outcomes/confirmed_block_transactions"
+          },
+          "run_id": "0abc1138f5004c62bc5d4f5d7c8aed75",
+          "source_commit": "5faef380378a94a8964dfaa9a057608f4e1d5c6d"
+        }
+      ]
+    },
+    {
+      "id": "confirmation-forecast-value",
+      "kind": "hypothesis",
+      "question": "Do local pool age, fee/weight and backlog improve later-window confirmation forecasts over simple baselines?",
+      "task_refs": [
+        {
+          "id": "brain/research/private-node-observations.md#PN3",
+          "note_id": "brain/research/private-node-observations.md",
+          "code": "PN3",
+          "title": "PN3 — Confirmation forecasts (P2)."
+        },
+        {
+          "id": "brain/research/upstream-heuristics.md#UA5",
+          "note_id": "brain/research/upstream-heuristics.md",
+          "code": "UA5",
+          "title": "UA5 — Prospective pool forecasting pilot."
+        },
+        {
+          "id": "brain/research/ideas.md#title-a9d53515744fdebc",
+          "note_id": "brain/research/ideas.md",
+          "code": null,
+          "title": "Confirmation-delay forecasts."
+        },
+        {
+          "id": "brain/research/ideas.md#title-1257d3b9a06a8210",
+          "note_id": "brain/research/ideas.md",
+          "code": null,
+          "title": "Private node and prospective mempool experiments."
+        }
+      ],
+      "execution_status": "not_started",
+      "outcome": "untested",
+      "theoretical_conclusion": "Prospective feature availability enables a fair forecast test; confirmed-only timing summaries and point estimates do not establish predictive value.",
+      "measured_conclusion": "The pilot publishes observed detection intervals. No trained forecast, chronological comparison, Brier score, calibration curve or measured forecast improvement exists.",
+      "remaining": [
+        "Freeze prediction-time features and chronological train/calibration/test windows.",
+        "Compare next-block, historical median and fee/weight-bin baselines using complete follow-up or explicit censoring models.",
+        "Report horizon scores, interval coverage, delay errors and outage/censored populations."
+      ],
+      "sources": [
+        {
+          "label": "private-node-observations.md",
+          "path": "brain/research/private-node-observations.md"
+        },
+        {
+          "label": "upstream-heuristics.md",
+          "path": "brain/research/upstream-heuristics.md"
+        },
+        {
+          "label": "ideas.md",
+          "path": "brain/research/ideas.md"
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/results/pool_pilot_2026-09-12.json",
+          "sha256": "d4e4aa93dfdca8b29ae1e8a8972ad534421d81edd41b8a583605f091e7766963",
+          "observed_at": "2026-09-12T04:10:04.792337+00:00",
+          "scope": "Frozen first public-RPC pilot at 04:10:04 UTC: rolling retention, startup truncation and two-block follow-up lag. Confirmed cases are selected observations; absent does not mean confirmed or failed.",
+          "denominators": {
+            "tracked_transactions": 161,
+            "confirmed_transactions": 119,
+            "eligible_delay_intervals": 118,
+            "attempted_polls": 17,
+            "followed_block_transactions": 341
+          },
+          "denominator_fields": {
+            "tracked_transactions": "/snapshot/outcomes/tracked_transactions",
+            "confirmed_transactions": "/snapshot/outcomes/confirmed",
+            "eligible_delay_intervals": "/snapshot/outcomes/confirmation_delay/sample_count",
+            "attempted_polls": "/snapshot/coverage/polls_total",
+            "followed_block_transactions": "/snapshot/outcomes/confirmed_block_transactions"
+          },
+          "run_id": "0abc1138f5004c62bc5d4f5d7c8aed75",
+          "source_commit": "5faef380378a94a8964dfaa9a057608f4e1d5c6d"
+        }
+      ]
+    },
+    {
+      "id": "interval-aware-timing",
+      "kind": "hypothesis",
+      "question": "Do interval-aware first-sighting features improve forecasts over treating each poll timestamp as exact arrival?",
+      "task_refs": [
+        {
+          "id": "brain/research/private-node-observations.md#title-6fab5b49d92911b7",
+          "note_id": "brain/research/private-node-observations.md",
+          "code": null,
+          "title": "Represent time as observation intervals."
+        }
+      ],
+      "execution_status": "not_started",
+      "outcome": "untested",
+      "theoretical_conclusion": "For uninterrupted observation, first appearance occurs between polls. Startup inventory and outages require different uncertainty handling.",
+      "measured_conclusion": "The recorder saves local sightings and gap/session diagnostics, but no interval-aware versus point-estimate forecast experiment has been run.",
+      "remaining": [
+        "Compare models on the same frozen later windows with startup/outage cohorts separate."
+      ],
+      "sources": [
+        {
+          "label": "private-node-observations.md",
+          "path": "brain/research/private-node-observations.md"
+        },
+        {
+          "label": "pool_observer.py",
+          "path": "pool_observer.py"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "public-private-visibility",
+      "kind": "hypothesis",
+      "question": "How much prospective visibility differs between simultaneous restricted public and unrestricted private RPC cohorts?",
+      "task_refs": [
+        {
+          "id": "brain/research/private-node-observations.md#title-f5d18f45e3663c24",
+          "note_id": "brain/research/private-node-observations.md",
+          "code": null,
+          "title": "Compare public and private visibility simultaneously."
+        }
+      ],
+      "execution_status": "deferred",
+      "outcome": "untested",
+      "theoretical_conclusion": "The two interfaces expose different relay-state populations. Pooling them would erase the source semantics needed for interpretation.",
+      "measured_conclusion": "Only the public-RPC pilot is deployed. No simultaneous private-node observation cohort exists; private provisioning was declined.",
+      "remaining": [
+        "Deferred with PN1; if resumed, use a bounded overlap and separate source cohorts to compare aggregate coverage and later block matches."
+      ],
+      "sources": [
+        {
+          "label": "private-node-observations.md",
+          "path": "brain/research/private-node-observations.md"
+        },
+        {
+          "label": "upstream-pool-audit.md",
+          "path": "research/upstream-pool-audit.md"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "node-receipt-value",
+      "kind": "hypothesis",
+      "question": "Do node receipt timestamps add forecast value beyond local sightings, fee density and backlog?",
+      "task_refs": [
+        {
+          "id": "brain/research/private-node-observations.md#title-a771469bae55530e",
+          "note_id": "brain/research/private-node-observations.md",
+          "code": null,
+          "title": "Ablate node receipt time against local sightings."
+        }
+      ],
+      "execution_status": "deferred",
+      "outcome": "untested",
+      "theoretical_conclusion": "Receipt time is node-local and can change with relay transitions. Zero/redacted values are unknown and cannot serve as arrival labels.",
+      "measured_conclusion": "All 11 current entries in the frozen public-RPC snapshot had unknown receipt time. No receipt-time ablation exists; the owned-node comparison is deferred.",
+      "remaining": [
+        "Obtain a declared source with usable timestamp semantics before testing.",
+        "Preserve timestamp changes and compare a receipt-time ablation on frozen complete-follow-up cohorts."
+      ],
+      "sources": [
+        {
+          "label": "private-node-observations.md",
+          "path": "brain/research/private-node-observations.md"
+        },
+        {
+          "label": "upstream-pool-audit.md",
+          "path": "research/upstream-pool-audit.md"
+        },
+        {
+          "label": "pool_observer.py",
+          "path": "pool_observer.py"
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/results/pool_pilot_2026-09-12.json",
+          "sha256": "d4e4aa93dfdca8b29ae1e8a8972ad534421d81edd41b8a583605f091e7766963",
+          "observed_at": "2026-09-12T04:10:04.792337+00:00",
+          "scope": "Frozen first public-RPC pilot at 04:10:04 UTC: rolling retention, startup truncation and two-block follow-up lag. Confirmed cases are selected observations; absent does not mean confirmed or failed.",
+          "denominators": {
+            "tracked_transactions": 161,
+            "confirmed_transactions": 119,
+            "eligible_delay_intervals": 118,
+            "attempted_polls": 17,
+            "followed_block_transactions": 341
+          },
+          "denominator_fields": {
+            "tracked_transactions": "/snapshot/outcomes/tracked_transactions",
+            "confirmed_transactions": "/snapshot/outcomes/confirmed",
+            "eligible_delay_intervals": "/snapshot/outcomes/confirmation_delay/sample_count",
+            "attempted_polls": "/snapshot/coverage/polls_total",
+            "followed_block_transactions": "/snapshot/outcomes/confirmed_block_transactions"
+          },
+          "run_id": "0abc1138f5004c62bc5d4f5d7c8aed75",
+          "source_commit": "5faef380378a94a8964dfaa9a057608f4e1d5c6d"
+        }
+      ]
+    },
+    {
+      "id": "retention-horizon-bias",
+      "kind": "hypothesis",
+      "question": "How much do rolling retention and follow-up horizons bias observed delays and forecast evaluation?",
+      "task_refs": [
+        {
+          "id": "brain/research/private-node-observations.md#title-cfe3c122ec96cca8",
+          "note_id": "brain/research/private-node-observations.md",
+          "code": null,
+          "title": "Measure retention and horizon selection bias."
+        }
+      ],
+      "execution_status": "not_started",
+      "outcome": "untested",
+      "theoretical_conclusion": "Delayed confirmations and cases beyond a horizon may be selectively excluded. A lack of observed resolution is not a failed forecast.",
+      "measured_conclusion": "The bounded pilot uses 24-hour retention and six-hour follow-up. The initial short snapshot cannot quantify the effect of longer horizons or represent network-wide latency.",
+      "remaining": [
+        "Archive complete private cohorts and repeat with longer windows.",
+        "Keep dropped, pending and censored follow-up visible and compare population shifts."
+      ],
+      "sources": [
+        {
+          "label": "private-node-observations.md",
+          "path": "brain/research/private-node-observations.md"
+        },
+        {
+          "label": "pool_observer.py",
+          "path": "pool_observer.py"
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/results/pool_pilot_2026-09-12.json",
+          "sha256": "d4e4aa93dfdca8b29ae1e8a8972ad534421d81edd41b8a583605f091e7766963",
+          "observed_at": "2026-09-12T04:10:04.792337+00:00",
+          "scope": "Frozen first public-RPC pilot at 04:10:04 UTC: rolling retention, startup truncation and two-block follow-up lag. Confirmed cases are selected observations; absent does not mean confirmed or failed.",
+          "denominators": {
+            "tracked_transactions": 161,
+            "confirmed_transactions": 119,
+            "eligible_delay_intervals": 118,
+            "attempted_polls": 17,
+            "followed_block_transactions": 341
+          },
+          "denominator_fields": {
+            "tracked_transactions": "/snapshot/outcomes/tracked_transactions",
+            "confirmed_transactions": "/snapshot/outcomes/confirmed",
+            "eligible_delay_intervals": "/snapshot/outcomes/confirmation_delay/sample_count",
+            "attempted_polls": "/snapshot/coverage/polls_total",
+            "followed_block_transactions": "/snapshot/outcomes/confirmed_block_transactions"
+          },
+          "run_id": "0abc1138f5004c62bc5d4f5d7c8aed75",
+          "source_commit": "5faef380378a94a8964dfaa9a057608f4e1d5c6d"
+        }
+      ]
+    },
+    {
+      "id": "prediction-instability",
+      "kind": "hypothesis",
+      "question": "Does a changing top candidate across runs predict later errors?",
+      "task_refs": [
+        {
+          "id": "brain/research/ideas.md#title-2357ad9c8b30e7b0",
+          "note_id": "brain/research/ideas.md",
+          "code": null,
+          "title": "Prediction changes across runs."
+        }
+      ],
+      "execution_status": "not_started",
+      "outcome": "untested",
+      "theoretical_conclusion": "Immutable runs permit distinguishing persistent from unstable guesses; instability must be tested before becoming a confidence feature.",
+      "measured_conclusion": "Run history exists, but no frozen instability/error association or matched incremental feature test has been published.",
+      "remaining": [
+        "Compute changes and margins using only runs available at prediction time.",
+        "Evaluate against later eligible labels, keeping unverified cases."
+      ],
+      "sources": [
+        {
+          "label": "ideas.md",
+          "path": "brain/research/ideas.md"
+        },
+        {
+          "label": "models.py",
+          "path": "models.py"
+        },
+        {
+          "label": "scorer.py",
+          "path": "scorer.py"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "verification-label-drift",
+      "kind": "measurement",
+      "question": "How often does later deterministic evidence disagree with the claim that originally verified a prediction?",
+      "task_refs": [
+        {
+          "id": "brain/research/ideas.md#title-98ce5c48e20f9717",
+          "note_id": "brain/research/ideas.md",
+          "code": null,
+          "title": "Verification-label drift."
+        }
+      ],
+      "execution_status": "not_started",
+      "outcome": "untested",
+      "theoretical_conclusion": "Append-only verification events preserve what was known then; later disagreement should be recorded rather than silently replacing the original result.",
+      "measured_conclusion": "Prediction history retains verification events, but a systematic real-data drift audit linking both source resolution events has not been completed.",
+      "remaining": [
+        "Measure discrepancies and label provenance across frozen runs; retain old events and classify data, lineage and analysis changes."
+      ],
+      "sources": [
+        {
+          "label": "ideas.md",
+          "path": "brain/research/ideas.md"
+        },
+        {
+          "label": "models.py",
+          "path": "models.py"
+        },
+        {
+          "label": "test_prediction_history.py",
+          "path": "tests/test_prediction_history.py"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "snapshot-training-provenance",
+      "kind": "engineering",
+      "question": "Can divergent snapshots and historical training selections be reproduced independently of inference replay?",
+      "task_refs": [
+        {
+          "id": "brain/research/ideas.md#title-41f757e125e71f94",
+          "note_id": "brain/research/ideas.md",
+          "code": null,
+          "title": "Dataset lineage versus snapshot identity."
+        },
+        {
+          "id": "brain/research/ideas.md#title-3b0955fe4ae108d7",
+          "note_id": "brain/research/ideas.md",
+          "code": null,
+          "title": "Historical feature provenance."
+        },
+        {
+          "id": "brain/research/ideas.md#title-5dc4016837ad6835",
+          "note_id": "brain/research/ideas.md",
+          "code": null,
+          "title": "Prediction-time label eligibility."
+        }
+      ],
+      "execution_status": "not_started",
+      "outcome": "not_applicable",
+      "theoretical_conclusion": "Lineage identity differs from exact snapshot bytes, and inference artifacts do not record every historical training or label-eligibility decision.",
+      "measured_conclusion": "Saved artifacts include model/source/feature context; the proposed parent-snapshot relation and complete training-ring/split/label-eligibility manifest remain open.",
+      "remaining": [
+        "Persist reproducible snapshot fingerprints and ancestry plus training/split/label context at cutoff."
+      ],
+      "sources": [
+        {
+          "label": "ideas.md",
+          "path": "brain/research/ideas.md"
+        },
+        {
+          "label": "models.py",
+          "path": "models.py"
+        },
+        {
+          "label": "scorer.py",
+          "path": "scorer.py"
+        },
+        {
+          "label": "evaluation.md",
+          "path": "brain/research/evaluation.md"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "unscorable-coverage",
+      "kind": "engineering",
+      "question": "Are unscorable and below-threshold rings retained in evaluation coverage denominators?",
+      "task_refs": [
+        {
+          "id": "brain/research/ideas.md#title-535eb718f634dbd3",
+          "note_id": "brain/research/ideas.md",
+          "code": null,
+          "title": "Unscorable rings as a coverage category."
+        }
+      ],
+      "execution_status": "not_started",
+      "outcome": "not_applicable",
+      "theoretical_conclusion": "Missing context or unavailable features must not silently remove difficult rings and inflate accepted-prediction quality.",
+      "measured_conclusion": "The scorer can skip missing-height/insufficient-candidate cases; no complete dedicated three-way coverage report satisfies this proposed task.",
+      "remaining": [
+        "Export accepted, below-threshold and unscorable counts with explicit reasons, global denominators and cohort provenance."
+      ],
+      "sources": [
+        {
+          "label": "ideas.md",
+          "path": "brain/research/ideas.md"
+        },
+        {
+          "label": "scorer.py",
+          "path": "scorer.py"
+        },
+        {
+          "label": "dashboard_export.py",
+          "path": "dashboard_export.py"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "export-cohort-coverage",
+      "kind": "engineering",
+      "question": "Can bounded exports expose older outcomes without losing exact full-dataset denominators?",
+      "task_refs": [
+        {
+          "id": "brain/research/ideas.md#title-1b373ae81f109fa3",
+          "note_id": "brain/research/ideas.md",
+          "code": null,
+          "title": "Export coverage and on-demand shards."
+        }
+      ],
+      "execution_status": "not_started",
+      "outcome": "not_applicable",
+      "theoretical_conclusion": "Newest-first subsets can hide older outcomes; downloadable shards need explicit cohort manifests and independent totals.",
+      "measured_conclusion": "Current exports are bounded and global denominators are shown; the proposed optional historical shards and comprehensive cohort manifest remain open.",
+      "remaining": [
+        "Define and validate shards by run/outcome/height, including absent cohorts and stable exact identities."
+      ],
+      "sources": [
+        {
+          "label": "ideas.md",
+          "path": "brain/research/ideas.md"
+        },
+        {
+          "label": "dashboard_export.py",
+          "path": "dashboard_export.py"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "evidence-retrieval-scale",
+      "kind": "engineering",
+      "question": "Can batched indexed evidence retrieval reduce export cost while preserving run-specific explanations?",
+      "task_refs": [
+        {
+          "id": "brain/research/ideas.md#title-a037cf7af05a8444",
+          "note_id": "brain/research/ideas.md",
+          "code": null,
+          "title": "Scalable evidence retrieval."
+        }
+      ],
+      "execution_status": "not_started",
+      "outcome": "not_applicable",
+      "theoretical_conclusion": "Sharing repeated evidence may reduce payload size, but historical scores and lineage must remain attributable to their own runs.",
+      "measured_conclusion": "No proposed large-resolution benchmark with equivalent bounded explanations and measured size/runtime gains has been published.",
+      "remaining": [
+        "Benchmark indexed lookups and batched explanations; verify retained per-run evidence and candidate scores."
+      ],
+      "sources": [
+        {
+          "label": "ideas.md",
+          "path": "brain/research/ideas.md"
+        },
+        {
+          "label": "brain.py",
+          "path": "brain.py"
+        },
+        {
+          "label": "dashboard_export.py",
+          "path": "dashboard_export.py"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "chain-freshness-reporting",
+      "kind": "engineering",
+      "question": "Does the interface separate a fresh export from the age and lag of its chain coverage?",
+      "task_refs": [
+        {
+          "id": "brain/research/ideas.md#title-23dffa23c6b0fda7",
+          "note_id": "brain/research/ideas.md",
+          "code": null,
+          "title": "Chain coverage versus export freshness."
+        }
+      ],
+      "execution_status": "completed",
+      "outcome": "not_applicable",
+      "theoretical_conclusion": "A new export of old blocks cannot demonstrate modern-chain coverage or modern model transfer.",
+      "measured_conclusion": "Cloud and UI records separately show scanned block time, export time and observed lag. The initial cloud snapshot at 59,900 was from 2014 despite publication in 2026, as documented and browser-checked.",
+      "remaining": [
+        "Preserve this separation in new displays and evaluation claims."
+      ],
+      "sources": [
+        {
+          "label": "ideas.md",
+          "path": "brain/research/ideas.md"
+        },
+        {
+          "label": "cloud.md",
+          "path": "brain/workflows/cloud.md"
+        },
+        {
+          "label": "dashboard.js",
+          "path": "docs/dashboard.js"
+        },
+        {
+          "label": "collector.py",
+          "path": "collector.py"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "release-publication-integrity",
+      "kind": "engineering",
+      "question": "Can UI/runtime/data versions be identified and published as a consistent complete asset set?",
+      "task_refs": [
+        {
+          "id": "brain/research/ideas.md#title-151f3232da12a86e",
+          "note_id": "brain/research/ideas.md",
+          "code": null,
+          "title": "Deployment manifest."
+        },
+        {
+          "id": "brain/research/ideas.md#title-2d9302723764cffa",
+          "note_id": "brain/research/ideas.md",
+          "code": null,
+          "title": "Atomic publication of complete UI sets."
+        }
+      ],
+      "execution_status": "in_progress",
+      "outcome": "not_applicable",
+      "theoretical_conclusion": "Release metadata and per-file atomic replacement help trace changes; they do not prove whole-request asset consistency or independently track every data version.",
+      "measured_conclusion": "UI and runtime manifests, guarded independent static publication and rollback tests exist. Complete-set atomicity, independently changing data hashes and a release compatibility contract remain open.",
+      "remaining": [
+        "Add versioned whole-asset publication and compatible mutable-data contracts, retaining rollback and collector continuity."
+      ],
+      "sources": [
+        {
+          "label": "ideas.md",
+          "path": "brain/research/ideas.md"
+        },
+        {
+          "label": "publish-static.sh",
+          "path": "deploy/gcp/publish-static.sh"
+        },
+        {
+          "label": "install-static.sh",
+          "path": "deploy/gcp/install-static.sh"
+        },
+        {
+          "label": "test_static_publication.py",
+          "path": "tests/test_static_publication.py"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "ingestion-completeness",
+      "kind": "engineering",
+      "question": "Does every stored block have a verified completion record for all expected transaction bodies?",
+      "task_refs": [
+        {
+          "id": "brain/research/ideas.md#title-b2aed4dd2b3f0840",
+          "note_id": "brain/research/ideas.md",
+          "code": null,
+          "title": "Collection completeness watermark."
+        }
+      ],
+      "execution_status": "not_started",
+      "outcome": "not_applicable",
+      "theoretical_conclusion": "Contiguous stored heights alone cannot demonstrate complete legacy ingestion.",
+      "measured_conclusion": "The proposed per-block completeness watermark and old-scan body audit have not been completed.",
+      "remaining": [
+        "Record per-block completion and reconcile expected bodies against stored bodies, preserving missing/failed cases."
+      ],
+      "sources": [
+        {
+          "label": "ideas.md",
+          "path": "brain/research/ideas.md"
+        },
+        {
+          "label": "scanner.py",
+          "path": "scanner.py"
+        },
+        {
+          "label": "collector.py",
+          "path": "collector.py"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "reorg-recovery",
+      "kind": "engineering",
+      "question": "Can affected data and lineage be replayed after a reorganization while preserving historical claims?",
+      "task_refs": [
+        {
+          "id": "brain/research/ideas.md#title-6cfff76189fd0df6",
+          "note_id": "brain/research/ideas.md",
+          "code": null,
+          "title": "Reorganization recovery."
+        }
+      ],
+      "execution_status": "not_started",
+      "outcome": "not_applicable",
+      "theoretical_conclusion": "Pausing on a tail mismatch prevents silent continuation; controlled rollback/replay requires a separate, auditable design.",
+      "measured_conclusion": "Collectors check confirmed-tail consistency and can pause; automatic transaction/resolution/prediction/lineage rollback and replay remain open.",
+      "remaining": [
+        "Design and test recovery on synthetic branch changes before any real historical rewrite."
+      ],
+      "sources": [
+        {
+          "label": "ideas.md",
+          "path": "brain/research/ideas.md"
+        },
+        {
+          "label": "collector.py",
+          "path": "collector.py"
+        },
+        {
+          "label": "live_observer.py",
+          "path": "live_observer.py"
+        },
+        {
+          "label": "pool_observer.py",
+          "path": "pool_observer.py"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "analysis-resource-scaling",
+      "kind": "engineering",
+      "question": "Can bounded scoring and isolated ML work keep collection advancing as the dataset grows?",
+      "task_refs": [
+        {
+          "id": "brain/research/ideas.md#title-7f81ffffec6f3d0d",
+          "note_id": "brain/research/ideas.md",
+          "code": null,
+          "title": "Batched scoring and incremental cloud analysis."
+        },
+        {
+          "id": "brain/research/ideas.md#title-518ee26eb6e18f7f",
+          "note_id": "brain/research/ideas.md",
+          "code": null,
+          "title": "Resource metrics and ML failure isolation."
+        }
+      ],
+      "execution_status": "not_started",
+      "outcome": "not_applicable",
+      "theoretical_conclusion": "Memory/time budgets and fixed-snapshot equivalence checks are needed before accepting batch or incremental execution changes.",
+      "measured_conclusion": "The proposed per-phase resource study, equivalent batched scorer, incremental graph update and separately isolated ML worker are not completed. Existing live services do not validate these optimization claims.",
+      "remaining": [
+        "Measure scanning, analysis, training, scoring and export costs independently.",
+        "Compare fixed-model candidate scores and failures under bounded work, preserving publication when ML fails."
+      ],
+      "sources": [
+        {
+          "label": "ideas.md",
+          "path": "brain/research/ideas.md"
+        },
+        {
+          "label": "collector.py",
+          "path": "collector.py"
+        },
+        {
+          "label": "scorer.py",
+          "path": "scorer.py"
+        },
+        {
+          "label": "dashboard_export.py",
+          "path": "dashboard_export.py"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "resolution-event-progress",
+      "kind": "engineering",
+      "question": "Can first resolutions, retractions and hypothesis upgrades be distinguished from new imported singletons?",
+      "task_refs": [
+        {
+          "id": "brain/research/ideas.md#title-9cd2c95217980233",
+          "note_id": "brain/research/ideas.md",
+          "code": null,
+          "title": "Resolution transitions versus snapshot growth."
+        }
+      ],
+      "execution_status": "not_started",
+      "outcome": "not_applicable",
+      "theoretical_conclusion": "Net snapshot totals do not identify when an old ambiguous ring was solved. Event-level denominators are needed for a solve-rate claim.",
+      "measured_conclusion": "Current charts and counts distinguish singleton and multi-member populations, but this dedicated event-transition ledger and eligible cohort solve rate remain open.",
+      "remaining": [
+        "Record first deterministic and retraction/upgrade events with original membership scope and eligible multi-member counts."
+      ],
+      "sources": [
+        {
+          "label": "ideas.md",
+          "path": "brain/research/ideas.md"
+        },
+        {
+          "label": "models.py",
+          "path": "models.py"
+        },
+        {
+          "label": "progress-view.js",
+          "path": "docs/progress-view.js"
+        },
+        {
+          "label": "dashboard_export.py",
+          "path": "dashboard_export.py"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "progress-regression-alerts",
+      "kind": "engineering",
+      "question": "Can changes in dataset identity, conflicts, negative deltas and publication lag produce explainable alerts?",
+      "task_refs": [
+        {
+          "id": "brain/research/ideas.md#title-31e6695b7076dc1e",
+          "note_id": "brain/research/ideas.md",
+          "code": null,
+          "title": "Progress regression alerts."
+        }
+      ],
+      "execution_status": "not_started",
+      "outcome": "not_applicable",
+      "theoretical_conclusion": "An alert needs the triggering snapshots and a distinction between new data, revised analysis and missing coverage.",
+      "measured_conclusion": "Snapshot progress is displayed, but no completed regression-alert system retains and classifies all proposed triggers.",
+      "remaining": [
+        "Implement snapshot-backed trigger records and explicit resolution reasons without calling net growth a solve count."
+      ],
+      "sources": [
+        {
+          "label": "ideas.md",
+          "path": "brain/research/ideas.md"
+        },
+        {
+          "label": "progress-view.js",
+          "path": "docs/progress-view.js"
+        },
+        {
+          "label": "collector.py",
+          "path": "collector.py"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "machine-checkable-reporting",
+      "kind": "engineering",
+      "question": "Can every numerical conclusion be checked against a frozen artifact while study, implementation and deployment states remain distinct?",
+      "task_refs": [
+        {
+          "id": "brain/research/progress-and-conclusions.md#RP1",
+          "note_id": "brain/research/progress-and-conclusions.md",
+          "code": "RP1",
+          "title": "RP1 — Machine-checkable conclusion claims."
+        },
+        {
+          "id": "brain/research/progress-and-conclusions.md#RP2",
+          "note_id": "brain/research/progress-and-conclusions.md",
+          "code": "RP2",
+          "title": "RP2 — Experiment versus deployment status."
+        }
+      ],
+      "execution_status": "in_progress",
+      "outcome": "not_applicable",
+      "theoretical_conclusion": "Checklist closure and a successful deployment cannot validate a scientific hypothesis. Claim values, denominators and provenance need separate checks.",
+      "measured_conclusion": "The progress page already reconciles three frozen studies. This curated ledger adds source hashes, sample denominators and separate execution/outcome fields; the full claim manifest and controlled study-to-deployment example remain open.",
+      "remaining": [
+        "Extend field-level claims and enforce failure when a source value/denominator/hash changes.",
+        "Record one controlled accepted study, selected implementation and deployed version independently."
+      ],
+      "sources": [
+        {
+          "label": "progress-and-conclusions.md",
+          "path": "brain/research/progress-and-conclusions.md"
+        },
+        {
+          "label": "research-progress.json",
+          "path": "docs/research-progress.json"
+        },
+        {
+          "label": "test_todo_results.js",
+          "path": "tests/test_todo_results.js"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "immutable-prediction-history",
+      "kind": "engineering",
+      "question": "Do repeated scoring and verification preserve earlier runs and replayable candidate scores?",
+      "task_refs": [
+        {
+          "id": "brain/research/predictions.md#P1",
+          "note_id": "brain/research/predictions.md",
+          "code": "P1",
+          "title": "P1 — Immutable prediction runs (P0)."
+        }
+      ],
+      "execution_status": "completed",
+      "outcome": "not_applicable",
+      "theoretical_conclusion": "Immutable runs permit later evaluation and audit, while a reproducible inference artifact alone does not establish forward generalization.",
+      "measured_conclusion": "Prediction/scaler artifacts, source and feature context, append-only verification events and atomic rollback are implemented and tested. A real-model smoke check replayed saved scores; no new quality gain follows from that infrastructure.",
+      "remaining": [
+        "Complete P2 label eligibility and temporal evaluation before claiming forward accuracy."
+      ],
+      "sources": [
+        {
+          "label": "predictions.md",
+          "path": "brain/research/predictions.md"
+        },
+        {
+          "label": "models.py",
+          "path": "models.py"
+        },
+        {
+          "label": "scorer.py",
+          "path": "scorer.py"
+        },
+        {
+          "label": "test_prediction_history.py",
+          "path": "tests/test_prediction_history.py"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "historical-model-search",
+      "kind": "measurement",
+      "question": "Do the preserved autoresearch logs establish a comparable model improvement or modern accuracy?",
+      "task_refs": [],
+      "execution_status": "completed",
+      "outcome": "inconclusive",
+      "theoretical_conclusion": "Historic logged numbers require common datasets, split/label procedures and frozen artifacts before they can be compared or generalized.",
+      "measured_conclusion": "The archived Markdown records a GBM baseline at 86.1% holdout; the TSV separately records 100.0% values for early configurations and 86.3% for a working-tree feature change. Their common eligible denominator, temporal/graph independence and complete run provenance are unavailable; these are historical reports, not a current benchmark.",
+      "remaining": [
+        "Retain the logs without combining their figures.",
+        "Run the explicit P2/P4 protocol for a new comparable result."
+      ],
+      "sources": [
+        {
+          "label": "autoresearch_results.md",
+          "path": "autoresearch_results.md"
+        },
+        {
+          "label": "autoresearch-results.tsv",
+          "path": "autoresearch-results.tsv"
+        },
+        {
+          "label": "evaluation.md",
+          "path": "brain/research/evaluation.md"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "cluster-stability-value",
+      "kind": "hypothesis",
+      "question": "Are candidate groups stable across added blocks and small score-threshold changes, and does stability predict controlled-label correctness?",
+      "task_refs": [
+        {
+          "id": "brain/research/groupings.md#G3",
+          "note_id": "brain/research/groupings.md",
+          "code": "G3",
+          "title": "G3 — Cluster validation (P3; depends on G2)."
+        },
+        {
+          "id": "brain/research/ideas.md#title-bc9b4c955945dbcf",
+          "note_id": "brain/research/ideas.md",
+          "code": null,
+          "title": "Cluster stability timeline."
+        }
+      ],
+      "execution_status": "not_started",
+      "outcome": "untested",
+      "theoretical_conclusion": "Persistence may reflect popular decoys or a systematic modeling error; stable membership alone does not establish ownership.",
+      "measured_conclusion": "No validated cluster population, threshold/seed comparison or stability-versus-correctness evaluation has been completed.",
+      "remaining": [
+        "After controlled group validation, measure merge/split and weak-bridge behavior across predeclared runs.",
+        "Test stability against controlled labels and matched null graphs before using it as a confidence signal."
+      ],
+      "sources": [
+        {
+          "label": "groupings.md",
+          "path": "brain/research/groupings.md"
+        },
+        {
+          "label": "ideas.md",
+          "path": "brain/research/ideas.md"
+        }
+      ],
+      "evidence": []
+    },
+    {
+      "id": "independent-rpc-agreement",
+      "kind": "measurement",
+      "question": "How consistently do independently selected sources agree on sampled block hashes, transactions and origins?",
+      "task_refs": [
+        {
+          "id": "brain/research/ideas.md#title-ba22da368edade27",
+          "note_id": "brain/research/ideas.md",
+          "code": null,
+          "title": "RPC provenance and agreement."
+        }
+      ],
+      "execution_status": "not_started",
+      "outcome": "untested",
+      "theoretical_conclusion": "RPC structural checks and a provider’s synchronized/untrusted fields are not independent consensus validation. Different endpoints may share infrastructure.",
+      "measured_conclusion": "The saved audits used one external RPC. No declared multi-source agreement study with independently assessed source provenance has been completed.",
+      "remaining": [
+        "Record source identity limitations and compare exact hashes and sampled origin/transaction data with an independently selected source.",
+        "Retain missing, conflicting and unavailable observations instead of assuming agreement."
+      ],
+      "sources": [
+        {
+          "label": "ideas.md",
+          "path": "brain/research/ideas.md"
+        },
+        {
+          "label": "upstream-node-audit.md",
+          "path": "research/upstream-node-audit.md"
+        },
+        {
+          "label": "output-origin-audit.md",
+          "path": "brain/research/output-origin-audit.md"
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/results/output_origins_2026-09-11.json",
+          "sha256": "9a9daf738b93a8a957e3ebeafbf4677de0c5c3127f72b3bbbad2a9c5ba4685d5",
+          "observed_at": "2026-09-12T00:13:49.395101+00:00",
+          "scope": "Fixed stratified sample of nonzero-amount output references from heights 0–58,900; one external RPC; v1 did not fingerprint WAL state.",
+          "denominators": {
+            "sampled_output_contexts": 40,
+            "returned_outputs": 40
+          },
+          "denominator_fields": {
+            "sampled_output_contexts": "/summary/sampled_contexts",
+            "returned_outputs": "/summary/returned_outputs"
+          },
+          "run_id": "output-origin-audit-v1",
+          "source_commit": "dde2fa5cdff7b895f12ab17c81440717c15ff0bb"
+        }
+      ]
+    },
+    {
+      "id": "verification-selection-bias",
+      "kind": "measurement",
+      "question": "How representative are later-verified predictions of all saved and unscorable rings?",
+      "task_refs": [
+        {
+          "id": "brain/research/predictions.md#P2",
+          "note_id": "brain/research/predictions.md",
+          "code": "P2",
+          "title": "P2 — Frozen forward evaluation (P1)."
+        },
+        {
+          "id": "brain/research/predictions.md#P3",
+          "note_id": "brain/research/predictions.md",
+          "code": "P3",
+          "title": "P3 — Calibration and abstention (P1; depends on P1–P2)."
+        },
+        {
+          "id": "brain/research/predictions.md#P6",
+          "note_id": "brain/research/predictions.md",
+          "code": "P6",
+          "title": "P6 — Error review and transfer (P2)."
+        }
+      ],
+      "execution_status": "not_started",
+      "outcome": "untested",
+      "theoretical_conclusion": "Verification depends on which rings later acquire eligible deterministic evidence. Accuracy or calibration conditional on that selected subset need not transfer to the unverified population.",
+      "measured_conclusion": "Historical baselines use already-resolved rings, and the current workflow can verify only predictions with later eligible evidence. No frozen verified-versus-unverified representativeness audit quantifies the remaining selection bias.",
+      "remaining": [
+        "Compare prediction-time ring size, era, feature missingness and score distributions across verified, unverified and unscorable cohorts.",
+        "Report verified fraction alongside outcomes; do not assign correctness labels to still-unverified cases."
+      ],
+      "sources": [
+        {
+          "label": "predictions.md",
+          "path": "brain/research/predictions.md"
+        },
+        {
+          "label": "evaluation.md",
+          "path": "brain/research/evaluation.md"
+        },
+        {
+          "label": "heuristic-baselines.md",
+          "path": "brain/research/heuristic-baselines.md"
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/results/heuristic_baselines_2026-09-11.json",
+          "sha256": "3be0719803e66620a80e3c7f0ecadd1e8d0deae62041a6074cb04765ebef59bd",
+          "observed_at": "2026-09-12T01:59:48.860844+00:00",
+          "scope": "All eligible already-resolved multi-member rings in legacy heights 0–58,900. Conditional stored labels and whole-snapshot reuse, with fractional tie credit; no forward split.",
+          "denominators": {
+            "rings": 12076,
+            "candidate_rows": 43511
+          },
+          "denominator_fields": {
+            "rings": "/summary/rings",
+            "candidate_rows": "/summary/candidate_rows"
+          },
+          "run_id": "retrospective_original_ring_baselines",
+          "source_commit": "acc8ed15c1a406d33ad7b45e50a771892c6599e6"
+        }
+      ]
+    }
+  ]
+}

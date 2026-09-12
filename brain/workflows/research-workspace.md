@@ -150,3 +150,13 @@ on failure. Validate it with [era display tests](../../tests/test_era_view.js),
 and desktop/mobile browser checks after publication. Both full and static
 deployment allowlists include the page, script, stylesheet and manifest; runtime
 upgrades also include [protocol_eras.py](../../protocol_eras.py).
+
+
+## Dated task activity and experiment outcomes
+
+The TODO page also exposes the Git-derived activity feed and a comprehensive
+research ledger. [Task reporting](task-reporting.md) defines first-recorded dates,
+observed closures/reopenings, imported completed tasks, local read-state notices,
+scientific verdicts and the required publication sequence. The historical
+`research-progress.json` cards retain their frozen cohorts; the ledger covers
+all research checklists without combining different experiments' denominators.

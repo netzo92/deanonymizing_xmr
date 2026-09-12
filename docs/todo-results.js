@@ -19,7 +19,7 @@
         const full = plainMarkdown(raw);
         const title = heading ? plainMarkdown(heading[1]) : full.length > 120 ? `${full.slice(0, 117)}…` : full;
         return {
-            key: `${node.id}:${index}`, code: /^([A-Z]{1,4}\d+)\s*[—:-]/.exec(title)?.[1] || null,
+            key: `${node.id}:${index}`, sourceText: raw, code: /^([A-Z]{1,4}\d+)\s*[—:-]/.exec(title)?.[1] || null,
             title, body: heading ? plainMarkdown(heading[2]) : full.length > 120 ? full : '',
             text: full, done: todo.done, branch: node.branch || 'root',
             noteId: node.id, noteTitle: node.title || node.id, reviewed: node.reviewed || 'unknown',
@@ -37,6 +37,7 @@
             if (filters.status === 'done' && !task.done) return false;
             if (filters.branch && filters.branch !== 'all' && task.branch !== filters.branch) return false;
             if (filters.task && task.code !== filters.task) return false;
+            if (filters.id && task.id !== filters.id) return false;
             return !query || [task.text, task.noteTitle, task.noteId, task.code].some(value => text(value).toLowerCase().includes(query));
         });
     }
@@ -48,6 +49,7 @@
             branch: Object.hasOwn(BRANCHES, params.get('branch')) ? params.get('branch') : 'all',
             query: params.get('q') || '',
             task: /^[A-Z]{1,4}\d+$/.test(params.get('task') || '') ? params.get('task') : '',
+            id: /^brain\/[a-zA-Z0-9_/-]+\.md#(?:[A-Z]{1,4}\d+|title-[a-f0-9]{16})$/.test(params.get('id') || '') ? params.get('id') : '',
         };
     }
 
@@ -60,6 +62,16 @@
     function baselineRows(comparison) {
         if (!Number.isSafeInteger(comparison?.denominator) || comparison.denominator < 1) return [];
         return array(comparison.rows).filter(row => row && row.rings === comparison.denominator && finite(row.expected_agreement) && row.expected_agreement >= 0 && row.expected_agreement <= 1 && finite(row.expected_correct) && row.expected_correct >= 0 && row.expected_correct <= row.rings && Math.abs(row.expected_correct / row.rings - row.expected_agreement) < 1e-10);
+    }
+
+    function matchingManifests(brain, activity) {
+        const left = brain?.source_manifest, right = activity?.source_manifest;
+        if (!left || !right || typeof left !== 'object' || typeof right !== 'object') return false;
+        const keys = Object.keys(left);
+        return keys.length > 0 && keys.length === Object.keys(right).length && keys.every(key => typeof left[key] === 'string' && /^[a-f0-9]{64}$/.test(left[key]) && left[key] === right[key]);
+    }
+    function taskHistory(task, activity) {
+        return array(activity?.tasks).find(item => item.note_id === task.noteId && (task.code ? item.code === task.code : item.text === task.sourceText)) || null;
     }
 
     const el = (tag, className, value) => {
@@ -84,38 +96,50 @@
     }
 
     async function boot() {
+        if (!root.TraceGroveLive || !root.TraceGroveResearchActivity) {
+            for (const id of ['task-browser', 'measured-results']) byId(id).replaceChildren(el('p', 'progress-loading', 'The research refresh script is unavailable. Reload the page to retry.'));
+            byId('tasks').setAttribute('aria-busy', 'false'); byId('results').setAttribute('aria-busy', 'false');
+            return;
+        }
         let brain = null;
         let progress = null;
+        let activity = null;
+        const preserve = root.TraceGroveResearchActivity?.preserveView || ((host, render) => render());
+        const keyed = (node, key) => { node.dataset.viewKey = key; return node; };
         let tasks = [];
         let state = readFilters(location.search);
         let page = 0;
 
         function syncURL() {
             const url = new URL(location.href);
-            for (const key of ['status', 'branch', 'q', 'task']) url.searchParams.delete(key);
+            for (const key of ['status', 'branch', 'q', 'task', 'id']) url.searchParams.delete(key);
             if (state.status !== 'open') url.searchParams.set('status', state.status);
             if (state.branch !== 'all') url.searchParams.set('branch', state.branch);
             if (state.query) url.searchParams.set('q', state.query);
             if (state.task) url.searchParams.set('task', state.task);
+            if (state.id) url.searchParams.set('id', state.id);
             history.replaceState(null, '', url);
         }
 
         function renderTasks() {
+            preserve(byId('task-browser'), renderTasksInner);
+        }
+        function renderTasksInner() {
             const host = byId('task-browser');
             const controls = el('div', 'task-controls');
             const searchLabel = add(el('label', 'task-search'), el('span', '', 'Search tasks and ideas'));
-            const search = el('input'); search.type = 'search'; search.placeholder = 'Feature ablation, grouping, FA2…'; search.value = state.query || state.task; search.setAttribute('aria-label', 'Search research tasks'); searchLabel.append(search);
+            const search = keyed(el('input'), 'task-search'); search.type = 'search'; search.placeholder = 'Feature ablation, grouping, FA2…'; search.value = state.query || state.task; search.setAttribute('aria-label', 'Search research tasks'); searchLabel.append(search);
             const branchLabel = add(el('label', 'task-branch'), el('span', '', 'Area'));
-            const branch = el('select'); branch.setAttribute('aria-label', 'Task area');
+            const branch = keyed(el('select'), 'task-area'); branch.setAttribute('aria-label', 'Task area');
             for (const [value, label] of [['all', 'All areas'], ...Object.entries(BRANCHES)]) { const option = el('option', '', label); option.value = value; branch.append(option); }
             branch.value = state.branch; branchLabel.append(branch);
             const states = el('div', 'task-states'); states.setAttribute('aria-label', 'Checklist completion status');
             const statusButtons = new Map();
             for (const [value, label] of [['open', 'Open'], ['done', 'Completed'], ['all', 'All']]) {
-                const button = el('button', '', label); button.type = 'button'; button.addEventListener('click', () => { state.status = value; page = 0; refresh(); });
+                const button = keyed(el('button', '', label), `task-status-${value}`); button.type = 'button'; button.addEventListener('click', () => { state.status = value; page = 0; refresh(); });
                 states.append(button); statusButtons.set(value, button);
             }
-            const reset = el('button', 'task-reset', 'Reset'); reset.type = 'button'; reset.addEventListener('click', () => { state = { status: 'open', branch: 'all', query: '', task: '' }; page = 0; search.value = ''; branch.value = 'all'; refresh(); });
+            const reset = keyed(el('button', 'task-reset', 'Reset'), 'task-reset'); reset.type = 'button'; reset.addEventListener('click', () => { state = { status: 'open', branch: 'all', query: '', task: '', id: '' }; page = 0; search.value = ''; branch.value = 'all'; refresh(); });
             add(controls, searchLabel, branchLabel, states, reset);
             const statusRow = el('div', 'task-status-row'); const status = el('p'); status.setAttribute('role', 'status');
             const completed = tasks.filter(task => task.done).length;
@@ -124,8 +148,8 @@
             add(statusRow, status, completion);
             const list = el('div', 'task-list');
             const pagination = el('div', 'task-pagination'); const pageLabel = el('span'); const buttons = el('div');
-            const previous = el('button', '', 'Previous'); previous.type = 'button';
-            const next = el('button', '', 'Next'); next.type = 'button';
+            const previous = keyed(el('button', '', 'Previous'), 'task-previous'); previous.type = 'button';
+            const next = keyed(el('button', '', 'Next'), 'task-next'); next.type = 'button';
             previous.addEventListener('click', () => { page--; refresh(); }); next.addEventListener('click', () => { page++; refresh(); });
             add(pagination, pageLabel, add(buttons, previous, next));
             host.replaceChildren(controls, statusRow, list, pagination);
@@ -141,8 +165,9 @@
                     add(card, header, el('h3', '', task.title));
                     if (task.body.length > 270) {
                         card.append(el('p', '', `${task.body.slice(0, 267)}…`));
-                        const detail = add(el('details'), el('summary', '', 'Details and completion criteria'), el('p', '', task.body)); card.append(detail);
+                        const detail = add(keyed(el('details'), `task-detail-${task.noteId}-${task.code || task.key}`), keyed(el('summary', '', 'Details and completion criteria'), `task-summary-${task.noteId}-${task.code || task.key}`), el('p', '', task.body)); card.append(detail);
                     } else if (task.body) card.append(el('p', '', task.body));
+                    card.append(el('p', 'todo-dates', root.TraceGroveResearchActivity?.taskDates(taskHistory(task, activity)) || 'Task history unavailable.'));
                     card.append(add(el('div', 'todo-source'), link(task.noteTitle + ' ↗', sourceURL(task.noteId, brain.source_commit)), el('span', '', `Reviewed ${task.reviewed}`)));
                     list.append(card);
                 }
@@ -152,7 +177,7 @@
                 previous.disabled = page === 0; next.disabled = page >= pages - 1;
                 syncURL();
             }
-            search.addEventListener('input', () => { state.query = search.value; state.task = ''; page = 0; refresh(); });
+            search.addEventListener('input', () => { state.query = search.value; state.task = ''; state.id = ''; page = 0; refresh(); });
             branch.addEventListener('change', () => { state.branch = branch.value; page = 0; refresh(); });
             refresh();
         }
@@ -167,7 +192,7 @@
             for (const experiment of experiments) {
                 const card = el('article', 'result-card'); card.id = `result-${experiment.id.replace(/[^a-z\d-]/gi, '-')}`;
                 add(card, add(el('div', 'result-marker'), el('span', '', '✓ Completed · measured'), el('span', '', experiment.id)), el('h3', '', experiment.title), add(el('div', 'result-metric'), el('strong', '', count(experiment.metric?.value)), el('span', '', experiment.metric?.label)), el('p', '', experiment.finding), el('p', 'result-limit', experiment.limitation), link('Read the experiment and method ↗', sourceURL(experiment.note_id, brain?.source_commit)));
-                const details = add(el('details'), el('summary', '', 'Frozen provenance and source artifact'));
+                const details = add(keyed(el('details'), `result-detail-${experiment.id}`), keyed(el('summary', '', 'Frozen provenance and source artifact'), `result-summary-${experiment.id}`));
                 const facts = el('dl');
                 for (const [label, value] of [['Started (UTC)', experiment.started_at], ['Git HEAD at execution', experiment.source_revision], ['Executed script SHA-256', experiment.script_sha256], ['Source database SHA-256', experiment.source_main_sha256], ['WAL SHA-256', experiment.source_wal_sha256 || 'Not fingerprinted in this v1 audit'], ['Result artifact SHA-256', experiment.artifact_sha256]]) add(facts, el('dt', '', label), el('dd', '', value));
                 add(details, facts, link('Open saved artifact ↗', sourceURL(experiment.artifact_path)));
@@ -220,36 +245,50 @@
             byId('next-experiments').replaceChildren(list);
         }
 
-        async function loadBrain() {
-            byId('tasks').setAttribute('aria-busy', 'true');
-            try {
-                const response = await fetch('brain.json'); if (!response.ok) throw Error(`Checklist export unavailable (HTTP ${response.status}).`);
-                const data = await response.json(); if (data?.schema_version !== 1 || !Array.isArray(data.nodes)) throw Error('The checklist export is missing or unsupported.');
-                brain = data; tasks = flattenTasks(brain); const done = tasks.filter(item => item.done).length;
-                byId('open-total').textContent = tasks.length - done; byId('done-total').textContent = done;
-                renderTasks(); renderNext();
-            } catch (error) { errorState(byId('task-browser'), 'Checklists could not be loaded', error, loadBrain); }
-            finally { byId('tasks').setAttribute('aria-busy', 'false'); }
+        function applyBrain(data) {
+            brain = data.brain; activity = data.activity; tasks = flattenTasks(brain).map(task => ({...task, id: taskHistory(task, activity)?.id || null}));
+            const done = tasks.filter(item => item.done).length;
+            byId('open-total').textContent = tasks.length - done; byId('done-total').textContent = done;
+            renderTasks(); renderNext();
         }
-
-        async function loadProgress() {
-            byId('results').setAttribute('aria-busy', 'true');
-            try {
-                const response = await fetch('research-progress.json'); if (!response.ok) throw Error(`Research snapshot unavailable (HTTP ${response.status}).`);
-                const data = await response.json(); if (data?.schema_version !== 1 || !Array.isArray(data.experiments)) throw Error('The research snapshot is missing or unsupported.');
-                progress = data; renderResults();
-            } catch (error) {
-                errorState(byId('measured-results'), 'Measured results could not be loaded', error, loadProgress);
-                byId('theoretical-conclusions').replaceChildren(el('p', 'progress-loading', 'The theoretical summary is unavailable until its source snapshot loads.'));
-                byId('next-experiments').replaceChildren(el('p', 'progress-loading', 'Suggested experiments are unavailable. The canonical checklists above can still be used.'));
-            } finally { byId('results').setAttribute('aria-busy', 'false'); }
+        async function readBrain() {
+            const live = root.TraceGroveLive;
+            const [brainResult, activityResult] = await Promise.allSettled([live.fetchJSON('brain.json'), live.fetchJSON('task-activity.json')]);
+            if (brainResult.status === 'rejected') throw brainResult.reason;
+            const data = brainResult.value;
+            if (data?.schema_version !== 1 || !Array.isArray(data.nodes)) throw Error('The checklist export is missing or unsupported.');
+            let history = null;
+            if (activityResult.status === 'fulfilled') {
+                history = root.TraceGroveResearchActivity.activityData(activityResult.value);
+                if (!matchingManifests(data, history)) throw Error('Checklist and task history source versions differ; waiting for a matching publication.');
+            } else if (activity) throw Error('Task history is unavailable; keeping the last matching checklist and history.');
+            return {brain: data, activity: history};
         }
-
+        function feedStatus(id, result, hasData) {
+            const node = byId(id);
+            if (node) node.textContent = result.ok ? `Published source checked ${new Date(result.checkedAt).toLocaleTimeString()} · checks every 60 seconds.` : `Update check failed (${result.error}). ${hasData ? 'Keeping the last valid snapshot.' : 'No valid snapshot is available yet.'} Retrying every 60 seconds.`;
+        }
+        const live = root.TraceGroveLive;
+        const brainPoller = live.startPolling({load: readBrain, onData: applyBrain, onStatus(result) {
+            byId('tasks').setAttribute('aria-busy', 'false');
+            feedStatus('task-feed-status', result, !!brain);
+            if (!result.ok && !brain) byId('task-browser').replaceChildren(el('p', 'progress-loading', 'Waiting for a valid checklist and compatible task history.'));
+        }});
+        const progressPoller = live.startPolling({load: async () => {
+            const data = await live.fetchJSON('research-progress.json');
+            if (data?.schema_version !== 1 || !Array.isArray(data.experiments)) throw Error('The research snapshot is missing or unsupported.');
+            return data;
+        }, onData(data) { progress = data; preserve(byId('measured-results'), renderResults); }, onStatus(result) {
+            byId('results').setAttribute('aria-busy', 'false');
+            feedStatus('result-feed-status', result, !!progress);
+            if (!result.ok && !progress) byId('measured-results').replaceChildren(el('p', 'progress-loading', 'No valid measured-results snapshot is available yet.'));
+        }});
+        root.TraceGroveTodoPollers = {brain: brainPoller, progress: progressPoller};
         root.addEventListener('popstate', () => { state = readFilters(location.search); page = 0; if (brain) renderTasks(); });
-        await Promise.allSettled([loadBrain(), loadProgress()]);
+        await Promise.allSettled([brainPoller.check(), progressPoller.check()]);
         const anchor = document.getElementById(location.hash.slice(1)); if (anchor) anchor.scrollIntoView({ block: 'start' });
     }
 
-    if (typeof module !== 'undefined' && module.exports) module.exports = { plainMarkdown, parseTask, flattenTasks, filterTasks, readFilters, sourceURL, baselineRows };
+    if (typeof module !== 'undefined' && module.exports) module.exports = { plainMarkdown, parseTask, flattenTasks, filterTasks, readFilters, sourceURL, baselineRows, matchingManifests, taskHistory };
     if (root && typeof document !== 'undefined') boot();
 })(typeof window !== 'undefined' ? window : null);

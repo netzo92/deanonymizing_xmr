@@ -45,16 +45,21 @@ mkdir "$temporary/source" "$temporary/payload"
 # It stays local; neither the source archive nor its data snapshot is uploaded.
 git -C "$repo" archive --format=tar.gz --output "$temporary/source.tar.gz" "$revision" -- \
   main.py collector.py live_observer.py pool_observer.py analyzer.py models.py scorer.py scanner.py monero_rpc.py brain.py \
-  dashboard_export.py protocol_eras.py brain_export.py requirements.txt README.md AGENTS.md brain tests research \
+  dashboard_export.py protocol_eras.py brain_export.py task_activity.py requirements.txt README.md AGENTS.md brain tests research \
   autoresearch_results.md autoresearch-results.tsv references/README.md references/monero-source.json \
   docs/index.html docs/dashboard.js docs/dashboard.css docs/data.json docs/brain.json \
   docs/brain-view.js docs/brain-view.css docs/research-analytics.js docs/research-analytics.css \
   docs/evidence-graph.js docs/evidence-graph.css \
-  docs/feature-audit.js docs/feature-audit.css docs/feature-audit.json docs/progress-view.js docs/progress-view.css docs/live-feed.js docs/live-feed.css docs/todos.html docs/todo-results.js docs/todo-results.css docs/research-progress.json docs/eras.html docs/era-view.js docs/era-view.css docs/protocol-eras.json docs/pool.html docs/pool-view.js docs/pool-view.css deploy/gcp
+  docs/feature-audit.js docs/feature-audit.css docs/feature-audit.json docs/progress-view.js docs/progress-view.css docs/live-feed.js docs/live-feed.css docs/todos.html docs/todo-results.js docs/todo-results.css docs/research-progress.json docs/eras.html docs/era-view.js docs/era-view.css docs/protocol-eras.json docs/pool.html docs/pool-view.js docs/pool-view.css docs/task-activity-view.js docs/task-activity-view.css docs/task-activity.json docs/hypotheses.json deploy/gcp
 tar -xzf "$temporary/source.tar.gz" -C "$temporary/source"
 printf '%s\n' "$revision" > "$temporary/source/REVISION"
 python3 "$temporary/source/brain_export.py" --root "$temporary/source" \
   --output "$temporary/source/docs/brain.json"
+python3 "$temporary/source/task_activity.py" --root "$temporary/source" \
+  --output "$temporary/source/docs/task-activity.json" --validate-only
+cmp "$temporary/source/research/hypotheses.json" "$temporary/source/docs/hypotheses.json" || {
+  echo 'Public hypothesis ledger differs from its canonical source.' >&2; exit 1;
+}
 
 python3 - "$temporary" "$revision" <<'PY'
 import hashlib, json, pathlib, sys, tarfile
@@ -62,6 +67,9 @@ from datetime import datetime, timezone
 
 work = pathlib.Path(sys.argv[1])
 source = work / 'source'
+activity = json.loads((source / 'docs/task-activity.json').read_text())
+if activity.get('working_tree_changes') or activity.get('summary', {}).get('pending'):
+    raise SystemExit('Commit source changes and rebuild task history before publishing.')
 assets = (
     'index.html', 'dashboard.js', 'dashboard.css', 'brain.json',
     'brain-view.js', 'brain-view.css', 'research-analytics.js', 'research-analytics.css',
@@ -70,6 +78,7 @@ assets = (
     'progress-view.js', 'progress-view.css', 'live-feed.js', 'live-feed.css', 'todos.html', 'todo-results.js', 'todo-results.css', 'research-progress.json',
     'eras.html', 'era-view.js', 'era-view.css', 'protocol-eras.json',
     'pool.html', 'pool-view.js', 'pool-view.css',
+    'task-activity-view.js', 'task-activity-view.css', 'task-activity.json', 'hypotheses.json',
 )
 hashes = {}
 for asset in assets:

@@ -132,7 +132,7 @@ bash deploy/gcp/publish-static.sh --project YOUR_PROJECT \
 
 Preparation archives the committed source allowlist and rebuilds `brain.json`
 with that revision, validating its repository links before any cloud command.
-Uncommitted changes are excluded. Only the 28 public UI/knowledge/audit assets,
+Uncommitted changes are excluded. Only the 32 public UI/knowledge/audit assets,
 their checksum manifest, and the committed nginx template are transferred with
 the pinned static installer. The source context used for link validation remains
 local; `data.json` and private collector state are not in the upload payload.
@@ -278,3 +278,22 @@ Changing the pool source or visibility requires a new cohort database. The
 recorder intentionally refuses to mix public and private sources in the same
 existing store. Review the service database path and preserve the previous cohort
 before any cutover; merely changing `POOL_NODE_URL` will fail safely.
+
+
+## Task activity and hypothesis outcomes
+
+The TODO page includes `task-activity.json` (dated first-parent Git history) and
+`hypotheses.json` (research outcomes, with evidence and scope). Both are static
+research publications. New chain data does not change them or close tasks.
+The page checks for published updates every 60 seconds and highlights unread
+activity locally in the current browser. No notification provider or extra VM
+is installed.
+
+Follow the [task-reporting workflow](../../brain/workflows/task-reporting.md)
+after changing checklists or conclusions. Generate task history in a full local
+Git checkout after committing source changes, then commit the generated snapshot.
+A deployment archive has no `.git`; it validates the saved history against the
+committed Markdown and requires the public hypothesis JSON to match its canonical
+research source. Stale exports fail before publication. GitHub Pages receives the
+committed snapshots, while the GCP static publisher preserves all running
+collectors and their independently changing exports.

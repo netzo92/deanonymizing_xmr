@@ -43,6 +43,7 @@ source links. Loading every page is unnecessary for most tasks.
 - Future predictions → [prediction experiments](research/predictions.md) and [grouping research](research/groupings.md).
 - Measured improvement opportunity → [output-origin audit](research/output-origin-audit.md) and its follow-up experiments.
 - Feature diagnostics and comparison methods → [feature variation](research/feature-variation-audit.md) and [historical baselines](research/heuristic-baselines.md).
+- Task creation/closure history and experiment verdicts → [task reporting](workflows/task-reporting.md) and the [TODO/results page](../docs/todos.html).
 - Completed findings and research priorities → [progress and conclusions](research/progress-and-conclusions.md); the public [TODO/results page](../docs/todos.html) combines these with canonical checklists.
 - Visual notes, TODOs, and analytics → [workspace guide](workflows/research-workspace.md).
 

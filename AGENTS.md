@@ -14,3 +14,9 @@ For commands and their database effects, read
 read [evaluation](brain/research/evaluation.md). Keep output identity as
 `(amount, index)` and preserve the distinction between deterministic resolutions
 and ML hypotheses.
+
+When TODO state or experiment conclusions change, follow
+[task reporting](brain/workflows/task-reporting.md). Record the conclusion and
+evidence scope, then rebuild and validate the dated task history and hypothesis
+ledger exports before publication. Checklist completion alone is not support for
+a scientific hypothesis; preserve untested, inconclusive and deferred outcomes.

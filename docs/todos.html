@@ -8,6 +8,9 @@
     <meta name="description" content="Follow TraceGrove's completed experiments, measured findings, open research questions, and improvement checklist.">
     <link rel="stylesheet" href="dashboard.css">
     <link rel="stylesheet" href="todo-results.css">
+    <link rel="stylesheet" href="task-activity-view.css">
+    <script defer src="live-feed.js"></script>
+    <script defer src="task-activity-view.js"></script>
     <script defer src="todo-results.js"></script>
 </head>
 <body class="progress-page">
@@ -25,7 +28,7 @@
                 <div class="progress-totals" aria-label="Research progress totals">
                     <a href="?status=open#tasks"><strong id="open-total">—</strong><span>Open checklist items</span></a>
                     <a href="?status=done#tasks"><strong id="done-total">—</strong><span>Completed checklist items</span></a>
-                    <a href="#results"><strong id="experiment-total">—</strong><span>Completed experiments</span></a>
+                    <a href="#results"><strong id="experiment-total">—</strong><span>Frozen historical studies</span></a>
                 </div>
             </div>
             <aside class="progress-snapshot" aria-label="Measured research snapshot">
@@ -40,18 +43,34 @@
             <a href="eras.html">Security eras</a>
         <a href="pool.html">Pool observations</a>
             <a href="#tasks">TODOs &amp; improvements</a>
+            <a href="#activity">Task activity <span id="task-update-badge" class="activity-badge" hidden></span></a>
+            <a href="#hypotheses">Hypothesis outcomes</a>
             <a href="#results">Measured results</a>
             <a href="#conclusions">Conclusions</a>
             <a href="#next">Next experiments</a>
         </nav>
+        <section id="activity" class="progress-section" aria-labelledby="activity-heading" aria-busy="true">
+            <div class="progress-section-title"><div><p class="progress-kicker">Dated changes, with source history</p><h2 id="activity-heading">Task activity</h2></div><a href="task-activity.json">Activity JSON ↗</a></div>
+            <p class="progress-section-description">Follow first appearances, closures and reopened work. “First recorded” is the earliest available Git record, not a known creation time. Initially checked items do not imply that we observed their closure.</p>
+            <p id="activity-feed-status" class="research-feed-status" role="status">Checking published task history…</p>
+            <div id="task-activity"><p class="progress-loading">Loading task history…</p></div>
+        </section>
         <section id="tasks" class="progress-section" aria-labelledby="tasks-heading" aria-busy="true">
             <div class="progress-section-title"><div><p class="progress-kicker">The working checklist</p><h2 id="tasks-heading">TODOs &amp; improvements</h2></div><a href="index.html#knowledge-brain">Explore the research brain ↗</a></div>
             <p class="progress-section-description">Status comes from the canonical Markdown checklists. An open experiment is a proposal; a checked item records completed work, not proof of a research hypothesis.</p>
+            <p id="task-feed-status" class="research-feed-status" role="status">Checking canonical checklists…</p>
             <div id="task-browser"><p class="progress-loading" role="status">Loading research checklists…</p></div>
+        </section>
+        <section id="hypotheses" class="progress-section" aria-labelledby="hypotheses-heading" aria-busy="true">
+            <div class="progress-section-title"><div><p class="progress-kicker">Execution and evidence are separate</p><h2 id="hypotheses-heading">Hypothesis outcomes</h2></div><a href="hypotheses.json">Outcome ledger JSON ↗</a></div>
+            <p class="progress-section-description">Every recorded research question keeps its scope, observed evidence, theoretical interpretation and remaining work. Completing an experiment or a display does not establish that a scientific hypothesis is supported.</p>
+            <p id="hypothesis-feed-status" class="research-feed-status" role="status">Checking the hypothesis ledger…</p>
+            <div id="hypothesis-ledger"><p class="progress-loading">Loading questions and outcomes…</p></div>
         </section>
         <section id="results" class="progress-section" aria-labelledby="results-heading" aria-busy="true">
             <div class="progress-section-title"><div><p class="progress-kicker">Completed on historical chain data</p><h2 id="results-heading">Measured results</h2></div><a href="research-progress.json">Snapshot JSON ↗</a></div>
             <p class="progress-section-description">These studies measure feature behavior and selective retrospective agreement. They establish no address ownership or identity attribution, and no improvement in deployed model performance.</p>
+            <p id="result-feed-status" class="research-feed-status" role="status">Checking frozen result summaries…</p>
             <div id="measured-results"><p class="progress-loading" role="status">Loading the frozen experiment results…</p></div>
         </section>
         <section id="conclusions" class="progress-section" aria-labelledby="conclusions-heading">
@@ -65,7 +84,7 @@
             <div id="next-experiments"><p class="progress-loading">Loading next steps…</p></div>
         </section>
     </main>
-    <footer class="progress-footer"><span id="progress-provenance">The checklists and experiment summaries are independently versioned snapshots.</span><a href="index.html">Back to dashboard ↑</a></footer>
+    <footer class="progress-footer"><span id="progress-provenance">The checklists and experiment summaries are independently versioned snapshots.</span><span>Checks every 60 seconds for published research updates. GitHub Pages is a committed mirror; new blocks do not automatically close tasks or resolve hypotheses.</span><a href="index.html">Back to dashboard ↑</a></footer>
     <noscript><p class="notice">Enable JavaScript to filter tasks and view result summaries. The source exports are available as <a href="brain.json">brain.json</a> and <a href="research-progress.json">research-progress.json</a>.</p></noscript>
 </body>
 </html>

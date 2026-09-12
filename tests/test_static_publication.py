@@ -189,11 +189,18 @@ class StaticPreparationTests(unittest.TestCase):
         for file in ['publish-static.sh', 'install-static.sh', 'nginx.conf']:
             shutil.copy2(ROOT / 'deploy/gcp' / file, self.repo / 'deploy/gcp' / file)
         shutil.copy2(ROOT / 'brain_export.py', self.repo / 'brain_export.py')
+        shutil.copy2(ROOT / 'task_activity.py', self.repo / 'task_activity.py')
+        ledger = json.dumps({'schema_version': 1, 'entries': []}) + '\n'
+        (self.repo / 'research/hypotheses.json').write_text(ledger)
+        (self.repo / 'docs/hypotheses.json').write_text(ledger)
         self.git('init', '-q')
         self.git('config', 'user.email', 'test@example.invalid')
         self.git('config', 'user.name', 'Static test')
         self.git('add', '.')
         self.git('commit', '-qm', 'Fixture committed source')
+        subprocess.run([sys.executable, str(self.repo / 'task_activity.py'), '--root', str(self.repo), '--output', str(self.repo / 'docs/task-activity.json')], check=True, capture_output=True, text=True)
+        self.git('add', 'docs/task-activity.json')
+        self.git('commit', '-qm', 'Fixture dated task snapshot')
         self.revision = self.git('rev-parse', 'HEAD').strip()
 
     def git(self, *args):
@@ -223,6 +230,35 @@ class StaticPreparationTests(unittest.TestCase):
         result = self.prepare()
         self.assertNotEqual(result.returncode, 0)
         self.assertIn('Unresolved repository link', result.stderr)
+        self.assertFalse((self.root / 'prepared/static.tar.gz').exists())
+
+    def test_stale_task_history_fails_before_upload_preparation(self):
+        (self.repo / 'brain/index.md').write_text('# Brain\n- [ ] **T1 — New task.** Not yet recorded in the published history.\n')
+        self.git('add', 'brain/index.md'); self.git('commit', '-qm', 'Change tasks without history export')
+        self.revision = self.git('rev-parse', 'HEAD').strip()
+        result = self.prepare()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('Task activity', result.stderr)
+        self.assertFalse((self.root / 'prepared/static.tar.gz').exists())
+
+    def test_uncommitted_history_preview_cannot_be_published_as_dated_state(self):
+        path = self.repo / 'docs/task-activity.json'
+        preview = json.loads(path.read_text()); preview['working_tree_changes'] = True; preview['source_commit'] = None
+        path.write_text(json.dumps(preview))
+        self.git('add', 'docs/task-activity.json'); self.git('commit', '-qm', 'Uncommitted preview snapshot')
+        self.revision = self.git('rev-parse', 'HEAD').strip()
+        result = self.prepare()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('Commit source changes and rebuild task history', result.stderr)
+        self.assertFalse((self.root / 'prepared/static.tar.gz').exists())
+
+    def test_mismatched_canonical_ledger_fails_before_upload_preparation(self):
+        (self.repo / 'research/hypotheses.json').write_text('{"schema_version":1,"entries":[],"updated":true}\n')
+        self.git('add', 'research/hypotheses.json'); self.git('commit', '-qm', 'Change canonical ledger without public copy')
+        self.revision = self.git('rev-parse', 'HEAD').strip()
+        result = self.prepare()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('Public hypothesis ledger differs', result.stderr)
         self.assertFalse((self.root / 'prepared/static.tar.gz').exists())
 
     def test_cloud_client_transfers_only_public_payload_and_pinned_static_installer(self):

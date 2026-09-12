@@ -18,6 +18,17 @@ Sources: [dedicated progress page](../../docs/todos.html),
 [feature results](../../research/results/feature_variation_2026-09-11.json),
 [baseline results](../../research/results/heuristic_baselines_2026-09-11.json).
 
+## Task history and all research outcomes
+
+The [task-reporting workflow](../workflows/task-reporting.md) now defines the
+complete research ledger, Git-derived task dates and website change notices.
+The [canonical hypothesis ledger](../../research/hypotheses.json) maps every
+research checklist to its question/objective, execution state, verdict,
+theoretical and measured conclusions, evidence and remaining work. This includes
+open and deferred work; the three historical cards below are not the whole
+experimental program. The [pool pilot](private-node-observations.md) adds a
+separately dated current-chain feasibility measurement, not a forecast gain.
+
 ## What is complete
 
 The dedicated page separates canonical checklist completion from completed

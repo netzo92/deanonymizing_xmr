@@ -32,7 +32,7 @@ test('task area, text, exact ID and completion filters compose without conflatin
 });
 
 test('shareable filters validate state and source links cannot escape the repository', () => {
-    assert.deepEqual(readFilters('?status=all&branch=research&task=FA2&q=paired'), { status: 'all', branch: 'research', task: 'FA2', query: 'paired' });
+    assert.deepEqual(readFilters('?status=all&branch=research&task=FA2&q=paired'), { status: 'all', branch: 'research', task: 'FA2', query: 'paired', id: '' });
     assert.equal(readFilters('?status=completed&branch=__proto__&task=<script>').status, 'open');
     assert.equal(readFilters('?branch=__proto__').branch, 'all');
     assert.equal(sourceURL('../private.db'), null);
@@ -92,4 +92,26 @@ test('retrospective agreement rates retain exact tie-credit totals and the 12,07
         assert.ok(Math.abs(expected - row.expected_agreement) < 1e-12);
         assert.equal(row.tie_rings, original.tie_rings);
     }
+});
+
+test('task date joins require exact whole-brain manifests and stable IDs', () => {
+    const {matchingManifests, taskHistory} = require('../docs/todo-results.js');
+    const manifest = {'brain/research/a.md':'a'.repeat(64)};
+    assert.equal(matchingManifests({source_manifest:manifest}, {source_manifest:{...manifest}}), true);
+    assert.equal(matchingManifests({source_manifest:manifest}, {source_manifest:{'brain/research/a.md':'b'.repeat(64)}}), false);
+    assert.equal(matchingManifests({source_manifest:manifest}, {source_manifest:{...manifest,'brain/index.md':'a'.repeat(64)}}), false);
+    assert.equal(matchingManifests({}, {}), false);
+    const task = flattenTasks({nodes:[{id:'brain/research/a.md',todos:[{text:'**FA2 — Revised wording.** Current criteria.',done:false}]}]})[0];
+    const history = {tasks:[{note_id:'brain/research/other.md',code:'FA2'},{note_id:task.noteId,code:'FA2',first_recorded:{at:'2026-09-11'}}]};
+    assert.equal(taskHistory(task, history), history.tasks[1]);
+    assert.equal(taskHistory({...task,code:'FA3'}, history), null);
+});
+
+test('canonical task links disambiguate equal short codes in different source notes', () => {
+    const first = 'brain/research/a.md#FA2', second = 'brain/research/b.md#FA2';
+    const tasks = [{id:first,code:'FA2',done:false},{id:second,code:'FA2',done:false}];
+    const filters = readFilters(`?status=all&task=FA2&id=${encodeURIComponent(second)}`);
+    assert.equal(filters.id, second);
+    assert.deepEqual(filterTasks(tasks, filters).map(item => item.id), [second]);
+    assert.equal(readFilters('?id=javascript:alert(1)').id, '');
 });
